@@ -3,6 +3,13 @@ CoreDataEnvir (2011-05-25)
 
 A CoreData Envirement wrapper, use CoreData in convient way. You can use it in concurrency，run seperate CoreDataEnvir instance on one thread.
 
+##First step:
+	//Register your data base file name
+	[CoreDataEnvir registDatabaseFileName:@"db.sqlite"];
+	//Register your model file name(no extension)
+	[CoreDataEnvir registModelFileName:@"SampleModel"];
+
+
 ##On main thread:
 
 #Insert item:
@@ -20,7 +27,7 @@ A CoreData Envirement wrapper, use CoreData in convient way. You can use it in c
 #Fetch all items:
 	NSArray *items = [Team itemsWith:[NSPredicate predicateWithFormat:@"name==nicholas"]];
 
-#If you want to run on other threads, like this:
+##If you want to run on other threads, follow this:
 
 This method ([CoreDataEnvir instance]) will automatically creating new instance for non-main thread and uniq instance for main thread.
 
