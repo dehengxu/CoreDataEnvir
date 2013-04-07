@@ -1,7 +1,7 @@
 CoreDataEnvir
 =============
 
-A CoreData Envirement wrapper, use CoreData in convient way. You can use it in concurrency way.
+A CoreData Envirement wrapper, use CoreData in convient way. You can use it in concurrency，run seperate CoreDataEnvir instance on one thread.
 
 You can use it like:
 
