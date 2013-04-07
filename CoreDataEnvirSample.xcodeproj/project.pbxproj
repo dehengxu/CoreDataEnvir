@@ -24,6 +24,8 @@
 		A2ED3EF617112B40003E9A37 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3ECE17112B3F003E9A37 /* Foundation.framework */; };
 		A2ED3EFE17112B40003E9A37 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A2ED3EFC17112B40003E9A37 /* InfoPlist.strings */; };
 		A2ED3F0117112B40003E9A37 /* CoreDataEnvirSampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A2ED3F0017112B40003E9A37 /* CoreDataEnvirSampleTests.m */; };
+		A2ED3F0D17112C58003E9A37 /* CoreDataEnvir.m in Sources */ = {isa = PBXBuildFile; fileRef = A2ED3F0C17112C58003E9A37 /* CoreDataEnvir.m */; };
+		A2ED3F0E17112C58003E9A37 /* CoreDataEnvir.m in Sources */ = {isa = PBXBuildFile; fileRef = A2ED3F0C17112C58003E9A37 /* CoreDataEnvir.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,8 @@
 		A2ED3EFD17112B40003E9A37 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A2ED3EFF17112B40003E9A37 /* CoreDataEnvirSampleTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreDataEnvirSampleTests.h; sourceTree = "<group>"; };
 		A2ED3F0017112B40003E9A37 /* CoreDataEnvirSampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreDataEnvirSampleTests.m; sourceTree = "<group>"; };
+		A2ED3F0B17112C58003E9A37 /* CoreDataEnvir.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataEnvir.h; sourceTree = "<group>"; };
+		A2ED3F0C17112C58003E9A37 /* CoreDataEnvir.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataEnvir.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +93,7 @@
 		A2ED3EC017112B3F003E9A37 = {
 			isa = PBXGroup;
 			children = (
+				A2ED3F0A17112BAC003E9A37 /* CoreDataEnvir */,
 				A2ED3ED217112B3F003E9A37 /* CoreDataEnvirSample */,
 				A2ED3EF917112B40003E9A37 /* CoreDataEnvirSampleTests */,
 				A2ED3ECB17112B3F003E9A37 /* Frameworks */,
@@ -161,6 +166,15 @@
 				A2ED3EFC17112B40003E9A37 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A2ED3F0A17112BAC003E9A37 /* CoreDataEnvir */ = {
+			isa = PBXGroup;
+			children = (
+				A2ED3F0B17112C58003E9A37 /* CoreDataEnvir.h */,
+				A2ED3F0C17112C58003E9A37 /* CoreDataEnvir.m */,
+			);
+			path = CoreDataEnvir;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -277,6 +291,7 @@
 				A2ED3ED917112B3F003E9A37 /* main.m in Sources */,
 				A2ED3EDD17112B3F003E9A37 /* AppDelegate.m in Sources */,
 				A2ED3EE617112B3F003E9A37 /* ViewController.m in Sources */,
+				A2ED3F0D17112C58003E9A37 /* CoreDataEnvir.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,6 +300,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2ED3F0117112B40003E9A37 /* CoreDataEnvirSampleTests.m in Sources */,
+				A2ED3F0E17112C58003E9A37 /* CoreDataEnvir.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
