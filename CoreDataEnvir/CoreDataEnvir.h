@@ -2,12 +2,11 @@
 //  CoreDataEnvir.h
 //  CoreDataLab
 //
-//	数据库环境
-//	提供了CoreData数据库操作的常用方法的封装
+//	CoreData enviroment.
+//	Support CoreData operating methods.
 //	
-//	构建实体对象
-//	同步，异步取回数据
-//	设置读取偏移和读取数量
+//	Create record item.
+//	Support concurrency operating.
 //
 //  Created by NicholasXu on 11-5-25.
 //  Copyright 2011 NicholasXu. All rights reserved.
@@ -17,7 +16,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-#define CORE_DATA_ENVIR_SHOW_LOG        0
+#define CORE_DATA_ENVIR_SHOW_LOG        1
 
 #define CORE_DATA_SHARE_PERSISTANCE     1
 
@@ -57,7 +56,6 @@
  */
 + (void)registModelFileName:(NSString *)name;
 
-
 /**
  Regist the specific database file name.
  */
@@ -79,18 +77,18 @@
 + (NSString *)databaseFileName;
 
 /*
- If current is main thread return single main instance,
- else return an temporary instance.
+ Creating instance conditionally. 
+ If current thread is main thread return single main instance,else return an temporary new instance.
  */
 + (CoreDataEnvir *)instance;
 
 /**
- Returen a single main instance.
+ Only returen a single instance belongs to main thread.
  */
 + (CoreDataEnvir *)sharedInstance;
 
 /**
- Return a new instance.
+ Force creating a new instance.
  */
 + (CoreDataEnvir *)dataBase;
 
@@ -99,22 +97,22 @@
  */
 + (void) deleteInstance;
 
-
 /**
- Insert a new record into the table of className.
+ Insert a new record into the table by className.
  */
-- (NSManagedObject *) buildManagedObjectByName:(NSString *)className;
+- (NSManagedObject *)buildManagedObjectByName:(NSString *)className;
+- (NSManagedObject *)buildManagedObjectByClass:(Class)theClass;
 
-//synchronous fetching method
+//Fetching record item.
 - (NSArray *)fetchItemsByEntityDescriptionName:(NSString *)entityName;
 - (NSArray *)fetchItemsByEntityDescriptionName:(NSString *)entityName usingPredicate:(NSPredicate *) predicate;
 - (NSArray *)fetchItemsByEntityDescriptionName:(NSString *)entityName usingPredicate:(NSPredicate *)predicate usingSortDescriptions:(NSArray *)sortDescriptions;
 - (NSArray *)fetchItemsByEntityDescriptionName:(NSString *)entityName usingPredicate:(NSPredicate *) predicate usingSortDescriptions:(NSArray *)sortDescriptions fromOffset:(NSUInteger) aOffset LimitedBy:(NSUInteger)aLimited;
 
-//get entity descritpion from name string
+//Get entity descritpion from name string
 - (NSEntityDescription *) entityDescriptionByName:(NSString *)className;
 
-//operate on NSManagedObject
+//Operating on NSManagedObject
 - (id)dataItemWithID:(NSManagedObjectID *)objectId;
 - (id)updateDataItem:(NSManagedObject *)object;
 - (BOOL)deleteDataItem:(NSManagedObject *)aItem;
@@ -122,6 +120,7 @@
 - (BOOL)deleteDataItems:(NSArray*)items;
 - (BOOL)saveDataBase;
 
+//Add observing for concurrency.
 - (void)registerObserving;
 - (void)unregisterObserving;
 
@@ -131,7 +130,7 @@
 
 @end
 
-#pragma mark - --------------------------------    NSObject (Debug_Ext)     --------------------------------
+#pragma mark -  NSObject (Debug_Ext)
 
 /*
  NSObject (Debug_Ext) 
@@ -139,6 +138,23 @@
 @interface NSObject (Debug_Ext)
 
 - (NSString *)currentDispatchQueueLabel;
+
+@end
+
+#pragma mark - NSmanagedObject convinent methods.
+
+@interface NSManagedObject (EASY_WAY)
+
+#pragma mark - creating managed object on main thread.
++ (id)insertItem;
++ (id)insertItemWithBlock:(void(^)(id item))settingBlock;
+
++ (id)insertItemWith:(CoreDataEnvir *)cde;
++ (id)insertItemWith:(CoreDataEnvir *)cde fillData:(void (^)(id))settingBlock;
+
+#pragma mark - fetching record items.
+//Just fetching record items by the predicate.
++ (NSArray *)itemsWith:(NSPredicate *)predicate;
 
 @end
 

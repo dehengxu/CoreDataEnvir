@@ -11,21 +11,17 @@
 /*
  Do not use any lock method to protect thread resources in CoreData under concurrency condition!
  */
-#define CONTEXT_LOCK_BEGIN  ;//do {\
+#define CONTEXT_LOCK_BEGIN  do {\
 BOOL _isLocked = [context tryLock];\
 if (_isLocked) {\
 
-//    NSLog(@"context lock succed! %@, context :%@", [self currentDispatchQueueLabel], context);
-
-#define CONTEXT_LOCK_END    ;//[context unlock];\
+#define CONTEXT_LOCK_END    [context unlock];\
 break;\
 }\
 } while(0);
 
-#define LOCK_BEGIN  ;
-//[recursiveLock lock];
-#define LOCK_END    ;
-//[recursiveLock unlock];
+#define LOCK_BEGIN  [recursiveLock lock];
+#define LOCK_END    [recursiveLock unlock];
 
 #pragma mark - ----------------------------- private methods ------------------------
 
@@ -44,7 +40,6 @@ static CoreDataEnvir * _coreDataEnvir = nil;
 static NSOperationQueue * _mainQueue = nil;
 static NSString *_model_name = nil;
 static NSString *_database_name = nil;
-//static dispatch_queue_t _background_queue_;
 
 #if CORE_DATA_SHARE_PERSISTANCE
 static NSPersistentStoreCoordinator * storeCoordinator = nil;
@@ -53,9 +48,11 @@ static NSPersistentStoreCoordinator * storeCoordinator = nil;
 @implementation CoreDataEnvir
 
 @synthesize model, context,
+
 #if !CORE_DATA_SHARE_PERSISTANCE
 storeCoordinator,
 #endif
+
 fetchedResultsCtrl, delegate;
 
 + (void)initialize
@@ -102,17 +99,15 @@ fetchedResultsCtrl, delegate;
             break;
         }
         checkName = [NSString stringWithFormat:@"%@/%@", path, name];
-        printf("checkName :%s;    ext :%s\n", CharFromString(checkName), CharFromString(name.pathExtension));
+
         BOOL isDir = NO;
         if ([fm fileExistsAtPath:checkName isDirectory:&isDir] && !isDir, [[name pathExtension] isEqualToString:@"sqlite"]) {
             [fm moveItemAtPath:checkName toPath:[NSString stringWithFormat:@"%@/%@", path, [self databaseFileName]] error:nil];
             NSLog(@"Rename sqlite database from %@ to %@ finished!", name, [self databaseFileName]);
-            printf("Rename sqlite database from %s to %s finished!\n", CharFromString(name), CharFromString([self databaseFileName]));
             break;
         }
     }
-    NSLog(@"No sqlite database finished!");
-    printf("No sqlite database finished!\n");
+    NSLog(@"No sqlite database be renamed!");
 }
 
 + (NSString *)modelFileName
@@ -184,37 +179,37 @@ fetchedResultsCtrl, delegate;
 
     //Scan all of momd directory.
     //NSArray *momdPaths = [[NSBundle mainBundle] pathsForResourcesOfType:@"momd" inDirectory:nil];
-        NSURL *fileUrl = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@", path, dbName]];
-        
-        context = [[NSManagedObjectContext alloc] init];
-        [self.context setMergePolicy:NSOverwriteMergePolicy];
+    NSURL *fileUrl = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@", path, dbName]];
     
-        if (storeCoordinator == nil) {
-            //model = [[NSManagedObjectModel mergedModelFromBundles:nil] retain];
-            NSString *momdPath = [[NSBundle mainBundle] pathForResource:[self.class modelFileName] ofType:@"momd"];
-            NSURL *momdURL = [NSURL fileURLWithPath:momdPath];
-            model = [[NSManagedObjectModel alloc] initWithContentsOfURL:momdURL];
-            
-            storeCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
-        
-            NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
-                                     [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,  
-                                     [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption,
-                                     nil];  
+    context = [[NSManagedObjectContext alloc] init];
+    [self.context setMergePolicy:NSOverwriteMergePolicy];
 
-            NSError *error;
-            LOCK_BEGIN
-            if (![storeCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:fileUrl options:options error:&error]) {
-                NSLog(@"%s Failed! %@", __FUNCTION__, error);
-                abort();
-            }else {
-                [self.context setPersistentStoreCoordinator:storeCoordinator];
-            }
-            
-            LOCK_END
+    if (storeCoordinator == nil) {
+        //model = [[NSManagedObjectModel mergedModelFromBundles:nil] retain];
+        NSString *momdPath = [[NSBundle mainBundle] pathForResource:[self.class modelFileName] ofType:@"momd"];
+        NSURL *momdURL = [NSURL fileURLWithPath:momdPath];
+        model = [[NSManagedObjectModel alloc] initWithContentsOfURL:momdURL];
+        
+        storeCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
+    
+        NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,  
+                                 [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption,
+                                 nil];  
+
+        NSError *error;
+        LOCK_BEGIN
+        if (![storeCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:fileUrl options:options error:&error]) {
+            NSLog(@"%s Failed! %@", __FUNCTION__, error);
+            abort();
         }else {
             [self.context setPersistentStoreCoordinator:storeCoordinator];
         }
+        
+        LOCK_END
+    }else {
+        [self.context setPersistentStoreCoordinator:storeCoordinator];
+    }
 
     [self registerObserving];
 }
@@ -222,11 +217,14 @@ fetchedResultsCtrl, delegate;
 - (NSManagedObject *) buildManagedObjectByName:(NSString *)className
 {
     NSManagedObject *_object = nil;
-    LOCK_BEGIN
-    CONTEXT_LOCK_BEGIN
     _object = [NSEntityDescription insertNewObjectForEntityForName:className inManagedObjectContext:self.context];
-    CONTEXT_LOCK_END
-    LOCK_END
+    return _object;
+}
+
+- (NSManagedObject *)buildManagedObjectByClass:(Class)theClass
+{
+    NSManagedObject *_object = nil;
+    _object = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass(theClass) inManagedObjectContext:self.context];
     return _object;
 }
 
@@ -241,8 +239,6 @@ fetchedResultsCtrl, delegate;
 {
     NSArray *items = nil;
     
-    LOCK_BEGIN
-    CONTEXT_LOCK_BEGIN
     NSFetchRequest *req = [[NSFetchRequest alloc] init];
     [req setEntity:[self entityDescriptionByName:entityName]];
 
@@ -252,8 +248,6 @@ fetchedResultsCtrl, delegate;
         NSLog(@"%s, error:%@, entityName:%@", __FUNCTION__, error, entityName);
     }
     [req release];
-    CONTEXT_LOCK_END
-    LOCK_END
 
 	return items;
 }
@@ -262,9 +256,6 @@ fetchedResultsCtrl, delegate;
 {
     NSArray *items = nil;
     
-    LOCK_BEGIN
-    CONTEXT_LOCK_BEGIN
-
     NSFetchRequest *req = [[NSFetchRequest alloc] init];
     [req setEntity:[self entityDescriptionByName:entityName]];
     [req setPredicate:predicate];
@@ -276,19 +267,12 @@ fetchedResultsCtrl, delegate;
     }
     [req release];
 
-    
-    CONTEXT_LOCK_END
-    LOCK_END
-
 	return items;
 }
 
 - (NSArray *) fetchItemsByEntityDescriptionName:(NSString *)entityName usingPredicate:(NSPredicate *)predicate usingSortDescriptions:(NSArray *)sortDescriptions
 {
     NSArray *items = nil;
-    
-    LOCK_BEGIN
-    CONTEXT_LOCK_BEGIN
     
     NSFetchRequest *req = [[NSFetchRequest alloc] init];
     NSEntityDescription * entityDescritpion = [self entityDescriptionByName:entityName];
@@ -302,14 +286,11 @@ fetchedResultsCtrl, delegate;
     }
     [req release];
     
-    CONTEXT_LOCK_END
-    LOCK_END
 	return items;
 }
 
 - (NSArray *) fetchItemsByEntityDescriptionName:(NSString *)entityName usingPredicate:(NSPredicate *)predicate usingSortDescriptions:(NSArray *)sortDescriptions fromOffset:(NSUInteger)aOffset LimitedBy:(NSUInteger)aLimited
 {
-    LOCK_BEGIN
     NSArray *items = nil;
     
     NSFetchRequest *req = [[NSFetchRequest alloc] init];
@@ -321,9 +302,9 @@ fetchedResultsCtrl, delegate;
     [req setFetchLimit:aLimited];
     
     NSError *error = nil;
-    CONTEXT_LOCK_BEGIN
+
     items = [self.context executeFetchRequest:req error:&error];
-    CONTEXT_LOCK_END
+
     if (error) {
         NSLog(@"%s, error:%@", __FUNCTION__, [error localizedDescription]);
     }
@@ -354,7 +335,6 @@ fetchedResultsCtrl, delegate;
         return NO;
     }
     
-    TRY_BEGIN
     NSManagedObject *getObject = [self dataItemWithID:aItem.objectID];
     
 #if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
@@ -368,27 +348,20 @@ fetchedResultsCtrl, delegate;
     NSLog(@" delete finished!");
 #endif
     
-    TRY_CATCH
 	return YES;
 }
 
 - (BOOL) deleteDataItemSet:(NSSet *)aItemSet
 {
-    LOCK_BEGIN
-    CONTEXT_LOCK_BEGIN
     for (NSManagedObject *obj in aItemSet) {
         [self deleteDataItem:obj];
     }
-    CONTEXT_LOCK_END
-    LOCK_END
+
 	return YES;
 }
 
 - (BOOL)deleteDataItems:(NSArray *)items
-{
-    LOCK_BEGIN
-    CONTEXT_LOCK_BEGIN
-    
+{    
     [items retain];
     
     for (NSManagedObject *obj in items) {
@@ -396,30 +369,20 @@ fetchedResultsCtrl, delegate;
     }
     
     [items release];
-    
-    CONTEXT_LOCK_END
-    LOCK_END
 	return YES;
 }
 
 - (BOOL)saveDataBase
 {
-    //NSString *label = [self currentDispatchQueueLabel];
-#if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
-    NSLog(@"saving start! %@", label);
-#endif
-    
     BOOL bResult = NO;
-    
-    //LOCK_BEGIN
-//    CONTEXT_LOCK_BEGIN
+    if (![self.context hasChanges]) {
+        return YES;
+    }
     
     [storeCoordinator lock];
 	NSError *error = nil;
     
-    TRY_BEGIN
     bResult = [self.context save:&error];
-    TRY_CATCH
     
     if (!bResult) {
         if (error != nil) {
@@ -429,11 +392,7 @@ fetchedResultsCtrl, delegate;
         //[context rollback];
     }
     [storeCoordinator unlock];
-//    CONTEXT_LOCK_END
-    //LOCK_END
-#if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
-    NSLog(@"saved OK! %@", label);
-#endif
+
 	return bResult;
 }
 
@@ -507,8 +466,6 @@ fetchedResultsCtrl, delegate;
     NSLog(@"%s, %@", __FUNCTION__, [self currentDispatchQueueLabel]);
 #endif
     
-    //LOCK_BEGIN
-    //CONTEXT_LOCK_BEGIN
     [storeCoordinator lock];
     @try {
         [self.context mergeChangesFromContextDidSaveNotification:notification];
@@ -520,8 +477,6 @@ fetchedResultsCtrl, delegate;
         //NSLog(@"Merge finished!");
     }
     [storeCoordinator unlock];
-    //CONTEXT_LOCK_END
-    //LOCK_END
 
 //    if (delegate && [delegate respondsToSelector:@selector(didUpdatedContext:)]) {
 //        [delegate didUpdatedContext:notification.object];
@@ -538,28 +493,17 @@ fetchedResultsCtrl, delegate;
     NSLog(@"%s %@", __FUNCTION__, [self currentDispatchQueueLabel]);
 #endif
     
-    LOCK_BEGIN
-    
     if (notification.object == self.context) {
-        // main context save, no need to perform the merge
-        
-#if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
-        NSLog(@"    be same context!");
-#endif
-        LOCK_END
+        // main context save, no need to perform the merge        
         return;
     }
     
     //[self performSelectorOnMainThread:@selector(updateContext:) withObject:notification waitUntilDone:NO];
     [self performSelector:@selector(updateContext:) onThread:[NSThread currentThread] withObject:notification waitUntilDone:YES];
-
-    LOCK_END
-    
 }
 
 - (void)handleDidChange:(NSNotification *)notification
 {
-    LOCK_BEGIN
 #if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
     NSLog(@"%s %@ ->>> %@", __FUNCTION__, notification.object, self.context);
 #endif
@@ -568,37 +512,28 @@ fetchedResultsCtrl, delegate;
     sameContext = (notification.object == self.context);
     
     if (sameContext) {
-#if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
-        NSLog(@"    be same context!");
-#endif
-        LOCK_END
         return;
     }
     
     //NSLog(@"haha %@ ::%@,  %@", [self currentDispatchQueueLabel], notification.userInfo, notification.object);
     
     if (!sameContext && ![NSThread isMainThread]) {
-        //CONTEXT_LOCK_BEGIN
         [self.context processPendingChanges];
-        //CONTEXT_LOCK_END
     }
-    LOCK_END
 }
 
-#pragma mark - 被废弃的方法
+#pragma mark - creating
 + (CoreDataEnvir *) instance
 {
     @synchronized(self) {
         if ([[NSThread currentThread] isMainThread]) {
 #if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
-         NSLog(@"CoreDataEnvir on main thread!");
-            PrintCallStackSymbols(3);
+             NSLog(@"CoreDataEnvir on main thread!");
 #endif
             return [self sharedInstance];
         }else {
 #if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
             NSLog(@"CoreDataEnvir on other thread!");
-            PrintCallStackSymbols(3);
 #endif
             return [self dataBase];
         }
@@ -614,7 +549,52 @@ fetchedResultsCtrl, delegate;
 
 - (NSString *)currentDispatchQueueLabel
 {
-    return [NSString stringWithCString:dispatch_queue_get_label(dispatch_get_current_queue()) encoding:NSUTF8StringEncoding];
+#if DEBUG
+    dispatch_queue_t q = dispatch_get_current_queue();
+    return [NSString stringWithCString:dispatch_queue_get_label(q) encoding:NSUTF8StringEncoding];
+#else
+    return nil;
+#endif
+}
+
+@end
+
+@implementation NSManagedObject(EASY_MODE)
+
++ (id)insertItem
+{
+    CoreDataEnvir *db = [CoreDataEnvir sharedInstance];
+    id item = nil;
+    item = [db buildManagedObjectByClass:self];
+    return item;
+}
+
++ (id)insertItemWithBlock:(void (^)(id item))settingBlock
+{
+    id item = [self insertItem];
+    settingBlock(item);
+    return item;
+}
+
++ (id)insertItemWith:(CoreDataEnvir *)cde
+{
+    id item = nil;
+    item = [cde buildManagedObjectByClass:self];
+    return item;
+}
+
++ (id)insertItemWith:(CoreDataEnvir *)cde fillData:(void (^)(id))settingBlock
+{
+    id item = [self insertItemWith:cde];
+    settingBlock(item);
+    return item;
+}
+
++ (NSArray *)itemsWith:(NSPredicate *)predicate
+{
+    CoreDataEnvir *db = [CoreDataEnvir sharedInstance];
+    NSArray *items = [db fetchItemsByEntityDescriptionName:NSStringFromClass(self) usingPredicate:predicate];
+    return items;
 }
 
 @end

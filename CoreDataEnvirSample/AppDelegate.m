@@ -10,6 +10,10 @@
 
 #import "ViewController.h"
 
+#import "CoreDataEnvir.h"
+#import "Team.h"
+#import "Member.h"
+
 @implementation AppDelegate
 
 - (void)dealloc
@@ -30,6 +34,26 @@
     }
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
+    [CoreDataEnvir registDatabaseFileName:@"db.sqlite"];
+    [CoreDataEnvir registModelFileName:@"SampleModel"];
+
+    dispatch_queue_t q1, q2;
+    
+    q1 = dispatch_get_global_queue(0, 0);
+    q2 = dispatch_get_global_queue(1, 0);
+    
+    dispatch_async(q1, ^{
+        
+    });
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        for (int i = 0; i < 5; i++) {
+            [Team insertItemWithBlock:^(Team *item) {
+                item.name = [NSString stringWithFormat:@"%d", i];
+            }];
+        }
+        [[CoreDataEnvir sharedInstance] saveDataBase];
+    });
     return YES;
 }
 
