@@ -37,14 +37,15 @@
     [CoreDataEnvir registDatabaseFileName:@"db.sqlite"];
     [CoreDataEnvir registModelFileName:@"SampleModel"];
 
-    dispatch_queue_t q1, q2;
+    dispatch_queue_t q1, q2, qMain;
     
     q1 = dispatch_queue_create("com.cyblion.q1", NULL);
     q2 = dispatch_queue_create("com.cyblion.q2", NULL);
+    qMain = dispatch_get_main_queue();
     
     dispatch_async(q1, ^{
         CoreDataEnvir *db = [CoreDataEnvir instance];
-        for (int i = 0; i < 2000; i++) {
+        for (int i = 0; i < 500; i++) {
             Team *team = (Team *)[Team lastItemWith:db predicate:[NSPredicate predicateWithFormat:@"name==9"]];
             if (team) {
                 [db deleteDataItem:team];
@@ -60,12 +61,28 @@
     
     dispatch_async(q2, ^{
         CoreDataEnvir *db = [CoreDataEnvir instance];
-        for (int i = 0; i < 2000; i++) {
+        for (int i = 0; i < 500; i++) {
             Team *team = (Team *)[Team lastItemWith:db predicate:[NSPredicate predicateWithFormat:@"name==9"]];
             if (team) {
                 [db deleteDataItem:team];
             }else {
                 [Team insertItemWith:db fillData:^(Team *item) {
+                    item.name = [NSString stringWithFormat:@"9"];
+                }];
+                
+            }
+            [db saveDataBase];
+        }
+    });
+    
+    dispatch_async(qMain, ^{
+        CoreDataEnvir *db = [CoreDataEnvir instance];
+        for (int i = 0; i < 500; i++) {
+            Team *team = (Team *)[Team lastItemWith:[NSPredicate predicateWithFormat:@"name==9"]];
+            if (team) {
+                [db deleteDataItem:team];
+            }else {
+                [Team insertItemWith:^(Team *item) {
                     item.name = [NSString stringWithFormat:@"9"];
                 }];
                 

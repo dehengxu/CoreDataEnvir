@@ -145,18 +145,21 @@
 
 @interface NSManagedObject (EASY_WAY)
 
-#pragma mark - creating managed object on main thread.
+#pragma mark - insert record item.
+//Creating managed object on main thread.
 + (id)insertItem;
 + (id)insertItemWithBlock:(void(^)(id item))settingBlock;
 
+//Creating managed object on background thread.
 + (id)insertItemWith:(CoreDataEnvir *)cde;
 + (id)insertItemWith:(CoreDataEnvir *)cde fillData:(void (^)(id item))settingBlock;
 
 #pragma mark - fetching record items.
-//Just fetching record items by the predicate.
+//Just fetching record items by the predicate on main thread.
 + (NSArray *)itemsWith:(NSPredicate *)predicate;
 + (id)lastItemWith:(NSPredicate *)predicate;
 
+//Fetching record items by the predicate on background thread.
 + (NSArray *)itemsWith:(CoreDataEnvir *)cde predicate:(NSPredicate *)predicate;
 + (id)lastItemWith:(CoreDataEnvir *)cde predicate:(NSPredicate *)predicate;
 
