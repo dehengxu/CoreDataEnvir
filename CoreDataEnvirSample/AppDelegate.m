@@ -39,20 +39,39 @@
 
     dispatch_queue_t q1, q2;
     
-    q1 = dispatch_get_global_queue(0, 0);
-    q2 = dispatch_get_global_queue(1, 0);
+    q1 = dispatch_queue_create("com.cyblion.q1", NULL);
+    q2 = dispatch_queue_create("com.cyblion.q2", NULL);
     
     dispatch_async(q1, ^{
-        
+        CoreDataEnvir *db = [CoreDataEnvir instance];
+        for (int i = 0; i < 2000; i++) {
+            Team *team = (Team *)[Team lastItemWith:db predicate:[NSPredicate predicateWithFormat:@"name==9"]];
+            if (team) {
+                [db deleteDataItem:team];
+            }else {
+                [Team insertItemWith:db fillData:^(Team *item) {
+                    item.name = [NSString stringWithFormat:@"9"];
+                }];
+
+            }
+            [db saveDataBase];
+        }
     });
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        for (int i = 0; i < 5; i++) {
-            [Team insertItemWithBlock:^(Team *item) {
-                item.name = [NSString stringWithFormat:@"%d", i];
-            }];
+    dispatch_async(q2, ^{
+        CoreDataEnvir *db = [CoreDataEnvir instance];
+        for (int i = 0; i < 2000; i++) {
+            Team *team = (Team *)[Team lastItemWith:db predicate:[NSPredicate predicateWithFormat:@"name==9"]];
+            if (team) {
+                [db deleteDataItem:team];
+            }else {
+                [Team insertItemWith:db fillData:^(Team *item) {
+                    item.name = [NSString stringWithFormat:@"9"];
+                }];
+                
+            }
+            [db saveDataBase];
         }
-        [[CoreDataEnvir sharedInstance] saveDataBase];
     });
     return YES;
 }

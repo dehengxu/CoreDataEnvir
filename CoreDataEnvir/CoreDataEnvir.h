@@ -150,11 +150,15 @@
 + (id)insertItemWithBlock:(void(^)(id item))settingBlock;
 
 + (id)insertItemWith:(CoreDataEnvir *)cde;
-+ (id)insertItemWith:(CoreDataEnvir *)cde fillData:(void (^)(id))settingBlock;
++ (id)insertItemWith:(CoreDataEnvir *)cde fillData:(void (^)(id item))settingBlock;
 
 #pragma mark - fetching record items.
 //Just fetching record items by the predicate.
 + (NSArray *)itemsWith:(NSPredicate *)predicate;
++ (id)lastItemWith:(NSPredicate *)predicate;
+
++ (NSArray *)itemsWith:(CoreDataEnvir *)cde predicate:(NSPredicate *)predicate;
++ (id)lastItemWith:(CoreDataEnvir *)cde predicate:(NSPredicate *)predicate;
 
 @end
 

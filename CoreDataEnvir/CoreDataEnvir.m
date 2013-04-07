@@ -23,7 +23,7 @@ break;\
 #define LOCK_BEGIN  [recursiveLock lock];
 #define LOCK_END    [recursiveLock unlock];
 
-#pragma mark - ----------------------------- private methods ------------------------
+#pragma mark - ---------------------- private methods ------------------------
 
 @interface CoreDataEnvir ()
 
@@ -33,7 +33,7 @@ break;\
 
 @end
 
-#pragma mark - ------------------------------ CoreDataEnvirement -----------------------
+#pragma mark - ---------------------- CoreDataEnvirement -----------------------
 
 static CoreDataEnvir * _coreDataEnvir = nil;
 //Not be used.
@@ -563,6 +563,7 @@ fetchedResultsCtrl, delegate;
 
 + (id)insertItem
 {
+    NSLog(@"thread :%u, %@", [NSThread isMainThread], [NSString stringWithCString:dispatch_queue_get_label(dispatch_get_current_queue()) encoding:NSUTF8StringEncoding]);
     CoreDataEnvir *db = [CoreDataEnvir sharedInstance];
     id item = nil;
     item = [db buildManagedObjectByClass:self];
@@ -583,7 +584,7 @@ fetchedResultsCtrl, delegate;
     return item;
 }
 
-+ (id)insertItemWith:(CoreDataEnvir *)cde fillData:(void (^)(id))settingBlock
++ (id)insertItemWith:(CoreDataEnvir *)cde fillData:(void (^)(id item))settingBlock
 {
     id item = [self insertItemWith:cde];
     settingBlock(item);
@@ -595,6 +596,22 @@ fetchedResultsCtrl, delegate;
     CoreDataEnvir *db = [CoreDataEnvir sharedInstance];
     NSArray *items = [db fetchItemsByEntityDescriptionName:NSStringFromClass(self) usingPredicate:predicate];
     return items;
+}
+
++ (NSArray *)lastItemWith:(NSPredicate *)predicate
+{
+    return [[self itemsWith:predicate] lastObject];
+}
+
++ (NSArray *)itemsWith:(CoreDataEnvir *)cde predicate:(NSPredicate *)predicate
+{
+    NSArray *items = [cde fetchItemsByEntityDescriptionName:NSStringFromClass(self) usingPredicate:predicate];
+    return items;
+}
+
++ (id)lastItemWith:(CoreDataEnvir *)cde predicate:(NSPredicate *)predicate
+{
+    return [[self itemsWith:cde predicate:predicate] lastObject];
 }
 
 @end

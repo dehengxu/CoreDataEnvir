@@ -509,6 +509,7 @@
 				A2ED3F0617112B40003E9A37 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A2ED3F0717112B40003E9A37 /* Build configuration list for PBXNativeTarget "CoreDataEnvirSampleTests" */ = {
 			isa = XCConfigurationList;
@@ -517,6 +518,7 @@
 				A2ED3F0917112B40003E9A37 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
