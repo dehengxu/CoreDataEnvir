@@ -5,9 +5,9 @@ A CoreData Envirement wrapper, use CoreData in convient way. You can use it in c
 
 You can use it like:
 
-On main thread:
+##On main thread:
 
-Insert item:
+#Insert item:
 Team *team = [Team insertItem];
 or
 [Team insertItemWith:^(Team *item) {
@@ -16,10 +16,10 @@ or
 
 [[CoreDataEnvir instance] saveDataBase];
 
-Fetch one item:
+#Fetch one item:
 Team *team = (Team *)[Team lastItemWith:[NSPredicate predicateWithFormat:@"name==nicholas"]];
 
-Fetch all items:
+#Fetch all items:
 NSArray *items = [Team itemsWith:[NSPredicate predicateWithFormat:@"name==nicholas"]];
 
 If you want to run on other threads, like this:
