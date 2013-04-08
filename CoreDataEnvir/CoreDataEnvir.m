@@ -29,7 +29,6 @@ break;\
 
 - (void)initCoreDataEnvir;
 - (void)initCoreDataEnvirWithPath:(NSString *) path andFileName:(NSString *) dbName;
-- (void)initCoreDataEnvirWithSubthread;
 
 @end
 
@@ -136,7 +135,7 @@ fetchedResultsCtrl, delegate;
 {
     id cde = nil;
     cde = [self new];
-    [cde initCoreDataEnvirWithSubthread];
+    [cde initCoreDataEnvir];
     return [cde autorelease];
 }
 
@@ -159,14 +158,6 @@ fetchedResultsCtrl, delegate;
 }
 
 - (void) initCoreDataEnvir
-{
-    LOCK_BEGIN
-    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    [self initCoreDataEnvirWithPath:path andFileName:[NSString stringWithFormat:@"%@", [self.class databaseFileName]]];
-    LOCK_END
-}
-
-- (void) initCoreDataEnvirWithSubthread
 {
     LOCK_BEGIN
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
@@ -389,7 +380,7 @@ fetchedResultsCtrl, delegate;
             NSLog(@"%s, error:%@", __FUNCTION__, error);
         }
         //Do we need rollback?
-        //[context rollback];
+        [context rollback];
     }
     [storeCoordinator unlock];
 
@@ -420,7 +411,6 @@ fetchedResultsCtrl, delegate;
 #if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
     NSLog(@"%@", [self currentDispatchQueueLabel]);
 #endif
-
     [self unregisterObserving];
 
     [recursiveLock release];
@@ -432,7 +422,8 @@ fetchedResultsCtrl, delegate;
     [storeCoordinator release];
     storeCoordinator = nil;
 #endif
-    
+    printf("%s\n", __FUNCTION__);
+
     [super dealloc];
 }
 
@@ -450,12 +441,14 @@ fetchedResultsCtrl, delegate;
 #pragma mark - updateContext
 - (void)registerObserving
 {
+    NSLog(@"%s", __FUNCTION__);
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mergeChanges:) name:NSManagedObjectContextDidSaveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
 }
 
 - (void)unregisterObserving
 {
+    NSLog(@"%s", __FUNCTION__);
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextDidSaveNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
 }
@@ -465,6 +458,7 @@ fetchedResultsCtrl, delegate;
 #if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
     NSLog(@"%s, %@", __FUNCTION__, [self currentDispatchQueueLabel]);
 #endif
+    NSLog(@"%s", __FUNCTION__);
     
     [storeCoordinator lock];
     @try {
@@ -502,24 +496,28 @@ fetchedResultsCtrl, delegate;
     [self performSelector:@selector(updateContext:) onThread:[NSThread currentThread] withObject:notification waitUntilDone:YES];
 }
 
+//Deprecated methods
 - (void)handleDidChange:(NSNotification *)notification
 {
 #if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
     NSLog(@"%s %@ ->>> %@", __FUNCTION__, notification.object, self.context);
 #endif
-    
     BOOL sameContext = NO;
     sameContext = (notification.object == self.context);
     
     if (sameContext) {
         return;
     }
-    
-    //NSLog(@"haha %@ ::%@,  %@", [self currentDispatchQueueLabel], notification.userInfo, notification.object);
-    
-    if (!sameContext && ![NSThread isMainThread]) {
-        [self.context processPendingChanges];
-    }
+
+    [self.context processPendingChanges];
+//    if ([self.context hasChanges]) {
+//        NSLog(@"%s", __FUNCTION__);
+//        NSLog(@"updated : %u", [self.context updatedObjects].count);
+//    }
+//    if (![NSThread isMainThread]) {
+//        [self.context processPendingChanges];
+//    }
+//    [self performSelector:@selector(updateContext:) onThread:[NSThread currentThread] withObject:notification waitUntilDone:YES];
 }
 
 #pragma mark - creating
@@ -539,6 +537,15 @@ fetchedResultsCtrl, delegate;
         }
     }
 	return nil;
+}
+
+- (void)sendPendingChanges
+{
+    if ([NSThread isMainThread] ||
+        !self.context) {
+        return;
+    }
+    [self.context processPendingChanges];
 }
 
 @end
@@ -563,9 +570,6 @@ fetchedResultsCtrl, delegate;
 
 + (id)insertItem
 {
-#if DEBUG
-    NSLog(@"thread :%u, %@", [NSThread isMainThread], [NSString stringWithCString:dispatch_queue_get_label(dispatch_get_current_queue()) encoding:NSUTF8StringEncoding]);
-#endif
     if (![NSThread isMainThread]) {
         NSLog(@"Insert item record failed, please run on main thread!");
         return nil;
@@ -584,6 +588,9 @@ fetchedResultsCtrl, delegate;
 
 + (id)insertItemWith:(CoreDataEnvir *)cde
 {
+#if DEBUG
+    NSLog(@"thread :%u, %@", [NSThread isMainThread], [NSString stringWithCString:dispatch_queue_get_label(dispatch_get_current_queue()) encoding:NSUTF8StringEncoding]);
+#endif
     id item = nil;
     item = [cde buildManagedObjectByClass:self];
     return item;
@@ -617,6 +624,26 @@ fetchedResultsCtrl, delegate;
 + (id)lastItemWith:(CoreDataEnvir *)cde predicate:(NSPredicate *)predicate
 {
     return [[self itemsWith:cde predicate:predicate] lastObject];
+}
+
+- (void)removeFrom:(CoreDataEnvir *)cde
+{
+    if (!cde) {
+        return;
+    }
+    [cde deleteDataItem:self];
+}
+
+- (void)remove
+{
+    if (![NSThread isMainThread]) {
+        NSLog(@"Remove data failed, cannot run on non-main thread!");
+        return;
+    }
+    if (![CoreDataEnvir sharedInstance]) {
+        return;
+    }
+    [[CoreDataEnvir sharedInstance] deleteDataItem:self];
 }
 
 @end

@@ -13,5 +13,6 @@
 @interface Team : NSManagedObject
 
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSNumber * number;
 
 @end

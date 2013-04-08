@@ -16,7 +16,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-#define CORE_DATA_ENVIR_SHOW_LOG        1
+#define CORE_DATA_ENVIR_SHOW_LOG        0
 
 #define CORE_DATA_SHARE_PERSISTANCE     1
 
@@ -128,6 +128,12 @@
 - (void)mergeChanges:(NSNotification *)notification;
 - (void)handleDidChange:(NSNotification*)notification;
 
+/*
+ Send processPendingChanges message on non-main thread.
+ You should call this method after cluster of actions.
+ */
+- (void)sendPendingChanges;
+
 @end
 
 #pragma mark -  NSObject (Debug_Ext)
@@ -162,6 +168,9 @@
 //Fetching record items by the predicate on background thread.
 + (NSArray *)itemsWith:(CoreDataEnvir *)cde predicate:(NSPredicate *)predicate;
 + (id)lastItemWith:(CoreDataEnvir *)cde predicate:(NSPredicate *)predicate;
+
+- (void)removeFrom:(CoreDataEnvir *)cde;
+- (void)remove;
 
 @end
 

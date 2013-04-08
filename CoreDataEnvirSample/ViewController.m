@@ -7,6 +7,8 @@
 //
 
 #import "ViewController.h"
+#import "CoreDataEnvir.h"
+#import "Team.h"
 
 @interface ViewController ()
 
@@ -18,12 +20,76 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    self.tem = (Team *)[Team lastItemWith:self.dbe predicate:[NSPredicate predicateWithFormat:@"name==9"]];
+    if (self.tem) {
+        self.tem.number = @(9999);
+    }
+    [self.dbe saveDataBase];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (CoreDataEnvir *)dbe
+{
+    if (nil == _dbe) {
+        _dbe = [[CoreDataEnvir instance] retain];
+    }
+    return _dbe;
+}
+
+int counter = 0;
+- (void)onClick_test:(id)sender
+{
+    dispatch_queue_t q1 = dispatch_queue_create([[NSString stringWithFormat:@"com.cyblion.%d", ++counter] cStringUsingEncoding:NSUTF8StringEncoding], NULL);
+    [self runTest:q1];
+    dispatch_release(q1);
+}
+
+- (void)runTest:(dispatch_queue_t)queue
+{
+    int runTimes = 300;
+    dispatch_async(queue, ^{
+        CoreDataEnvir *db = [CoreDataEnvir instance];
+        unsigned int c = counter;
+        for (int i = 0; i < runTimes; i++) {
+            Team *team = (Team *)[Team lastItemWith:db predicate:[NSPredicate predicateWithFormat:@"name==9"]];
+            if (team) {
+                //[team removeFrom:db];
+                team.number = @(0 + c * 10000);
+            }
+            else {
+                [Team insertItemWith:db fillData:^(Team *item) {
+                    item.name = @"9";
+                    item.number = @(0 + c * 10000);
+                }];
+            }
+//            self.tem = team;
+            
+            [db saveDataBase];
+        }
+        [db sendPendingChanges];
+    });
+}
+
+- (void)onClick_clear:(id)sender
+{
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        CoreDataEnvir *db = [CoreDataEnvir instance];
+        Team *team = (Team *)[Team lastItemWith:db predicate:[NSPredicate predicateWithFormat:@"name==9"]];
+        [team removeFrom:db];
+        [db saveDataBase];
+        [db sendPendingChanges];
+    });
+}
+
+- (void)onClick_cancel:(id)sender
+{
+    NSLog(@"%@  number :%@; %u %u", self.tem, self.tem.number, self.tem.isFault, [self.dbe.context hasChanges]);
+    [self.dbe saveDataBase];
 }
 
 @end

@@ -12,5 +12,6 @@
 @implementation Team
 
 @dynamic name;
+@dynamic number;
 
 @end

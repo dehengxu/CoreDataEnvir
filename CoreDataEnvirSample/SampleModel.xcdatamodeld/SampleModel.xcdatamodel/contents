@@ -8,9 +8,10 @@
     </entity>
     <entity name="Team" representedClassName="Team" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="number" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Team" positionX="160" positionY="192" width="128" height="60"/>
         <element name="Member" positionX="160" positionY="192" width="128" height="105"/>
+        <element name="Team" positionX="160" positionY="192" width="128" height="75"/>
     </elements>
 </model>
