@@ -51,7 +51,7 @@ int counter = 0;
 
 - (void)runTest:(dispatch_queue_t)queue
 {
-    int runTimes = 300;
+    int runTimes = 1;
     dispatch_async(queue, ^{
         CoreDataEnvir *db = [CoreDataEnvir instance];
         unsigned int c = counter;
@@ -88,8 +88,28 @@ int counter = 0;
 
 - (void)onClick_cancel:(id)sender
 {
-    NSLog(@"%@  number :%@; %u %u", self.tem, self.tem.number, self.tem.isFault, [self.dbe.context hasChanges]);
-    [self.dbe saveDataBase];
+    //NSLog(@"%@  number :%@; %u %u", self.tem, self.tem.number, self.tem.isFault, [self.dbe.context hasChanges]);
+    
+    if (!self.tem) {
+        self.tem = (Team *)[Team lastItemWith:self.dbe predicate:[NSPredicate predicateWithFormat:@"name==9"]];
+    }
+    
+    if (self.tem.isFault) {
+        self.tem = [self.dbe updateDataItem:self.tem];
+    }
+    
+    @try {
+        [self.dbe saveDataBase];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"exce :%@", [exception description]);
+    }
+    @finally {
+        
+    }
+
+    NSLog(@"%@  ", self.tem);
+    
 }
 
 @end

@@ -307,14 +307,28 @@ fetchedResultsCtrl, delegate;
 - (id)dataItemWithID:(NSManagedObjectID *)objectId
 {
     if (objectId && self.context) {
-        return [self.context objectWithID:objectId];
+        
+        id item = nil;
+        
+        @try {
+            item = [self.context objectWithID:objectId];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"exce :%@", [exception description]);
+            item = nil;
+        }
+        @finally {
+            
+        }
+        
+        return item;
     }
     return nil;
 }
 
 - (id)updateDataItem:(NSManagedObject *)object
 {
-    if (object) {
+    if (object && object.isFault) {
         return [self dataItemWithID:object.objectID];
     }
     return object;
