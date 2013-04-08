@@ -563,10 +563,15 @@ fetchedResultsCtrl, delegate;
 
 + (id)insertItem
 {
+#if DEBUG
     NSLog(@"thread :%u, %@", [NSThread isMainThread], [NSString stringWithCString:dispatch_queue_get_label(dispatch_get_current_queue()) encoding:NSUTF8StringEncoding]);
+#endif
+    if (![NSThread isMainThread]) {
+        NSLog(@"Insert item record failed, please run on main thread!");
+        return nil;
+    }
     CoreDataEnvir *db = [CoreDataEnvir sharedInstance];
-    id item = nil;
-    item = [db buildManagedObjectByClass:self];
+    id item = [self insertItemWith:db];
     return item;
 }
 
@@ -594,13 +599,13 @@ fetchedResultsCtrl, delegate;
 + (NSArray *)itemsWith:(NSPredicate *)predicate
 {
     CoreDataEnvir *db = [CoreDataEnvir sharedInstance];
-    NSArray *items = [db fetchItemsByEntityDescriptionName:NSStringFromClass(self) usingPredicate:predicate];
+    NSArray *items = [self itemsWith:db predicate:predicate];
     return items;
 }
 
 + (NSArray *)lastItemWith:(NSPredicate *)predicate
 {
-    return [[self itemsWith:predicate] lastObject];
+    return [self lastItemWith:[CoreDataEnvir sharedInstance] predicate:predicate];
 }
 
 + (NSArray *)itemsWith:(CoreDataEnvir *)cde predicate:(NSPredicate *)predicate

@@ -82,7 +82,7 @@
             if (team) {
                 [db deleteDataItem:team];
             }else {
-                [Team insertItemWith:^(Team *item) {
+                [Team insertItemWithBlock:^(Team *item) {
                     item.name = [NSString stringWithFormat:@"9"];
                 }];
                 
