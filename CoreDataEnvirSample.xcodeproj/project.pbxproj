@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A2E7951C1713C45100E56BBC /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = A2E7951B1713C45100E56BBC /* Team.m */; };
 		A2ED3ECD17112B3F003E9A37 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3ECC17112B3F003E9A37 /* UIKit.framework */; };
 		A2ED3ECF17112B3F003E9A37 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3ECE17112B3F003E9A37 /* Foundation.framework */; };
 		A2ED3ED117112B3F003E9A37 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3ED017112B3F003E9A37 /* CoreGraphics.framework */; };
@@ -28,8 +29,6 @@
 		A2ED3F0E17112C58003E9A37 /* CoreDataEnvir.m in Sources */ = {isa = PBXBuildFile; fileRef = A2ED3F0C17112C58003E9A37 /* CoreDataEnvir.m */; };
 		A2ED3F1117112D37003E9A37 /* SampleModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A2ED3F0F17112D37003E9A37 /* SampleModel.xcdatamodeld */; };
 		A2ED3F1217112D37003E9A37 /* SampleModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A2ED3F0F17112D37003E9A37 /* SampleModel.xcdatamodeld */; };
-		A2ED3F2517112DF1003E9A37 /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = A2ED3F2417112DF1003E9A37 /* Team.m */; };
-		A2ED3F2617112DF1003E9A37 /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = A2ED3F2417112DF1003E9A37 /* Team.m */; };
 		A2ED3F2917112DF1003E9A37 /* Member.m in Sources */ = {isa = PBXBuildFile; fileRef = A2ED3F2817112DF1003E9A37 /* Member.m */; };
 		A2ED3F2A17112DF1003E9A37 /* Member.m in Sources */ = {isa = PBXBuildFile; fileRef = A2ED3F2817112DF1003E9A37 /* Member.m */; };
 		A2ED3F2F17113E5F003E9A37 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3F2E17113E5F003E9A37 /* CoreData.framework */; };
@@ -46,6 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A2E7951A1713C45100E56BBC /* Team.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Team.h; sourceTree = "<group>"; };
+		A2E7951B1713C45100E56BBC /* Team.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Team.m; sourceTree = "<group>"; };
 		A2ED3EC917112B3F003E9A37 /* CoreDataEnvirSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataEnvirSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2ED3ECC17112B3F003E9A37 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A2ED3ECE17112B3F003E9A37 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -72,8 +73,6 @@
 		A2ED3F0B17112C58003E9A37 /* CoreDataEnvir.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataEnvir.h; sourceTree = "<group>"; };
 		A2ED3F0C17112C58003E9A37 /* CoreDataEnvir.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataEnvir.m; sourceTree = "<group>"; };
 		A2ED3F1017112D37003E9A37 /* SampleModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SampleModel.xcdatamodel; sourceTree = "<group>"; };
-		A2ED3F2317112DF1003E9A37 /* Team.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Team.h; sourceTree = "<group>"; };
-		A2ED3F2417112DF1003E9A37 /* Team.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Team.m; sourceTree = "<group>"; };
 		A2ED3F2717112DF1003E9A37 /* Member.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Member.h; sourceTree = "<group>"; };
 		A2ED3F2817112DF1003E9A37 /* Member.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Member.m; sourceTree = "<group>"; };
 		A2ED3F2E17113E5F003E9A37 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -161,10 +160,10 @@
 				A2ED3EE017112B3F003E9A37 /* Default@2x.png */,
 				A2ED3EE217112B3F003E9A37 /* Default-568h@2x.png */,
 				A2ED3F0F17112D37003E9A37 /* SampleModel.xcdatamodeld */,
+				A2E7951A1713C45100E56BBC /* Team.h */,
+				A2E7951B1713C45100E56BBC /* Team.m */,
 				A2ED3F2717112DF1003E9A37 /* Member.h */,
 				A2ED3F2817112DF1003E9A37 /* Member.m */,
-				A2ED3F2317112DF1003E9A37 /* Team.h */,
-				A2ED3F2417112DF1003E9A37 /* Team.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -313,8 +312,8 @@
 				A2ED3EE617112B3F003E9A37 /* ViewController.m in Sources */,
 				A2ED3F0D17112C58003E9A37 /* CoreDataEnvir.m in Sources */,
 				A2ED3F1117112D37003E9A37 /* SampleModel.xcdatamodeld in Sources */,
-				A2ED3F2517112DF1003E9A37 /* Team.m in Sources */,
 				A2ED3F2917112DF1003E9A37 /* Member.m in Sources */,
+				A2E7951C1713C45100E56BBC /* Team.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,7 +324,6 @@
 				A2ED3F0117112B40003E9A37 /* CoreDataEnvirSampleTests.m in Sources */,
 				A2ED3F0E17112C58003E9A37 /* CoreDataEnvir.m in Sources */,
 				A2ED3F1217112D37003E9A37 /* SampleModel.xcdatamodeld in Sources */,
-				A2ED3F2617112DF1003E9A37 /* Team.m in Sources */,
 				A2ED3F2A17112DF1003E9A37 /* Member.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -440,6 +438,7 @@
 				INFOPLIST_FILE = "CoreDataEnvirSample/CoreDataEnvirSample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -452,6 +451,7 @@
 				INFOPLIST_FILE = "CoreDataEnvirSample/CoreDataEnvirSample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

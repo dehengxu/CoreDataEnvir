@@ -16,7 +16,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-#define CORE_DATA_ENVIR_SHOW_LOG        0
+#define CORE_DATA_ENVIR_SHOW_LOG        1
 
 #define CORE_DATA_SHARE_PERSISTANCE     1
 

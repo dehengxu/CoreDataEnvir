@@ -250,6 +250,7 @@ fetchedResultsCtrl, delegate;
     NSFetchRequest *req = [[NSFetchRequest alloc] init];
     [req setEntity:[self entityDescriptionByName:entityName]];
     [req setPredicate:predicate];
+
     
     NSError *error = nil;
     items = [self.context executeFetchRequest:req error:&error];
@@ -308,7 +309,7 @@ fetchedResultsCtrl, delegate;
 {
     if (objectId && self.context) {
         
-        id item = nil;
+        NSManagedObject *item = nil;
         
         @try {
             item = [self.context objectWithID:objectId];
@@ -318,7 +319,7 @@ fetchedResultsCtrl, delegate;
             item = nil;
         }
         @finally {
-            
+
         }
         
         return item;
@@ -340,14 +341,24 @@ fetchedResultsCtrl, delegate;
         return NO;
     }
     
-    NSManagedObject *getObject = [self dataItemWithID:aItem.objectID];
-    
+    NSManagedObject *getObject = aItem;
+    if (aItem.isFault) {
+        getObject = [self dataItemWithID:aItem.objectID];
+    }
 #if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
     NSLog(@"%s  objectID :%@; getObject :%@;", __FUNCTION__, aItem.objectID, getObject);
 #endif
 
     if (getObject) {
-        [self.context deleteObject:getObject];
+        @try {
+            [self.context deleteObject:getObject];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"exce :%@", [exception description]);
+        }
+        @finally {
+            
+        }
     }
 #if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
     NSLog(@" delete finished!");
@@ -457,14 +468,14 @@ fetchedResultsCtrl, delegate;
 {
     NSLog(@"%s", __FUNCTION__);
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mergeChanges:) name:NSManagedObjectContextDidSaveNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
 }
 
 - (void)unregisterObserving
 {
     NSLog(@"%s", __FUNCTION__);
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextDidSaveNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
 }
 
 - (void)updateContext:(NSNotification *)notification
@@ -523,7 +534,7 @@ fetchedResultsCtrl, delegate;
         return;
     }
 
-    [self.context processPendingChanges];
+//    [self.context processPendingChanges];
 //    if ([self.context hasChanges]) {
 //        NSLog(@"%s", __FUNCTION__);
 //        NSLog(@"updated : %u", [self.context updatedObjects].count);

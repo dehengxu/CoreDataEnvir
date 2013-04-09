@@ -21,10 +21,15 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     self.tem = (Team *)[Team lastItemWith:self.dbe predicate:[NSPredicate predicateWithFormat:@"name==9"]];
-    if (self.tem) {
-        self.tem.number = @(9999);
-    }
-    [self.dbe saveDataBase];
+//    NSLog(@"first load data :%@", self.tem);
+//    if (self.tem) {
+//        self.tem.number = @(9999);
+//    }
+//    NSLog(@"first load data :%@", self.tem);
+//    
+//    [self.dbe saveDataBase];
+//    [self.dbe sendPendingChanges];
+//    NSLog(@"first load data :%@", self.tem);
 }
 
 - (void)didReceiveMemoryWarning
@@ -57,6 +62,11 @@ int counter = 0;
         unsigned int c = counter;
         for (int i = 0; i < runTimes; i++) {
             Team *team = (Team *)[Team lastItemWith:db predicate:[NSPredicate predicateWithFormat:@"name==9"]];
+
+            NSLog(@"isFault :%u", team.isFault);
+            NSLog(@"team :%@", team);
+            NSLog(@"name :%@", team.name);
+            NSLog(@"team :%@", team);
             if (team) {
                 //[team removeFrom:db];
                 team.number = @(0 + c * 10000);
@@ -68,6 +78,7 @@ int counter = 0;
                 }];
             }
 //            self.tem = team;
+            NSLog(@"B team :%@", team);
             
             [db saveDataBase];
         }
@@ -80,9 +91,10 @@ int counter = 0;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         CoreDataEnvir *db = [CoreDataEnvir instance];
         Team *team = (Team *)[Team lastItemWith:db predicate:[NSPredicate predicateWithFormat:@"name==9"]];
-        [team removeFrom:db];
-        [db saveDataBase];
-        [db sendPendingChanges];
+        NSLog(@"will delete team :%@", team);
+//        [team removeFrom:db];
+//        [db saveDataBase];
+//        [db sendPendingChanges];
     });
 }
 
@@ -95,6 +107,7 @@ int counter = 0;
     }
     
     if (self.tem.isFault) {
+        NSLog(@"Need update data item!");
         self.tem = [self.dbe updateDataItem:self.tem];
     }
     

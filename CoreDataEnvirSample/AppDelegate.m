@@ -39,6 +39,14 @@
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     
+    Team *team = [Team lastItemWith:[NSPredicate predicateWithFormat:@"name==9"]];
+    if (!team) {
+        team = [Team insertItemWithBlock:^(Team *item) {
+            //item.name = @"9";
+        }];
+    }
+    
+    NSLog(@"%@", team);
 
     return YES;
 }
