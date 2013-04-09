@@ -78,9 +78,10 @@ int counter = 0;
                 }];
             }
 
-            [db saveDataBase];
+//            [db saveDataBase];
         }
 //        [db sendPendingChanges];
+        [db saveDataBase];
     });
 }
 
