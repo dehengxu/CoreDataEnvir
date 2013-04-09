@@ -26,7 +26,7 @@
 
 @optional
 - (void)didFetchingFinished:(NSArray *) aItems;
-- (void)didUpdatedContext:(NSManagedObjectContext *)aContext;
+//- (void)didUpdatedContext:(NSManagedObjectContext *)aContext;
 //- (void)didDeleteObjects:(NSSet *)deletedObjects;
 //- (void)didInsertObjects:(NSSet *)insertedObjects;
 - (void)didUpdateObjects:(NSNotification *)notify;

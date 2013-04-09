@@ -60,17 +60,13 @@ int counter = 0;
 
 - (void)runTest:(dispatch_queue_t)queue
 {
-    int runTimes = 1;
+    int runTimes = 101;
     dispatch_async(queue, ^{
         CoreDataEnvir *db = [CoreDataEnvir instance];
         unsigned int c = counter;
         for (int i = 0; i < runTimes; i++) {
             Team *team = (Team *)[Team lastItemWith:db predicate:[NSPredicate predicateWithFormat:@"name==9"]];
 
-            NSLog(@"isFault :%u", team.isFault);
-            NSLog(@"team :%@", team);
-            NSLog(@"name :%@", team.name);
-            NSLog(@"team :%@", team);
             if (team) {
                 //[team removeFrom:db];
                 team.number = @(0 + c * 10000);
@@ -81,11 +77,10 @@ int counter = 0;
                     item.number = @(0 + c * 10000);
                 }];
             }
-//            self.tem = team;
-            NSLog(@"B team :%@", team);
+
             [db saveDataBase];
         }
-        [db sendPendingChanges];
+//        [db sendPendingChanges];
     });
 }
 
@@ -97,7 +92,7 @@ int counter = 0;
         NSLog(@"will delete team :%@", team);
         [team removeFrom:db];
         [db saveDataBase];
-        [db sendPendingChanges];
+//        [db sendPendingChanges];
     });
 }
 
@@ -107,16 +102,9 @@ int counter = 0;
     NSLog(@"--->>>%@", self.tem);
 }
 
-- (void)didUpdatedContext:(NSManagedObjectContext *)aContext
-{
-    NSLog(@"%s", __FUNCTION__);
-    self.tem = (Team *)[Team lastItemWith:self.dbe predicate:[NSPredicate predicateWithFormat:@"name==9"]];
-    NSLog(@"reload :%@", self.tem);
-}
-
 - (void)didUpdateObjects:(NSNotification *)notify
 {
-    NSLog(@"%s  %@", __FUNCTION__, notify);
+    NSLog(@"%s  %@", __FUNCTION__, notify.userInfo);
     NSManagedObjectContext *ctx = notify.object;
     NSLog(@"changed :%u;  insert :%u, delete :%u, update :%u;", ctx.hasChanges, ctx.insertedObjects.count, ctx.deletedObjects.count, ctx.updatedObjects.count);
 
