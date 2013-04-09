@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CoreDataEnvir.h"
 
 @class Team;
 @class CoreDataEnvir;
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController<CoreDataEnvirDelegate>
 {
 }
 @property (nonatomic, retain) CoreDataEnvir *dbe;
@@ -19,6 +20,6 @@
 
 - (IBAction)onClick_test:(id)sender;
 - (IBAction)onClick_clear:(id)sender;
-- (IBAction)onClick_cancel:(id)sender;
+- (IBAction)onClick_look:(id)sender;
 
 @end

@@ -46,13 +46,13 @@ static NSPersistentStoreCoordinator * storeCoordinator = nil;
 
 @implementation CoreDataEnvir
 
-@synthesize model, context,
+@synthesize model, context = _context,
 
 #if !CORE_DATA_SHARE_PERSISTANCE
 storeCoordinator,
 #endif
 
-fetchedResultsCtrl, delegate;
+fetchedResultsCtrl;
 
 + (void)initialize
 {
@@ -172,7 +172,8 @@ fetchedResultsCtrl, delegate;
     //NSArray *momdPaths = [[NSBundle mainBundle] pathsForResourcesOfType:@"momd" inDirectory:nil];
     NSURL *fileUrl = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@", path, dbName]];
     
-    context = [[NSManagedObjectContext alloc] init];
+    [self.context setRetainsRegisteredObjects:NO];
+    [self.context setPropagatesDeletesAtEndOfEvent:NO];
     [self.context setMergePolicy:NSOverwriteMergePolicy];
 
     if (storeCoordinator == nil) {
@@ -203,6 +204,14 @@ fetchedResultsCtrl, delegate;
     }
 
     [self registerObserving];
+}
+
+- (NSManagedObjectContext *)context
+{
+    if (nil == _context) {
+        _context = [[NSManagedObjectContext alloc] init];
+    }
+    return _context;
 }
 
 - (NSManagedObject *) buildManagedObjectByName:(NSString *)className
@@ -250,7 +259,6 @@ fetchedResultsCtrl, delegate;
     NSFetchRequest *req = [[NSFetchRequest alloc] init];
     [req setEntity:[self entityDescriptionByName:entityName]];
     [req setPredicate:predicate];
-
     
     NSError *error = nil;
     items = [self.context executeFetchRequest:req error:&error];
@@ -397,7 +405,7 @@ fetchedResultsCtrl, delegate;
     
     [storeCoordinator lock];
 	NSError *error = nil;
-    
+
     bResult = [self.context save:&error];
     
     if (!bResult) {
@@ -405,7 +413,7 @@ fetchedResultsCtrl, delegate;
             NSLog(@"%s, error:%@", __FUNCTION__, error);
         }
         //Do we need rollback?
-        [context rollback];
+        //[context rollback];
     }
     [storeCoordinator unlock];
 
@@ -439,7 +447,7 @@ fetchedResultsCtrl, delegate;
     [self unregisterObserving];
 
     [recursiveLock release];
-	delegate = nil;
+	_delegate = nil;
 	[model release];
     [context release];
 	[fetchedResultsCtrl release];
@@ -468,14 +476,24 @@ fetchedResultsCtrl, delegate;
 {
     NSLog(@"%s", __FUNCTION__);
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mergeChanges:) name:NSManagedObjectContextDidSaveNotification object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
 }
 
 - (void)unregisterObserving
 {
     NSLog(@"%s", __FUNCTION__);
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextDidSaveNotification object:nil];
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
+    //[[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
+}
+
+- (void)setDelegate:(NSObject<CoreDataEnvirDelegate> *)delegate
+{
+    if (delegate != _delegate) {
+        [[NSNotificationCenter defaultCenter] removeObserver:_delegate name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
+        _delegate = delegate;
+        [[NSNotificationCenter defaultCenter] addObserver:_delegate selector:@selector(didUpdateObjects:) name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
+        
+    }
 }
 
 - (void)updateContext:(NSNotification *)notification
@@ -483,23 +501,23 @@ fetchedResultsCtrl, delegate;
 #if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
     NSLog(@"%s, %@", __FUNCTION__, [self currentDispatchQueueLabel]);
 #endif
-    NSLog(@"%s", __FUNCTION__);
+    NSLog(@"%s %@ ->>> %@", __FUNCTION__, notification.object, self.context);
     
     [storeCoordinator lock];
     @try {
+        //After this merge operating, context update it's state 'hasChanges' .
+        //NSManagedObjectContext *ctx = notification.object;
+        //NSLog(@"changed :%u;  insert :%u, delete :%u, update :%u;", ctx.hasChanges, ctx.insertedObjects.count, ctx.deletedObjects.count, ctx.updatedObjects.count);
         [self.context mergeChangesFromContextDidSaveNotification:notification];
+        //NSLog(@"changed :%u;  insert :%u, delete :%u, update :%u;", self.context.hasChanges, self.context.insertedObjects.count, self.context.deletedObjects.count, self.context.updatedObjects.count);
     }
     @catch (NSException *exception) {
         NSLog(@"exce :%@", exception);
     }
     @finally {
-        //NSLog(@"Merge finished!");
+        NSLog(@"Merge finished!");
     }
     [storeCoordinator unlock];
-
-//    if (delegate && [delegate respondsToSelector:@selector(didUpdatedContext:)]) {
-//        [delegate didUpdatedContext:notification.object];
-//    }
 }
 
 /**
@@ -534,7 +552,7 @@ fetchedResultsCtrl, delegate;
         return;
     }
 
-//    [self.context processPendingChanges];
+    [self.context processPendingChanges];
 //    if ([self.context hasChanges]) {
 //        NSLog(@"%s", __FUNCTION__);
 //        NSLog(@"updated : %u", [self.context updatedObjects].count);

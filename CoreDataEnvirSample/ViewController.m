@@ -21,15 +21,18 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     self.tem = (Team *)[Team lastItemWith:self.dbe predicate:[NSPredicate predicateWithFormat:@"name==9"]];
-//    NSLog(@"first load data :%@", self.tem);
-//    if (self.tem) {
-//        self.tem.number = @(9999);
-//    }
-//    NSLog(@"first load data :%@", self.tem);
-//    
-//    [self.dbe saveDataBase];
-//    [self.dbe sendPendingChanges];
-//    NSLog(@"first load data :%@", self.tem);
+    NSLog(@"tem :%@", self.tem);
+    if (self.tem) {
+        self.tem.number = @(9999);
+    }else {
+        self.tem = [Team insertItemWith:self.dbe fillData:^(Team *item) {
+           item.name = @"9";
+            item.number = @(9999);
+        }];
+    }
+    
+    [self.dbe saveDataBase];
+    NSLog(@"T %@", self.tem);
 }
 
 - (void)didReceiveMemoryWarning
@@ -42,6 +45,7 @@
 {
     if (nil == _dbe) {
         _dbe = [[CoreDataEnvir instance] retain];
+        _dbe.delegate = self;
     }
     return _dbe;
 }
@@ -79,7 +83,6 @@ int counter = 0;
             }
 //            self.tem = team;
             NSLog(@"B team :%@", team);
-            
             [db saveDataBase];
         }
         [db sendPendingChanges];
@@ -92,37 +95,32 @@ int counter = 0;
         CoreDataEnvir *db = [CoreDataEnvir instance];
         Team *team = (Team *)[Team lastItemWith:db predicate:[NSPredicate predicateWithFormat:@"name==9"]];
         NSLog(@"will delete team :%@", team);
-//        [team removeFrom:db];
-//        [db saveDataBase];
-//        [db sendPendingChanges];
+        [team removeFrom:db];
+        [db saveDataBase];
+        [db sendPendingChanges];
     });
 }
 
-- (void)onClick_cancel:(id)sender
+- (void)onClick_look:(id)sender
 {
-    //NSLog(@"%@  number :%@; %u %u", self.tem, self.tem.number, self.tem.isFault, [self.dbe.context hasChanges]);
-    
-    if (!self.tem) {
-        self.tem = (Team *)[Team lastItemWith:self.dbe predicate:[NSPredicate predicateWithFormat:@"name==9"]];
-    }
-    
-    if (self.tem.isFault) {
-        NSLog(@"Need update data item!");
-        self.tem = [self.dbe updateDataItem:self.tem];
-    }
-    
-    @try {
-        [self.dbe saveDataBase];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"exce :%@", [exception description]);
-    }
-    @finally {
-        
-    }
+    self.tem.number;
+    NSLog(@"--->>>%@", self.tem);
+}
 
-    NSLog(@"%@  ", self.tem);
-    
+- (void)didUpdatedContext:(NSManagedObjectContext *)aContext
+{
+    NSLog(@"%s", __FUNCTION__);
+    self.tem = (Team *)[Team lastItemWith:self.dbe predicate:[NSPredicate predicateWithFormat:@"name==9"]];
+    NSLog(@"reload :%@", self.tem);
+}
+
+- (void)didUpdateObjects:(NSNotification *)notify
+{
+    NSLog(@"%s  %@", __FUNCTION__, notify);
+    NSManagedObjectContext *ctx = notify.object;
+    NSLog(@"changed :%u;  insert :%u, delete :%u, update :%u;", ctx.hasChanges, ctx.insertedObjects.count, ctx.deletedObjects.count, ctx.updatedObjects.count);
+
+    self.tem = (Team *)[Team lastItemWith:self.dbe predicate:[NSPredicate predicateWithFormat:@"name==9"]];
 }
 
 @end

@@ -24,8 +24,12 @@
 
 @protocol CoreDataEnvirDelegate
 
+@optional
 - (void)didFetchingFinished:(NSArray *) aItems;
 - (void)didUpdatedContext:(NSManagedObjectContext *)aContext;
+//- (void)didDeleteObjects:(NSSet *)deletedObjects;
+//- (void)didInsertObjects:(NSSet *)insertedObjects;
+- (void)didUpdateObjects:(NSNotification *)notify;
 
 @end
 
@@ -37,8 +41,6 @@
 	NSFetchedResultsController * fetchedResultsCtrl;
 	
     NSRecursiveLock *recursiveLock;
-
-	id<CoreDataEnvirDelegate> delegate;
 }
 @property (nonatomic, retain) NSManagedObjectModel	*model;
 @property (nonatomic, readonly) NSManagedObjectContext *context;
@@ -49,7 +51,7 @@
 
 @property (nonatomic, retain) NSFetchedResultsController * fetchedResultsCtrl;
 
-@property (nonatomic, assign) id<CoreDataEnvirDelegate> delegate;
+@property (nonatomic, assign) NSObject<CoreDataEnvirDelegate> *delegate;
 
 /**
  Regist the specific model file name.
