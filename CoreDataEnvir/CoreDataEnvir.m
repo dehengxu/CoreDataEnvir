@@ -476,23 +476,20 @@ fetchedResultsCtrl;
 {
     NSLog(@"%s", __FUNCTION__);
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mergeChanges:) name:NSManagedObjectContextDidSaveNotification object:nil];
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
 }
 
 - (void)unregisterObserving
 {
     NSLog(@"%s", __FUNCTION__);
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextDidSaveNotification object:nil];
-    //[[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
 }
 
 - (void)setDelegate:(NSObject<CoreDataEnvirDelegate> *)delegate
 {
     if (delegate != _delegate) {
-        [[NSNotificationCenter defaultCenter] removeObserver:_delegate name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
-        _delegate = delegate;
-        [[NSNotificationCenter defaultCenter] addObserver:_delegate selector:@selector(didUpdateObjects:) name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
-        
+        _delegate = delegate;        
     }
 }
 
@@ -545,7 +542,9 @@ fetchedResultsCtrl;
 #if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
     NSLog(@"%s %@ ->>> %@", __FUNCTION__, notification.object, self.context);
 #endif
-    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didUpdateObjects:)]) {
+        [self.delegate didUpdateObjects:self];
+    }
     
 //    BOOL sameContext = NO;
 //    sameContext = (notification.object == self.context);
