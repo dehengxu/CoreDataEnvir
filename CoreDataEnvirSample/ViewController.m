@@ -44,8 +44,7 @@
 - (CoreDataEnvir *)dbe
 {
     if (nil == _dbe) {
-        _dbe = [[CoreDataEnvir instance] retain];
-        _dbe.delegate = self;
+        _dbe = [[CoreDataEnvir dataBase] retain];
     }
     return _dbe;
 }
@@ -78,10 +77,8 @@ int counter = 0;
                 }];
             }
 
-//            [db saveDataBase];
+            [db saveDataBase];
         }
-//        [db sendPendingChanges];
-        [db saveDataBase];
     });
 }
 
@@ -93,7 +90,6 @@ int counter = 0;
         NSLog(@"will delete teams :%u", items.count);
         [db deleteDataItems:items];
         [db saveDataBase];
-//        [db sendPendingChanges];
     });
 }
 
