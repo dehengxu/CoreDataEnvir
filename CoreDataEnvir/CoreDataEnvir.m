@@ -454,7 +454,6 @@ fetchedResultsCtrl;
     [storeCoordinator release];
     storeCoordinator = nil;
 #endif
-    printf("%s\n", __FUNCTION__);
 
     [super dealloc];
 }
@@ -473,22 +472,25 @@ fetchedResultsCtrl;
 #pragma mark - updateContext
 - (void)registerObserving
 {
+#if DEBUG
     NSLog(@"%s", __FUNCTION__);
+#endif
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mergeChanges:) name:NSManagedObjectContextDidSaveNotification object:nil];
 }
 
 - (void)unregisterObserving
 {
+#if DEBUG
     NSLog(@"%s", __FUNCTION__);
+#endif
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextDidSaveNotification object:nil];
 }
 
 - (void)updateContext:(NSNotification *)notification
 {
 #if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
-    NSLog(@"%s, %@", __FUNCTION__, [self currentDispatchQueueLabel]);
-#endif
     NSLog(@"%s %@ ->>> %@", __FUNCTION__, notification.object, self.context);
+#endif
     
     [storeCoordinator lock];
     @try {
@@ -499,7 +501,7 @@ fetchedResultsCtrl;
         NSLog(@"exce :%@", exception);
     }
     @finally {
-        NSLog(@"Merge finished!");
+        //NSLog(@"Merge finished!");
     }
     [storeCoordinator unlock];
 }
@@ -574,7 +576,9 @@ fetchedResultsCtrl;
 + (id)insertItem
 {
     if (![NSThread isMainThread]) {
+#if DEBUG
         NSLog(@"Insert item record failed, please run on main thread!");
+#endif
         return nil;
     }
     CoreDataEnvir *db = [CoreDataEnvir sharedInstance];
@@ -640,7 +644,9 @@ fetchedResultsCtrl;
 - (void)remove
 {
     if (![NSThread isMainThread]) {
+#if DEBUG
         NSLog(@"Remove data failed, cannot run on non-main thread!");
+#endif
         return;
     }
     if (![CoreDataEnvir sharedInstance]) {

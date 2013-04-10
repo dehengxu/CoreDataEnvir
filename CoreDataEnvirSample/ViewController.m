@@ -62,14 +62,16 @@
 int counter = 0;
 - (void)onClick_test:(id)sender
 {
-    dispatch_queue_t q1 = dispatch_queue_create([[NSString stringWithFormat:@"com.cyblion.%d", ++counter] cStringUsingEncoding:NSUTF8StringEncoding], NULL);
-    [self runTest:q1];
-    dispatch_release(q1);
+    for (int i = 0; i < 20; i++) {
+        dispatch_queue_t q1 = dispatch_queue_create([[NSString stringWithFormat:@"com.cyblion.%d", ++counter] cStringUsingEncoding:NSUTF8StringEncoding], NULL);
+        [self runTest:q1];
+        dispatch_release(q1);
+    }
 }
 
 - (void)runTest:(dispatch_queue_t)queue
 {
-    int runTimes = 1;
+    int runTimes = 101;
     dispatch_async(queue, ^{
         CoreDataEnvir *db = [CoreDataEnvir instance];
         unsigned int c = counter;
@@ -77,8 +79,8 @@ int counter = 0;
             Team *team = (Team *)[Team lastItemWith:db predicate:[NSPredicate predicateWithFormat:@"name==9"]];
 
             if (team) {
-                //[team removeFrom:db];
-                team.number = @(0 + c * 10000);
+                [team removeFrom:db];
+                //team.number = @(0 + c * 10000);
             }
             else {
                 [Team insertItemWith:db fillData:^(Team *item) {
@@ -113,9 +115,9 @@ int counter = 0;
 
 - (void)didUpdateContext:(NSNotification *)sender
 {
-    NSLog(@"%s  %@", __FUNCTION__, sender.object);
+    //NSLog(@"%s  %@", __FUNCTION__, sender.object);
     NSManagedObjectContext *ctx = sender.object;
-    NSLog(@"changed :%u;  insert :%u, delete :%u, update :%u;", ctx.hasChanges, ctx.insertedObjects.count, ctx.deletedObjects.count, ctx.updatedObjects.count);
+    //NSLog(@"changed :%u;  insert :%u, delete :%u, update :%u;", ctx.hasChanges, ctx.insertedObjects.count, ctx.deletedObjects.count, ctx.updatedObjects.count);
     
     if (ctx.hasChanges) {
         self.tem = (Team *)[Team lastItemWith:self.dbe predicate:[NSPredicate predicateWithFormat:@"name==9"]];
