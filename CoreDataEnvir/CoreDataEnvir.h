@@ -29,7 +29,7 @@
 //- (void)didUpdatedContext:(NSManagedObjectContext *)aContext;
 //- (void)didDeleteObjects:(NSSet *)deletedObjects;
 //- (void)didInsertObjects:(NSSet *)insertedObjects;
-- (void)didUpdateObjects:(NSNotification *)notify;
+- (void)didUpdateObjects:(id)notify;
 
 @end
 
