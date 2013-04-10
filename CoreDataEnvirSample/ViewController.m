@@ -89,9 +89,9 @@ int counter = 0;
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         CoreDataEnvir *db = [CoreDataEnvir instance];
-        Team *team = (Team *)[Team lastItemWith:db predicate:[NSPredicate predicateWithFormat:@"name==9"]];
-        NSLog(@"will delete team :%@", team);
-        [team removeFrom:db];
+        NSArray *items = [Team itemsWith:db predicate:[NSPredicate predicateWithFormat:@"name==9"]];
+        NSLog(@"will delete teams :%u", items.count);
+        [db deleteDataItems:items];
         [db saveDataBase];
 //        [db sendPendingChanges];
     });
