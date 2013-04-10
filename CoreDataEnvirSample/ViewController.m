@@ -45,6 +45,7 @@
 {
     if (nil == _dbe) {
         _dbe = [[CoreDataEnvir dataBase] retain];
+        _dbe.delegate = self;
     }
     return _dbe;
 }
@@ -59,7 +60,7 @@ int counter = 0;
 
 - (void)runTest:(dispatch_queue_t)queue
 {
-    int runTimes = 101;
+    int runTimes = 1;
     dispatch_async(queue, ^{
         CoreDataEnvir *db = [CoreDataEnvir instance];
         unsigned int c = counter;
@@ -90,6 +91,7 @@ int counter = 0;
         NSLog(@"will delete teams :%u", items.count);
         [db deleteDataItems:items];
         [db saveDataBase];
+        [db sendPendingChanges];
     });
 }
 
@@ -99,13 +101,14 @@ int counter = 0;
     NSLog(@"--->>>%@", self.tem);
 }
 
-- (void)didUpdateObjects:(NSNotification *)notify
+- (void)didUpdateObjects:(CoreDataEnvir *)sender
 {
-    NSLog(@"%s  %@", __FUNCTION__, notify.userInfo);
-    NSManagedObjectContext *ctx = notify.object;
+    NSLog(@"%s  %@", __FUNCTION__, sender.context);
+    NSManagedObjectContext *ctx = sender.context;
     NSLog(@"changed :%u;  insert :%u, delete :%u, update :%u;", ctx.hasChanges, ctx.insertedObjects.count, ctx.deletedObjects.count, ctx.updatedObjects.count);
-
-    self.tem = (Team *)[Team lastItemWith:self.dbe predicate:[NSPredicate predicateWithFormat:@"name==9"]];
+//    if (ctx.hasChanges) {
+//        self.tem = (Team *)[Team lastItemWith:self.dbe predicate:[NSPredicate predicateWithFormat:@"name==9"]];
+//    }
 }
 
 @end
