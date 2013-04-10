@@ -545,14 +545,16 @@ fetchedResultsCtrl;
 #if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
     NSLog(@"%s %@ ->>> %@", __FUNCTION__, notification.object, self.context);
 #endif
-    BOOL sameContext = NO;
-    sameContext = (notification.object == self.context);
     
-    if (sameContext) {
-        return;
-    }
-
-    [self.context processPendingChanges];
+    
+//    BOOL sameContext = NO;
+//    sameContext = (notification.object == self.context);
+//    
+//    if (sameContext) {
+//        return;
+//    }
+//
+//    [self.context processPendingChanges];
 //    if ([self.context hasChanges]) {
 //        NSLog(@"%s", __FUNCTION__);
 //        NSLog(@"updated : %u", [self.context updatedObjects].count);
