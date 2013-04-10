@@ -12,7 +12,7 @@
 @class Team;
 @class CoreDataEnvir;
 
-@interface ViewController : UIViewController<CoreDataEnvirDelegate>
+@interface ViewController : UIViewController<CoreDataEnvirObserver>
 {
 }
 @property (nonatomic, retain) CoreDataEnvir *dbe;

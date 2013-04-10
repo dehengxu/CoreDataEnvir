@@ -35,6 +35,16 @@
     NSLog(@"T %@", self.tem);
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didUpdateContext:) name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -45,7 +55,6 @@
 {
     if (nil == _dbe) {
         _dbe = [[CoreDataEnvir dataBase] retain];
-        _dbe.delegate = self;
     }
     return _dbe;
 }
@@ -87,11 +96,12 @@ int counter = 0;
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         CoreDataEnvir *db = [CoreDataEnvir instance];
+        NSLog(@"delete %@", db.context);
         NSArray *items = [Team itemsWith:db predicate:[NSPredicate predicateWithFormat:@"name==9"]];
         NSLog(@"will delete teams :%u", items.count);
         [db deleteDataItems:items];
         [db saveDataBase];
-        [db sendPendingChanges];
+        //[db sendPendingChanges];
     });
 }
 
@@ -101,14 +111,15 @@ int counter = 0;
     NSLog(@"--->>>%@", self.tem);
 }
 
-- (void)didUpdateObjects:(CoreDataEnvir *)sender
+- (void)didUpdateContext:(NSNotification *)sender
 {
-    NSLog(@"%s  %@", __FUNCTION__, sender.context);
-    NSManagedObjectContext *ctx = sender.context;
+    NSLog(@"%s  %@", __FUNCTION__, sender.object);
+    NSManagedObjectContext *ctx = sender.object;
     NSLog(@"changed :%u;  insert :%u, delete :%u, update :%u;", ctx.hasChanges, ctx.insertedObjects.count, ctx.deletedObjects.count, ctx.updatedObjects.count);
-//    if (ctx.hasChanges) {
-//        self.tem = (Team *)[Team lastItemWith:self.dbe predicate:[NSPredicate predicateWithFormat:@"name==9"]];
-//    }
+    
+    if (ctx.hasChanges) {
+        self.tem = (Team *)[Team lastItemWith:self.dbe predicate:[NSPredicate predicateWithFormat:@"name==9"]];
+    }
 }
 
 @end

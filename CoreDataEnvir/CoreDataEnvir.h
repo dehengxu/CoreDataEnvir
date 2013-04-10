@@ -16,20 +16,22 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-#define CORE_DATA_ENVIR_SHOW_LOG        1
+#define CORE_DATA_ENVIR_SHOW_LOG        0
 
 #define CORE_DATA_SHARE_PERSISTANCE     1
 
-#pragma mark - ------------------------------ CoreDataEnvirDelegate (not be used temporarily) ---------------------------
+#pragma mark - ------------------------------ CoreDataEnvirObserver (not be used temporarily) ---------------------------
 
-@protocol CoreDataEnvirDelegate
+@protocol CoreDataEnvirObserver
 
 @optional
 - (void)didFetchingFinished:(NSArray *) aItems;
-//- (void)didUpdatedContext:(NSManagedObjectContext *)aContext;
-//- (void)didDeleteObjects:(NSSet *)deletedObjects;
-//- (void)didInsertObjects:(NSSet *)insertedObjects;
-- (void)didUpdateObjects:(id)notify;
+
+- (void)didUpdateContext:(id)sender;
+
+- (void)didDeleteObjects:(id)sender;
+- (void)didInsertObjects:(id)sender;
+- (void)didUpdateObjects:(id)sender;
 
 @end
 
@@ -50,8 +52,6 @@
 #endif
 
 @property (nonatomic, retain) NSFetchedResultsController * fetchedResultsCtrl;
-
-@property (nonatomic, assign) NSObject<CoreDataEnvirDelegate> *delegate;
 
 /**
  Regist the specific model file name.
@@ -128,7 +128,6 @@
 
 - (void)updateContext:(NSNotification *)notification;
 - (void)mergeChanges:(NSNotification *)notification;
-- (void)handleDidChange:(NSNotification*)notification;
 
 /*
  Send processPendingChanges message on non-main thread.

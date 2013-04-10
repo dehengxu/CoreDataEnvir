@@ -447,7 +447,6 @@ fetchedResultsCtrl;
     [self unregisterObserving];
 
     [recursiveLock release];
-	_delegate = nil;
 	[model release];
     [context release];
 	[fetchedResultsCtrl release];
@@ -476,21 +475,12 @@ fetchedResultsCtrl;
 {
     NSLog(@"%s", __FUNCTION__);
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mergeChanges:) name:NSManagedObjectContextDidSaveNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
 }
 
 - (void)unregisterObserving
 {
     NSLog(@"%s", __FUNCTION__);
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextDidSaveNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
-}
-
-- (void)setDelegate:(NSObject<CoreDataEnvirDelegate> *)delegate
-{
-    if (delegate != _delegate) {
-        _delegate = delegate;        
-    }
 }
 
 - (void)updateContext:(NSNotification *)notification
@@ -503,10 +493,7 @@ fetchedResultsCtrl;
     [storeCoordinator lock];
     @try {
         //After this merge operating, context update it's state 'hasChanges' .
-        //NSManagedObjectContext *ctx = notification.object;
-        //NSLog(@"changed :%u;  insert :%u, delete :%u, update :%u;", ctx.hasChanges, ctx.insertedObjects.count, ctx.deletedObjects.count, ctx.updatedObjects.count);
         [self.context mergeChangesFromContextDidSaveNotification:notification];
-        //NSLog(@"changed :%u;  insert :%u, delete :%u, update :%u;", self.context.hasChanges, self.context.insertedObjects.count, self.context.deletedObjects.count, self.context.updatedObjects.count);
     }
     @catch (NSException *exception) {
         NSLog(@"exce :%@", exception);
@@ -534,34 +521,6 @@ fetchedResultsCtrl;
     
     //[self performSelectorOnMainThread:@selector(updateContext:) withObject:notification waitUntilDone:NO];
     [self performSelector:@selector(updateContext:) onThread:[NSThread currentThread] withObject:notification waitUntilDone:YES];
-}
-
-//Deprecated methods
-- (void)handleDidChange:(NSNotification *)notification
-{
-#if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
-    NSLog(@"%s %@ ->>> %@", __FUNCTION__, notification.object, self.context);
-#endif
-    if (self.delegate && [self.delegate respondsToSelector:@selector(didUpdateObjects:)]) {
-        [self.delegate didUpdateObjects:self];
-    }
-    
-//    BOOL sameContext = NO;
-//    sameContext = (notification.object == self.context);
-//    
-//    if (sameContext) {
-//        return;
-//    }
-//
-//    [self.context processPendingChanges];
-//    if ([self.context hasChanges]) {
-//        NSLog(@"%s", __FUNCTION__);
-//        NSLog(@"updated : %u", [self.context updatedObjects].count);
-//    }
-//    if (![NSThread isMainThread]) {
-//        [self.context processPendingChanges];
-//    }
-//    [self performSelector:@selector(updateContext:) onThread:[NSThread currentThread] withObject:notification waitUntilDone:YES];
 }
 
 #pragma mark - creating
