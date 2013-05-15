@@ -27,7 +27,7 @@ A CoreData Envirement wrapper, use CoreData in convient way. You can use it in c
 	Team *team = (Team *)[Team lastItemWith:[NSPredicate predicateWithFormat:@"name==nicholas"]];
 
 #Fetch all items:
-	NSArray *items = [Team itemsWith:[NSPredicate predicateWithFormat:@"name==nicholas"]];
+	NSArray *allItems = [Team items];
 
 ##If you want to run on other threads, follow this:
 
