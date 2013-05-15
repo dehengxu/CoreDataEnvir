@@ -19,7 +19,9 @@ A CoreData Envirement wrapper, use CoreData in convient way. You can use it in c
 		item.name = [NSString stringWithFormat:@"Nicholas"];
 	}];
 	
-	[[CoreDataEnvir instance] saveDataBase];
+	[team save];//Save to data base on main thread.
+	or
+	[team remove];//Remove from data on main thread.
 
 #Fetch one item:
 	Team *team = (Team *)[Team lastItemWith:[NSPredicate predicateWithFormat:@"name==nicholas"]];
