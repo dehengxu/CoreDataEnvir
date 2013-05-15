@@ -38,14 +38,14 @@ This method ([CoreDataEnvir instance]) will automatically creating new instance 
 		for (int i = 0; i < 500; i++) {
 			Team *team = (Team *)[Team lastItemWith:db predicate:[NSPredicate predicateWithFormat:@"name==9"]];
 			if (team) {
-				[db deleteDataItem:team];
+				[team removeFrom:db];//Remove from db.
 			}else {
 				[Team insertItemWith:db fillData:^(Team *item) {
 					item.name = [NSString stringWithFormat:@"9"];
 				}];
 				
 			}
-			[db saveDataBase];
+			[team saveTo:db];//Save db.
 		}
 	});
 
