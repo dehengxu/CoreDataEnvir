@@ -98,7 +98,7 @@ fetchedResultsCtrl;
             break;
         }
         checkName = [NSString stringWithFormat:@"%@/%@", path, name];
-
+        
         BOOL isDir = NO;
         if ([fm fileExistsAtPath:checkName isDirectory:&isDir] && !isDir, [[name pathExtension] isEqualToString:@"sqlite"]) {
             [fm moveItemAtPath:checkName toPath:[NSString stringWithFormat:@"%@/%@", path, [self databaseFileName]] error:nil];
@@ -167,7 +167,7 @@ fetchedResultsCtrl;
 
 - (void) initCoreDataEnvirWithPath:(NSString *)path andFileName:(NSString *) dbName
 {
-
+    
     //Scan all of momd directory.
     //NSArray *momdPaths = [[NSBundle mainBundle] pathsForResourcesOfType:@"momd" inDirectory:nil];
     NSURL *fileUrl = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@", path, dbName]];
@@ -175,7 +175,7 @@ fetchedResultsCtrl;
     [self.context setRetainsRegisteredObjects:NO];
     [self.context setPropagatesDeletesAtEndOfEvent:NO];
     [self.context setMergePolicy:NSOverwriteMergePolicy];
-
+    
     if (storeCoordinator == nil) {
         //model = [[NSManagedObjectModel mergedModelFromBundles:nil] retain];
         NSString *momdPath = [[NSBundle mainBundle] pathForResource:[self.class modelFileName] ofType:@"momd"];
@@ -183,12 +183,12 @@ fetchedResultsCtrl;
         model = [[NSManagedObjectModel alloc] initWithContentsOfURL:momdURL];
         
         storeCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
-    
+        
         NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
-                                 [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,  
+                                 [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
                                  [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption,
-                                 nil];  
-
+                                 nil];
+        
         NSError *error;
         LOCK_BEGIN
         if (![storeCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:fileUrl options:options error:&error]) {
@@ -202,7 +202,7 @@ fetchedResultsCtrl;
     }else {
         [self.context setPersistentStoreCoordinator:storeCoordinator];
     }
-
+    
     [self registerObserving];
 }
 
@@ -241,14 +241,14 @@ fetchedResultsCtrl;
     
     NSFetchRequest *req = [[NSFetchRequest alloc] init];
     [req setEntity:[self entityDescriptionByName:entityName]];
-
+    
     NSError *error = nil;
     items = [self.context executeFetchRequest:req error:&error];
     if (error) {
         NSLog(@"%s, error:%@, entityName:%@", __FUNCTION__, error, entityName);
     }
     [req release];
-
+    
 	return items;
 }
 
@@ -266,7 +266,7 @@ fetchedResultsCtrl;
         NSLog(@"%s, error:%@, entityName:%@", __FUNCTION__, [error localizedDescription], entityName);
     }
     [req release];
-
+    
 	return items;
 }
 
@@ -302,9 +302,9 @@ fetchedResultsCtrl;
     [req setFetchLimit:aLimited];
     
     NSError *error = nil;
-
+    
     items = [self.context executeFetchRequest:req error:&error];
-
+    
     if (error) {
         NSLog(@"%s, error:%@", __FUNCTION__, [error localizedDescription]);
     }
@@ -327,7 +327,7 @@ fetchedResultsCtrl;
             item = nil;
         }
         @finally {
-
+            
         }
         
         return item;
@@ -356,7 +356,7 @@ fetchedResultsCtrl;
 #if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
     NSLog(@"%s  objectID :%@; getObject :%@;", __FUNCTION__, aItem.objectID, getObject);
 #endif
-
+    
     if (getObject) {
         @try {
             [self.context deleteObject:getObject];
@@ -380,12 +380,12 @@ fetchedResultsCtrl;
     for (NSManagedObject *obj in aItemSet) {
         [self deleteDataItem:obj];
     }
-
+    
 	return YES;
 }
 
 - (BOOL)deleteDataItems:(NSArray *)items
-{    
+{
     [items retain];
     
     for (NSManagedObject *obj in items) {
@@ -405,7 +405,7 @@ fetchedResultsCtrl;
     
     [storeCoordinator lock];
 	NSError *error = nil;
-
+    
     bResult = [self.context save:&error];
     
     if (!bResult) {
@@ -416,7 +416,7 @@ fetchedResultsCtrl;
         //[context rollback];
     }
     [storeCoordinator unlock];
-
+    
 	return bResult;
 }
 
@@ -445,7 +445,7 @@ fetchedResultsCtrl;
     NSLog(@"%@", [self currentDispatchQueueLabel]);
 #endif
     [self unregisterObserving];
-
+    
     [recursiveLock release];
 	[model release];
     [context release];
@@ -454,7 +454,7 @@ fetchedResultsCtrl;
     [storeCoordinator release];
     storeCoordinator = nil;
 #endif
-
+    
     [super dealloc];
 }
 
@@ -517,7 +517,7 @@ fetchedResultsCtrl;
 #endif
     
     if (notification.object == self.context) {
-        // main context save, no need to perform the merge        
+        // main context save, no need to perform the merge
         return;
     }
     
@@ -531,7 +531,7 @@ fetchedResultsCtrl;
     @synchronized(self) {
         if ([[NSThread currentThread] isMainThread]) {
 #if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
-             NSLog(@"CoreDataEnvir on main thread!");
+            NSLog(@"CoreDataEnvir on main thread!");
 #endif
             return [self sharedInstance];
         }else {
@@ -579,6 +579,7 @@ fetchedResultsCtrl;
 #if DEBUG
         NSLog(@"Insert item record failed, please run on main thread!");
 #endif
+        [[NSException exceptionWithName:@"CoreDataEnviroment" reason:@"Insert item record failed, must run on main thread!" userInfo:nil] raise];
         return nil;
     }
     CoreDataEnvir *db = [CoreDataEnvir sharedInstance];
@@ -610,8 +611,29 @@ fetchedResultsCtrl;
     return item;
 }
 
++ (NSArray *)items
+{
+    if (![NSThread isMainThread]) {
+#if DEBUG
+        NSLog(@"Fetch all items record failed, please run on main thread!");
+#endif
+        [[NSException exceptionWithName:@"CoreDataEnviroment" reason:@"Fetch all items record failed, must run on main thread!" userInfo:nil] raise];
+        return nil;
+    }
+    CoreDataEnvir *db = [CoreDataEnvir sharedInstance];
+    NSArray *items = [self itemsWith:db predicate:nil];
+    return items;
+}
+
 + (NSArray *)itemsWith:(NSPredicate *)predicate
 {
+    if (![NSThread isMainThread]) {
+#if DEBUG
+        NSLog(@"Fetch item record failed, please run on main thread!");
+#endif
+        [[NSException exceptionWithName:@"CoreDataEnviroment" reason:@"Fetch item record failed, must run on main thread!" userInfo:nil] raise];
+        return nil;
+    }
     CoreDataEnvir *db = [CoreDataEnvir sharedInstance];
     NSArray *items = [self itemsWith:db predicate:predicate];
     return items;
@@ -619,6 +641,14 @@ fetchedResultsCtrl;
 
 + (NSArray *)lastItemWith:(NSPredicate *)predicate
 {
+    if (![NSThread isMainThread]) {
+#if DEBUG
+        NSLog(@"Fetch last item record failed, please run on main thread!");
+#endif
+        [[NSException exceptionWithName:@"CoreDataEnviroment" reason:@"Fetch last item record failed, must run on main thread!" userInfo:nil] raise];
+        return nil;
+    }
+    
     return [self lastItemWith:[CoreDataEnvir sharedInstance] predicate:predicate];
 }
 
@@ -647,12 +677,38 @@ fetchedResultsCtrl;
 #if DEBUG
         NSLog(@"Remove data failed, cannot run on non-main thread!");
 #endif
+        [[NSException exceptionWithName:@"CoreDataEnviroment" reason:@"Remove data failed, must run on main thread!" userInfo:nil] raise];
         return;
     }
     if (![CoreDataEnvir sharedInstance]) {
         return;
     }
     [[CoreDataEnvir sharedInstance] deleteDataItem:self];
+}
+
+- (BOOL)saveTo:(CoreDataEnvir *)cde
+{
+    if (!cde) {
+        return NO;
+    }
+    
+    return [cde saveDataBase];
+}
+
+- (BOOL)save
+{
+    if (![NSThread isMainThread]) {
+#if DEBUG
+        NSLog(@"Save data failed, cannot run on non-main thread!");
+#endif
+        [[NSException exceptionWithName:@"CoreDataEnviroment" reason:@"Save data failed, must run on main thread!" userInfo:nil] raise];
+        return NO;
+    }
+    if (![CoreDataEnvir sharedInstance]) {
+        return NO;
+    }
+    
+    return [[CoreDataEnvir sharedInstance] saveDataBase];
 }
 
 @end

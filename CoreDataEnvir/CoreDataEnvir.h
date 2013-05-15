@@ -4,7 +4,7 @@
 //
 //	CoreData enviroment.
 //	Support CoreData operating methods.
-//	
+//
 //	Create record item.
 //	Support concurrency operating.
 //
@@ -79,7 +79,7 @@
 + (NSString *)databaseFileName;
 
 /*
- Creating instance conditionally. 
+ Creating instance conditionally.
  If current thread is main thread return single main instance,else return an temporary new instance.
  */
 + (CoreDataEnvir *)instance;
@@ -140,7 +140,7 @@
 #pragma mark -  NSObject (Debug_Ext)
 
 /*
- NSObject (Debug_Ext) 
+ NSObject (Debug_Ext)
  */
 @interface NSObject (Debug_Ext)
 
@@ -163,6 +163,7 @@
 
 #pragma mark - fetching record items.
 //Just fetching record items by the predicate on main thread.
++ (NSArray *)items;
 + (NSArray *)itemsWith:(NSPredicate *)predicate;
 + (id)lastItemWith:(NSPredicate *)predicate;
 
@@ -172,6 +173,8 @@
 
 - (void)removeFrom:(CoreDataEnvir *)cde;
 - (void)remove;
+- (BOOL)saveTo:(CoreDataEnvir *)cde;
+- (BOOL)save;
 
 @end
 
