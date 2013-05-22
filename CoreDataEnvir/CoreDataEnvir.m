@@ -639,6 +639,19 @@ fetchedResultsCtrl;
     return items;
 }
 
++ (id)lastItem
+{
+    if (![NSThread isMainThread]) {
+#if DEBUG
+        NSLog(@"Fetch last item record failed, please run on main thread!");
+#endif
+        [[NSException exceptionWithName:@"CoreDataEnviroment" reason:@"Fetch last item record failed, must run on main thread!" userInfo:nil] raise];
+        return nil;
+    }
+    
+    return [[self items] lastObject];
+}
+
 + (NSArray *)lastItemWith:(NSPredicate *)predicate
 {
     if (![NSThread isMainThread]) {

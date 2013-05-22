@@ -169,6 +169,8 @@
 
 //Fetching record items by the predicate on background thread.
 + (NSArray *)itemsWith:(CoreDataEnvir *)cde predicate:(NSPredicate *)predicate;
+
++ (id)lastItem;
 + (id)lastItemWith:(CoreDataEnvir *)cde predicate:(NSPredicate *)predicate;
 
 - (void)removeFrom:(CoreDataEnvir *)cde;
