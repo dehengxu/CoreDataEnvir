@@ -445,6 +445,7 @@ fetchedResultsCtrl;
     NSLog(@"%@", [self currentDispatchQueueLabel]);
 #endif
     [self unregisterObserving];
+    [self.context reset];
     
     [recursiveLock release];
 	[model release];
@@ -583,7 +584,7 @@ fetchedResultsCtrl;
         return nil;
     }
     CoreDataEnvir *db = [CoreDataEnvir sharedInstance];
-    id item = [self insertItemWith:db];
+    id item = [self insertItemInContext:db];
     return item;
 }
 
@@ -594,7 +595,7 @@ fetchedResultsCtrl;
     return item;
 }
 
-+ (id)insertItemWith:(CoreDataEnvir *)cde
++ (id)insertItemInContext:(CoreDataEnvir *)cde
 {
 #if DEBUG
     NSLog(@"thread :%u, %@", [NSThread isMainThread], [NSString stringWithCString:dispatch_queue_get_label(dispatch_get_current_queue()) encoding:NSUTF8StringEncoding]);
@@ -604,9 +605,9 @@ fetchedResultsCtrl;
     return item;
 }
 
-+ (id)insertItemWith:(CoreDataEnvir *)cde fillData:(void (^)(id item))settingBlock
++ (id)insertItemInContext:(CoreDataEnvir *)cde fillData:(void (^)(id item))settingBlock
 {
-    id item = [self insertItemWith:cde];
+    id item = [self insertItemInContext:cde];
     settingBlock(item);
     return item;
 }
@@ -621,11 +622,11 @@ fetchedResultsCtrl;
         return nil;
     }
     CoreDataEnvir *db = [CoreDataEnvir sharedInstance];
-    NSArray *items = [self itemsWith:db predicate:nil];
+    NSArray *items = [self itemsInContext:db usingPredicate:nil];
     return items;
 }
 
-+ (NSArray *)itemsWith:(NSPredicate *)predicate
++ (NSArray *)itemsWithPredicate:(NSPredicate *)predicate
 {
     if (![NSThread isMainThread]) {
 #if DEBUG
@@ -635,7 +636,7 @@ fetchedResultsCtrl;
         return nil;
     }
     CoreDataEnvir *db = [CoreDataEnvir sharedInstance];
-    NSArray *items = [self itemsWith:db predicate:predicate];
+    NSArray *items = [self itemsInContext:db usingPredicate:predicate];
     return items;
 }
 
@@ -652,7 +653,12 @@ fetchedResultsCtrl;
     return [[self items] lastObject];
 }
 
-+ (NSArray *)lastItemWith:(NSPredicate *)predicate
++ (id)lastItemInContext:(CoreDataEnvir *)cde
+{
+    return [[self itemsInContext:cde] lastObject];
+}
+
++ (NSArray *)lastItemWithPredicate:(NSPredicate *)predicate
 {
     if (![NSThread isMainThread]) {
 #if DEBUG
@@ -662,18 +668,18 @@ fetchedResultsCtrl;
         return nil;
     }
     
-    return [self lastItemWith:[CoreDataEnvir sharedInstance] predicate:predicate];
+    return [self lastItemInContext:[CoreDataEnvir sharedInstance] usingPredicate:predicate];
 }
 
-+ (NSArray *)itemsWith:(CoreDataEnvir *)cde predicate:(NSPredicate *)predicate
++ (NSArray *)itemsInContext:(CoreDataEnvir *)cde usingPredicate:(NSPredicate *)predicate
 {
     NSArray *items = [cde fetchItemsByEntityDescriptionName:NSStringFromClass(self) usingPredicate:predicate];
     return items;
 }
 
-+ (id)lastItemWith:(CoreDataEnvir *)cde predicate:(NSPredicate *)predicate
++ (id)lastItemInContext:(CoreDataEnvir *)cde usingPredicate:(NSPredicate *)predicate
 {
-    return [[self itemsWith:cde predicate:predicate] lastObject];
+    return [[self itemsInContext:cde usingPredicate:predicate] lastObject];
 }
 
 - (void)removeFrom:(CoreDataEnvir *)cde

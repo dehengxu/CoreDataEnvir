@@ -20,12 +20,12 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    self.tem = (Team *)[Team lastItemWith:self.dbe predicate:[NSPredicate predicateWithFormat:@"name==9"]];
+    self.tem = (Team *)[Team lastItemInContext:self.dbe usingPredicate:[NSPredicate predicateWithFormat:@"name==9"]];
     NSLog(@"tem :%@", self.tem);
     if (self.tem) {
         self.tem.number = @(9999);
     }else {
-        self.tem = [Team insertItemWith:self.dbe fillData:^(Team *item) {
+        self.tem = [Team insertItemInContext:self.dbe fillData:^(Team *item) {
            item.name = @"9";
             item.number = @(9999);
         }];
@@ -76,14 +76,14 @@ int counter = 0;
         CoreDataEnvir *db = [CoreDataEnvir instance];
         unsigned int c = counter;
         for (int i = 0; i < runTimes; i++) {
-            Team *team = (Team *)[Team lastItemWith:db predicate:[NSPredicate predicateWithFormat:@"name==9"]];
+            Team *team = (Team *)[Team lastItemInContext:db usingPredicate:[NSPredicate predicateWithFormat:@"name==9"]];
 
             if (team) {
                 [team removeFrom:db];
                 //team.number = @(0 + c * 10000);
             }
             else {
-                [Team insertItemWith:db fillData:^(Team *item) {
+                [Team insertItemInContext:db fillData:^(Team *item) {
                     item.name = @"9";
                     item.number = @(0 + c * 10000);
                 }];
@@ -99,7 +99,7 @@ int counter = 0;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         CoreDataEnvir *db = [CoreDataEnvir instance];
         NSLog(@"delete %@", db.context);
-        NSArray *items = [Team itemsWith:db predicate:[NSPredicate predicateWithFormat:@"name==9"]];
+        NSArray *items = [Team itemsInContext:db usingPredicate:[NSPredicate predicateWithFormat:@"name==9"]];
         NSLog(@"will delete teams :%u", items.count);
         [db deleteDataItems:items];
         [db saveDataBase];
@@ -120,7 +120,7 @@ int counter = 0;
     //NSLog(@"changed :%u;  insert :%u, delete :%u, update :%u;", ctx.hasChanges, ctx.insertedObjects.count, ctx.deletedObjects.count, ctx.updatedObjects.count);
     
     if (ctx.hasChanges) {
-        self.tem = (Team *)[Team lastItemWith:self.dbe predicate:[NSPredicate predicateWithFormat:@"name==9"]];
+        self.tem = (Team *)[Team lastItemInContext:self.dbe usingPredicate:[NSPredicate predicateWithFormat:@"name==9"]];
     }
 }
 
