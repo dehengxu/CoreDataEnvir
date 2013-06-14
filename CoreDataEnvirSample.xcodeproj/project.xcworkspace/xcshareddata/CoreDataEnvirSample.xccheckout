@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>2EDC2F08-61DC-40E1-86D3-AC3BBC3997CB</string>
+	<key>IDESourceControlProjectName</key>
+	<string>CoreDataEnvirSample</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>474DEE72-D24C-47E9-896D-75E6B10BE0E0</key>
+		<string>www@cyblion.com:repos/CoreDataEnvirSample.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>CoreDataEnvirSample.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>474DEE72-D24C-47E9-896D-75E6B10BE0E0</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>www@cyblion.com:repos/CoreDataEnvirSample.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>474DEE72-D24C-47E9-896D-75E6B10BE0E0</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>474DEE72-D24C-47E9-896D-75E6B10BE0E0</string>
+			<key>IDESourceControlWCCName</key>
+			<string>CoreDataEnvirSample</string>
+		</dict>
+	</array>
+</dict>
+</plist>
