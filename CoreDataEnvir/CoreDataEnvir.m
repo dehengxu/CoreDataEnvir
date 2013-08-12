@@ -641,7 +641,7 @@ fetchedResultsCtrl;
 + (id)insertItemInContext:(CoreDataEnvir *)cde
 {
 #if DEBUG
-    NSLog(@"thread :%u, %@", [NSThread isMainThread], [NSString stringWithCString:dispatch_queue_get_label(dispatch_get_current_queue()) encoding:NSUTF8StringEncoding]);
+    NSLog(@"%s thread :%u, %@", __func__, [NSThread isMainThread], [NSString stringWithCString:dispatch_queue_get_label(dispatch_get_current_queue()) encoding:NSUTF8StringEncoding]);
 #endif
     id item = nil;
     item = [cde buildManagedObjectByClass:self];
@@ -650,6 +650,9 @@ fetchedResultsCtrl;
 
 + (id)insertItemInContext:(CoreDataEnvir *)cde fillData:(void (^)(id item))settingBlock
 {
+#if DEBUG
+    NSLog(@"%s thread :%u, %@", __func__, [NSThread isMainThread], [NSString stringWithCString:dispatch_queue_get_label(dispatch_get_current_queue()) encoding:NSUTF8StringEncoding]);
+#endif
     id item = [self insertItemInContext:cde];
     settingBlock(item);
     return item;

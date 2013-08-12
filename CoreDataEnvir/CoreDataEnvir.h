@@ -26,9 +26,7 @@
 
 @optional
 - (void)didFetchingFinished:(NSArray *) aItems;
-
 - (void)didUpdateContext:(id)sender;
-
 - (void)didDeleteObjects:(id)sender;
 - (void)didInsertObjects:(id)sender;
 - (void)didUpdateObjects:(id)sender;
