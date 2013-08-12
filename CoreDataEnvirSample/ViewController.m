@@ -54,7 +54,7 @@
 - (CoreDataEnvir *)dbe
 {
     if (nil == _dbe) {
-        _dbe = [[CoreDataEnvir dataBase] retain];
+        _dbe = [[CoreDataEnvir createInstance] retain];
     }
     return _dbe;
 }
@@ -109,7 +109,7 @@ int counter = 0;
 
 - (void)onClick_look:(id)sender
 {
-    self.tem.number;
+    //self.tem.number;
     NSLog(@"--->>>%@", self.tem);
 }
 

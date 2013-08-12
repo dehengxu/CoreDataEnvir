@@ -64,11 +64,6 @@
 + (void)registDatabaseFileName:(NSString *)name;
 
 /*
- Rename database file with new registed name.
- */
-+ (void)renameDatabaseFile;
-
-/*
  Get model file name.(Name likes: xxxx.mmod in sandbox.)
  */
 + (NSString *)modelFileName;
@@ -85,38 +80,19 @@
 + (CoreDataEnvir *)instance;
 
 /*
- Only returen a single instance belongs to main thread.
+ Only returen a single instance runs on main thread.
  */
-+ (CoreDataEnvir *)sharedInstance;
++ (CoreDataEnvir *)mainInstance;
 
 /*
- Force creating a new instance.
+ Creating a new instance.
  */
-+ (CoreDataEnvir *)dataBase;
++ (CoreDataEnvir *)createInstance;
 
 /*
  Release the main instance.
  */
 + (void) deleteInstance;
-
-/*
- Insert a new record into the table by className.
- */
-- (NSManagedObject *)buildManagedObjectByName:(NSString *)className;
-- (NSManagedObject *)buildManagedObjectByClass:(Class)theClass;
-
-/*
- Fetching record item.
- */
-- (NSArray *)fetchItemsByEntityDescriptionName:(NSString *)entityName;
-- (NSArray *)fetchItemsByEntityDescriptionName:(NSString *)entityName usingPredicate:(NSPredicate *) predicate;
-- (NSArray *)fetchItemsByEntityDescriptionName:(NSString *)entityName usingPredicate:(NSPredicate *)predicate usingSortDescriptions:(NSArray *)sortDescriptions;
-- (NSArray *)fetchItemsByEntityDescriptionName:(NSString *)entityName usingPredicate:(NSPredicate *) predicate usingSortDescriptions:(NSArray *)sortDescriptions fromOffset:(NSUInteger) aOffset LimitedBy:(NSUInteger)aLimited;
-
-/*
- Get entity descritpion from name string
- */
-- (NSEntityDescription *) entityDescriptionByName:(NSString *)className;
 
 /*
  Operating on NSManagedObject
@@ -127,21 +103,6 @@
 - (BOOL)deleteDataItemSet:(NSSet *)aItemSet;
 - (BOOL)deleteDataItems:(NSArray*)items;
 - (BOOL)saveDataBase;
-
-/*
- Add observing for concurrency.
- */
-- (void)registerObserving;
-- (void)unregisterObserving;
-
-- (void)updateContext:(NSNotification *)notification;
-- (void)mergeChanges:(NSNotification *)notification;
-
-/*
- Send processPendingChanges message on non-main thread.
- You should call this method after cluster of actions.
- */
-- (void)sendPendingChanges;
 
 @end
 
@@ -158,7 +119,7 @@
 
 #pragma mark - NSmanagedObject convinent methods.
 
-@interface NSManagedObject (EASY_WAY)
+@interface NSManagedObject (CONVENIENT)
 
 #pragma mark - Operation on main thread.
 /*

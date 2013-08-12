@@ -27,8 +27,49 @@ break;\
 
 @interface CoreDataEnvir ()
 
-- (void)initCoreDataEnvir;
-- (void)initCoreDataEnvirWithPath:(NSString *) path andFileName:(NSString *) dbName;
+/*
+ Rename database file with new registed name.
+ */
++ (void)_renameDatabaseFile;
+
+- (void)_initCoreDataEnvir;
+- (void)_initCoreDataEnvirWithPath:(NSString *) path andFileName:(NSString *) dbName;
+
+
+/*
+ Insert a new record into the table by className.
+ */
+- (NSManagedObject *)buildManagedObjectByName:(NSString *)className;
+- (NSManagedObject *)buildManagedObjectByClass:(Class)theClass;
+
+
+/*
+ Get entity descritpion from name string
+ */
+- (NSEntityDescription *) entityDescriptionByName:(NSString *)className;
+
+/*
+ Fetching record item.
+ */
+- (NSArray *)fetchItemsByEntityDescriptionName:(NSString *)entityName;
+- (NSArray *)fetchItemsByEntityDescriptionName:(NSString *)entityName usingPredicate:(NSPredicate *) predicate;
+- (NSArray *)fetchItemsByEntityDescriptionName:(NSString *)entityName usingPredicate:(NSPredicate *)predicate usingSortDescriptions:(NSArray *)sortDescriptions;
+- (NSArray *)fetchItemsByEntityDescriptionName:(NSString *)entityName usingPredicate:(NSPredicate *) predicate usingSortDescriptions:(NSArray *)sortDescriptions fromOffset:(NSUInteger) aOffset LimitedBy:(NSUInteger)aLimited;
+
+/*
+ Add observing for concurrency.
+ */
+- (void)registerObserving;
+- (void)unregisterObserving;
+
+- (void)updateContext:(NSNotification *)notification;
+- (void)mergeChanges:(NSNotification *)notification;
+
+/*
+ Send processPendingChanges message on non-main thread.
+ You should call this method after cluster of actions.
+ */
+- (void)sendPendingChanges;
 
 @end
 
@@ -82,7 +123,7 @@ fetchedResultsCtrl;
     _database_name = [name copy];
 }
 
-+ (void)renameDatabaseFile
++ (void)_renameDatabaseFile
 {
     NSFileManager *fm = [NSFileManager defaultManager];
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
@@ -119,23 +160,23 @@ fetchedResultsCtrl;
     return [[_database_name copy] autorelease];
 }
 
-+ (CoreDataEnvir *)sharedInstance
++ (CoreDataEnvir *)mainInstance
 {
     @synchronized(self) {
         if (_coreDataEnvir == nil) {
             _coreDataEnvir = [CoreDataEnvir new];
-            [_coreDataEnvir initCoreDataEnvir];
+            [_coreDataEnvir _initCoreDataEnvir];
         }
         return _coreDataEnvir;
     }
 	return nil;
 }
 
-+ (CoreDataEnvir *)dataBase
++ (CoreDataEnvir *)createInstance
 {
     id cde = nil;
     cde = [self new];
-    [cde initCoreDataEnvir];
+    [cde _initCoreDataEnvir];
     return [cde autorelease];
 }
 
@@ -152,20 +193,20 @@ fetchedResultsCtrl;
     self = [super init];
     if (self) {
         recursiveLock = [[NSRecursiveLock alloc] init];
-        [self.class renameDatabaseFile];
+        [self.class _renameDatabaseFile];
     }
     return self;
 }
 
-- (void) initCoreDataEnvir
+- (void) _initCoreDataEnvir
 {
     LOCK_BEGIN
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    [self initCoreDataEnvirWithPath:path andFileName:[NSString stringWithFormat:@"%@", [self.class databaseFileName]]];
+    [self _initCoreDataEnvirWithPath:path andFileName:[NSString stringWithFormat:@"%@", [self.class databaseFileName]]];
     LOCK_END
 }
 
-- (void) initCoreDataEnvirWithPath:(NSString *)path andFileName:(NSString *) dbName
+- (void) _initCoreDataEnvirWithPath:(NSString *)path andFileName:(NSString *) dbName
 {
     
     //Scan all of momd directory.
@@ -534,12 +575,12 @@ fetchedResultsCtrl;
 #if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
             NSLog(@"CoreDataEnvir on main thread!");
 #endif
-            return [self sharedInstance];
+            return [self mainInstance];
         }else {
 #if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
             NSLog(@"CoreDataEnvir on other thread!");
 #endif
-            return [self dataBase];
+            return [self createInstance];
         }
     }
 	return nil;
@@ -572,7 +613,9 @@ fetchedResultsCtrl;
 
 @end
 
-@implementation NSManagedObject(EASY_MODE)
+
+#pragma mark - --------------------------------    NSManagedObject (CONVENIENT)     --------------------------------
+@implementation NSManagedObject(CONVENIENT)
 
 + (id)insertItem
 {
@@ -583,7 +626,7 @@ fetchedResultsCtrl;
         [[NSException exceptionWithName:@"CoreDataEnviroment" reason:@"Insert item record failed, must run on main thread!" userInfo:nil] raise];
         return nil;
     }
-    CoreDataEnvir *db = [CoreDataEnvir sharedInstance];
+    CoreDataEnvir *db = [CoreDataEnvir mainInstance];
     id item = [self insertItemInContext:db];
     return item;
 }
@@ -621,7 +664,7 @@ fetchedResultsCtrl;
         [[NSException exceptionWithName:@"CoreDataEnviroment" reason:@"Fetch all items record failed, must run on main thread!" userInfo:nil] raise];
         return nil;
     }
-    CoreDataEnvir *db = [CoreDataEnvir sharedInstance];
+    CoreDataEnvir *db = [CoreDataEnvir mainInstance];
     NSArray *items = [self itemsInContext:db usingPredicate:nil];
     return items;
 }
@@ -635,7 +678,7 @@ fetchedResultsCtrl;
         [[NSException exceptionWithName:@"CoreDataEnviroment" reason:@"Fetch item record failed, must run on main thread!" userInfo:nil] raise];
         return nil;
     }
-    CoreDataEnvir *db = [CoreDataEnvir sharedInstance];
+    CoreDataEnvir *db = [CoreDataEnvir mainInstance];
     NSArray *items = [self itemsInContext:db usingPredicate:predicate];
     return items;
 }
@@ -668,7 +711,13 @@ fetchedResultsCtrl;
         return nil;
     }
     
-    return [self lastItemInContext:[CoreDataEnvir sharedInstance] usingPredicate:predicate];
+    return [self lastItemInContext:[CoreDataEnvir mainInstance] usingPredicate:predicate];
+}
+
++ (NSArray *)itemsInContext:(CoreDataEnvir *)cde
+{
+    NSArray *items = [cde fetchItemsByEntityDescriptionName:NSStringFromClass(self)];
+    return items;
 }
 
 + (NSArray *)itemsInContext:(CoreDataEnvir *)cde usingPredicate:(NSPredicate *)predicate
@@ -699,10 +748,10 @@ fetchedResultsCtrl;
         [[NSException exceptionWithName:@"CoreDataEnviroment" reason:@"Remove data failed, must run on main thread!" userInfo:nil] raise];
         return;
     }
-    if (![CoreDataEnvir sharedInstance]) {
+    if (![CoreDataEnvir mainInstance]) {
         return;
     }
-    [[CoreDataEnvir sharedInstance] deleteDataItem:self];
+    [[CoreDataEnvir mainInstance] deleteDataItem:self];
 }
 
 - (BOOL)saveTo:(CoreDataEnvir *)cde
@@ -723,11 +772,11 @@ fetchedResultsCtrl;
         [[NSException exceptionWithName:@"CoreDataEnviroment" reason:@"Save data failed, must run on main thread!" userInfo:nil] raise];
         return NO;
     }
-    if (![CoreDataEnvir sharedInstance]) {
+    if (![CoreDataEnvir mainInstance]) {
         return NO;
     }
     
-    return [[CoreDataEnvir sharedInstance] saveDataBase];
+    return [[CoreDataEnvir mainInstance] saveDataBase];
 }
 
 @end

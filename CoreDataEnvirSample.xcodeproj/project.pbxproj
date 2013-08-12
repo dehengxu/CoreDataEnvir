@@ -243,6 +243,11 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = Nicholas.Xu;
+				TargetAttributes = {
+					A2ED3EC817112B3F003E9A37 = {
+						DevelopmentTeam = 375GT6S3QN;
+					};
+				};
 			};
 			buildConfigurationList = A2ED3EC417112B3F003E9A37 /* Build configuration list for PBXProject "CoreDataEnvirSample" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -433,11 +438,14 @@
 		A2ED3F0517112B40003E9A37 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoreDataEnvirSample/CoreDataEnvirSample-Prefix.pch";
 				INFOPLIST_FILE = "CoreDataEnvirSample/CoreDataEnvirSample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -446,11 +454,14 @@
 		A2ED3F0617112B40003E9A37 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoreDataEnvirSample/CoreDataEnvirSample-Prefix.pch";
 				INFOPLIST_FILE = "CoreDataEnvirSample/CoreDataEnvirSample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
