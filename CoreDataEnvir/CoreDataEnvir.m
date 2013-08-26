@@ -734,6 +734,19 @@ fetchedResultsCtrl;
     return [[self itemsInContext:cde usingPredicate:predicate] lastObject];
 }
 
+- (id)update
+{
+    if ([NSThread isMainThread]) {
+        return [[CoreDataEnvir instance] updateDataItem:self];
+    }
+    return nil;
+}
+
+- (id)updateInContext:(CoreDataEnvir *)cde
+{
+    return [cde updateDataItem:self];
+}
+
 - (void)removeFrom:(CoreDataEnvir *)cde
 {
     if (!cde) {

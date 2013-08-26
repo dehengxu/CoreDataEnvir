@@ -161,6 +161,9 @@
 + (id)lastItemInContext:(CoreDataEnvir *)cde;
 + (id)lastItemInContext:(CoreDataEnvir *)cde usingPredicate:(NSPredicate *)predicate;
 
+- (id)update;
+- (id)updateInContext:(CoreDataEnvir *)cde;
+
 /*
  Remove item.
  */
