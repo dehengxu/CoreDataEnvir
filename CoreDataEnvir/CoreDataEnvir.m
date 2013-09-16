@@ -82,7 +82,7 @@ static CoreDataEnvir * _coreDataEnvir = nil;
 static NSString *_default_model_file_name = nil;
 static NSString *_default_db_file_name = nil;
 
-#if CORE_DATA_SHARE_PERSISTANCE
+#if CORE_DATA_SHARE_PERSISTENCE
 static NSPersistentStoreCoordinator * storeCoordinator = nil;
 #endif
 
@@ -90,7 +90,7 @@ static NSPersistentStoreCoordinator * storeCoordinator = nil;
 
 @synthesize model, context = _context,
 
-#if !CORE_DATA_SHARE_PERSISTANCE
+#if !CORE_DATA_SHARE_PERSISTENCE
 storeCoordinator,
 #endif
 
@@ -549,7 +549,7 @@ fetchedResultsCtrl;
 	[model release];
     [context release];
 	[fetchedResultsCtrl release];
-#if !CORE_DATA_SHARE_PERSISTANCE
+#if !CORE_DATA_SHARE_PERSISTENCE
     [storeCoordinator release];
     storeCoordinator = nil;
 #endif
@@ -725,6 +725,17 @@ fetchedResultsCtrl;
     return items;
 }
 
++ (NSArray *)itemsWithFormat:(NSString *)fmt, ...
+{
+    va_list args;
+    va_start(args, fmt);
+    NSPredicate *pred = [NSPredicate predicateWithFormat:fmt arguments:args];
+    va_end(args);
+    CoreDataEnvir *db = [CoreDataEnvir mainInstance];
+    NSArray *items = [self itemsInContext:db usingPredicate:pred];
+    return items;
+}
+
 + (id)lastItem
 {
     if (![NSThread isMainThread]) {
@@ -753,7 +764,16 @@ fetchedResultsCtrl;
         return nil;
     }
     
-    return [self lastItemInContext:[CoreDataEnvir mainInstance] usingPredicate:predicate];
+    return [[self itemsInContext:[CoreDataEnvir mainInstance] usingPredicate:predicate] lastObject];
+}
+
++ (id)lastItemWithFormat:(NSString *)fmt, ...
+{
+    va_list args;
+    va_start(args, fmt);
+    NSPredicate *pred = [NSPredicate predicateWithFormat:fmt arguments:args];
+    va_end(args);
+    return [self lastItemWithPredicate:pred];
 }
 
 + (NSArray *)itemsInContext:(CoreDataEnvir *)cde
@@ -768,9 +788,30 @@ fetchedResultsCtrl;
     return items;
 }
 
++ (NSArray *)itemsInContext:(CoreDataEnvir *)cde withFormat:(NSString *)fmt, ...
+{
+    va_list args;
+    va_start(args, fmt);
+    NSPredicate *pred = [NSPredicate predicateWithFormat:fmt arguments:args];
+    va_end(args);
+    
+    NSArray *items = [cde fetchItemsByEntityDescriptionName:NSStringFromClass(self) usingPredicate:pred];
+    return items;
+}
+
 + (id)lastItemInContext:(CoreDataEnvir *)cde usingPredicate:(NSPredicate *)predicate
 {
     return [[self itemsInContext:cde usingPredicate:predicate] lastObject];
+}
+
++ (id)lastItemInContext:(CoreDataEnvir *)cde withFormat:(NSString *)fmt, ...
+{
+    va_list args;
+    va_start(args, fmt);
+    NSPredicate *pred = [NSPredicate predicateWithFormat:fmt arguments:args];
+    va_end(args);
+    
+    return [[self itemsInContext:cde usingPredicate:pred] lastObject];
 }
 
 - (id)update

@@ -19,8 +19,10 @@
 #define CORE_DATA_ENVIR_SHOW_LOG        0
 /**
  Triggle to enable persistance shared.
+ 1: Multi context shared same persistence file.
+ 0: Every context has own persistence file.
  */
-#define CORE_DATA_SHARE_PERSISTANCE     0
+#define CORE_DATA_SHARE_PERSISTENCE     0
 
 #pragma mark - ------------------------------ CoreDataEnvirObserver (Not be used temporarily) ---------------------------
 
@@ -54,7 +56,7 @@
  */
 @property (nonatomic, readonly) NSManagedObjectContext *context;
 
-#if !CORE_DATA_SHARE_PERSISTANCE
+#if !CORE_DATA_SHARE_PERSISTENCE
 /**
  A persistance coordinator object.
  */
@@ -170,8 +172,14 @@
  */
 + (NSArray *)items;
 + (NSArray *)itemsWithPredicate:(NSPredicate *)predicate;
++ (NSArray *)itemsWithFormat:(NSString *)fmt,...;
+
+/**
+ Fetching last record item.
+ */
 + (id)lastItem;
 + (id)lastItemWithPredicate:(NSPredicate *)predicate;
++ (id)lastItemWithFormat:(NSString *)fmt,...;
 
 /*
  Remove item.
@@ -197,10 +205,21 @@
  */
 + (NSArray *)itemsInContext:(CoreDataEnvir *)cde;
 + (NSArray *)itemsInContext:(CoreDataEnvir *)cde usingPredicate:(NSPredicate *)predicate;
++ (NSArray *)itemsInContext:(CoreDataEnvir *)cde withFormat:(NSString *)fmt,...;
+
 + (id)lastItemInContext:(CoreDataEnvir *)cde;
 + (id)lastItemInContext:(CoreDataEnvir *)cde usingPredicate:(NSPredicate *)predicate;
++ (id)lastItemInContext:(CoreDataEnvir *)cde withFormat:(NSString *)fmt,...;
 
+/**
+ Update NSManagedObject if faulted.
+ */
 - (id)update;
+
+/**
+ Update NSManagedObject in specified context if faulted.
+ @param cde     CoreDataEnvir object.
+ */
 - (id)updateInContext:(CoreDataEnvir *)cde;
 
 /*

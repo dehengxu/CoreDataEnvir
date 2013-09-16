@@ -14,7 +14,7 @@
 #define LOOP_NUMBER_PER_THREAD  101
 #define TESTING_A 1
 #define TESTING_B 2
-#define testing_case TESTING_B
+#define testing_case TESTING_A
 
 @interface ViewController ()
 
@@ -88,7 +88,7 @@ int counter = 0;
     for (int i = 0; i < THREAD_NUMBER; i++) {
         dispatch_queue_t q1 = NULL;
 
-        //Start 21 thread for testing, every thread runs CRUD operation 101 times seperately.
+        //Start 'THREAD_NUMBER' thread for testing, every thread runs CRUD operation 'LOOP_NUMBER_PER_THREAD' times seperately.
         q1 = dispatch_queue_create([[NSString stringWithFormat:@"com.cyblion.%d", ++counter] cStringUsingEncoding:NSUTF8StringEncoding], NULL);
         if (q1) {
             [self runTestB:q1 withTimes:LOOP_NUMBER_PER_THREAD];
