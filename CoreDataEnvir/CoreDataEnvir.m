@@ -77,9 +77,10 @@ break;\
 
 static CoreDataEnvir * _coreDataEnvir = nil;
 //Not be used.
-static NSOperationQueue * _mainQueue = nil;
-static NSString *_model_name = nil;
-static NSString *_database_name = nil;
+//static NSOperationQueue * _mainQueue = nil;
+
+static NSString *_default_model_file_name = nil;
+static NSString *_default_db_file_name = nil;
 
 #if CORE_DATA_SHARE_PERSISTANCE
 static NSPersistentStoreCoordinator * storeCoordinator = nil;
@@ -97,30 +98,28 @@ fetchedResultsCtrl;
 
 + (void)initialize
 {
-	if (!_mainQueue) {
-		_mainQueue = [NSOperationQueue new];
-        _model_name = @"ModelName";
-        _database_name = @"db.sqlite";
-		[_mainQueue setMaxConcurrentOperationCount:1];
-	}
+    //	if (!_mainQueue) {
+    //		_mainQueue = [NSOperationQueue new];
+    //		[_mainQueue setMaxConcurrentOperationCount:1];
+    //	}
 }
 
-+ (void)registModelFileName:(NSString *)name
++ (void)registDefaultModelFileName:(NSString *)name
 {
-    if (_model_name) {
-        [_model_name release];
-        _model_name = nil;
+    if (_default_model_file_name) {
+        [_default_model_file_name release];
+        _default_model_file_name = nil;
     }
-    _model_name = [name copy];
+    _default_model_file_name = [name copy];
 }
 
-+ (void)registDatabaseFileName:(NSString *)name
++ (void)registDefaultDatabaseFileName:(NSString *)name
 {
-    if (_database_name) {
-        [_database_name release];
-        _database_name = nil;
+    if (_default_db_file_name) {
+        [_default_db_file_name release];
+        _default_db_file_name = nil;
     }
-    _database_name = [name copy];
+    _default_db_file_name = [name copy];
 }
 
 + (void)_renameDatabaseFile
@@ -135,36 +134,64 @@ fetchedResultsCtrl;
         if ([name rangeOfString:@"."].location == 0) {
             continue;
         }
-        if ([name isEqualToString:_database_name]) {
+        if ([name isEqualToString:[self mainInstance].databaseFileName]) {
             break;
         }
         checkName = [NSString stringWithFormat:@"%@/%@", path, name];
         
         BOOL isDir = NO;
         if ([fm fileExistsAtPath:checkName isDirectory:&isDir] && !isDir, [[name pathExtension] isEqualToString:@"sqlite"]) {
-            [fm moveItemAtPath:checkName toPath:[NSString stringWithFormat:@"%@/%@", path, [self databaseFileName]] error:nil];
-            NSLog(@"Rename sqlite database from %@ to %@ finished!", name, [self databaseFileName]);
+            [fm moveItemAtPath:checkName toPath:[NSString stringWithFormat:@"%@/%@", path, [[self mainInstance] databaseFileName]] error:nil];
+            NSLog(@"Rename sqlite database from %@ to %@ finished!", name, [[self mainInstance] databaseFileName]);
             break;
         }
     }
     NSLog(@"No sqlite database be renamed!");
 }
 
-+ (NSString *)modelFileName
++ (NSString *)defaultModelFileName
 {
-    return [[_model_name copy] autorelease];
+    return [[_default_model_file_name copy] autorelease];
 }
 
-+ (NSString *)databaseFileName
++ (NSString *)defaultDatabaseFileName
 {
-    return [[_database_name copy] autorelease];
+    return [[_default_db_file_name copy] autorelease];
+}
+
++ (NSString *)dataRootPath
+{
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    return path;
+}
+
+#pragma mark - instance handle
+
++ (CoreDataEnvir *) instance
+{
+    @synchronized(self) {
+        if ([[NSThread currentThread] isMainThread]) {
+#if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
+            NSLog(@"CoreDataEnvir on main thread!");
+#endif
+            return [self mainInstance];
+        }else {
+#if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
+            NSLog(@"CoreDataEnvir on other thread!");
+#endif
+            return [self createInstance];
+        }
+    }
+	return nil;
 }
 
 + (CoreDataEnvir *)mainInstance
 {
     @synchronized(self) {
         if (_coreDataEnvir == nil) {
-            _coreDataEnvir = [CoreDataEnvir new];
+            _coreDataEnvir = [[CoreDataEnvir alloc] init];
+            [_coreDataEnvir registDatabaseFileName:_default_db_file_name];
+            [_coreDataEnvir registModelFileName:_default_model_file_name];
             [_coreDataEnvir _initCoreDataEnvir];
         }
         return _coreDataEnvir;
@@ -174,26 +201,56 @@ fetchedResultsCtrl;
 
 + (CoreDataEnvir *)createInstance
 {
+    return [self createInstanceWithDatabaseFileName:nil modelFileName:nil];
+}
+
++ (CoreDataEnvir *)createInstanceWithDatabaseFileName:(NSString *)databaseFileName modelFileName:(NSString *)modelFileName
+{
     id cde = nil;
     cde = [self new];
+    
+    if (databaseFileName) {
+        [cde registDatabaseFileName:databaseFileName];
+    }else {
+        [cde registDatabaseFileName:_default_db_file_name];
+    }
+    
+    if (modelFileName) {
+        [cde registModelFileName:modelFileName];
+    }else {
+        [cde registModelFileName:_default_model_file_name];
+    }
     [cde _initCoreDataEnvir];
     return [cde autorelease];
 }
 
-+ (void) deleteInstance
-{
-	if (_coreDataEnvir) {
-		[_coreDataEnvir dealloc];
-        _coreDataEnvir = nil;
-	}
-}
+//+ (void) deleteInstance
+//{
+//	if (_coreDataEnvir) {
+//		[_coreDataEnvir dealloc];
+//        _coreDataEnvir = nil;
+//	}
+//}
 
 - (id)init
 {
     self = [super init];
     if (self) {
         recursiveLock = [[NSRecursiveLock alloc] init];
-        [self.class _renameDatabaseFile];
+        
+        if (_default_model_file_name == nil) {
+            _default_model_file_name = @"ModelName";
+        }else {
+            [self registModelFileName:_default_model_file_name];
+        }
+        
+        if (_default_db_file_name == nil) {
+            _default_db_file_name = @"db.sqlite";
+        }else {
+            [self registDatabaseFileName:_default_db_file_name];
+        }
+        
+        //[self.class _renameDatabaseFile];
     }
     return self;
 }
@@ -202,13 +259,13 @@ fetchedResultsCtrl;
 {
     LOCK_BEGIN
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    [self _initCoreDataEnvirWithPath:path andFileName:[NSString stringWithFormat:@"%@", [self.class databaseFileName]]];
+    [self _initCoreDataEnvirWithPath:path andFileName:[NSString stringWithFormat:@"%@", [self databaseFileName]]];
     LOCK_END
 }
 
 - (void) _initCoreDataEnvirWithPath:(NSString *)path andFileName:(NSString *) dbName
 {
-    
+    NSLog(@"%s   %@  /  %@", __FUNCTION__,path, dbName);
     //Scan all of momd directory.
     //NSArray *momdPaths = [[NSBundle mainBundle] pathsForResourcesOfType:@"momd" inDirectory:nil];
     NSURL *fileUrl = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@", path, dbName]];
@@ -219,7 +276,7 @@ fetchedResultsCtrl;
     
     if (storeCoordinator == nil) {
         //model = [[NSManagedObjectModel mergedModelFromBundles:nil] retain];
-        NSString *momdPath = [[NSBundle mainBundle] pathForResource:[self.class modelFileName] ofType:@"momd"];
+        NSString *momdPath = [[NSBundle mainBundle] pathForResource:[self modelFileName] ofType:@"momd"];
         NSURL *momdURL = [NSURL fileURLWithPath:momdPath];
         model = [[NSManagedObjectModel alloc] initWithContentsOfURL:momdURL];
         
@@ -457,7 +514,7 @@ fetchedResultsCtrl;
         //[context rollback];
     }
     [storeCoordinator unlock];
-    
+    NSLog(@"%s", __FUNCTION__);
 	return bResult;
 }
 
@@ -564,26 +621,8 @@ fetchedResultsCtrl;
     }
     
     //[self performSelectorOnMainThread:@selector(updateContext:) withObject:notification waitUntilDone:NO];
-    [self performSelector:@selector(updateContext:) onThread:[NSThread currentThread] withObject:notification waitUntilDone:YES];
-}
-
-#pragma mark - creating
-+ (CoreDataEnvir *) instance
-{
-    @synchronized(self) {
-        if ([[NSThread currentThread] isMainThread]) {
-#if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
-            NSLog(@"CoreDataEnvir on main thread!");
-#endif
-            return [self mainInstance];
-        }else {
-#if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
-            NSLog(@"CoreDataEnvir on other thread!");
-#endif
-            return [self createInstance];
-        }
-    }
-	return nil;
+    //Note:waitUntilDone:YES will cause method 'saveDatabase' and 'updateContext' fall in dead lock by '[storeCoordinator lock]'
+    [self performSelector:@selector(updateContext:) onThread:[NSThread currentThread] withObject:notification waitUntilDone:NO];
 }
 
 - (void)sendPendingChanges
