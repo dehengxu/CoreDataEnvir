@@ -3,12 +3,12 @@
 	<data>
 		<int key="IBDocument.SystemTarget">1072</int>
 		<string key="IBDocument.SystemVersion">12E55</string>
-		<string key="IBDocument.InterfaceBuilderVersion">4488.2</string>
+		<string key="IBDocument.InterfaceBuilderVersion">4510</string>
 		<string key="IBDocument.AppKitVersion">1187.39</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">3715.3</string>
+			<string key="NS.object.0">3742</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBProxyObject</string>
@@ -39,7 +39,7 @@
 						<reference key="NSNextResponder" ref="891022984"/>
 						<int key="NSvFlags">1316</int>
 						<object class="NSPSMatrix" key="NSFrameMatrix"/>
-						<string key="NSFrame">{{20, 131}, {84, 44}}</string>
+						<string key="NSFrame">{{26, 58}, {132, 44}}</string>
 						<reference key="NSSuperview" ref="891022984"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1073366379"/>
@@ -56,7 +56,7 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
 						</object>
-						<string key="IBUINormalTitle">RunTest</string>
+						<string key="IBUINormalTitle">ConcurrentTest</string>
 						<object class="NSColor" key="IBUINormalTitleShadowColor" id="1068006232">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
@@ -75,9 +75,10 @@
 						<reference key="NSNextResponder" ref="891022984"/>
 						<int key="NSvFlags">1316</int>
 						<object class="NSPSMatrix" key="NSFrameMatrix"/>
-						<string key="NSFrame">{{20, 245}, {74, 44}}</string>
+						<string key="NSFrame">{{26, 125}, {74, 44}}</string>
 						<reference key="NSSuperview" ref="891022984"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -94,7 +95,7 @@
 						<reference key="NSNextResponder" ref="891022984"/>
 						<int key="NSvFlags">1316</int>
 						<object class="NSPSMatrix" key="NSFrameMatrix"/>
-						<string key="NSFrame">{{20, 193}, {62, 44}}</string>
+						<string key="NSFrame">{{26, 188}, {62, 44}}</string>
 						<reference key="NSSuperview" ref="891022984"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="481757938"/>
@@ -208,8 +209,8 @@
 						<reference key="object" ref="891022984"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="752532346"/>
-							<reference ref="481757938"/>
 							<reference ref="1073366379"/>
+							<reference ref="481757938"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -255,7 +256,37 @@
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">ViewController</string>
+					<string key="superclassName">UIViewController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="onClick_clear:">id</string>
+						<string key="onClick_look:">id</string>
+						<string key="onClick_test:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="onClick_clear:">
+							<string key="name">onClick_clear:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="onClick_look:">
+							<string key="name">onClick_look:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="onClick_test:">
+							<string key="name">onClick_test:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/ViewController.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<bool key="IBDocument.previouslyAttemptedUpgradeToXcode5">YES</bool>
@@ -269,6 +300,6 @@
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
-		<string key="IBCocoaTouchPluginVersion">3715.3</string>
+		<string key="IBCocoaTouchPluginVersion">3742</string>
 	</data>
 </archive>
