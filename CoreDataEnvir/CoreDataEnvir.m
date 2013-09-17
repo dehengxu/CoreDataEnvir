@@ -8,7 +8,7 @@
 
 #import "CoreDataEnvir.h"
 
-/*
+/**
  Do not use any lock method to protect thread resources in CoreData under concurrency condition!
  */
 #define CONTEXT_LOCK_BEGIN  do {\
@@ -27,7 +27,7 @@ break;\
 
 @interface CoreDataEnvir ()
 
-/*
+/**
  Rename database file with new registed name.
  */
 + (void)_renameDatabaseFile;
@@ -36,19 +36,19 @@ break;\
 - (void)_initCoreDataEnvirWithPath:(NSString *) path andFileName:(NSString *) dbName;
 
 
-/*
+/**
  Insert a new record into the table by className.
  */
 - (NSManagedObject *)buildManagedObjectByName:(NSString *)className;
 - (NSManagedObject *)buildManagedObjectByClass:(Class)theClass;
 
 
-/*
+/**
  Get entity descritpion from name string
  */
 - (NSEntityDescription *) entityDescriptionByName:(NSString *)className;
 
-/*
+/**
  Fetching record item.
  */
 - (NSArray *)fetchItemsByEntityDescriptionName:(NSString *)entityName;
@@ -56,7 +56,7 @@ break;\
 - (NSArray *)fetchItemsByEntityDescriptionName:(NSString *)entityName usingPredicate:(NSPredicate *)predicate usingSortDescriptions:(NSArray *)sortDescriptions;
 - (NSArray *)fetchItemsByEntityDescriptionName:(NSString *)entityName usingPredicate:(NSPredicate *) predicate usingSortDescriptions:(NSArray *)sortDescriptions fromOffset:(NSUInteger) aOffset LimitedBy:(NSUInteger)aLimited;
 
-/*
+/**
  Add observing for concurrency.
  */
 - (void)registerObserving;
@@ -65,22 +65,30 @@ break;\
 - (void)updateContext:(NSNotification *)notification;
 - (void)mergeChanges:(NSNotification *)notification;
 
-/*
+/**
  Send processPendingChanges message on non-main thread.
  You should call this method after cluster of actions.
  */
 - (void)sendPendingChanges;
+
+/**
+ Operating on NSManagedObject
+ */
+- (id)dataItemWithID:(NSManagedObjectID *)objectId;
+- (id)updateDataItem:(NSManagedObject *)object;
+- (BOOL)deleteDataItem:(NSManagedObject *)aItem;
+- (BOOL)deleteDataItemSet:(NSSet *)aItemSet;
+- (BOOL)deleteDataItems:(NSArray*)items;
 
 @end
 
 #pragma mark - ---------------------- CoreDataEnvirement -----------------------
 
 static CoreDataEnvir * _coreDataEnvir = nil;
-//Not be used.
-//static NSOperationQueue * _mainQueue = nil;
 
 static NSString *_default_model_file_name = nil;
 static NSString *_default_db_file_name = nil;
+static NSString *_default_data_file_root_path = nil;
 
 #if CORE_DATA_SHARE_PERSISTENCE
 static NSPersistentStoreCoordinator * storeCoordinator = nil;
@@ -98,10 +106,9 @@ fetchedResultsCtrl;
 
 + (void)initialize
 {
-    //	if (!_mainQueue) {
-    //		_mainQueue = [NSOperationQueue new];
-    //		[_mainQueue setMaxConcurrentOperationCount:1];
-    //	}
+    _default_data_file_root_path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] copy];
+    _default_db_file_name = @"db.sqlite";
+    _default_model_file_name = @"Model";
 }
 
 + (void)registDefaultModelFileName:(NSString *)name
@@ -113,13 +120,22 @@ fetchedResultsCtrl;
     _default_model_file_name = [name copy];
 }
 
-+ (void)registDefaultDatabaseFileName:(NSString *)name
++ (void)registDefaultDataFileName:(NSString *)name
 {
     if (_default_db_file_name) {
         [_default_db_file_name release];
         _default_db_file_name = nil;
     }
     _default_db_file_name = [name copy];
+}
+
++ (void)registDefaultDataFileRootPath:(NSString *)path
+{
+    if (_default_data_file_root_path) {
+        [_default_data_file_root_path release];
+        _default_data_file_root_path = nil;
+    }
+    _default_data_file_root_path = [path copy];
 }
 
 + (void)_renameDatabaseFile
@@ -161,8 +177,9 @@ fetchedResultsCtrl;
 
 + (NSString *)dataRootPath
 {
-    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    return path;
+    //NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    //return path;
+    return [[_default_data_file_root_path copy] autorelease];
 }
 
 #pragma mark - instance handle
@@ -189,10 +206,7 @@ fetchedResultsCtrl;
 {
     @synchronized(self) {
         if (_coreDataEnvir == nil) {
-            _coreDataEnvir = [[CoreDataEnvir alloc] init];
-            [_coreDataEnvir registDatabaseFileName:_default_db_file_name];
-            [_coreDataEnvir registModelFileName:_default_model_file_name];
-            [_coreDataEnvir _initCoreDataEnvir];
+            _coreDataEnvir = [[self createInstanceWithDatabaseFileName:nil modelFileName:nil] retain];
         }
         return _coreDataEnvir;
     }
@@ -207,20 +221,7 @@ fetchedResultsCtrl;
 + (CoreDataEnvir *)createInstanceWithDatabaseFileName:(NSString *)databaseFileName modelFileName:(NSString *)modelFileName
 {
     id cde = nil;
-    cde = [self new];
-    
-    if (databaseFileName) {
-        [cde registDatabaseFileName:databaseFileName];
-    }else {
-        [cde registDatabaseFileName:_default_db_file_name];
-    }
-    
-    if (modelFileName) {
-        [cde registModelFileName:modelFileName];
-    }else {
-        [cde registModelFileName:_default_model_file_name];
-    }
-    [cde _initCoreDataEnvir];
+    cde = [[self alloc] initWithDatabaseFileName:databaseFileName modelFileName:modelFileName];
     return [cde autorelease];
 }
 
@@ -238,18 +239,35 @@ fetchedResultsCtrl;
     if (self) {
         recursiveLock = [[NSRecursiveLock alloc] init];
         
-        if (_default_model_file_name == nil) {
-            _default_model_file_name = @"ModelName";
-        }else {
-            [self registModelFileName:_default_model_file_name];
-        }
+        [self registModelFileName:_default_model_file_name];
+        [self registDatabaseFileName:_default_db_file_name];
+        [self registDataFileRootPath:_default_data_file_root_path];
         
-        if (_default_db_file_name == nil) {
-            _default_db_file_name = @"db.sqlite";
+        [self _initCoreDataEnvir];
+        //[self.class _renameDatabaseFile];
+    }
+    return self;
+}
+
+- (id)initWithDatabaseFileName:(NSString *)databaseFileName modelFileName:(NSString *)modelFileName
+{
+    self = [super init];
+    if (self) {
+        if (databaseFileName) {
+            [self registDatabaseFileName:databaseFileName];
         }else {
             [self registDatabaseFileName:_default_db_file_name];
         }
         
+        if (modelFileName) {
+            [self registModelFileName:modelFileName];
+        }else {
+            [self registModelFileName:_default_model_file_name];
+        }
+        
+        [self registDataFileRootPath:_default_data_file_root_path];
+
+        [self _initCoreDataEnvir];
         //[self.class _renameDatabaseFile];
     }
     return self;
@@ -258,7 +276,8 @@ fetchedResultsCtrl;
 - (void) _initCoreDataEnvir
 {
     LOCK_BEGIN
-    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    //NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *path = [self dataRootPath];
     [self _initCoreDataEnvirWithPath:path andFileName:[NSString stringWithFormat:@"%@", [self databaseFileName]]];
     LOCK_END
 }
@@ -653,9 +672,10 @@ fetchedResultsCtrl;
 @end
 
 
-#pragma mark - --------------------------------    NSManagedObject (CONVENIENT)     --------------------------------
+#pragma mark - --------------------------------    NSManagedObject (CONVENIENT)    --------------------------------
 @implementation NSManagedObject(CONVENIENT)
 
+#pragma mark - Operation on main thread.
 + (id)insertItem
 {
     if (![NSThread isMainThread]) {
@@ -749,11 +769,6 @@ fetchedResultsCtrl;
     return [[self items] lastObject];
 }
 
-+ (id)lastItemInContext:(CoreDataEnvir *)cde
-{
-    return [[self itemsInContext:cde] lastObject];
-}
-
 + (NSArray *)lastItemWithPredicate:(NSPredicate *)predicate
 {
     if (![NSThread isMainThread]) {
@@ -776,6 +791,8 @@ fetchedResultsCtrl;
     return [self lastItemWithPredicate:pred];
 }
 
+#pragma mark - Operation on other sperate thread.
+
 + (NSArray *)itemsInContext:(CoreDataEnvir *)cde
 {
     NSArray *items = [cde fetchItemsByEntityDescriptionName:NSStringFromClass(self)];
@@ -797,6 +814,11 @@ fetchedResultsCtrl;
     
     NSArray *items = [cde fetchItemsByEntityDescriptionName:NSStringFromClass(self) usingPredicate:pred];
     return items;
+}
+
++ (id)lastItemInContext:(CoreDataEnvir *)cde
+{
+    return [[self itemsInContext:cde] lastObject];
 }
 
 + (id)lastItemInContext:(CoreDataEnvir *)cde usingPredicate:(NSPredicate *)predicate

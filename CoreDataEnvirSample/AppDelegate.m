@@ -26,7 +26,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //Set db file name and model file name.
-    [CoreDataEnvir registDefaultDatabaseFileName:@"db.sqlite"];
+    [CoreDataEnvir registDefaultDataFileName:@"db.sqlite"];
     [CoreDataEnvir registDefaultModelFileName:@"SampleModel"];
 
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
