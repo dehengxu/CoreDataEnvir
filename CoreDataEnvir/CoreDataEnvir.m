@@ -275,11 +275,11 @@ fetchedResultsCtrl;
 
 - (void) _initCoreDataEnvir
 {
-    LOCK_BEGIN
+//    LOCK_BEGIN
     //NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *path = [self dataRootPath];
     [self _initCoreDataEnvirWithPath:path andFileName:[NSString stringWithFormat:@"%@", [self databaseFileName]]];
-    LOCK_END
+//    LOCK_END
 }
 
 - (void) _initCoreDataEnvirWithPath:(NSString *)path andFileName:(NSString *) dbName
@@ -297,7 +297,15 @@ fetchedResultsCtrl;
         //model = [[NSManagedObjectModel mergedModelFromBundles:nil] retain];
         NSString *momdPath = [[NSBundle mainBundle] pathForResource:[self modelFileName] ofType:@"momd"];
         NSURL *momdURL = [NSURL fileURLWithPath:momdPath];
-        model = [[NSManagedObjectModel alloc] initWithContentsOfURL:momdURL];
+
+        while (!model) {
+            model = [[NSManagedObjectModel alloc] initWithContentsOfURL:momdURL];
+            if (!model) {
+                NSLog(@"failed :%@", momdURL);
+            }else {
+                NSLog(@"successed :%@", momdURL);
+            }
+        }
         
         storeCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
         
@@ -307,7 +315,7 @@ fetchedResultsCtrl;
                                  nil];
         
         NSError *error;
-        LOCK_BEGIN
+//        LOCK_BEGIN
         if (![storeCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:fileUrl options:options error:&error]) {
             NSLog(@"%s Failed! %@", __FUNCTION__, error);
             abort();
@@ -315,7 +323,7 @@ fetchedResultsCtrl;
             [self.context setPersistentStoreCoordinator:storeCoordinator];
         }
         
-        LOCK_END
+//        LOCK_END
     }else {
         [self.context setPersistentStoreCoordinator:storeCoordinator];
     }

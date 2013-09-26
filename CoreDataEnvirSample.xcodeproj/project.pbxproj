@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A2E7951C1713C45100E56BBC /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = A2E7951B1713C45100E56BBC /* Team.m */; };
+		A2EC7C3017F3F1B600CBE4FC /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EC7C2F17F3F1B600CBE4FC /* Team.m */; };
+		A2EC7C3317F3F1B600CBE4FC /* Member.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EC7C3217F3F1B600CBE4FC /* Member.m */; };
+		A2EC7C3517F3F2BD00CBE4FC /* demo.plist in Resources */ = {isa = PBXBuildFile; fileRef = A2EC7C3417F3F2BD00CBE4FC /* demo.plist */; };
+		A2EC7C3817F3F53200CBE4FC /* ConcurrencyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EC7C3717F3F53200CBE4FC /* ConcurrencyViewController.m */; };
+		A2EC7CA917F4168300CBE4FC /* RelationshipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EC7CA817F4168300CBE4FC /* RelationshipViewController.m */; };
 		A2ED3ECD17112B3F003E9A37 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3ECC17112B3F003E9A37 /* UIKit.framework */; };
 		A2ED3ECF17112B3F003E9A37 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3ECE17112B3F003E9A37 /* Foundation.framework */; };
 		A2ED3ED117112B3F003E9A37 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3ED017112B3F003E9A37 /* CoreGraphics.framework */; };
@@ -18,8 +22,6 @@
 		A2ED3EE117112B3F003E9A37 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2ED3EE017112B3F003E9A37 /* Default@2x.png */; };
 		A2ED3EE317112B3F003E9A37 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2ED3EE217112B3F003E9A37 /* Default-568h@2x.png */; };
 		A2ED3EE617112B3F003E9A37 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2ED3EE517112B3F003E9A37 /* ViewController.m */; };
-		A2ED3EE917112B3F003E9A37 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2ED3EE717112B3F003E9A37 /* ViewController_iPhone.xib */; };
-		A2ED3EEC17112B3F003E9A37 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2ED3EEA17112B3F003E9A37 /* ViewController_iPad.xib */; };
 		A2ED3EF417112B40003E9A37 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3EF317112B40003E9A37 /* SenTestingKit.framework */; };
 		A2ED3EF517112B40003E9A37 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3ECC17112B3F003E9A37 /* UIKit.framework */; };
 		A2ED3EF617112B40003E9A37 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3ECE17112B3F003E9A37 /* Foundation.framework */; };
@@ -29,8 +31,6 @@
 		A2ED3F0E17112C58003E9A37 /* CoreDataEnvir.m in Sources */ = {isa = PBXBuildFile; fileRef = A2ED3F0C17112C58003E9A37 /* CoreDataEnvir.m */; };
 		A2ED3F1117112D37003E9A37 /* SampleModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A2ED3F0F17112D37003E9A37 /* SampleModel.xcdatamodeld */; };
 		A2ED3F1217112D37003E9A37 /* SampleModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A2ED3F0F17112D37003E9A37 /* SampleModel.xcdatamodeld */; };
-		A2ED3F2917112DF1003E9A37 /* Member.m in Sources */ = {isa = PBXBuildFile; fileRef = A2ED3F2817112DF1003E9A37 /* Member.m */; };
-		A2ED3F2A17112DF1003E9A37 /* Member.m in Sources */ = {isa = PBXBuildFile; fileRef = A2ED3F2817112DF1003E9A37 /* Member.m */; };
 		A2ED3F2F17113E5F003E9A37 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3F2E17113E5F003E9A37 /* CoreData.framework */; };
 /* End PBXBuildFile section */
 
@@ -45,8 +45,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		A2E7951A1713C45100E56BBC /* Team.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Team.h; sourceTree = "<group>"; };
-		A2E7951B1713C45100E56BBC /* Team.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Team.m; sourceTree = "<group>"; };
+		A2EC7C2E17F3F1B600CBE4FC /* Team.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Team.h; sourceTree = "<group>"; };
+		A2EC7C2F17F3F1B600CBE4FC /* Team.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Team.m; sourceTree = "<group>"; };
+		A2EC7C3117F3F1B600CBE4FC /* Member.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Member.h; sourceTree = "<group>"; };
+		A2EC7C3217F3F1B600CBE4FC /* Member.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Member.m; sourceTree = "<group>"; };
+		A2EC7C3417F3F2BD00CBE4FC /* demo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = demo.plist; sourceTree = "<group>"; };
+		A2EC7C3617F3F53200CBE4FC /* ConcurrencyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConcurrencyViewController.h; sourceTree = "<group>"; };
+		A2EC7C3717F3F53200CBE4FC /* ConcurrencyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConcurrencyViewController.m; sourceTree = "<group>"; };
+		A2EC7CA717F4168300CBE4FC /* RelationshipViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RelationshipViewController.h; sourceTree = "<group>"; };
+		A2EC7CA817F4168300CBE4FC /* RelationshipViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RelationshipViewController.m; sourceTree = "<group>"; };
 		A2ED3EC917112B3F003E9A37 /* CoreDataEnvirSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataEnvirSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2ED3ECC17112B3F003E9A37 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A2ED3ECE17112B3F003E9A37 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -62,8 +69,6 @@
 		A2ED3EE217112B3F003E9A37 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		A2ED3EE417112B3F003E9A37 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		A2ED3EE517112B3F003E9A37 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		A2ED3EE817112B3F003E9A37 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
-		A2ED3EEB17112B3F003E9A37 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
 		A2ED3EF217112B40003E9A37 /* CoreDataEnvirSampleTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreDataEnvirSampleTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2ED3EF317112B40003E9A37 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		A2ED3EFB17112B40003E9A37 /* CoreDataEnvirSampleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CoreDataEnvirSampleTests-Info.plist"; sourceTree = "<group>"; };
@@ -73,8 +78,6 @@
 		A2ED3F0B17112C58003E9A37 /* CoreDataEnvir.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataEnvir.h; sourceTree = "<group>"; };
 		A2ED3F0C17112C58003E9A37 /* CoreDataEnvir.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataEnvir.m; sourceTree = "<group>"; };
 		A2ED3F1017112D37003E9A37 /* SampleModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SampleModel.xcdatamodel; sourceTree = "<group>"; };
-		A2ED3F2717112DF1003E9A37 /* Member.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Member.h; sourceTree = "<group>"; };
-		A2ED3F2817112DF1003E9A37 /* Member.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Member.m; sourceTree = "<group>"; };
 		A2ED3F2E17113E5F003E9A37 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -142,8 +145,10 @@
 				A2ED3EDC17112B3F003E9A37 /* AppDelegate.m */,
 				A2ED3EE417112B3F003E9A37 /* ViewController.h */,
 				A2ED3EE517112B3F003E9A37 /* ViewController.m */,
-				A2ED3EE717112B3F003E9A37 /* ViewController_iPhone.xib */,
-				A2ED3EEA17112B3F003E9A37 /* ViewController_iPad.xib */,
+				A2EC7C3617F3F53200CBE4FC /* ConcurrencyViewController.h */,
+				A2EC7C3717F3F53200CBE4FC /* ConcurrencyViewController.m */,
+				A2EC7CA717F4168300CBE4FC /* RelationshipViewController.h */,
+				A2EC7CA817F4168300CBE4FC /* RelationshipViewController.m */,
 				A2ED3ED317112B3F003E9A37 /* Supporting Files */,
 			);
 			path = CoreDataEnvirSample;
@@ -160,10 +165,11 @@
 				A2ED3EE017112B3F003E9A37 /* Default@2x.png */,
 				A2ED3EE217112B3F003E9A37 /* Default-568h@2x.png */,
 				A2ED3F0F17112D37003E9A37 /* SampleModel.xcdatamodeld */,
-				A2E7951A1713C45100E56BBC /* Team.h */,
-				A2E7951B1713C45100E56BBC /* Team.m */,
-				A2ED3F2717112DF1003E9A37 /* Member.h */,
-				A2ED3F2817112DF1003E9A37 /* Member.m */,
+				A2EC7C3117F3F1B600CBE4FC /* Member.h */,
+				A2EC7C3217F3F1B600CBE4FC /* Member.m */,
+				A2EC7C2E17F3F1B600CBE4FC /* Team.h */,
+				A2EC7C2F17F3F1B600CBE4FC /* Team.m */,
+				A2EC7C3417F3F2BD00CBE4FC /* demo.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -274,10 +280,9 @@
 			files = (
 				A2ED3ED717112B3F003E9A37 /* InfoPlist.strings in Resources */,
 				A2ED3EDF17112B3F003E9A37 /* Default.png in Resources */,
+				A2EC7C3517F3F2BD00CBE4FC /* demo.plist in Resources */,
 				A2ED3EE117112B3F003E9A37 /* Default@2x.png in Resources */,
 				A2ED3EE317112B3F003E9A37 /* Default-568h@2x.png in Resources */,
-				A2ED3EE917112B3F003E9A37 /* ViewController_iPhone.xib in Resources */,
-				A2ED3EEC17112B3F003E9A37 /* ViewController_iPad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,13 +317,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2EC7C3817F3F53200CBE4FC /* ConcurrencyViewController.m in Sources */,
+				A2EC7CA917F4168300CBE4FC /* RelationshipViewController.m in Sources */,
 				A2ED3ED917112B3F003E9A37 /* main.m in Sources */,
 				A2ED3EDD17112B3F003E9A37 /* AppDelegate.m in Sources */,
 				A2ED3EE617112B3F003E9A37 /* ViewController.m in Sources */,
 				A2ED3F0D17112C58003E9A37 /* CoreDataEnvir.m in Sources */,
+				A2EC7C3317F3F1B600CBE4FC /* Member.m in Sources */,
+				A2EC7C3017F3F1B600CBE4FC /* Team.m in Sources */,
 				A2ED3F1117112D37003E9A37 /* SampleModel.xcdatamodeld in Sources */,
-				A2ED3F2917112DF1003E9A37 /* Member.m in Sources */,
-				A2E7951C1713C45100E56BBC /* Team.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,7 +336,6 @@
 				A2ED3F0117112B40003E9A37 /* CoreDataEnvirSampleTests.m in Sources */,
 				A2ED3F0E17112C58003E9A37 /* CoreDataEnvir.m in Sources */,
 				A2ED3F1217112D37003E9A37 /* SampleModel.xcdatamodeld in Sources */,
-				A2ED3F2A17112DF1003E9A37 /* Member.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,22 +356,6 @@
 				A2ED3ED617112B3F003E9A37 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		A2ED3EE717112B3F003E9A37 /* ViewController_iPhone.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A2ED3EE817112B3F003E9A37 /* en */,
-			);
-			name = ViewController_iPhone.xib;
-			sourceTree = "<group>";
-		};
-		A2ED3EEA17112B3F003E9A37 /* ViewController_iPad.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A2ED3EEB17112B3F003E9A37 /* en */,
-			);
-			name = ViewController_iPad.xib;
 			sourceTree = "<group>";
 		};
 		A2ED3EFC17112B40003E9A37 /* InfoPlist.strings */ = {

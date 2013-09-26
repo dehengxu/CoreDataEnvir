@@ -25,7 +25,7 @@
  1: Multi context shared same persistence file.
  0: Every context has own persistence file.
  */
-#define CORE_DATA_SHARE_PERSISTENCE     0
+#define CORE_DATA_SHARE_PERSISTENCE     1
 
 #pragma mark - ------------------------------ CoreDataEnvirObserver (Not be used temporarily) ---------------------------
 
