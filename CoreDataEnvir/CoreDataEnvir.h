@@ -25,7 +25,7 @@
  1: Multi context shared same persistence file.
  0: Every context has own persistence file.
  */
-#define CORE_DATA_SHARE_PERSISTENCE     1
+#define CORE_DATA_SHARE_PERSISTENCE     0
 
 #pragma mark - ------------------------------ CoreDataEnvirObserver (Not be used temporarily) ---------------------------
 
@@ -42,17 +42,19 @@
 
 #pragma mark - ------------------------------ CoreDataEnvirement -----------------------
 
-@interface CoreDataEnvir : NSObject <NSFetchedResultsControllerDelegate> {
-	NSManagedObjectModel * model;
-	NSManagedObjectContext * context;
-	NSFetchedResultsController * fetchedResultsCtrl;
-    NSRecursiveLock *recursiveLock;
+typedef enum
+{
+    CDEErrorInstanceCreateTooMutch = 1000
+}CoreDataEnvirError;
+
+@interface CoreDataEnvir : NSObject {
+    NSRecursiveLock *__recursiveLock;
 }
 
 /**
  A model object.
  */
-@property (nonatomic, retain) NSManagedObjectModel	*model;
+@property (nonatomic, readonly) NSManagedObjectModel	*model;
 
 /**
  A context object.

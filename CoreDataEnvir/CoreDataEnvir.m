@@ -94,9 +94,15 @@ static NSString *_default_data_file_root_path = nil;
 static NSPersistentStoreCoordinator * storeCoordinator = nil;
 #endif
 
+dispatch_semaphore_t _sem = NULL;
+dispatch_semaphore_t _sem_main = NULL;
+
+#pragma mark - CoreDataEnvir implementation
+
 @implementation CoreDataEnvir
 
-@synthesize model, context = _context,
+@synthesize //model,
+context = _context,
 
 #if !CORE_DATA_SHARE_PERSISTENCE
 storeCoordinator,
@@ -109,6 +115,8 @@ fetchedResultsCtrl;
     _default_data_file_root_path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] copy];
     _default_db_file_name = @"db.sqlite";
     _default_model_file_name = @"Model";
+    _sem = dispatch_semaphore_create(1l);
+    _sem_main = dispatch_semaphore_create(1l);
 }
 
 + (void)registDefaultModelFileName:(NSString *)name
@@ -184,44 +192,49 @@ fetchedResultsCtrl;
 
 #pragma mark - instance handle
 
+int _create_counter = 0;
 + (CoreDataEnvir *) instance
 {
-    @synchronized(self) {
+    
+    dispatch_semaphore_wait(_sem_main, ~0ull);
+
+    CoreDataEnvir *a_new_db = nil;
         if ([[NSThread currentThread] isMainThread]) {
 #if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
             NSLog(@"CoreDataEnvir on main thread!");
 #endif
-            return [self mainInstance];
+            a_new_db = [self mainInstance];
         }else {
 #if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
             NSLog(@"CoreDataEnvir on other thread!");
 #endif
-            return [self createInstance];
+            a_new_db = [self createInstance];
         }
-    }
-	return nil;
+    dispatch_semaphore_signal(_sem_main);
+
+	return a_new_db;
 }
 
 + (CoreDataEnvir *)mainInstance
 {
-    @synchronized(self) {
-        if (_coreDataEnvir == nil) {
-            _coreDataEnvir = [[self createInstanceWithDatabaseFileName:nil modelFileName:nil] retain];
-        }
-        return _coreDataEnvir;
+    if (_coreDataEnvir == nil) {
+        _coreDataEnvir = [[self createInstanceWithDatabaseFileName:nil modelFileName:nil] retain];
     }
-	return nil;
+    return _coreDataEnvir;
 }
 
 + (CoreDataEnvir *)createInstance
 {
-    return [self createInstanceWithDatabaseFileName:nil modelFileName:nil];
+    CoreDataEnvir *cde = [self createInstanceWithDatabaseFileName:nil modelFileName:nil];
+    return cde;
 }
 
 + (CoreDataEnvir *)createInstanceWithDatabaseFileName:(NSString *)databaseFileName modelFileName:(NSString *)modelFileName
 {
     id cde = nil;
+    _create_counter ++;
     cde = [[self alloc] initWithDatabaseFileName:databaseFileName modelFileName:modelFileName];
+    NSLog(@"\n\n------\ncreate counter :%d\n\n------", _create_counter);
     return [cde autorelease];
 }
 
@@ -237,13 +250,25 @@ fetchedResultsCtrl;
 {
     self = [super init];
     if (self) {
-        recursiveLock = [[NSRecursiveLock alloc] init];
+        __recursiveLock = [[NSRecursiveLock alloc] init];
         
         [self registModelFileName:_default_model_file_name];
         [self registDatabaseFileName:_default_db_file_name];
         [self registDataFileRootPath:_default_data_file_root_path];
-        
-        [self _initCoreDataEnvir];
+        @try {
+            [self _initCoreDataEnvir];
+        }
+        @catch (NSException *exception) {
+            NSError *err = [[exception userInfo] valueForKey:@"error"];
+            if (err.code == CDEErrorInstanceCreateTooMutch) {
+                [self release];
+                self = nil;
+                return nil;
+            }
+        }
+        @finally {
+            
+        }
         //[self.class _renameDatabaseFile];
     }
     return self;
@@ -267,7 +292,21 @@ fetchedResultsCtrl;
         
         [self registDataFileRootPath:_default_data_file_root_path];
 
-        [self _initCoreDataEnvir];
+        @try {
+            [self _initCoreDataEnvir];
+        }
+        @catch (NSException *exception) {
+            NSError *err = [[exception userInfo] valueForKey:@"error"];
+            if (err.code == CDEErrorInstanceCreateTooMutch) {
+                [self release];
+                self = nil;
+                return nil;
+            }
+        }
+        @finally {
+            
+        }
+
         //[self.class _renameDatabaseFile];
     }
     return self;
@@ -275,11 +314,8 @@ fetchedResultsCtrl;
 
 - (void) _initCoreDataEnvir
 {
-//    LOCK_BEGIN
-    //NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *path = [self dataRootPath];
     [self _initCoreDataEnvirWithPath:path andFileName:[NSString stringWithFormat:@"%@", [self databaseFileName]]];
-//    LOCK_END
 }
 
 - (void) _initCoreDataEnvirWithPath:(NSString *)path andFileName:(NSString *) dbName
@@ -294,28 +330,26 @@ fetchedResultsCtrl;
     [self.context setMergePolicy:NSOverwriteMergePolicy];
     
     if (storeCoordinator == nil) {
-        //model = [[NSManagedObjectModel mergedModelFromBundles:nil] retain];
         NSString *momdPath = [[NSBundle mainBundle] pathForResource:[self modelFileName] ofType:@"momd"];
         NSURL *momdURL = [NSURL fileURLWithPath:momdPath];
 
-        while (!model) {
-            model = [[NSManagedObjectModel alloc] initWithContentsOfURL:momdURL];
-            if (!model) {
-                NSLog(@"failed :%@", momdURL);
-            }else {
-                NSLog(@"successed :%@", momdURL);
-            }
+        NSManagedObjectModel *model = nil;
+        model = [[[NSManagedObjectModel alloc] initWithContentsOfURL:momdURL] autorelease];
+        if (!model) {
+            NSLog(@"You create instances' number more than 123.");
+            NSException *exce = [NSException exceptionWithName:[NSString stringWithFormat:@"CoreDataEnvir exception %d", CDEErrorInstanceCreateTooMutch] reason:@"You create instances' number more than 123." userInfo:@{@"error": [NSError errorWithDomain:@"com.cyblion.CoreDataEnvir" code:CDEErrorInstanceCreateTooMutch userInfo:nil]}];
+            [exce raise];
         }
         
         storeCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
-        
+
         NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
                                  [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
                                  [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption,
                                  nil];
         
         NSError *error;
-//        LOCK_BEGIN
+
         if (![storeCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:fileUrl options:options error:&error]) {
             NSLog(@"%s Failed! %@", __FUNCTION__, error);
             abort();
@@ -323,7 +357,6 @@ fetchedResultsCtrl;
             [self.context setPersistentStoreCoordinator:storeCoordinator];
         }
         
-//        LOCK_END
     }else {
         [self.context setPersistentStoreCoordinator:storeCoordinator];
     }
@@ -356,6 +389,11 @@ fetchedResultsCtrl;
 - (NSEntityDescription *) entityDescriptionByName:(NSString *)className
 {
 	return [NSEntityDescription entityForName:className inManagedObjectContext:self.context];
+}
+
+- (NSManagedObjectModel *)model
+{
+    return self.storeCoordinator.managedObjectModel;
 }
 
 #pragma mark - Synchronous method
@@ -572,14 +610,14 @@ fetchedResultsCtrl;
     [self unregisterObserving];
     [self.context reset];
     
-    [recursiveLock release];
-	[model release];
-    [context release];
+    [__recursiveLock release];
+    [_context release];
 	[fetchedResultsCtrl release];
 #if !CORE_DATA_SHARE_PERSISTENCE
     [storeCoordinator release];
     storeCoordinator = nil;
 #endif
+//	[model release];
     
     [super dealloc];
 }
