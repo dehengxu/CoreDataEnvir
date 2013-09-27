@@ -260,11 +260,8 @@ int _create_counter = 0;
         }
         @catch (NSException *exception) {
             NSError *err = [[exception userInfo] valueForKey:@"error"];
-            if (err.code == CDEErrorInstanceCreateTooMutch) {
-                [self release];
-                self = nil;
-                return nil;
-            }
+            [self release];
+            return nil;
         }
         @finally {
             
@@ -277,7 +274,10 @@ int _create_counter = 0;
 - (id)initWithDatabaseFileName:(NSString *)databaseFileName modelFileName:(NSString *)modelFileName
 {
     self = [super init];
+
     if (self) {
+        __recursiveLock = [[NSRecursiveLock alloc] init];
+
         if (databaseFileName) {
             [self registDatabaseFileName:databaseFileName];
         }else {
@@ -297,11 +297,8 @@ int _create_counter = 0;
         }
         @catch (NSException *exception) {
             NSError *err = [[exception userInfo] valueForKey:@"error"];
-            if (err.code == CDEErrorInstanceCreateTooMutch) {
-                [self release];
-                self = nil;
-                return nil;
-            }
+            [self release];
+            return nil;
         }
         @finally {
             
@@ -339,6 +336,7 @@ int _create_counter = 0;
             NSLog(@"You create instances' number more than 123.");
             NSException *exce = [NSException exceptionWithName:[NSString stringWithFormat:@"CoreDataEnvir exception %d", CDEErrorInstanceCreateTooMutch] reason:@"You create instances' number more than 123." userInfo:@{@"error": [NSError errorWithDomain:@"com.cyblion.CoreDataEnvir" code:CDEErrorInstanceCreateTooMutch userInfo:nil]}];
             [exce raise];
+            return;
         }
         
         storeCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
@@ -607,8 +605,9 @@ int _create_counter = 0;
 #if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
     NSLog(@"%@", [self currentDispatchQueueLabel]);
 #endif
+    NSLog(@"%s", __func__);
     [self unregisterObserving];
-    [self.context reset];
+//    [_context reset];
     
     [__recursiveLock release];
     [_context release];

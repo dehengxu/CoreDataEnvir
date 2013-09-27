@@ -14,9 +14,16 @@
 
 #define THREAD_NUMBER  1024
 #define LOOP_NUMBER_PER_THREAD  101
+
+//Test concurrency.
 #define TESTING_A   1
+
 #define TESTING_B   2
+//Test creating mutch number of instance.
 #define TESTING_C   3
+//Test IO stream.
+#define TESTING_D   4
+
 #define testing_case TESTING_C
 
 @interface ConcurrencyViewController ()
@@ -188,55 +195,77 @@ int counter = 0;
     
 #elif testing_case == TESTING_C
     
-    int i = 0;
     
-    for (i = 1; i <= 1024; i++) {
-//        dispatch_queue_t q = dispatch_queue_create([[NSString stringWithFormat:@"com.cyblion.testing_c.%d", i] cStringUsingEncoding:NSUTF8StringEncoding], NULL);
-//        
-//        dispatch_async(q, ^{
-        NSLog(@"\n\n\n===========================");
-        NSLog(@"Instance number [%d]", i);
-            CoreDataEnvir *cde = [CoreDataEnvir createInstance];
+    dispatch_queue_t q = dispatch_queue_create([[NSString stringWithFormat:@"com.cyblion.testing_c"] cStringUsingEncoding:NSUTF8StringEncoding], NULL);
+    
+    dispatch_async(q, ^{
+        int i = 0;
         
-        if (!cde) {
-            break;
+        for (i = 1; i < 1025; i++) {
+            NSLog(@"\n\n\n===========================");
+            NSLog(@"Instance number [%d]", i);
+#if 1
+            CoreDataEnvir *cde = [CoreDataEnvir instance];
+            if (!cde) {
+                break;
+            }
+#else
+            //Pure manual code.
+            NSManagedObjectContext * context = [[[NSManagedObjectContext alloc] init] autorelease];
+            [context setRetainsRegisteredObjects:NO];
+            [context setPropagatesDeletesAtEndOfEvent:NO];
+            [context setMergePolicy:NSOverwriteMergePolicy];
+
+            NSString *momdPath = [[NSBundle mainBundle] pathForResource:@"SampleModel" ofType:@"momd"];
+            NSURL *momdURL = [NSURL fileURLWithPath:momdPath];
+            NSManagedObjectModel *_m = [[[NSManagedObjectModel alloc] initWithContentsOfURL:momdURL] autorelease];
+            if (!_m) {
+                NSLog(@"Reached number %d", i);
+                break;
+            }
+
+            NSPersistentStoreCoordinator *psc = [[[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_m] autorelease];
+        
+            NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
+                                     [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
+                                     [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption,
+                                     nil];
+
+            NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+
+            [psc addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:[NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/db.sqlite", path]] options:options error:nil];
+            [context setPersistentStoreCoordinator:psc];
+#endif
         }
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSString *message = [NSString stringWithFormat:@"Reaching number %d", i];
+            UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"" message:message delegate:nil cancelButtonTitle:@"Close" otherButtonTitles: nil] autorelease];
+            [alert show];
+        });
         
-        //Pure manual code.
-//            NSManagedObjectContext * context = [[NSManagedObjectContext alloc] init];
-//            [context setRetainsRegisteredObjects:NO];
-//            [context setPropagatesDeletesAtEndOfEvent:NO];
-//            [context setMergePolicy:NSOverwriteMergePolicy];
-//
-//            NSString *momdPath = [[NSBundle mainBundle] pathForResource:@"SampleModel" ofType:@"momd"];
-//            NSURL *momdURL = [NSURL fileURLWithPath:momdPath];
-//            NSManagedObjectModel *_m = [[[NSManagedObjectModel alloc] initWithContentsOfURL:momdURL] autorelease];
-//            NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_m];
-//        
-//            NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
-//                                     [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
-//                                     [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption,
-//                                     nil];
-//
-//            NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-//
-//            [psc addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:[NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/db.sqlite", path]] options:options error:nil];
-//            [context setPersistentStoreCoordinator:psc];
-//            if (!_m) {
-//                NSLog(@"Reached number %d", i);
-//                break;
-//            }
-        
-//        });
-//
-//        dispatch_release(q);
-        
+    });
+    dispatch_release(q);
+    
+
+#elif TESTING_D
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *filePath = [NSString stringWithFormat:@"%@/db.sqlite", path];
+    
+    NSInputStream *ises[1024];
+    
+    for (int i = 1; i <= 1024; i++) {
+        NSLog(@"open :%d", i);
+        NSInputStream *is = [[NSInputStream inputStreamWithFileAtPath:filePath] retain];
+        [is open];
+        ises[i - 1] = is;
     }
     
-    NSString *message = [NSString stringWithFormat:@"Reaching number %d", i];
-    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"" message:message delegate:Nil cancelButtonTitle:@"Close" otherButtonTitles: nil] autorelease];
-    [alert show];
-
+    uint8_t buffer[1024];
+    for (int i = 1; i <= 1024; i++) {
+        NSLog(@"read :%d", i);
+        [ises[i - 1] read:buffer maxLength:1024];
+    }
     
 #endif
     
