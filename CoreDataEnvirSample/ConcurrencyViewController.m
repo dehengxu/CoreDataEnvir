@@ -201,10 +201,10 @@ int counter = 0;
     dispatch_async(q, ^{
         int i = 0;
         
-        for (i = 1; i < 1025; i++) {
+        for (i = 1; i <= 1024; i++) {
             NSLog(@"\n\n\n===========================");
             NSLog(@"Instance number [%d]", i);
-#if 1
+#if 0
             CoreDataEnvir *cde = [CoreDataEnvir instance];
             if (!cde) {
                 break;
@@ -236,6 +236,9 @@ int counter = 0;
             [psc addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:[NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/db.sqlite", path]] options:options error:nil];
             [context setPersistentStoreCoordinator:psc];
 #endif
+            if (i + 1 >= 1025) {
+                break;
+            }
         }
 
         dispatch_async(dispatch_get_main_queue(), ^{
