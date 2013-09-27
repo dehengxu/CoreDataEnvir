@@ -248,27 +248,7 @@ int _create_counter = 0;
 
 - (id)init
 {
-    self = [super init];
-    if (self) {
-        __recursiveLock = [[NSRecursiveLock alloc] init];
-        
-        [self registModelFileName:_default_model_file_name];
-        [self registDatabaseFileName:_default_db_file_name];
-        [self registDataFileRootPath:_default_data_file_root_path];
-        @try {
-            [self _initCoreDataEnvir];
-        }
-        @catch (NSException *exception) {
-            NSError *err = [[exception userInfo] valueForKey:@"error"];
-            [self release];
-            return nil;
-        }
-        @finally {
-            
-        }
-        //[self.class _renameDatabaseFile];
-    }
-    return self;
+    return [self initWithDatabaseFileName:nil modelFileName:nil];
 }
 
 - (id)initWithDatabaseFileName:(NSString *)databaseFileName modelFileName:(NSString *)modelFileName
