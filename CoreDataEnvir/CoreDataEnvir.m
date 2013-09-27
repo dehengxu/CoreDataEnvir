@@ -32,7 +32,6 @@ break;\
  */
 + (void)_renameDatabaseFile;
 
-- (void)_initCoreDataEnvir;
 - (void)_initCoreDataEnvirWithPath:(NSString *) path andFileName:(NSString *) dbName;
 
 
@@ -273,7 +272,7 @@ int _create_counter = 0;
         [self registDataFileRootPath:_default_data_file_root_path];
 
         @try {
-            [self _initCoreDataEnvir];
+            [self _initCoreDataEnvirWithPath:[self dataRootPath] andFileName:[self databaseFileName]];
         }
         @catch (NSException *exception) {
             NSError *err = [[exception userInfo] valueForKey:@"error"];
@@ -287,12 +286,6 @@ int _create_counter = 0;
         //[self.class _renameDatabaseFile];
     }
     return self;
-}
-
-- (void) _initCoreDataEnvir
-{
-    NSString *path = [self dataRootPath];
-    [self _initCoreDataEnvirWithPath:path andFileName:[NSString stringWithFormat:@"%@", [self databaseFileName]]];
 }
 
 - (void) _initCoreDataEnvirWithPath:(NSString *)path andFileName:(NSString *) dbName
