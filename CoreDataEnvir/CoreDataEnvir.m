@@ -89,9 +89,10 @@ static NSString *_default_model_file_name = nil;
 static NSString *_default_db_file_name = nil;
 static NSString *_default_data_file_root_path = nil;
 
-#if CORE_DATA_SHARE_PERSISTENCE
-static NSPersistentStoreCoordinator * storeCoordinator = nil;
-#endif
+static BOOL _default_is_share_persistence = YES;
+//#if CORE_DATA_SHARE_PERSISTENCE
+static NSPersistentStoreCoordinator * __sharedStoreCoordinator = nil;
+//#endif
 
 dispatch_semaphore_t _sem = NULL;
 dispatch_semaphore_t _sem_main = NULL;
@@ -103,9 +104,9 @@ dispatch_semaphore_t _sem_main = NULL;
 @synthesize //model,
 context = _context,
 
-#if !CORE_DATA_SHARE_PERSISTENCE
-storeCoordinator,
-#endif
+//#if !CORE_DATA_SHARE_PERSISTENCE
+storeCoordinator = _storeCoordinator,
+//#endif
 
 fetchedResultsCtrl;
 
@@ -228,6 +229,12 @@ int _create_counter = 0;
     return cde;
 }
 
++ (CoreDataEnvir *)createInstanceShareingPersistence:(BOOL)isSharePersistence
+{
+    CoreDataEnvir *cde = [[self alloc] initWithDatabaseFileName:nil modelFileName:nil sharingPersistence:isSharePersistence];
+    return [cde autorelease];
+}
+
 + (CoreDataEnvir *)createInstanceWithDatabaseFileName:(NSString *)databaseFileName modelFileName:(NSString *)modelFileName
 {
     id cde = nil;
@@ -252,11 +259,17 @@ int _create_counter = 0;
 
 - (id)initWithDatabaseFileName:(NSString *)databaseFileName modelFileName:(NSString *)modelFileName
 {
+    return [self initWithDatabaseFileName:databaseFileName modelFileName:modelFileName sharingPersistence:_default_is_share_persistence];
+}
+
+- (id)initWithDatabaseFileName:(NSString *)databaseFileName modelFileName:(NSString *)modelFileName sharingPersistence:(BOOL)isSharePersistence
+{
     self = [super init];
-
+    
     if (self) {
+        _sharePersistence = isSharePersistence;
         __recursiveLock = [[NSRecursiveLock alloc] init];
-
+        
         if (databaseFileName) {
             [self registDatabaseFileName:databaseFileName];
         }else {
@@ -270,7 +283,7 @@ int _create_counter = 0;
         }
         
         [self registDataFileRootPath:_default_data_file_root_path];
-
+        
         @try {
             [self _initCoreDataEnvirWithPath:[self dataRootPath] andFileName:[self databaseFileName]];
         }
@@ -282,8 +295,9 @@ int _create_counter = 0;
         @finally {
             
         }
-
+        
         //[self.class _renameDatabaseFile];
+
     }
     return self;
 }
@@ -299,7 +313,7 @@ int _create_counter = 0;
     [self.context setPropagatesDeletesAtEndOfEvent:NO];
     [self.context setMergePolicy:NSOverwriteMergePolicy];
     
-    if (storeCoordinator == nil) {
+    if (self.storeCoordinator == nil) {
         NSString *momdPath = [[NSBundle mainBundle] pathForResource:[self modelFileName] ofType:@"momd"];
         NSURL *momdURL = [NSURL fileURLWithPath:momdPath];
 
@@ -312,7 +326,7 @@ int _create_counter = 0;
             return;
         }
         
-        storeCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
+        self.storeCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
 
         NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
                                  [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
@@ -321,7 +335,7 @@ int _create_counter = 0;
         
         NSError *error;
 
-        if (![storeCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:fileUrl options:options error:&error]) {
+        if (![self.storeCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:fileUrl options:options error:&error]) {
             NSLog(@"%s Failed! %@", __FUNCTION__, error);
             if (_rescureDelegate &&
                 [_rescureDelegate respondsToSelector:@selector(shouldRescureCoreData)] &&
@@ -331,16 +345,11 @@ int _create_counter = 0;
                     [_rescureDelegate didStartRescureCoreData:self];
                 }
                 
-                //Release store coordinator has created.
-                if (storeCoordinator) {
-                    [storeCoordinator release];
-                    storeCoordinator = nil;
-                }
                 //Create new store coordinator.
-                storeCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
+                self.storeCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
 
                 
-                if (![storeCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:fileUrl options:options error:&error]) {
+                if (![self.storeCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:fileUrl options:options error:&error]) {
                     //Rescure failed again!!
                     if (_rescureDelegate &&
                         [_rescureDelegate respondsToSelector:@selector(rescureFailed:)]) {
@@ -355,7 +364,7 @@ int _create_counter = 0;
                     }
                 }else {
                     //Rescure finished.
-                    [self.context setPersistentStoreCoordinator:storeCoordinator];
+                    [self.context setPersistentStoreCoordinator:self.storeCoordinator];
                     if (_rescureDelegate && [_rescureDelegate respondsToSelector:@selector(didFinishedRescuringCoreData:)]) {
                         [_rescureDelegate didFinishedRescuringCoreData:self];
                     }
@@ -364,14 +373,38 @@ int _create_counter = 0;
                 abort();
             }
         }else {
-            [self.context setPersistentStoreCoordinator:storeCoordinator];
+            [self.context setPersistentStoreCoordinator:self.storeCoordinator];
         }
         
     }else {
-        [self.context setPersistentStoreCoordinator:storeCoordinator];
+        [self.context setPersistentStoreCoordinator:self.storeCoordinator];
     }
     
     [self registerObserving];
+}
+
+- (NSPersistentStoreCoordinator *)storeCoordinator
+{
+    if (self.sharePersistence) {
+        return __sharedStoreCoordinator;
+    }else {
+        return _storeCoordinator;
+    }
+}
+
+- (void)setStoreCoordinator:(NSPersistentStoreCoordinator *)storeCoordinator
+{
+    if (_sharePersistence) {
+        if (__sharedStoreCoordinator != storeCoordinator) {
+            [__sharedStoreCoordinator release];
+            __sharedStoreCoordinator = [storeCoordinator retain];
+        }
+    }else {
+        if (_storeCoordinator != storeCoordinator) {
+            [_storeCoordinator release];
+            _storeCoordinator = [storeCoordinator retain];
+        }
+    }
 }
 
 - (NSManagedObjectContext *)context
@@ -403,11 +436,7 @@ int _create_counter = 0;
 
 - (NSManagedObjectModel *)model
 {
-#if CORE_DATA_SHARE_PERSISTENCE
-    return storeCoordinator.managedObjectModel;
-#else
     return self.storeCoordinator.managedObjectModel;
-#endif
 }
 
 #pragma mark - Synchronous method
@@ -580,7 +609,7 @@ int _create_counter = 0;
         return YES;
     }
     
-    [storeCoordinator lock];
+    [self.storeCoordinator lock];
 	NSError *error = nil;
     
     bResult = [self.context save:&error];
@@ -592,7 +621,7 @@ int _create_counter = 0;
         //Do we need rollback?
         //[context rollback];
     }
-    [storeCoordinator unlock];
+    [self.storeCoordinator unlock];
     NSLog(@"%s", __FUNCTION__);
 	return bResult;
 }
@@ -628,11 +657,9 @@ int _create_counter = 0;
     [__recursiveLock release];
     [_context release];
 	[fetchedResultsCtrl release];
-#if !CORE_DATA_SHARE_PERSISTENCE
-    [storeCoordinator release];
-    storeCoordinator = nil;
-#endif
-//	[model release];
+//#if !CORE_DATA_SHARE_PERSISTENCE
+    [_storeCoordinator release];
+//#endif
     
     [super dealloc];
 }
@@ -671,7 +698,7 @@ int _create_counter = 0;
     NSLog(@"%s %@ ->>> %@", __FUNCTION__, notification.object, self.context);
 #endif
     
-    [storeCoordinator lock];
+    [self.storeCoordinator lock];
     @try {
         //After this merge operating, context update it's state 'hasChanges' .
         [self.context mergeChangesFromContextDidSaveNotification:notification];
@@ -682,7 +709,7 @@ int _create_counter = 0;
     @finally {
         //NSLog(@"Merge finished!");
     }
-    [storeCoordinator unlock];
+    [self.storeCoordinator unlock];
 }
 
 /**

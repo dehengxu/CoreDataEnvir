@@ -114,12 +114,12 @@ typedef enum
  */
 @property (nonatomic, readonly) NSManagedObjectContext *context;
 
-#if !CORE_DATA_SHARE_PERSISTENCE
+//#if !CORE_DATA_SHARE_PERSISTENCE
 /**
  A persistance coordinator object.
  */
 @property (nonatomic, retain) NSPersistentStoreCoordinator *storeCoordinator;
-#endif
+//#endif
 
 /**
  A NSFetchedResultsController object, not be used by now.
@@ -208,6 +208,8 @@ typedef enum
  */
 + (CoreDataEnvir *)createInstance;
 
++ (CoreDataEnvir *)createInstanceShareingPersistence:(BOOL)isSharePersistence;
+
 /**
  Release the main instance.
  */
@@ -227,6 +229,16 @@ typedef enum
  @return CoreDataEnvir instance.
  */
 - (id)initWithDatabaseFileName:(NSString *)databaseFileName modelFileName:(NSString *)modelFileName;
+
+/**
+ Init instance with specified db , model file name.
+ 
+ @param databaseFileName    db file name.
+ @param modelFileName       Model mapping file name.
+ @param isSharePersistence  Share persistence or not.
+ @return CoreDataEnvir instance.
+ */
+- (id)initWithDatabaseFileName:(NSString *)databaseFileName modelFileName:(NSString *)modelFileName sharingPersistence:(BOOL)isSharePersistence;
 
 /**
  Save

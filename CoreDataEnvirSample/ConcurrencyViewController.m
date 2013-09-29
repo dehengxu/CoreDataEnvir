@@ -204,8 +204,8 @@ int counter = 0;
         for (i = 1; i <= 1024; i++) {
             NSLog(@"\n\n\n===========================");
             NSLog(@"Instance number [%d]", i);
-#if 0
-            CoreDataEnvir *cde = [CoreDataEnvir instance];
+#if 1
+            CoreDataEnvir *cde = [CoreDataEnvir createInstanceShareingPersistence:NO];
             if (!cde) {
                 break;
             }
