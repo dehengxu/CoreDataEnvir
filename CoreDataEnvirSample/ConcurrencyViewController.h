@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "CoreDataEnvir.h"
 
 @class Team;
-@class CoreDataEnvir;
 @class Member;
 
 @interface ConcurrencyViewController : UIViewController
+<
+CoreDataRescureDelegate
+>
 {
     dispatch_semaphore_t __runs_sema;
 }

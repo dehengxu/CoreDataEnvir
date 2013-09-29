@@ -24,7 +24,7 @@
 //Test IO stream.
 #define TESTING_D   4
 
-#define testing_case TESTING_C
+#define testing_case TESTING_A
 
 @interface ConcurrencyViewController ()
 
@@ -106,6 +106,7 @@ int runs_forever = THREAD_NUMBER;
     int runTimes = times;
     dispatch_async(queue, ^{
         CoreDataEnvir *db = [CoreDataEnvir instance];
+        db.rescureDelegate = self;
 
         NSString *queueLabel = [NSString stringWithCString:dispatch_queue_get_label(queue) encoding:NSUTF8StringEncoding];
         
@@ -129,6 +130,7 @@ int runs_forever = THREAD_NUMBER;
     int runTimes = times;
     dispatch_async(queue, ^{
         CoreDataEnvir *db = [CoreDataEnvir instance];
+
         unsigned int c = counter;
         NSString *queueLabel = [NSString stringWithCString:dispatch_queue_get_label(queue) encoding:NSUTF8StringEncoding];
         
@@ -300,6 +302,26 @@ int counter = 0;
     NSString *message = [NSString stringWithFormat:@"teams :%d\nmembers :%d", [teams count], [members count]];
     UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"" message:message delegate:Nil cancelButtonTitle:@"Close" otherButtonTitles: nil] autorelease];
     [alert show];
+}
+
+- (BOOL)shouldRescureCoreData
+{
+    return YES;
+}
+
+- (void)didStartRescureCoreData:(CoreDataEnvir *)cde
+{
+    
+}
+
+- (void)didFinishedRescuringCoreData:(CoreDataEnvir *)cde
+{
+    
+}
+
+- (void)rescureFailed:(CoreDataEnvir *)cde
+{
+    
 }
 
 

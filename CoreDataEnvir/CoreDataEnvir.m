@@ -239,6 +239,9 @@ int _create_counter = 0;
 {
     id cde = nil;
     _create_counter ++;
+    if (_create_counter < 0) {
+        _create_counter = 0;
+    }
     cde = [[self alloc] initWithDatabaseFileName:databaseFileName modelFileName:modelFileName];
     NSLog(@"\n\n------\ncreate counter :%d\n\n------", _create_counter);
     return [cde autorelease];
