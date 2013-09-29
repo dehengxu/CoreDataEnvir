@@ -323,7 +323,46 @@ int _create_counter = 0;
 
         if (![storeCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:fileUrl options:options error:&error]) {
             NSLog(@"%s Failed! %@", __FUNCTION__, error);
-            abort();
+            if (_rescureDelegate &&
+                [_rescureDelegate respondsToSelector:@selector(shouldRescureCoreData)] &&
+                [_rescureDelegate shouldRescureCoreData]) {
+                
+                if (_rescureDelegate && [_rescureDelegate respondsToSelector:@selector(didStartRescureCoreData:)]) {
+                    [_rescureDelegate didStartRescureCoreData:self];
+                }
+                
+                //Release store coordinator has created.
+                if (storeCoordinator) {
+                    [storeCoordinator release];
+                    storeCoordinator = nil;
+                }
+                //Create new store coordinator.
+                storeCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
+
+                
+                if (![storeCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:fileUrl options:options error:&error]) {
+                    //Rescure failed again!!
+                    if (_rescureDelegate &&
+                        [_rescureDelegate respondsToSelector:@selector(rescureFailed:)]) {
+                        [_rescureDelegate rescureFailed:self];
+                    }
+                    
+                    //Abort while rescure failed.
+                    if (_rescureDelegate &&
+                        [_rescureDelegate respondsToSelector:@selector(shouldAbortWhileRescureFailed)] &&
+                        [_rescureDelegate shouldAbortWhileRescureFailed]) {
+                        abort();
+                    }
+                }else {
+                    //Rescure finished.
+                    [self.context setPersistentStoreCoordinator:storeCoordinator];
+                    if (_rescureDelegate && [_rescureDelegate respondsToSelector:@selector(didFinishedRescuringCoreData:)]) {
+                        [_rescureDelegate didFinishedRescuringCoreData:self];
+                    }
+                }
+            }else {
+                abort();
+            }
         }else {
             [self.context setPersistentStoreCoordinator:storeCoordinator];
         }

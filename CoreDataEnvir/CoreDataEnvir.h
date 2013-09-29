@@ -33,7 +33,9 @@
  */
 #define CORE_DATA_SHARE_PERSISTENCE     1
 
-#pragma mark - ------------------------------ CoreDataEnvirObserver (Not be used temporarily) ---------------------------
+@class CoreDataEnvir;
+
+#pragma mark - CoreDataEnvirObserver (Not be used temporarily)
 
 @protocol CoreDataEnvirObserver
 
@@ -46,7 +48,52 @@
 
 @end
 
-#pragma mark - ------------------------------ CoreDataEnvirement -----------------------
+
+#pragma mark - CoreDataRescureDelegate
+
+/**
+ CoreData rescure delegate.
+ While core data envirement init fails occured.
+ */
+@protocol CoreDataRescureDelegate <NSObject>
+
+@optional
+
+/**
+ Reture if need rescure or abort directly.
+ */
+- (BOOL)shouldRescureCoreData;
+
+/**
+ Return if abort while rescure failed.
+ */
+- (BOOL)shouldAbortWhileRescureFailed;
+
+/**
+ Did start rescure core data.
+ 
+ @param cde A CoreDataEnvir instance.
+ */
+- (void)didStartRescureCoreData:(CoreDataEnvir *)cde;
+
+/**
+ Did finished rescuring work.
+ 
+ @param cde A CoreDataEnvir instance.
+ */
+- (void)didFinishedRescuringCoreData:(CoreDataEnvir *)cde;
+
+/**
+ Rescure failed.
+ 
+ @param cde A CoreDataEnvir instance.
+ */
+- (void)rescureFailed:(CoreDataEnvir *)cde;
+
+@end
+
+
+#pragma mark - CoreDataEnvirement
 
 typedef enum
 {
@@ -93,6 +140,17 @@ typedef enum
  Data file root path.
  */
 @property (nonatomic, copy, setter = registDataFileRootPath:, getter = dataRootPath) NSString *dataRootPath;
+
+/**
+ Data rescure when CoreData envirement init occurs error.
+ */
+@property (nonatomic, assign) id<CoreDataRescureDelegate> rescureDelegate;
+
+/**
+ If share persistence coordinator.
+ Default is YES;
+ */
+@property (nonatomic) BOOL sharePersistence;
 
 /**
  Regist the specified model file name.
