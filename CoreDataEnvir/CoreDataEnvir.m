@@ -364,7 +364,11 @@ int _create_counter = 0;
 
 - (NSManagedObjectModel *)model
 {
+#if CORE_DATA_SHARE_PERSISTENCE
+    return storeCoordinator.managedObjectModel;
+#else
     return self.storeCoordinator.managedObjectModel;
+#endif
 }
 
 #pragma mark - Synchronous method
