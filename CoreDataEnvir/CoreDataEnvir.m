@@ -192,7 +192,7 @@ fetchedResultsCtrl;
 
 #pragma mark - instance handle
 
-int _create_counter = 0;
+unsigned int _create_counter = 0;
 + (CoreDataEnvir *) instance
 {
     
@@ -238,10 +238,6 @@ int _create_counter = 0;
 + (CoreDataEnvir *)createInstanceWithDatabaseFileName:(NSString *)databaseFileName modelFileName:(NSString *)modelFileName
 {
     id cde = nil;
-    _create_counter ++;
-    if (_create_counter < 0) {
-        _create_counter = 0;
-    }
     cde = [[self alloc] initWithDatabaseFileName:databaseFileName modelFileName:modelFileName];
     NSLog(@"\n\n------\ncreate counter :%d\n\n------", _create_counter);
     return [cde autorelease];
@@ -300,6 +296,8 @@ int _create_counter = 0;
         }
         
         //[self.class _renameDatabaseFile];
+        
+        _create_counter ++;
 
     }
     return self;
@@ -653,7 +651,9 @@ int _create_counter = 0;
 #if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
     NSLog(@"%@", [self currentDispatchQueueLabel]);
 #endif
-    NSLog(@"%s", __func__);
+    _create_counter --;
+
+    NSLog(@"%s\ncreate counter :%d\n\n", __func__, _create_counter);
     [self unregisterObserving];
 //    [_context reset];
     
