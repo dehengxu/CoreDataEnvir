@@ -88,6 +88,7 @@ static CoreDataEnvir * _coreDataEnvir = nil;
 static NSString *_default_model_file_name = nil;
 static NSString *_default_db_file_name = nil;
 static NSString *_default_data_file_root_path = nil;
+static id<CoreDataRescureDelegate> _rescureDelegate = nil;
 
 static BOOL _default_is_share_persistence = YES;
 //#if CORE_DATA_SHARE_PERSISTENCE
@@ -144,6 +145,11 @@ fetchedResultsCtrl;
         _default_data_file_root_path = nil;
     }
     _default_data_file_root_path = [path copy];
+}
+
++ (void)registRescureDelegate:(id<CoreDataRescureDelegate>)delegate
+{
+    _rescureDelegate = delegate;
 }
 
 + (void)_renameDatabaseFile

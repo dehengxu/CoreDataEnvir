@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A2CC432218079C6E0029C967 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3ECE17112B3F003E9A37 /* Foundation.framework */; };
+		A2CC433018079C6F0029C967 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2CC432F18079C6F0029C967 /* XCTest.framework */; };
+		A2CC433118079C6F0029C967 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3ECE17112B3F003E9A37 /* Foundation.framework */; };
+		A2CC433218079C6F0029C967 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3ECC17112B3F003E9A37 /* UIKit.framework */; };
+		A2CC433518079C6F0029C967 /* libLionCoreDataLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A2CC432118079C6E0029C967 /* libLionCoreDataLibrary.a */; };
+		A2CC433B18079C6F0029C967 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A2CC433918079C6F0029C967 /* InfoPlist.strings */; };
+		A2CC433D18079C6F0029C967 /* LionCoreDataTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A2CC433C18079C6F0029C967 /* LionCoreDataTests.m */; };
+		A2CC434418079C950029C967 /* CoreDataEnvir.m in Sources */ = {isa = PBXBuildFile; fileRef = A2ED3F0C17112C58003E9A37 /* CoreDataEnvir.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		A2CC434518079C9E0029C967 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3F2E17113E5F003E9A37 /* CoreData.framework */; };
 		A2EC7C3017F3F1B600CBE4FC /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EC7C2F17F3F1B600CBE4FC /* Team.m */; };
 		A2EC7C3317F3F1B600CBE4FC /* Member.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EC7C3217F3F1B600CBE4FC /* Member.m */; };
 		A2EC7C3517F3F2BD00CBE4FC /* demo.plist in Resources */ = {isa = PBXBuildFile; fileRef = A2EC7C3417F3F2BD00CBE4FC /* demo.plist */; };
@@ -35,6 +44,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		A2CC433318079C6F0029C967 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A2ED3EC117112B3F003E9A37 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A2CC432018079C6E0029C967;
+			remoteInfo = LionCoreData;
+		};
 		A2ED3EF717112B40003E9A37 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A2ED3EC117112B3F003E9A37 /* Project object */;
@@ -44,7 +60,26 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		A2CC431F18079C6E0029C967 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		A2CC432118079C6E0029C967 /* libLionCoreDataLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLionCoreDataLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2CC432518079C6E0029C967 /* LionCoreData-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LionCoreData-Prefix.pch"; sourceTree = "<group>"; };
+		A2CC432E18079C6F0029C967 /* LionCoreDataTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LionCoreDataTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2CC432F18079C6F0029C967 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		A2CC433818079C6F0029C967 /* LionCoreDataTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LionCoreDataTests-Info.plist"; sourceTree = "<group>"; };
+		A2CC433A18079C6F0029C967 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A2CC433C18079C6F0029C967 /* LionCoreDataTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LionCoreDataTests.m; sourceTree = "<group>"; };
 		A2EC7C2E17F3F1B600CBE4FC /* Team.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Team.h; sourceTree = "<group>"; };
 		A2EC7C2F17F3F1B600CBE4FC /* Team.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Team.m; sourceTree = "<group>"; };
 		A2EC7C3117F3F1B600CBE4FC /* Member.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Member.h; sourceTree = "<group>"; };
@@ -82,6 +117,26 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A2CC431E18079C6E0029C967 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A2CC434518079C9E0029C967 /* CoreData.framework in Frameworks */,
+				A2CC432218079C6E0029C967 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A2CC432B18079C6F0029C967 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A2CC433518079C6F0029C967 /* libLionCoreDataLibrary.a in Frameworks */,
+				A2CC433018079C6F0029C967 /* XCTest.framework in Frameworks */,
+				A2CC433218079C6F0029C967 /* UIKit.framework in Frameworks */,
+				A2CC433118079C6F0029C967 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A2ED3EC617112B3F003E9A37 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -106,12 +161,48 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A2CC432318079C6E0029C967 /* LionCoreData */ = {
+			isa = PBXGroup;
+			children = (
+				A2CC432418079C6E0029C967 /* Supporting Files */,
+			);
+			path = LionCoreData;
+			sourceTree = "<group>";
+		};
+		A2CC432418079C6E0029C967 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A2CC432518079C6E0029C967 /* LionCoreData-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A2CC433618079C6F0029C967 /* LionCoreDataTests */ = {
+			isa = PBXGroup;
+			children = (
+				A2CC433C18079C6F0029C967 /* LionCoreDataTests.m */,
+				A2CC433718079C6F0029C967 /* Supporting Files */,
+			);
+			path = LionCoreDataTests;
+			sourceTree = "<group>";
+		};
+		A2CC433718079C6F0029C967 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A2CC433818079C6F0029C967 /* LionCoreDataTests-Info.plist */,
+				A2CC433918079C6F0029C967 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		A2ED3EC017112B3F003E9A37 = {
 			isa = PBXGroup;
 			children = (
 				A2ED3F0A17112BAC003E9A37 /* CoreDataEnvir */,
 				A2ED3ED217112B3F003E9A37 /* CoreDataEnvirSample */,
 				A2ED3EF917112B40003E9A37 /* CoreDataEnvirSampleTests */,
+				A2CC432318079C6E0029C967 /* LionCoreData */,
+				A2CC433618079C6F0029C967 /* LionCoreDataTests */,
 				A2ED3ECB17112B3F003E9A37 /* Frameworks */,
 				A2ED3ECA17112B3F003E9A37 /* Products */,
 			);
@@ -122,6 +213,8 @@
 			children = (
 				A2ED3EC917112B3F003E9A37 /* CoreDataEnvirSample.app */,
 				A2ED3EF217112B40003E9A37 /* CoreDataEnvirSampleTests.octest */,
+				A2CC432118079C6E0029C967 /* libLionCoreDataLibrary.a */,
+				A2CC432E18079C6F0029C967 /* LionCoreDataTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -134,6 +227,7 @@
 				A2ED3ECE17112B3F003E9A37 /* Foundation.framework */,
 				A2ED3ED017112B3F003E9A37 /* CoreGraphics.framework */,
 				A2ED3EF317112B40003E9A37 /* SenTestingKit.framework */,
+				A2CC432F18079C6F0029C967 /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -205,6 +299,41 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		A2CC432018079C6E0029C967 /* LionCoreDataLibrary */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A2CC434218079C6F0029C967 /* Build configuration list for PBXNativeTarget "LionCoreDataLibrary" */;
+			buildPhases = (
+				A2CC431D18079C6E0029C967 /* Sources */,
+				A2CC431E18079C6E0029C967 /* Frameworks */,
+				A2CC431F18079C6E0029C967 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LionCoreDataLibrary;
+			productName = LionCoreData;
+			productReference = A2CC432118079C6E0029C967 /* libLionCoreDataLibrary.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		A2CC432D18079C6F0029C967 /* LionCoreDataTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A2CC434318079C6F0029C967 /* Build configuration list for PBXNativeTarget "LionCoreDataTests" */;
+			buildPhases = (
+				A2CC432A18079C6F0029C967 /* Sources */,
+				A2CC432B18079C6F0029C967 /* Frameworks */,
+				A2CC432C18079C6F0029C967 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A2CC433418079C6F0029C967 /* PBXTargetDependency */,
+			);
+			name = LionCoreDataTests;
+			productName = LionCoreDataTests;
+			productReference = A2CC432E18079C6F0029C967 /* LionCoreDataTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		A2ED3EC817112B3F003E9A37 /* CoreDataEnvirSample */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A2ED3F0417112B40003E9A37 /* Build configuration list for PBXNativeTarget "CoreDataEnvirSample" */;
@@ -250,6 +379,9 @@
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = Nicholas.Xu;
 				TargetAttributes = {
+					A2CC432D18079C6F0029C967 = {
+						TestTargetID = A2ED3EC817112B3F003E9A37;
+					};
 					A2ED3EC817112B3F003E9A37 = {
 						DevelopmentTeam = 375GT6S3QN;
 					};
@@ -269,11 +401,21 @@
 			targets = (
 				A2ED3EC817112B3F003E9A37 /* CoreDataEnvirSample */,
 				A2ED3EF117112B40003E9A37 /* CoreDataEnvirSampleTests */,
+				A2CC432018079C6E0029C967 /* LionCoreDataLibrary */,
+				A2CC432D18079C6F0029C967 /* LionCoreDataTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		A2CC432C18079C6F0029C967 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A2CC433B18079C6F0029C967 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A2ED3EC717112B3F003E9A37 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -313,6 +455,22 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A2CC431D18079C6E0029C967 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A2CC434418079C950029C967 /* CoreDataEnvir.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A2CC432A18079C6F0029C967 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A2CC433D18079C6F0029C967 /* LionCoreDataTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A2ED3EC517112B3F003E9A37 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -342,6 +500,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		A2CC433418079C6F0029C967 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A2CC432018079C6E0029C967 /* LionCoreDataLibrary */;
+			targetProxy = A2CC433318079C6F0029C967 /* PBXContainerItemProxy */;
+		};
 		A2ED3EF817112B40003E9A37 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A2ED3EC817112B3F003E9A37 /* CoreDataEnvirSample */;
@@ -350,6 +513,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		A2CC433918079C6F0029C967 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A2CC433A18079C6F0029C967 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		A2ED3ED517112B3F003E9A37 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -369,6 +540,120 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		A2CC433E18079C6F0029C967 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				DSTROOT = /tmp/LionCoreData.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LionCoreData/LionCoreData-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		A2CC433F18079C6F0029C967 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				DSTROOT = /tmp/LionCoreData.dst;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LionCoreData/LionCoreData-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		A2CC434018079C6F0029C967 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CoreDataEnvirSample.app/CoreDataEnvirSample";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LionCoreData/LionCoreData-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = "LionCoreDataTests/LionCoreDataTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		A2CC434118079C6F0029C967 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CoreDataEnvirSample.app/CoreDataEnvirSample";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LionCoreData/LionCoreData-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = "LionCoreDataTests/LionCoreDataTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
 		A2ED3F0217112B40003E9A37 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -496,6 +781,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A2CC434218079C6F0029C967 /* Build configuration list for PBXNativeTarget "LionCoreDataLibrary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A2CC433E18079C6F0029C967 /* Debug */,
+				A2CC433F18079C6F0029C967 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A2CC434318079C6F0029C967 /* Build configuration list for PBXNativeTarget "LionCoreDataTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A2CC434018079C6F0029C967 /* Debug */,
+				A2CC434118079C6F0029C967 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A2ED3EC417112B3F003E9A37 /* Build configuration list for PBXProject "CoreDataEnvirSample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

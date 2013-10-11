@@ -144,7 +144,7 @@ typedef enum
 /**
  Data rescure when CoreData envirement init occurs error.
  */
-@property (nonatomic, assign) id<CoreDataRescureDelegate> rescureDelegate;
+//@property (nonatomic, assign) id<CoreDataRescureDelegate> rescureDelegate;
 
 /**
  If share persistence coordinator.
@@ -172,6 +172,13 @@ typedef enum
  @param path    Data file root path.
  */
 + (void)registDefaultDataFileRootPath:(NSString *)path;
+
+/**
+ Regist resucrer, recommend using UIApplicationDelegate instance.
+ 
+ @param delegate    Rescure delegate
+ */
++ (void)registRescureDelegate:(id<CoreDataRescureDelegate>)delegate;
 
 /**
  Get model file name.(Name likes: xxxx.mmod in sandbox.)
