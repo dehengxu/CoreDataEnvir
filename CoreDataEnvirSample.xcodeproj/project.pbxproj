@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A2CC432218079C6E0029C967 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3ECE17112B3F003E9A37 /* Foundation.framework */; };
 		A2CC433018079C6F0029C967 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2CC432F18079C6F0029C967 /* XCTest.framework */; };
 		A2CC433118079C6F0029C967 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3ECE17112B3F003E9A37 /* Foundation.framework */; };
 		A2CC433218079C6F0029C967 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3ECC17112B3F003E9A37 /* UIKit.framework */; };
@@ -15,7 +14,6 @@
 		A2CC433B18079C6F0029C967 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A2CC433918079C6F0029C967 /* InfoPlist.strings */; };
 		A2CC433D18079C6F0029C967 /* LionCoreDataTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A2CC433C18079C6F0029C967 /* LionCoreDataTests.m */; };
 		A2CC434418079C950029C967 /* CoreDataEnvir.m in Sources */ = {isa = PBXBuildFile; fileRef = A2ED3F0C17112C58003E9A37 /* CoreDataEnvir.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		A2CC434518079C9E0029C967 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3F2E17113E5F003E9A37 /* CoreData.framework */; };
 		A2EC7C3017F3F1B600CBE4FC /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EC7C2F17F3F1B600CBE4FC /* Team.m */; };
 		A2EC7C3317F3F1B600CBE4FC /* Member.m in Sources */ = {isa = PBXBuildFile; fileRef = A2EC7C3217F3F1B600CBE4FC /* Member.m */; };
 		A2EC7C3517F3F2BD00CBE4FC /* demo.plist in Resources */ = {isa = PBXBuildFile; fileRef = A2EC7C3417F3F2BD00CBE4FC /* demo.plist */; };
@@ -121,8 +119,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A2CC434518079C9E0029C967 /* CoreData.framework in Frameworks */,
-				A2CC432218079C6E0029C967 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -561,6 +557,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LINK_WITH_STANDARD_LIBRARIES = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -585,6 +582,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LINK_WITH_STANDARD_LIBRARIES = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -723,6 +721,7 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -740,6 +739,7 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
