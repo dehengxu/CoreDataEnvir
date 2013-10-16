@@ -227,6 +227,9 @@ typedef enum
  */
 + (NSString *)dataRootPath;
 
++ (dispatch_queue_t)backgroundQueue;
+
++ (CoreDataEnvir *)backgroundInstance;
 
 /**
  Init instance with specified db , model file name.

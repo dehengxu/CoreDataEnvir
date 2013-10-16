@@ -83,7 +83,10 @@ break;\
 
 #pragma mark - ---------------------- CoreDataEnvirement -----------------------
 
-static CoreDataEnvir * _coreDataEnvir = nil;
+static CoreDataEnvir *_coreDataEnvir = nil;
+
+static CoreDataEnvir *_backgroundInstance = nil;
+static dispatch_queue_t _backgroundQueue = nil;
 
 static NSString *_default_model_file_name = nil;
 static NSString *_default_db_file_name = nil;
@@ -247,6 +250,28 @@ unsigned int _create_counter = 0;
     cde = [[self alloc] initWithDatabaseFileName:databaseFileName modelFileName:modelFileName];
     NSLog(@"\n\n------\ncreate counter :%d\n\n------", _create_counter);
     return [cde autorelease];
+}
+
++ (CoreDataEnvir *)backgroundInstance
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (!_backgroundInstance) {
+            _backgroundInstance = [CoreDataEnvir createInstance];
+        }
+    });
+    return _backgroundInstance;
+}
+
++ (dispatch_queue_t)backgroundQueue
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (!_backgroundQueue) {
+            _backgroundQueue = dispatch_queue_create("me.deheng.coredataenvir.background", NULL);
+        }
+    });
+    return _backgroundQueue;
 }
 
 //+ (void) deleteInstance
