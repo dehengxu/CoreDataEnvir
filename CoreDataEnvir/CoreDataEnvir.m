@@ -257,7 +257,7 @@ unsigned int _create_counter = 0;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         if (!_backgroundInstance) {
-            _backgroundInstance = [CoreDataEnvir createInstance];
+            _backgroundInstance = [[CoreDataEnvir createInstance] retain];
         }
     });
     return _backgroundInstance;
