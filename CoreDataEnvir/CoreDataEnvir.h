@@ -211,6 +211,11 @@ typedef enum
 + (CoreDataEnvir *)mainInstance;
 
 /**
+ Main queue.
+ */
++ (dispatch_queue_t)mainQueue;
+
+/**
  Creating a new instance by default db, momd file name.
  */
 + (CoreDataEnvir *)createInstance;

@@ -232,6 +232,11 @@ unsigned int _create_counter = 0;
     return _coreDataEnvir;
 }
 
++ (dispatch_queue_t)mainQueue
+{
+    return dispatch_get_main_queue();
+}
+
 + (CoreDataEnvir *)createInstance
 {
     CoreDataEnvir *cde = [self createInstanceWithDatabaseFileName:nil modelFileName:nil];

@@ -106,7 +106,7 @@ int runs_forever = THREAD_NUMBER;
     int runTimes = times;
     dispatch_async(queue, ^{
         CoreDataEnvir *db = [CoreDataEnvir instance];
-        db.rescureDelegate = self;
+        [CoreDataEnvir registRescureDelegate:self];
 
         NSString *queueLabel = [NSString stringWithCString:dispatch_queue_get_label(queue) encoding:NSUTF8StringEncoding];
         
@@ -284,7 +284,7 @@ int counter = 0;
         
         NSArray *teams = [Team itemsInContext:db];
         [db deleteDataItems:teams];
-
+        
         NSArray *members = [Member itemsInContext:db];
         [db deleteDataItems:members];
 
