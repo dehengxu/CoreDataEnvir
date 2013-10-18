@@ -276,7 +276,7 @@ typedef enum
 
 @end
 
-#pragma mark - NSmanagedObject convinent methods.
+#pragma mark - NSManagedObject convinent methods.
 
 @interface NSManagedObject (CONVENIENT)
 
