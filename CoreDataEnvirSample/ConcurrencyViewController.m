@@ -12,8 +12,8 @@
 #import "Team.h"
 #import "Member.h"
 
-#define THREAD_NUMBER  1024
-#define LOOP_NUMBER_PER_THREAD  101
+#define THREAD_NUMBER  1
+#define LOOP_NUMBER_PER_THREAD  NSIntegerMax
 
 //Test concurrency.
 #define TESTING_A   1
@@ -109,12 +109,31 @@ int runs_forever = THREAD_NUMBER;
         [CoreDataEnvir registRescureDelegate:self];
 
         NSString *queueLabel = [NSString stringWithCString:dispatch_queue_get_label(queue) encoding:NSUTF8StringEncoding];
+        Team *t = [Team lastItemInContext:db];
         
-        for (int i = 0; i < runTimes; i++) {
-            Team *team = (Team *)[Team lastItemInContext:db usingPredicate:[NSPredicate predicateWithFormat:@"name==%@", queueLabel]];
+//        for (int i = t.number.intValue; i < runTimes; i++) {
+        for (;;) {
+            Team *team = (Team *)[Team lastItemInContext:db];
+            
+            int i = team.number.intValue;
+            i ++;
+            
+            if (team) {
+                team.number = @(i);
+            }else {
+                team = [Team insertItemInContext:db fillData:^(Team *item) {
+                    item.name = queueLabel;
+                    item.number = @(0);
+                }];
+            }
+            [team saveTo:db];
             
             if (team) {
                 NSLog(@"testing queue :%@; team.number :%@", queueLabel, team.number);
+            }
+            
+            if (i >= runTimes - 1) {
+                i = 0;
             }
         }
         dispatch_semaphore_wait(__runs_sema, ~0ull);
@@ -296,10 +315,19 @@ int counter = 0;
 {
     //self.tem.number;
     CoreDataEnvir *db = [CoreDataEnvir instance];
-    NSArray *teams = [Team itemsInContext:db];
-    NSArray *members = [Member itemsInContext:db];
+    NSArray *teams = [Team items];
+    NSArray *members = [Member items];
     
-    NSString *message = [NSString stringWithFormat:@"teams :%d\nmembers :%d", [teams count], [members count]];
+    Team *t = [Team lastItem];
+//    t.number = @(0);
+//    [t save];
+    
+    if (!self.teamOnMainThread) {
+        self.teamOnMainThread = [Team lastItem];
+    }
+    
+    NSString *message = [NSString stringWithFormat:@"teams :%d\nmembers :%d\nTeam name:%@ number:%@\n t number:%@", [teams count], [members count], self.teamOnMainThread.name, self.teamOnMainThread.number, t.number];
+    
     UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"" message:message delegate:Nil cancelButtonTitle:@"Close" otherButtonTitles: nil] autorelease];
     [alert show];
 }

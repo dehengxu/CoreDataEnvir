@@ -20,6 +20,8 @@ CoreDataRescureDelegate
     dispatch_semaphore_t __runs_sema;
 }
 
+@property (nonatomic, strong) Team *teamOnMainThread;
+
 - (IBAction)onClick_test:(id)sender;
 - (IBAction)onClick_clearAll:(id)sender;
 - (IBAction)onClick_look:(id)sender;
