@@ -94,9 +94,8 @@ static NSString *_default_data_file_root_path = nil;
 static id<CoreDataRescureDelegate> _rescureDelegate = nil;
 
 static BOOL _default_is_share_persistence = YES;
-//#if CORE_DATA_SHARE_PERSISTENCE
+
 static NSPersistentStoreCoordinator * __sharedStoreCoordinator = nil;
-//#endif
 
 dispatch_semaphore_t _sem = NULL;
 dispatch_semaphore_t _sem_main = NULL;
@@ -108,9 +107,7 @@ dispatch_semaphore_t _sem_main = NULL;
 @synthesize //model,
 context = _context,
 
-//#if !CORE_DATA_SHARE_PERSISTENCE
 storeCoordinator = _storeCoordinator,
-//#endif
 
 fetchedResultsCtrl;
 
@@ -691,14 +688,12 @@ unsigned int _create_counter = 0;
 
     NSLog(@"%s\ncreate counter :%d\n\n", __func__, _create_counter);
     [self unregisterObserving];
-//    [_context reset];
+    //[_context reset];
     
     [__recursiveLock release];
     [_context release];
 	[fetchedResultsCtrl release];
-//#if !CORE_DATA_SHARE_PERSISTENCE
     [_storeCoordinator release];
-//#endif
     
     [super dealloc];
 }
@@ -758,7 +753,7 @@ unsigned int _create_counter = 0;
  */
 - (void)mergeChanges:(NSNotification *)notification {
 #if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
-    NSLog(@"%s %@", __FUNCTION__, [self currentDispatchQueueLabel]);
+    NSLog(@"%s [%@/%@] %@", __FUNCTION__, self.context, notification.object, [self currentDispatchQueueLabel]);
 #endif
     
     if (notification.object == self.context) {
@@ -768,7 +763,7 @@ unsigned int _create_counter = 0;
     
     //[self performSelectorOnMainThread:@selector(updateContext:) withObject:notification waitUntilDone:NO];
     //Note:waitUntilDone:YES will cause method 'saveDatabase' and 'updateContext' fall in dead lock by '[storeCoordinator lock]'
-    [self performSelector:@selector(updateContext:) onThread:[NSThread currentThread] withObject:notification waitUntilDone:NO];
+    [self performSelector:@selector(updateContext:) onThread:[NSThread currentThread] withObject:notification waitUntilDone:YES];
 }
 
 - (void)sendPendingChanges

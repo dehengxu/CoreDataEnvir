@@ -20,18 +20,6 @@
 #import <CoreData/CoreData.h>
 
 #define CORE_DATA_ENVIR_SHOW_LOG        0
-/**
- Triggle to enable persistance shared.
- 
- If you wanna create a seperate db file storage, you should
- set this flag to 1 or else set to 0.
- 
- Commonly , you should set this flag to 1.
- 
- 1: Multi context shared same persistence file.
- 0: Every context has own persistence file.
- */
-#define CORE_DATA_SHARE_PERSISTENCE     1
 
 @class CoreDataEnvir;
 
@@ -114,12 +102,10 @@ typedef enum
  */
 @property (nonatomic, readonly) NSManagedObjectContext *context;
 
-//#if !CORE_DATA_SHARE_PERSISTENCE
 /**
  A persistance coordinator object.
  */
 @property (nonatomic, retain) NSPersistentStoreCoordinator *storeCoordinator;
-//#endif
 
 /**
  A NSFetchedResultsController object, not be used by now.
@@ -147,8 +133,19 @@ typedef enum
 //@property (nonatomic, assign) id<CoreDataRescureDelegate> rescureDelegate;
 
 /**
+ Triggle to enable persistance shared.
+ 
+ If you wanna create another db file storage, you should
+ set this flag to YES or set to NO.
+ 
+ Commonly , you should set this flag to YES.
+ 
+ YES: Multi context shared same persistence file.
+ NO: Every context has own persistence file.
+
  If share persistence coordinator.
  Default is YES;
+ 
  */
 @property (nonatomic) BOOL sharePersistence;
 
