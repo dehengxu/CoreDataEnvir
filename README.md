@@ -49,4 +49,6 @@ This method ([CoreDataEnvir instance]) will automatically creating new instance 
 		}
 	});
 
+##If your are newcomer to CoreData, please obey the rules below:
+If you wanna keep you NSManagedObject objects, you shouldn't release you CoreDataEnvir object or it will be fault. So if you operate data base in multiple threads, make sure your NSManagedObject object reference fetched from [CoreDataEnvir mainInstance] or [CoreDataEnvir backgroundInstance] which never be released until application exist.
 
