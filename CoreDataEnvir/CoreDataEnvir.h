@@ -329,7 +329,7 @@ typedef enum
 - (BOOL)save;
 
 
-#pragma mark - Operation on other sperate thread.
+#pragma mark - Operation on background thread.
 
 /**
  Creating managed object on background thread.
