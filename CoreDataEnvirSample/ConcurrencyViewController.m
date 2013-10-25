@@ -13,7 +13,7 @@
 #import "Member.h"
 
 #define THREAD_NUMBER  1
-#define LOOP_NUMBER_PER_THREAD  NSIntegerMax
+#define LOOP_NUMBER_PER_THREAD  1024 * 2
 
 //Test concurrency.
 #define TESTING_A   1
@@ -75,6 +75,11 @@
     [super viewWillAppear:animated];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -109,15 +114,20 @@ int runs_forever = THREAD_NUMBER;
         [CoreDataEnvir registRescureDelegate:self];
 
         NSString *queueLabel = [NSString stringWithCString:dispatch_queue_get_label(queue) encoding:NSUTF8StringEncoding];
+        
+        if (!self.teamOnBackground) {
+            self.teamOnBackground = [Team lastItemInContext:db];
+        }
         Team *t = [Team lastItemInContext:db];
         
 //        for (int i = t.number.intValue; i < runTimes; i++) {
+        int i = 0;
         for (;;) {
             Team *team = (Team *)[Team lastItemInContext:db];
             
-            int i = team.number.intValue;
+            i = team.number.intValue;
             i ++;
-            
+
             if (team) {
                 team.number = @(i);
             }else {
@@ -129,12 +139,15 @@ int runs_forever = THREAD_NUMBER;
             [team saveTo:db];
             
             if (team) {
-                NSLog(@"testing queue :%@; team.number :%@", queueLabel, team.number);
+                NSLog(@"testing queue :%@; team.number :%@", queueLabel, self.teamOnBackground.number);
             }
             
             if (i >= runTimes - 1) {
-                i = 0;
+                //i = 0;
+                break;
             }
+            
+            [NSThread sleepForTimeInterval:0.05];
         }
         dispatch_semaphore_wait(__runs_sema, ~0ull);
         runs_forever--;
@@ -194,7 +207,7 @@ int counter = 0;
     for (int i = 0; i < THREAD_NUMBER; i++) {
         dispatch_queue_t q1 = NULL;
         //Start 20 thread for testing, every thread runs CRUD operation 101 times on Name "com.cyblion".
-        q1 = dispatch_queue_create([[NSString stringWithFormat:@"com.cyblion"] cStringUsingEncoding:NSUTF8StringEncoding], NULL);
+        q1 = dispatch_queue_create([[NSString stringWithFormat:@"com.cyblion.%d", i] cStringUsingEncoding:NSUTF8StringEncoding], NULL);
         if (q1) {
             [self runTestA:q1 withTimes:LOOP_NUMBER_PER_THREAD];
         }
@@ -313,21 +326,20 @@ int counter = 0;
 
 - (void)onClick_look:(id)sender
 {
-    //self.tem.number;
-    CoreDataEnvir *db = [CoreDataEnvir instance];
     NSArray *teams = [Team items];
     NSArray *members = [Member items];
     
     Team *t = [Team lastItem];
-//    t.number = @(0);
-//    [t save];
     
     if (!self.teamOnMainThread) {
         self.teamOnMainThread = [Team lastItem];
     }
     
     NSString *message = [NSString stringWithFormat:@"teams :%d\nmembers :%d\nTeam name:%@ number:%@\n t number:%@", [teams count], [members count], self.teamOnMainThread.name, self.teamOnMainThread.number, t.number];
-    
+    NSLog(@"team background :%@", self.teamOnBackground);
+//    t.number = @(0);
+//    [t save];
+
     UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"" message:message delegate:Nil cancelButtonTitle:@"Close" otherButtonTitles: nil] autorelease];
     [alert show];
 }

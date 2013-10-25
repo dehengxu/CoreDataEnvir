@@ -21,6 +21,7 @@ CoreDataRescureDelegate
 }
 
 @property (nonatomic, strong) Team *teamOnMainThread;
+@property (nonatomic, strong) Team *teamOnBackground;
 
 - (IBAction)onClick_test:(id)sender;
 - (IBAction)onClick_clearAll:(id)sender;
