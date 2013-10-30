@@ -798,6 +798,9 @@ unsigned int _create_counter = 0;
 @implementation NSManagedObject(CONVENIENT)
 
 #pragma mark - Operation on main thread.
+
+#pragma mark - insert new record item
+
 + (id)insertItem
 {
     if (![NSThread isMainThread]) {
@@ -819,25 +822,7 @@ unsigned int _create_counter = 0;
     return item;
 }
 
-+ (id)insertItemInContext:(CoreDataEnvir *)cde
-{
-#if DEBUG
-    NSLog(@"%s thread :%u, %@", __func__, [NSThread isMainThread], [NSString stringWithCString:dispatch_queue_get_label(dispatch_get_current_queue()) encoding:NSUTF8StringEncoding]);
-#endif
-    id item = nil;
-    item = [cde buildManagedObjectByClass:self];
-    return item;
-}
-
-+ (id)insertItemInContext:(CoreDataEnvir *)cde fillData:(void (^)(id item))settingBlock
-{
-#if DEBUG
-    NSLog(@"%s thread :%u, %@", __func__, [NSThread isMainThread], [NSString stringWithCString:dispatch_queue_get_label(dispatch_get_current_queue()) encoding:NSUTF8StringEncoding]);
-#endif
-    id item = [self insertItemInContext:cde];
-    settingBlock(item);
-    return item;
-}
+#pragma mark - fetch items
 
 + (NSArray *)items
 {
@@ -849,7 +834,8 @@ unsigned int _create_counter = 0;
         return nil;
     }
     CoreDataEnvir *db = [CoreDataEnvir mainInstance];
-    NSArray *items = [self itemsInContext:db usingPredicate:nil];
+    NSArray *items = [db fetchItemsByEntityDescriptionName:NSStringFromClass(self)];
+
     return items;
 }
 
@@ -863,7 +849,7 @@ unsigned int _create_counter = 0;
         return nil;
     }
     CoreDataEnvir *db = [CoreDataEnvir mainInstance];
-    NSArray *items = [self itemsInContext:db usingPredicate:predicate];
+    NSArray *items = [db fetchItemsByEntityDescriptionName:NSStringFromClass(self) usingPredicate:predicate];
     return items;
 }
 
@@ -874,9 +860,33 @@ unsigned int _create_counter = 0;
     NSPredicate *pred = [NSPredicate predicateWithFormat:fmt arguments:args];
     va_end(args);
     CoreDataEnvir *db = [CoreDataEnvir mainInstance];
-    NSArray *items = [self itemsInContext:db usingPredicate:pred];
+    NSArray *items = [db fetchItemsByEntityDescriptionName:NSStringFromClass(self) usingPredicate:pred];
     return items;
 }
+
++ (NSArray *)itemsSortDescriptions:(NSArray *)sortDescriptions withFormat:(NSString *)fmt, ...
+{
+    va_list args;
+    va_start(args, fmt);
+    NSPredicate *pred = [NSPredicate predicateWithFormat:fmt arguments:args];
+    va_end(args);
+    CoreDataEnvir *db = [CoreDataEnvir mainInstance];
+    NSArray *items = [db fetchItemsByEntityDescriptionName:NSStringFromClass(self) usingPredicate:pred usingSortDescriptions:sortDescriptions];
+    return items;
+}
+
++ (NSArray *)itemsSortDescriptions:(NSArray *)sortDescriptions fromOffset:(NSUInteger)offset limitedBy:(NSUInteger)limtNumber withFormat:(NSString *)fmt, ...
+{
+    va_list args;
+    va_start(args, fmt);
+    NSPredicate *pred = [NSPredicate predicateWithFormat:fmt arguments:args];
+    va_end(args);
+    CoreDataEnvir *db = [CoreDataEnvir mainInstance];
+    NSArray *items = [db fetchItemsByEntityDescriptionName:NSStringFromClass(self) usingPredicate:pred usingSortDescriptions:sortDescriptions fromOffset:offset LimitedBy:limtNumber];
+    return items;
+}
+
+#pragma mark - fetch last item
 
 + (id)lastItem
 {
@@ -915,6 +925,30 @@ unsigned int _create_counter = 0;
 
 #pragma mark - Operation on other sperate thread.
 
+#pragma mark - Insert item record
+
++ (id)insertItemInContext:(CoreDataEnvir *)cde
+{
+#if DEBUG
+    NSLog(@"%s thread :%u, %@", __func__, [NSThread isMainThread], [NSString stringWithCString:dispatch_queue_get_label(dispatch_get_current_queue()) encoding:NSUTF8StringEncoding]);
+#endif
+    id item = nil;
+    item = [cde buildManagedObjectByClass:self];
+    return item;
+}
+
++ (id)insertItemInContext:(CoreDataEnvir *)cde fillData:(void (^)(id item))settingBlock
+{
+#if DEBUG
+    NSLog(@"%s thread :%u, %@", __func__, [NSThread isMainThread], [NSString stringWithCString:dispatch_queue_get_label(dispatch_get_current_queue()) encoding:NSUTF8StringEncoding]);
+#endif
+    id item = [self insertItemInContext:cde];
+    settingBlock(item);
+    return item;
+}
+
+#pragma mark - fetch items
+
 + (NSArray *)itemsInContext:(CoreDataEnvir *)cde
 {
     NSArray *items = [cde fetchItemsByEntityDescriptionName:NSStringFromClass(self)];
@@ -938,6 +972,28 @@ unsigned int _create_counter = 0;
     return items;
 }
 
++ (NSArray *)itemsInContext:(CoreDataEnvir *)cde sortDescriptions:(NSArray *)sortDescriptions withFormat:(NSString *)fmt, ...
+{
+    va_list args;
+    va_start(args, fmt);
+    NSPredicate *pred = [NSPredicate predicateWithFormat:fmt arguments:args];
+    va_end(args);
+    NSArray *items = [cde fetchItemsByEntityDescriptionName:NSStringFromClass(self) usingPredicate:pred usingSortDescriptions:sortDescriptions];
+    return items;
+}
+
++ (NSArray *)itemsInContext:(CoreDataEnvir *)cde sortDescriptions:(NSArray *)sortDescriptions fromOffset:(NSUInteger)offset limitedBy:(NSUInteger)limtNumber withFormat:(NSString *)fmt, ...
+{
+    va_list args;
+    va_start(args, fmt);
+    NSPredicate *pred = [NSPredicate predicateWithFormat:fmt arguments:args];
+    va_end(args);
+    NSArray *items = [cde fetchItemsByEntityDescriptionName:NSStringFromClass(self) usingPredicate:pred usingSortDescriptions:sortDescriptions fromOffset:offset LimitedBy:limtNumber];
+    return items;
+}
+
+#pragma mark - fetch last item
+
 + (id)lastItemInContext:(CoreDataEnvir *)cde
 {
     return [[self itemsInContext:cde] lastObject];
@@ -957,6 +1013,8 @@ unsigned int _create_counter = 0;
     
     return [[self itemsInContext:cde usingPredicate:pred] lastObject];
 }
+
+#pragma mark - merge context when update
 
 - (id)update
 {

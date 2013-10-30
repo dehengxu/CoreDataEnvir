@@ -303,6 +303,10 @@ typedef enum
  */
 + (NSArray *)itemsWithFormat:(NSString *)fmt,...;
 
++ (NSArray *)itemsSortDescriptions:(NSArray *)sortDescriptions withFormat:(NSString *)fmt,...;
+
++ (NSArray *)itemsSortDescriptions:(NSArray *)sortDescriptions fromOffset:(NSUInteger)offset limitedBy:(NSUInteger)limtNumber withFormat:(NSString *)fmt,...;
+
 /**
  Fetching last record item.
  */
@@ -355,6 +359,10 @@ typedef enum
  Fetch record items by format string.
  */
 + (NSArray *)itemsInContext:(CoreDataEnvir *)cde withFormat:(NSString *)fmt,...;
+
++ (NSArray *)itemsInContext:(CoreDataEnvir *)cde sortDescriptions:(NSArray *)sortDescriptions withFormat:(NSString *)fmt,...;
+
++ (NSArray *)itemsInContext:(CoreDataEnvir *)cde sortDescriptions:(NSArray *)sortDescriptions fromOffset:(NSUInteger)offset limitedBy:(NSUInteger)limtNumber withFormat:(NSString *)fmt,...;
 
 /**
  Fetch item in specified context.
