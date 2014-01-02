@@ -31,8 +31,10 @@ A CoreData Envirement wrapper, use CoreData in convient way. You can use it in c
 
 ##If you want to run on other threads, follow this:
 
-This method ([CoreDataEnvir instance]) will automatically creating new instance for non-main thread and uniq instance for main thread.
-
+This method ([CoreDataEnvir instance]) will automatically creating a new instance for non-main thread every callback and uniq instance for main thread. So your should keep CoreDataEnvir instance on non-main thread yourself.
+But in latest version , I supply a backgroundInstance and backgroundQueue for your concurrencyly usage in Dispatch queue. You can also run CoreDataEnvir on any other queue:
+	
+	dispatch_queue_t q2 = dispatch_queue_create("com.cyblion.coredateenvir", NULL);
 	dispatch_async(q2, ^{
 		CoreDataEnvir *db = [CoreDataEnvir instance];
 		for (int i = 0; i < 500; i++) {
