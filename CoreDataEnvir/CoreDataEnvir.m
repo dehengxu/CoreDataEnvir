@@ -343,6 +343,11 @@ unsigned int _create_counter = 0;
     //NSArray *momdPaths = [[NSBundle mainBundle] pathsForResourcesOfType:@"momd" inDirectory:nil];
     NSURL *fileUrl = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@", path, dbName]];
     
+    NSFileManager *fman = [NSFileManager defaultManager];
+    if (![fman fileExistsAtPath:path]) {
+        [fman createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    
     [self.context setRetainsRegisteredObjects:NO];
     [self.context setPropagatesDeletesAtEndOfEvent:NO];
     [self.context setMergePolicy:NSOverwriteMergePolicy];
