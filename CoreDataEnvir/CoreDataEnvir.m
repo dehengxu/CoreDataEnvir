@@ -880,14 +880,14 @@ unsigned int _create_counter = 0;
     return items;
 }
 
-+ (NSArray *)itemsSortDescriptions:(NSArray *)sortDescriptions fromOffset:(NSUInteger)offset limitedBy:(NSUInteger)limtNumber withFormat:(NSString *)fmt, ...
++ (NSArray *)itemsSortDescriptions:(NSArray *)sortDescriptions fromOffset:(NSUInteger)offset limitedBy:(NSUInteger)limitNumber withFormat:(NSString *)fmt, ...
 {
     va_list args;
     va_start(args, fmt);
     NSPredicate *pred = [NSPredicate predicateWithFormat:fmt arguments:args];
     va_end(args);
     CoreDataEnvir *db = [CoreDataEnvir mainInstance];
-    NSArray *items = [db fetchItemsByEntityDescriptionName:NSStringFromClass(self) usingPredicate:pred usingSortDescriptions:sortDescriptions fromOffset:offset LimitedBy:limtNumber];
+    NSArray *items = [db fetchItemsByEntityDescriptionName:NSStringFromClass(self) usingPredicate:pred usingSortDescriptions:sortDescriptions fromOffset:offset LimitedBy:limitNumber];
     return items;
 }
 
@@ -987,13 +987,13 @@ unsigned int _create_counter = 0;
     return items;
 }
 
-+ (NSArray *)itemsInContext:(CoreDataEnvir *)cde sortDescriptions:(NSArray *)sortDescriptions fromOffset:(NSUInteger)offset limitedBy:(NSUInteger)limtNumber withFormat:(NSString *)fmt, ...
++ (NSArray *)itemsInContext:(CoreDataEnvir *)cde sortDescriptions:(NSArray *)sortDescriptions fromOffset:(NSUInteger)offset limitedBy:(NSUInteger)limitNumber withFormat:(NSString *)fmt, ...
 {
     va_list args;
     va_start(args, fmt);
     NSPredicate *pred = [NSPredicate predicateWithFormat:fmt arguments:args];
     va_end(args);
-    NSArray *items = [cde fetchItemsByEntityDescriptionName:NSStringFromClass(self) usingPredicate:pred usingSortDescriptions:sortDescriptions fromOffset:offset LimitedBy:limtNumber];
+    NSArray *items = [cde fetchItemsByEntityDescriptionName:NSStringFromClass(self) usingPredicate:pred usingSortDescriptions:sortDescriptions fromOffset:offset LimitedBy:limitNumber];
     return items;
 }
 

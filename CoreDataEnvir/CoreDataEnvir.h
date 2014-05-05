@@ -303,27 +303,56 @@ typedef enum
  */
 + (NSArray *)itemsWithFormat:(NSString *)fmt,...;
 
+/**
+ *  Fetch record items in main context by predicate format string more simpler.
+ *
+ *  @param sortDescriptions SortDescriptions
+ *  @param fmt              Predicate format string.
+ *
+ *  @return Array of items match the condition.
+ */
 + (NSArray *)itemsSortDescriptions:(NSArray *)sortDescriptions withFormat:(NSString *)fmt,...;
 
-+ (NSArray *)itemsSortDescriptions:(NSArray *)sortDescriptions fromOffset:(NSUInteger)offset limitedBy:(NSUInteger)limtNumber withFormat:(NSString *)fmt,...;
+/**
+ *  Fetch record items in main context by predicate format string more simpler.
+ *
+ *  @param sortDescriptions SortDescriptions
+ *  @param offset           offset
+ *  @param limtNumber       limit number
+ *  @param fmt              predicate format string.
+ *
+ *  @return Array of items match the condition.
+ */
++ (NSArray *)itemsSortDescriptions:(NSArray *)sortDescriptions fromOffset:(NSUInteger)offset limitedBy:(NSUInteger)limitNumber withFormat:(NSString *)fmt,...;
 
 /**
- Fetching last record item.
+ * Fetching last record item.
  */
 + (id)lastItem;
 
 /**
- Fetch record item by predicate in main context.
+ *  Fetch record item by predicate in main context.
+ *
+ *  @param predicate Predicate object.s
+ *
+ *  @return Last item of the managed object in context.
  */
 + (id)lastItemWithPredicate:(NSPredicate *)predicate;
 
 /**
- Fetch record item by formated string in main context.
+ 
+ */
+/**
+ *  Fetch record item by formated string in main context.
+ *
+ *  @param fmt Predicate format.
+ *
+ *  @return Last item of the managed object in context.
  */
 + (id)lastItemWithFormat:(NSString *)fmt,...;
 
 /**
- Remove item.
+ *  Remove item.
  */
 - (void)remove;
 
@@ -360,27 +389,63 @@ typedef enum
  */
 + (NSArray *)itemsInContext:(CoreDataEnvir *)cde withFormat:(NSString *)fmt,...;
 
+/**
+ *  Fetch items by sort descriptions.
+ *
+ *  @param cde              CoreDataEnvir instance.
+ *  @param sortDescriptions SortDescriptions
+ *  @param fmt              Predicate format.
+ *
+ *  @return Array of items match the condition.
+ */
 + (NSArray *)itemsInContext:(CoreDataEnvir *)cde sortDescriptions:(NSArray *)sortDescriptions withFormat:(NSString *)fmt,...;
 
-+ (NSArray *)itemsInContext:(CoreDataEnvir *)cde sortDescriptions:(NSArray *)sortDescriptions fromOffset:(NSUInteger)offset limitedBy:(NSUInteger)limtNumber withFormat:(NSString *)fmt,...;
+/**
+ *  Fetch items addition by limited range.
+ *
+ *  @param cde              CoreDataEnvir instance
+ *  @param sortDescriptions SortDescriptions
+ *  @param offset           offset
+ *  @param limtNumber       limted number
+ *  @param fmt              Predicate format.
+ *
+ *  @return Array of items match the condition.
+ */
++ (NSArray *)itemsInContext:(CoreDataEnvir *)cde sortDescriptions:(NSArray *)sortDescriptions fromOffset:(NSUInteger)offset limitedBy:(NSUInteger)limitNumber withFormat:(NSString *)fmt,...;
 
 /**
- Fetch item in specified context.
+ *  Fetch item in specified context.
+ *
+ *  @param cde CoreDataEnvir instance
+ *
+ *  @return Last item of the managed object in context.
  */
 + (id)lastItemInContext:(CoreDataEnvir *)cde;
 
 /**
- Fetch item in specified context through predicate.
+ *  Fetch item in specified context through predicate.
+ *
+ *  @param cde       CoreDataEnvir instance
+ *  @param predicate Predicate.
+ *
+ *  @return Last item of the managed object in context.
  */
 + (id)lastItemInContext:(CoreDataEnvir *)cde usingPredicate:(NSPredicate *)predicate;
 
 /**
- Fetch item in specified context through format string.
+ *  Fetch item in specified context through format string.
+ *
+ *  @param cde
+ *  @param fmt Predicate format string.
+ *
+ *  @return Last item of the managed object in context.
  */
 + (id)lastItemInContext:(CoreDataEnvir *)cde withFormat:(NSString *)fmt,...;
 
 /**
- Update NSManagedObject if faulted.
+ *  Update NSManagedObject if faulted.
+ *
+ *  @return Updated object.
  */
 - (id)update;
 
@@ -392,16 +457,21 @@ typedef enum
 - (id)updateInContext:(CoreDataEnvir *)cde;
 
 /**
- Remove item.
+ *  Remove item.
+ *
+ *  @param cde
  */
 - (void)removeFrom:(CoreDataEnvir *)cde;
 
 /**
- Save db on main thread.
+ *  Save db on main thread.
+ *
+ *  @param cde
+ *
+ *  @return Success(YES) or failed(NO).
  */
 - (BOOL)saveTo:(CoreDataEnvir *)cde;
 
 @end
-
 
 
