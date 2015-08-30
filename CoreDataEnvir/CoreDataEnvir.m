@@ -319,14 +319,20 @@ unsigned int _create_counter = 0;
     return _currentQueue;
 }
 
-- (void)asyncInBlock:(void (^)(void))CoreDataBlock
+- (void)asyncInBlock:(void (^)(CoreDataEnvir *))CoreDataBlock
 {
-    dispatch_async([self currentQueue], CoreDataBlock);
+    dispatch_async([self currentQueue], ^{
+        CoreDataBlock(self);
+        [self saveDataBase];
+    });
 }
 
-- (void)syncInBlock:(void (^)(void))CoreDataBlock
+- (void)syncInBlock:(void (^)(CoreDataEnvir *))CoreDataBlock
 {
-    dispatch_sync([self currentQueue], CoreDataBlock);
+    dispatch_sync([self currentQueue], ^{
+        CoreDataBlock(self);
+        [self saveDataBase];
+    });
 }
 
 @end
