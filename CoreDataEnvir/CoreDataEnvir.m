@@ -318,5 +318,16 @@ unsigned int _create_counter = 0;
 {
     return _currentQueue;
 }
+
+- (void)asyncInBlock:(void (^)(void))CoreDataBlock
+{
+    dispatch_async([self currentQueue], CoreDataBlock);
+}
+
+- (void)syncInBlock:(void (^)(void))CoreDataBlock
+{
+    dispatch_sync([self currentQueue], CoreDataBlock);
+}
+
 @end
 

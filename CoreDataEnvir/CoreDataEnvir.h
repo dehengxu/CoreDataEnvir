@@ -267,5 +267,9 @@ typedef enum
 
 - (dispatch_queue_t)currentQueue;
 
+- (void)asyncInBlock:(void(^)(void))CoreDataBlock;
+- (void)syncInBlock:(void(^)(void))CoreDataBlock;
+
+
 @end
 
