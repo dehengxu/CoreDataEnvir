@@ -166,7 +166,7 @@ unsigned int _create_counter = 0;
     if (cde && ![cde currentQueue]) {
         if (![NSThread isMainThread]) {
             cde->_currentQueue = dispatch_queue_create([[NSString stringWithFormat:@"%@-%d", [NSString stringWithUTF8String:"com.dehengxu.coredataenvir.background"], _create_counter] UTF8String], NULL);
-            dispatch_retain(cde->_currentQueue);
+            //dispatch_retain(cde->_currentQueue);
         }
     }
     return cde;
@@ -300,7 +300,8 @@ unsigned int _create_counter = 0;
     [_context release];
 	[fetchedResultsCtrl release];
     [_storeCoordinator release];
-    
+    dispatch_release(_currentQueue);
+    _currentQueue = NULL;
     [super dealloc];
 }
 
