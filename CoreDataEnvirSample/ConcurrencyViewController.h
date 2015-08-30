@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CoreDataEnvir.h"
+#import "CoreDataEnvirHeader.h"
 
 @class Team;
 @class Member;

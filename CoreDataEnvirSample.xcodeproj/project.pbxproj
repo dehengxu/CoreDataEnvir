@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		743950811B92D6510036A359 /* libLionCoreDataLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A2CC432118079C6E0029C967 /* libLionCoreDataLibrary.a */; };
+		744F6CC41B92C700003F6AA9 /* NSManagedObject_Convient.m in Sources */ = {isa = PBXBuildFile; fileRef = 744F6CC31B92C700003F6AA9 /* NSManagedObject_Convient.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		744F6CC51B92C704003F6AA9 /* CoreDataEnvir_Background.m in Sources */ = {isa = PBXBuildFile; fileRef = 744F6CC01B92C68B003F6AA9 /* CoreDataEnvir_Background.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		744F6CC91B92C795003F6AA9 /* NSManagedObject_Debug.m in Sources */ = {isa = PBXBuildFile; fileRef = 744F6CC81B92C795003F6AA9 /* NSManagedObject_Debug.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		744F6CCC1B92C9FB003F6AA9 /* CoreDataEnvir_Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 744F6CCB1B92C9FB003F6AA9 /* CoreDataEnvir_Private.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		744F6CD21B92CDD5003F6AA9 /* NSObject_Debug.m in Sources */ = {isa = PBXBuildFile; fileRef = 744F6CD11B92CDD5003F6AA9 /* NSObject_Debug.m */; };
+		744F6CD51B92D0EA003F6AA9 /* NSManagedObject_MainThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 744F6CD41B92D0EA003F6AA9 /* NSManagedObject_MainThread.m */; };
 		A2CC433018079C6F0029C967 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2CC432F18079C6F0029C967 /* XCTest.framework */; };
 		A2CC433118079C6F0029C967 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3ECE17112B3F003E9A37 /* Foundation.framework */; };
 		A2CC433218079C6F0029C967 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3ECC17112B3F003E9A37 /* UIKit.framework */; };
@@ -34,8 +41,6 @@
 		A2ED3EF617112B40003E9A37 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3ECE17112B3F003E9A37 /* Foundation.framework */; };
 		A2ED3EFE17112B40003E9A37 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A2ED3EFC17112B40003E9A37 /* InfoPlist.strings */; };
 		A2ED3F0117112B40003E9A37 /* CoreDataEnvirSampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A2ED3F0017112B40003E9A37 /* CoreDataEnvirSampleTests.m */; };
-		A2ED3F0D17112C58003E9A37 /* CoreDataEnvir.m in Sources */ = {isa = PBXBuildFile; fileRef = A2ED3F0C17112C58003E9A37 /* CoreDataEnvir.m */; };
-		A2ED3F0E17112C58003E9A37 /* CoreDataEnvir.m in Sources */ = {isa = PBXBuildFile; fileRef = A2ED3F0C17112C58003E9A37 /* CoreDataEnvir.m */; };
 		A2ED3F1117112D37003E9A37 /* SampleModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A2ED3F0F17112D37003E9A37 /* SampleModel.xcdatamodeld */; };
 		A2ED3F1217112D37003E9A37 /* SampleModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A2ED3F0F17112D37003E9A37 /* SampleModel.xcdatamodeld */; };
 		A2ED3F2F17113E5F003E9A37 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3F2E17113E5F003E9A37 /* CoreData.framework */; };
@@ -71,6 +76,19 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		744F6CBF1B92C68B003F6AA9 /* CoreDataEnvir_Background.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataEnvir_Background.h; sourceTree = "<group>"; };
+		744F6CC01B92C68B003F6AA9 /* CoreDataEnvir_Background.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataEnvir_Background.m; sourceTree = "<group>"; };
+		744F6CC21B92C700003F6AA9 /* NSManagedObject_Convient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSManagedObject_Convient.h; sourceTree = "<group>"; };
+		744F6CC31B92C700003F6AA9 /* NSManagedObject_Convient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSManagedObject_Convient.m; sourceTree = "<group>"; };
+		744F6CC71B92C795003F6AA9 /* NSManagedObject_Debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSManagedObject_Debug.h; sourceTree = "<group>"; };
+		744F6CC81B92C795003F6AA9 /* NSManagedObject_Debug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSManagedObject_Debug.m; sourceTree = "<group>"; };
+		744F6CCA1B92C9FB003F6AA9 /* CoreDataEnvir_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataEnvir_Private.h; sourceTree = "<group>"; };
+		744F6CCB1B92C9FB003F6AA9 /* CoreDataEnvir_Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataEnvir_Private.m; sourceTree = "<group>"; };
+		744F6CD01B92CDD5003F6AA9 /* NSObject_Debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSObject_Debug.h; sourceTree = "<group>"; };
+		744F6CD11B92CDD5003F6AA9 /* NSObject_Debug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSObject_Debug.m; sourceTree = "<group>"; };
+		744F6CD31B92D0EA003F6AA9 /* NSManagedObject_MainThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSManagedObject_MainThread.h; sourceTree = "<group>"; };
+		744F6CD41B92D0EA003F6AA9 /* NSManagedObject_MainThread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSManagedObject_MainThread.m; sourceTree = "<group>"; };
+		744F6CD61B92D3E5003F6AA9 /* CoreDataEnvirHeader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; path = CoreDataEnvirHeader.h; sourceTree = "<group>"; };
 		74C52DB3186C31BE00D2BD25 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		74C52DB4186C31BF00D2BD25 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		A2CC432118079C6E0029C967 /* libLionCoreDataLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLionCoreDataLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -139,6 +157,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				743950811B92D6510036A359 /* libLionCoreDataLibrary.a in Frameworks */,
 				A2ED3F2F17113E5F003E9A37 /* CoreData.framework in Frameworks */,
 				A2ED3ECD17112B3F003E9A37 /* UIKit.framework in Frameworks */,
 				A2ED3ECF17112B3F003E9A37 /* Foundation.framework in Frameworks */,
@@ -159,6 +178,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		744F6CCD1B92CB05003F6AA9 /* ManagedObject */ = {
+			isa = PBXGroup;
+			children = (
+				744F6CC21B92C700003F6AA9 /* NSManagedObject_Convient.h */,
+				744F6CC31B92C700003F6AA9 /* NSManagedObject_Convient.m */,
+				744F6CD31B92D0EA003F6AA9 /* NSManagedObject_MainThread.h */,
+				744F6CD41B92D0EA003F6AA9 /* NSManagedObject_MainThread.m */,
+			);
+			path = ManagedObject;
+			sourceTree = "<group>";
+		};
+		744F6CCE1B92CB16003F6AA9 /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				744F6CC71B92C795003F6AA9 /* NSManagedObject_Debug.h */,
+				744F6CC81B92C795003F6AA9 /* NSManagedObject_Debug.m */,
+				744F6CD01B92CDD5003F6AA9 /* NSObject_Debug.h */,
+				744F6CD11B92CDD5003F6AA9 /* NSObject_Debug.m */,
+			);
+			path = Debug;
+			sourceTree = "<group>";
+		};
+		744F6CCF1B92CB25003F6AA9 /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				744F6CCA1B92C9FB003F6AA9 /* CoreDataEnvir_Private.h */,
+				744F6CCB1B92C9FB003F6AA9 /* CoreDataEnvir_Private.m */,
+			);
+			path = Private;
+			sourceTree = "<group>";
+		};
 		A2CC432318079C6E0029C967 /* LionCoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -172,7 +222,7 @@
 			children = (
 				A2CC432518079C6E0029C967 /* LionCoreData-Prefix.pch */,
 			);
-			name = "Supporting Files";
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		A2CC433618079C6F0029C967 /* LionCoreDataTests */ = {
@@ -190,7 +240,7 @@
 				A2CC433818079C6F0029C967 /* LionCoreDataTests-Info.plist */,
 				A2CC433918079C6F0029C967 /* InfoPlist.strings */,
 			);
-			name = "Supporting Files";
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		A2ED3EC017112B3F003E9A37 = {
@@ -263,7 +313,7 @@
 				A2EC7C2F17F3F1B600CBE4FC /* Team.m */,
 				A2EC7C3417F3F2BD00CBE4FC /* demo.plist */,
 			);
-			name = "Supporting Files";
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		A2ED3EF917112B40003E9A37 /* CoreDataEnvirSampleTests */ = {
@@ -282,14 +332,20 @@
 				A2ED3EFB17112B40003E9A37 /* CoreDataEnvirSampleTests-Info.plist */,
 				A2ED3EFC17112B40003E9A37 /* InfoPlist.strings */,
 			);
-			name = "Supporting Files";
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		A2ED3F0A17112BAC003E9A37 /* CoreDataEnvir */ = {
 			isa = PBXGroup;
 			children = (
+				744F6CCF1B92CB25003F6AA9 /* Private */,
+				744F6CCE1B92CB16003F6AA9 /* Debug */,
+				744F6CCD1B92CB05003F6AA9 /* ManagedObject */,
 				A2ED3F0B17112C58003E9A37 /* CoreDataEnvir.h */,
 				A2ED3F0C17112C58003E9A37 /* CoreDataEnvir.m */,
+				744F6CBF1B92C68B003F6AA9 /* CoreDataEnvir_Background.h */,
+				744F6CC01B92C68B003F6AA9 /* CoreDataEnvir_Background.m */,
+				744F6CD61B92D3E5003F6AA9 /* CoreDataEnvirHeader.h */,
 			);
 			path = CoreDataEnvir;
 			sourceTree = "<group>";
@@ -366,7 +422,7 @@
 			name = CoreDataEnvirSampleTests;
 			productName = CoreDataEnvirSampleTests;
 			productReference = A2ED3EF217112B40003E9A37 /* CoreDataEnvirSampleTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -374,7 +430,8 @@
 		A2ED3EC117112B3F003E9A37 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastTestingUpgradeCheck = 0640;
+				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = Nicholas.Xu;
 				TargetAttributes = {
 					A2CC432D18079C6F0029C967 = {
@@ -458,7 +515,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				744F6CD51B92D0EA003F6AA9 /* NSManagedObject_MainThread.m in Sources */,
 				A2CC434418079C950029C967 /* CoreDataEnvir.m in Sources */,
+				744F6CD21B92CDD5003F6AA9 /* NSObject_Debug.m in Sources */,
+				744F6CCC1B92C9FB003F6AA9 /* CoreDataEnvir_Private.m in Sources */,
+				744F6CC91B92C795003F6AA9 /* NSManagedObject_Debug.m in Sources */,
+				744F6CC51B92C704003F6AA9 /* CoreDataEnvir_Background.m in Sources */,
+				744F6CC41B92C700003F6AA9 /* NSManagedObject_Convient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,7 +542,6 @@
 				A2ED3ED917112B3F003E9A37 /* main.m in Sources */,
 				A2ED3EDD17112B3F003E9A37 /* AppDelegate.m in Sources */,
 				A2ED3EE617112B3F003E9A37 /* ViewController.m in Sources */,
-				A2ED3F0D17112C58003E9A37 /* CoreDataEnvir.m in Sources */,
 				A2EC7C3317F3F1B600CBE4FC /* Member.m in Sources */,
 				A2EC7C3017F3F1B600CBE4FC /* Team.m in Sources */,
 				A2ED3F1117112D37003E9A37 /* SampleModel.xcdatamodeld in Sources */,
@@ -491,7 +553,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2ED3F0117112B40003E9A37 /* CoreDataEnvirSampleTests.m in Sources */,
-				A2ED3F0E17112C58003E9A37 /* CoreDataEnvir.m in Sources */,
 				A2ED3F1217112D37003E9A37 /* SampleModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -519,6 +580,7 @@
 				74C52DB4186C31BF00D2BD25 /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
+			path = .;
 			sourceTree = "<group>";
 		};
 		A2ED3ED517112B3F003E9A37 /* InfoPlist.strings */ = {
@@ -527,6 +589,7 @@
 				A2ED3ED617112B3F003E9A37 /* en */,
 			);
 			name = InfoPlist.strings;
+			path = .;
 			sourceTree = "<group>";
 		};
 		A2ED3EFC17112B40003E9A37 /* InfoPlist.strings */ = {
@@ -536,6 +599,7 @@
 				74C52DB3186C31BE00D2BD25 /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
+			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -544,7 +608,6 @@
 		A2CC433E18079C6F0029C967 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -552,7 +615,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				DSTROOT = /tmp/LionCoreData.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "LionCoreData/LionCoreData-Prefix.pch";
+				GCC_PREFIX_HEADER = "LionCoreData/Supporting Files/LionCoreData-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -572,7 +635,6 @@
 		A2CC433F18079C6F0029C967 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -581,7 +643,7 @@
 				DSTROOT = /tmp/LionCoreData.dst;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "LionCoreData/LionCoreData-Prefix.pch";
+				GCC_PREFIX_HEADER = "LionCoreData/Supporting Files/LionCoreData-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -597,7 +659,6 @@
 		A2CC434018079C6F0029C967 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CoreDataEnvirSample.app/CoreDataEnvirSample";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -610,7 +671,7 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "LionCoreData/LionCoreData-Prefix.pch";
+				GCC_PREFIX_HEADER = "LionCoreData/Supporting Files/LionCoreData-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -619,7 +680,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = "LionCoreDataTests/LionCoreDataTests-Info.plist";
+				INFOPLIST_FILE = "LionCoreDataTests/Supporting Files/LionCoreDataTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -630,7 +691,6 @@
 		A2CC434118079C6F0029C967 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CoreDataEnvirSample.app/CoreDataEnvirSample";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -644,12 +704,12 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "LionCoreData/LionCoreData-Prefix.pch";
+				GCC_PREFIX_HEADER = "LionCoreData/Supporting Files/LionCoreData-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = "LionCoreDataTests/LionCoreDataTests-Info.plist";
+				INFOPLIST_FILE = "LionCoreDataTests/Supporting Files/LionCoreDataTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -721,14 +781,15 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CoreDataEnvirSample/CoreDataEnvirSample-Prefix.pch";
-				INFOPLIST_FILE = "CoreDataEnvirSample/CoreDataEnvirSample-Info.plist";
+				GCC_PREFIX_HEADER = "CoreDataEnvirSample/Supporting Files/CoreDataEnvirSample-Prefix.pch";
+				INFOPLIST_FILE = "CoreDataEnvirSample/Supporting Files/CoreDataEnvirSample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -739,14 +800,15 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CoreDataEnvirSample/CoreDataEnvirSample-Prefix.pch";
-				INFOPLIST_FILE = "CoreDataEnvirSample/CoreDataEnvirSample-Info.plist";
+				GCC_PREFIX_HEADER = "CoreDataEnvirSample/Supporting Files/CoreDataEnvirSample-Prefix.pch";
+				INFOPLIST_FILE = "CoreDataEnvirSample/Supporting Files/CoreDataEnvirSample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -760,8 +822,8 @@
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CoreDataEnvirSample/CoreDataEnvirSample-Prefix.pch";
-				INFOPLIST_FILE = "CoreDataEnvirSampleTests/CoreDataEnvirSampleTests-Info.plist";
+				GCC_PREFIX_HEADER = "CoreDataEnvirSample/Supporting Files/CoreDataEnvirSample-Prefix.pch";
+				INFOPLIST_FILE = "CoreDataEnvirSampleTests/Supporting Files/CoreDataEnvirSampleTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
@@ -777,8 +839,8 @@
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CoreDataEnvirSample/CoreDataEnvirSample-Prefix.pch";
-				INFOPLIST_FILE = "CoreDataEnvirSampleTests/CoreDataEnvirSampleTests-Info.plist";
+				GCC_PREFIX_HEADER = "CoreDataEnvirSample/Supporting Files/CoreDataEnvirSample-Prefix.pch";
+				INFOPLIST_FILE = "CoreDataEnvirSampleTests/Supporting Files/CoreDataEnvirSampleTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;

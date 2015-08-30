@@ -10,29 +10,29 @@
 	<string>CoreDataEnvirSample</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>F7C14975-0C31-45AA-AEB0-CBE5C8E5CC46</key>
-		<string>ssh://github.com/xudeheng/CoreDataEnvir.git</string>
+		<key>0625EBF42F455C9F64085466B99E788FF87C770A</key>
+		<string>bitbucket.org:xudeheng/CoreDataEnvir.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>CoreDataEnvirSample.xcodeproj/project.xcworkspace</string>
+	<string>CoreDataEnvirSample.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>F7C14975-0C31-45AA-AEB0-CBE5C8E5CC46</key>
+		<key>0625EBF42F455C9F64085466B99E788FF87C770A</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/xudeheng/CoreDataEnvir.git</string>
+	<string>bitbucket.org:xudeheng/CoreDataEnvir.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>F7C14975-0C31-45AA-AEB0-CBE5C8E5CC46</string>
+	<string>0625EBF42F455C9F64085466B99E788FF87C770A</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>F7C14975-0C31-45AA-AEB0-CBE5C8E5CC46</string>
+			<string>0625EBF42F455C9F64085466B99E788FF87C770A</string>
 			<key>IDESourceControlWCCName</key>
 			<string>CoreDataEnvir</string>
 		</dict>

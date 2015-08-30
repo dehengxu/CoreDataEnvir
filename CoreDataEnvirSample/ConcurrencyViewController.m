@@ -110,7 +110,7 @@ int runs_forever = THREAD_NUMBER;
     //Every thread runs 101 times Request operation.
     int runTimes = times;
     dispatch_async(queue, ^{
-        CoreDataEnvir *db = [CoreDataEnvir instance];
+        CoreDataEnvir *db = [[CoreDataEnvir instance] retain];
         [CoreDataEnvir registRescureDelegate:self];
 
         NSString *queueLabel = [NSString stringWithCString:dispatch_queue_get_label(queue) encoding:NSUTF8StringEncoding];
@@ -153,6 +153,7 @@ int runs_forever = THREAD_NUMBER;
         runs_forever--;
         dispatch_semaphore_signal(__runs_sema);
         NSLog(@"runs_forever :%d", runs_forever);
+        [db release];
     });
 }
 
@@ -208,10 +209,11 @@ int counter = 0;
         dispatch_queue_t q1 = NULL;
         //Start 20 thread for testing, every thread runs CRUD operation 101 times on Name "com.cyblion".
         q1 = dispatch_queue_create([[NSString stringWithFormat:@"com.cyblion.%d", i] cStringUsingEncoding:NSUTF8StringEncoding], NULL);
+        
         if (q1) {
             [self runTestA:q1 withTimes:LOOP_NUMBER_PER_THREAD];
         }
-        dispatch_release(q1);
+        //dispatch_release(q1);
     }
     
 #elif testing_case == TESTING_B
