@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NSManagedObject_Convient.h"
 
 @interface NSManagedObject (Background)
 
