@@ -20,13 +20,13 @@
  */
 + (id)insertItemOnBackground
 {
-    if (![NSThread isMainThread]) {
-#if DEBUG
-        NSLog(@"Insert item record failed, please run on main thread!");
-#endif
-        [[NSException exceptionWithName:@"CoreDataEnviroment" reason:@"Insert item record failed, must run on main thread!" userInfo:nil] raise];
-        return nil;
-    }
+//    if (![NSThread isMainThread]) {
+//#if DEBUG
+//        NSLog(@"Insert item record failed, please run on main thread!");
+//#endif
+//        [[NSException exceptionWithName:@"CoreDataEnviroment" reason:@"Insert item record failed, must run on main thread!" userInfo:nil] raise];
+//        return nil;
+//    }
     CoreDataEnvir *db = [CoreDataEnvir backgroundInstance];
     id item = [self insertItemInContext:db];
     return item;
@@ -48,14 +48,14 @@
 
 + (NSArray *)itemsOnBackground
 {
-    if (![NSThread isMainThread]) {
-#if DEBUG
-        NSLog(@"Fetch all items record failed, please run on main thread!");
-#endif
-        [[NSException exceptionWithName:@"CoreDataEnviroment" reason:@"Fetch all items record failed, must run on main thread!" userInfo:nil] raise];
-        return nil;
-    }
-    CoreDataEnvir *db = [CoreDataEnvir mainInstance];
+//    if (![NSThread isMainThread]) {
+//#if DEBUG
+//        NSLog(@"Fetch all items record failed, please run on main thread!");
+//#endif
+//        [[NSException exceptionWithName:@"CoreDataEnviroment" reason:@"Fetch all items record failed, must run on main thread!" userInfo:nil] raise];
+//        return nil;
+//    }
+    CoreDataEnvir *db = [CoreDataEnvir backgroundInstance];
     NSArray *items = [db fetchItemsByEntityDescriptionName:NSStringFromClass(self)];
     
     return items;
@@ -63,14 +63,14 @@
 
 + (NSArray *)itemsOnBackgroundWithPredicate:(NSPredicate *)predicate
 {
-    if (![NSThread isMainThread]) {
-#if DEBUG
-        NSLog(@"Fetch item record failed, please run on main thread!");
-#endif
-        [[NSException exceptionWithName:@"CoreDataEnviroment" reason:@"Fetch item record failed, must run on main thread!" userInfo:nil] raise];
-        return nil;
-    }
-    CoreDataEnvir *db = [CoreDataEnvir mainInstance];
+//    if (![NSThread isMainThread]) {
+//#if DEBUG
+//        NSLog(@"Fetch item record failed, please run on main thread!");
+//#endif
+//        [[NSException exceptionWithName:@"CoreDataEnviroment" reason:@"Fetch item record failed, must run on main thread!" userInfo:nil] raise];
+//        return nil;
+//    }
+    CoreDataEnvir *db = [CoreDataEnvir backgroundInstance];
     NSArray *items = [db fetchItemsByEntityDescriptionName:NSStringFromClass(self) usingPredicate:predicate];
     return items;
 }
