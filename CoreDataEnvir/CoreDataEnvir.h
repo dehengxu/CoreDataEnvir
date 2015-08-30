@@ -270,6 +270,8 @@ typedef enum
 - (void)asyncInBlock:(void(^)(CoreDataEnvir *db))CoreDataBlock;
 - (void)syncInBlock:(void(^)(CoreDataEnvir *db))CoreDataBlock;
 
++ (void)asyncMainInBlock:(void(^)(CoreDataEnvir *db))CoreDataBlock;
++ (void)asyncBackgroundInBlock:(void(^)(CoreDataEnvir *db))CoreDataBlock;
 
 @end
 

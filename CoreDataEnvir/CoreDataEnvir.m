@@ -335,5 +335,15 @@ unsigned int _create_counter = 0;
     });
 }
 
++ (void)asyncMainInBlock:(void (^)(CoreDataEnvir *))CoreDataBlock
+{
+    [[self mainInstance] asyncInBlock:CoreDataBlock];
+}
+
++ (void)asyncBackgroundInBlock:(void (^)(CoreDataEnvir *))CoreDataBlock
+{
+    [[self backgroundInstance] asyncInBlock:CoreDataBlock];
+}
+
 @end
 
