@@ -14,6 +14,7 @@
 
 #import "NSManagedObject_Convient.h"
 #import "NSManagedObject_MainThread.h"
+#import "NSManagedObject_Background.h"
 
 #import "NSObject_Debug.h"
 

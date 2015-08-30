@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		743950811B92D6510036A359 /* libLionCoreDataLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A2CC432118079C6E0029C967 /* libLionCoreDataLibrary.a */; };
+		743950841B92DB9C0036A359 /* NSManagedObject_Background.m in Sources */ = {isa = PBXBuildFile; fileRef = 743950831B92DB9C0036A359 /* NSManagedObject_Background.m */; };
 		744F6CC41B92C700003F6AA9 /* NSManagedObject_Convient.m in Sources */ = {isa = PBXBuildFile; fileRef = 744F6CC31B92C700003F6AA9 /* NSManagedObject_Convient.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		744F6CC51B92C704003F6AA9 /* CoreDataEnvir_Background.m in Sources */ = {isa = PBXBuildFile; fileRef = 744F6CC01B92C68B003F6AA9 /* CoreDataEnvir_Background.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		744F6CC91B92C795003F6AA9 /* NSManagedObject_Debug.m in Sources */ = {isa = PBXBuildFile; fileRef = 744F6CC81B92C795003F6AA9 /* NSManagedObject_Debug.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -76,6 +77,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		743950821B92DB9C0036A359 /* NSManagedObject_Background.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSManagedObject_Background.h; sourceTree = "<group>"; };
+		743950831B92DB9C0036A359 /* NSManagedObject_Background.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSManagedObject_Background.m; sourceTree = "<group>"; };
 		744F6CBF1B92C68B003F6AA9 /* CoreDataEnvir_Background.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataEnvir_Background.h; sourceTree = "<group>"; };
 		744F6CC01B92C68B003F6AA9 /* CoreDataEnvir_Background.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataEnvir_Background.m; sourceTree = "<group>"; };
 		744F6CC21B92C700003F6AA9 /* NSManagedObject_Convient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSManagedObject_Convient.h; sourceTree = "<group>"; };
@@ -185,6 +188,8 @@
 				744F6CC31B92C700003F6AA9 /* NSManagedObject_Convient.m */,
 				744F6CD31B92D0EA003F6AA9 /* NSManagedObject_MainThread.h */,
 				744F6CD41B92D0EA003F6AA9 /* NSManagedObject_MainThread.m */,
+				743950821B92DB9C0036A359 /* NSManagedObject_Background.h */,
+				743950831B92DB9C0036A359 /* NSManagedObject_Background.m */,
 			);
 			path = ManagedObject;
 			sourceTree = "<group>";
@@ -518,6 +523,7 @@
 				744F6CD51B92D0EA003F6AA9 /* NSManagedObject_MainThread.m in Sources */,
 				A2CC434418079C950029C967 /* CoreDataEnvir.m in Sources */,
 				744F6CD21B92CDD5003F6AA9 /* NSObject_Debug.m in Sources */,
+				743950841B92DB9C0036A359 /* NSManagedObject_Background.m in Sources */,
 				744F6CCC1B92C9FB003F6AA9 /* CoreDataEnvir_Private.m in Sources */,
 				744F6CC91B92C795003F6AA9 /* NSManagedObject_Debug.m in Sources */,
 				744F6CC51B92C704003F6AA9 /* CoreDataEnvir_Background.m in Sources */,
