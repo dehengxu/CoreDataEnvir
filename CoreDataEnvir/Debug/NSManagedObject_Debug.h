@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CoreDataEnvir.h"
+#import "CoreDataEnvir_Background.h"
 
 @interface NSManagedObject (Debug)
 
