@@ -110,26 +110,26 @@
 
 + (id)lastItemOnBackground
 {
-    if (![NSThread isMainThread]) {
-#if DEBUG
-        NSLog(@"Fetch last item record failed, please run on main thread!");
-#endif
-        [[NSException exceptionWithName:@"CoreDataEnviroment" reason:@"Fetch last item record failed, must run on main thread!" userInfo:nil] raise];
-        return nil;
-    }
+//    if (![NSThread isMainThread]) {
+//#if DEBUG
+//        NSLog(@"Fetch last item record failed, please run on main thread!");
+//#endif
+//        [[NSException exceptionWithName:@"CoreDataEnviroment" reason:@"Fetch last item record failed, must run on main thread!" userInfo:nil] raise];
+//        return nil;
+//    }
     
     return [[self itemsOnBackground] lastObject];
 }
 
 + (NSArray *)lastItemOnBackgroundWithPredicate:(NSPredicate *)predicate
 {
-    if (![NSThread isMainThread]) {
-#if DEBUG
-        NSLog(@"Fetch last item record failed, please run on main thread!");
-#endif
-        [[NSException exceptionWithName:@"CoreDataEnviroment" reason:@"Fetch last item record failed, must run on main thread!" userInfo:nil] raise];
-        return nil;
-    }
+//    if (![NSThread isMainThread]) {
+//#if DEBUG
+//        NSLog(@"Fetch last item record failed, please run on main thread!");
+//#endif
+//        [[NSException exceptionWithName:@"CoreDataEnviroment" reason:@"Fetch last item record failed, must run on main thread!" userInfo:nil] raise];
+//        return nil;
+//    }
     
     return [[self itemsInContext:[CoreDataEnvir backgroundInstance] usingPredicate:predicate] lastObject];
 }
