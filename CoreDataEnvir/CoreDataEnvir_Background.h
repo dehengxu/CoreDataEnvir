@@ -15,5 +15,6 @@
 
 + (CoreDataEnvir *)backgroundInstance;
 
++ (void)saveDataBaseOnBackground;
 
 @end

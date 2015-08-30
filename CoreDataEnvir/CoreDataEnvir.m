@@ -142,17 +142,32 @@ unsigned int _create_counter = 0;
     if (_coreDataEnvir == nil) {
         _coreDataEnvir = [[self createInstanceWithDatabaseFileName:nil modelFileName:nil] retain];
     }
+    
+    if (_coreDataEnvir && ![_coreDataEnvir currentQueue]) {
+        _coreDataEnvir->_currentQueue = dispatch_get_main_queue();
+    }
     return _coreDataEnvir;
 }
 
 + (dispatch_queue_t)mainQueue
 {
-    return dispatch_get_main_queue();
+    return [[CoreDataEnvir mainInstance] currentQueue];
+}
+
++ (void)saveDataBaseOnMainThread
+{
+    [[self mainInstance] saveDataBase];
 }
 
 + (CoreDataEnvir *)createInstance
 {
     CoreDataEnvir *cde = [self createInstanceWithDatabaseFileName:nil modelFileName:nil];
+    
+    if (cde && ![cde currentQueue]) {
+        if ([NSThread isMainThread]) {
+            cde->_currentQueue = dispatch_queue_create([[NSString stringWithFormat:@"%@-%d", [NSString stringWithUTF8String:"com.dehengxu.coredataenvir.background"], _create_counter] UTF8String], NULL);
+        }
+    }
     return cde;
 }
 
@@ -299,5 +314,9 @@ unsigned int _create_counter = 0;
 	return fetchedResultsCtrl;
 }
 
+- (dispatch_queue_t)currentQueue
+{
+    return _currentQueue;
+}
 @end
 

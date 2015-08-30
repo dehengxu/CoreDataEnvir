@@ -90,6 +90,7 @@ typedef enum
 
 @interface CoreDataEnvir : NSObject {
     NSRecursiveLock *__recursiveLock;
+    dispatch_queue_t _currentQueue;
 }
 
 /**
@@ -212,6 +213,8 @@ typedef enum
  */
 + (dispatch_queue_t)mainQueue;
 
++ (void)saveDataBaseOnMainThread;
+
 /**
  Creating a new instance by default db, momd file name.
  */
@@ -261,6 +264,8 @@ typedef enum
 - (BOOL)deleteDataItem:(NSManagedObject *)aItem;
 - (BOOL)deleteDataItemSet:(NSSet *)aItemSet;
 - (BOOL)deleteDataItems:(NSArray*)items;
+
+- (dispatch_queue_t)currentQueue;
 
 @end
 

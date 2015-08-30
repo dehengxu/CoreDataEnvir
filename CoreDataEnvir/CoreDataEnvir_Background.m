@@ -13,8 +13,8 @@
 
 + (CoreDataEnvir *)backgroundInstance
 {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    static dispatch_once_t onceTokenInstance;
+    dispatch_once(&onceTokenInstance, ^{
         if (!_backgroundInstance) {
             _backgroundInstance = [[CoreDataEnvir createInstance] retain];
         }
@@ -24,14 +24,19 @@
 
 + (dispatch_queue_t)backgroundQueue
 {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+//    static dispatch_once_t onceTokenQueue;
+//    dispatch_once(&onceTokenQueue, ^{
         if (!_backgroundQueue) {
-            _backgroundQueue = dispatch_queue_create("me.deheng.coredataenvir.background", NULL);
+            _backgroundQueue = [[CoreDataEnvir backgroundInstance] currentQueue];
         }
-    });
+//    });
+    
     return _backgroundQueue;
 }
 
++ (void)saveDataBaseOnBackground
+{
+    [[self backgroundInstance] saveDataBase];
+}
 
 @end
