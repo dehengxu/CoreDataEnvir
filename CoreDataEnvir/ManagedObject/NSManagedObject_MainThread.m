@@ -75,6 +75,14 @@
 
 + (NSArray *)itemsWithFormat:(NSString *)fmt, ...
 {
+    if (![NSThread isMainThread]) {
+#if DEBUG
+        NSLog(@"Fetch item record failed, please run on main thread!");
+#endif
+        [[NSException exceptionWithName:@"CoreDataEnviroment" reason:@"Fetch item record failed, must run on main thread!" userInfo:nil] raise];
+        return nil;
+    }
+    
     va_list args;
     va_start(args, fmt);
     NSPredicate *pred = [NSPredicate predicateWithFormat:fmt arguments:args];
@@ -86,6 +94,14 @@
 
 + (NSArray *)itemsSortDescriptions:(NSArray *)sortDescriptions withFormat:(NSString *)fmt, ...
 {
+    if (![NSThread isMainThread]) {
+#if DEBUG
+        NSLog(@"Fetch item record failed, please run on main thread!");
+#endif
+        [[NSException exceptionWithName:@"CoreDataEnviroment" reason:@"Fetch item record failed, must run on main thread!" userInfo:nil] raise];
+        return nil;
+    }
+
     va_list args;
     va_start(args, fmt);
     NSPredicate *pred = [NSPredicate predicateWithFormat:fmt arguments:args];
@@ -97,6 +113,14 @@
 
 + (NSArray *)itemsSortDescriptions:(NSArray *)sortDescriptions fromOffset:(NSUInteger)offset limitedBy:(NSUInteger)limitNumber withFormat:(NSString *)fmt, ...
 {
+    if (![NSThread isMainThread]) {
+#if DEBUG
+        NSLog(@"Fetch item record failed, please run on main thread!");
+#endif
+        [[NSException exceptionWithName:@"CoreDataEnviroment" reason:@"Fetch item record failed, must run on main thread!" userInfo:nil] raise];
+        return nil;
+    }
+
     va_list args;
     va_start(args, fmt);
     NSPredicate *pred = [NSPredicate predicateWithFormat:fmt arguments:args];
