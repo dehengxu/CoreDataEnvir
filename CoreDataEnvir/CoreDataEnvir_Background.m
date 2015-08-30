@@ -18,6 +18,11 @@
         if (!_backgroundInstance) {
             _backgroundInstance = [[CoreDataEnvir createInstance] retain];
         }
+        
+        if (_backgroundInstance && ![_backgroundInstance currentQueue] ) {
+            _backgroundInstance->_currentQueue = dispatch_queue_create([[NSString stringWithFormat:@"%@-%d", [NSString stringWithUTF8String:"com.dehengxu.coredataenvir.background"], _create_counter] UTF8String], NULL);
+        }
+
     });
     return _backgroundInstance;
 }

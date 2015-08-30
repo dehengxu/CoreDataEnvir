@@ -114,8 +114,7 @@ fetchedResultsCtrl;
 
 #pragma mark - instance handle
 
-unsigned int _create_counter = 0;
-+ (CoreDataEnvir *) instance
++ (CoreDataEnvir *)instance
 {
     
     dispatch_semaphore_wait(_sem_main, ~0ull);
@@ -131,6 +130,11 @@ unsigned int _create_counter = 0;
             NSLog(@"CoreDataEnvir on other thread!");
 #endif
             a_new_db = [self createInstance];
+            
+            if (a_new_db && ![a_new_db currentQueue]) {
+                a_new_db->_currentQueue = dispatch_queue_create([[NSString stringWithFormat:@"%@-%d", [NSString stringWithUTF8String:"com.dehengxu.coredataenvir.background"], _create_counter] UTF8String], NULL);
+
+            }
         }
     dispatch_semaphore_signal(_sem_main);
 
@@ -163,12 +167,12 @@ unsigned int _create_counter = 0;
 {
     CoreDataEnvir *cde = [self createInstanceWithDatabaseFileName:nil modelFileName:nil];
     
-    if (cde && ![cde currentQueue]) {
-        if (![NSThread isMainThread]) {
-            cde->_currentQueue = dispatch_queue_create([[NSString stringWithFormat:@"%@-%d", [NSString stringWithUTF8String:"com.dehengxu.coredataenvir.background"], _create_counter] UTF8String], NULL);
+    //if (cde && ![cde currentQueue]) {
+        //if (![NSThread isMainThread]) {
+            //cde->_currentQueue = dispatch_queue_create([[NSString stringWithFormat:@"%@-%d", [NSString stringWithUTF8String:"com.dehengxu.coredataenvir.background"], _create_counter] UTF8String], NULL);
             //dispatch_retain(cde->_currentQueue);
-        }
-    }
+        //}
+    //}
     return cde;
 }
 

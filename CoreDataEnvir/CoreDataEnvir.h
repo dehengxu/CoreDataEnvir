@@ -90,6 +90,7 @@ typedef enum
 
 @interface CoreDataEnvir : NSObject {
     NSRecursiveLock *__recursiveLock;
+@public
     dispatch_queue_t _currentQueue;
 }
 
