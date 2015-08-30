@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "CoreDataEnvir"
-  s.version      = "0.3"
+  s.version      = "0.4"
   s.summary      = "A CoreData Envirement wrapper, use CoreData in convenient way. It has been used in my work."
 
   s.description  = <<-DESC
@@ -53,7 +53,7 @@ Pod::Spec.new do |s|
   #  profile URL.
   #
 
-  s.author             = { "CyberLion" => "dehengxu@outlook.com" }
+  s.author             = { "Deheng Xu" => "dehengxu@outlook.com" }
   # Or just: s.author    = "CyberLion"
   # s.authors            = { "CyberLion" => "dehengxu@outlook.com" }
   # s.social_media_url   = "http://twitter.com/CyberLion"
@@ -78,7 +78,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/xudeheng/CoreDataEnvir.git", :tag => "0.3" }
+  s.source       = { :git => "https://github.com/xudeheng/CoreDataEnvir.git", :tag => "0.4" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
