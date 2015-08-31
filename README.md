@@ -1,7 +1,7 @@
 CoreDataEnvir (since 2011-05-25) latest version 0.4
 =============
 
-CoreDataEnvir is a CoreData wrapper which use CoreData in convient way and keep safe in multithread programming. You can use it concurrenctly，run seperate CoreDataEnvir instance on one thread.
+CoreDataEnvir is a CoreData wrapper which use CoreData in convient way and supply simple thread safe in concurrenct programming. You can use it concurrenctly，run seperate CoreDataEnvir instance on one thread.
 
 ## First step:
 
