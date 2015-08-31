@@ -23,13 +23,13 @@
     return item;
 }
 
-+ (id)insertItemInContext:(CoreDataEnvir *)cde fillData:(void (^)(id item))settingBlock
++ (id)insertItemInContext:(CoreDataEnvir *)cde fillData:(void (^)(id item))fillingBlock
 {
 #if DEBUG
     NSLog(@"%s thread :%u, %@", __func__, [NSThread isMainThread], [NSString stringWithCString:dispatch_queue_get_label(dispatch_get_current_queue()) encoding:NSUTF8StringEncoding]);
 #endif
     id item = [self insertItemInContext:cde];
-    settingBlock(item);
+    fillingBlock(item);
     return item;
 }
 

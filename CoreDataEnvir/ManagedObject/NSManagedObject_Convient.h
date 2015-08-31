@@ -12,6 +12,8 @@
 
 @interface NSManagedObject (Convient)
 
+#pragma mark - Inserting operations.
+
 /**
  Creating managed object on background thread.
  */
@@ -20,7 +22,9 @@
 /**
  Createing managed object in specified context with filling 'block'
  */
-+ (id)insertItemInContext:(CoreDataEnvir *)cde fillData:(void (^)(id item))settingBlock;
++ (id)insertItemInContext:(CoreDataEnvir *)cde fillData:(void (^)(id item))fillingBlock;
+
+#pragma mark - Fetching operations.
 
 /**
  Fetching record items in specified context.
@@ -90,6 +94,8 @@
  */
 + (id)lastItemInContext:(CoreDataEnvir *)cde withFormat:(NSString *)fmt,...;
 
+#pragma mark - fault process.
+
 /**
  *  Update NSManagedObject if faulted.
  *
@@ -104,6 +110,8 @@
  */
 - (id)updateInContext:(CoreDataEnvir *)cde;
 
+#pragma mark - Deleting .
+
 /**
  *  Remove item.
  *
@@ -115,6 +123,8 @@
  *  Remove item.
  */
 - (void)remove;
+
+#pragma mark - Drive to save.
 
 /**
  *  Save db on main thread.

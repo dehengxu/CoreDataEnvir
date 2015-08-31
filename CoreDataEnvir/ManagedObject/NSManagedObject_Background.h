@@ -19,7 +19,7 @@
 /**
  Creating managed object in main context by filling 'block'
  */
-+ (id)insertItemOnBackgroundWithBlock:(void(^)(id item))settingBlock;
++ (id)insertItemOnBackgroundWithFillingBlock:(void(^)(id item))fillingBlock;
 
 /**
  Just fetching record items by the predicate in main context.

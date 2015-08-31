@@ -37,10 +37,10 @@
  *
  *  @return
  */
-+ (id)insertItemWithBlock:(void (^)(id item))settingBlock
++ (id)insertItemWithFillingBlock:(void (^)(id item))fillingBlock
 {
     id item = [self insertItem];
-    settingBlock(item);
+    fillingBlock(item);
     return item;
 }
 

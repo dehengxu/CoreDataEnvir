@@ -11,7 +11,8 @@
 
 @interface NSManagedObject (MainThread)
 
-#pragma mark - Operation on main thread.
+#pragma mark - Inserting operations.
+
 /**
  Creating managed object on main thread.
  */
@@ -20,7 +21,7 @@
 /**
  Creating managed object in main context by filling 'block'
  */
-+ (id)insertItemWithBlock:(void(^)(id item))settingBlock;
++ (id)insertItemWithFillingBlock:(void(^)(id item))fillingBlock;
 
 /**
  Just fetching record items by the predicate in main context.

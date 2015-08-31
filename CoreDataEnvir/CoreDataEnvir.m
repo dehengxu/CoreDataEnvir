@@ -166,13 +166,6 @@ fetchedResultsCtrl;
 + (CoreDataEnvir *)createInstance
 {
     CoreDataEnvir *cde = [self createInstanceWithDatabaseFileName:nil modelFileName:nil];
-    
-    //if (cde && ![cde currentQueue]) {
-        //if (![NSThread isMainThread]) {
-            //cde->_currentQueue = dispatch_queue_create([[NSString stringWithFormat:@"%@-%d", [NSString stringWithUTF8String:"com.dehengxu.coredataenvir.background"], _create_counter] UTF8String], NULL);
-            //dispatch_retain(cde->_currentQueue);
-        //}
-    //}
     return cde;
 }
 
