@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-set tagn = 0.4
+set tagn=0.4
 
 xpush c $1 && git push local --all && git tag -f "$tagn" && git push -f local "$tagn"
