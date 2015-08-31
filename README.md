@@ -7,13 +7,13 @@ CoreDataEnvir is a CoreData wrapper which use CoreData in convient way and suppl
 
 Register your data base file name
 
-```
+```Objective-C
 	[CoreDataEnvir registDatabaseFileName:@"db.sqlite"];
 ```
 
 Register your model file name(no file extension name)
 
-```
+```Objective-C
 	[CoreDataEnvir registModelFileName:@"SampleModel"];
 ```
 
@@ -25,7 +25,7 @@ There is an author "John Stevens Cabot Abbott" written a book named "Napoleon Bo
 
 ### Add new record
 
-```
+```Objective-C
 
 [Book insertItemWithFillingBlock:^(id item) {
 	item.name = @"CoreData tutorial";
@@ -36,7 +36,7 @@ There is an author "John Stevens Cabot Abbott" written a book named "Napoleon Bo
 
 ### Fetch lots of records
 
-```
+```Objective-C
 //Find all books of John Stevens Cabot Abbott.
 NSArray *books= [Feed itemsWithFormat:@"author = %@",  @"John Stevens Cabot Abbott"];
 
@@ -44,7 +44,7 @@ NSArray *books= [Feed itemsWithFormat:@"author = %@",  @"John Stevens Cabot Abbo
 
 ### Fetch one record
 
-```
+```Objective-C
 //Find one book model object.
 Book *book = [Book lastItemWithFormat:@"name = %@ && author = %@", @"Napoleon Bonnaparte", @"John Stevens Cabot Abbott"];
 
@@ -52,7 +52,7 @@ Book *book = [Book lastItemWithFormat:@"name = %@ && author = %@", @"Napoleon Bo
 
 ### Delete one record
 
-```
+```Objective-C
 [CoreDataEnvir asyncMainInBlock:^(CoreDataEnvir *db) {
 		[db deleteDataItem:book];
 }];
@@ -61,7 +61,7 @@ Book *book = [Book lastItemWithFormat:@"name = %@ && author = %@", @"Napoleon Bo
 
 ### Delete records
 
-```
+```Objective-C
 [CoreDataEnvir asyncMainInBlock:^(CoreDataEnvir *db) {
 		[db deleteDataItemSet:books];
 }];
@@ -77,7 +77,7 @@ You can do some lightweight operation on main thread. All of above operation mus
 
 It makes you feel more safe :-)
 
-```
+```Objective-C
 [CoreDataEnvir asyncMainInBlock:^(CoreDataEnvir *db) {
 	[Book insertItemWithFillingBlock:^(id item) {
 		item.name = @"CoreData tutorial";
@@ -94,7 +94,7 @@ The block `asyncBackgroundInBlock` will save memory cache to db file after `void
 
 You don't need to use `[db saveDataBase];` like older version.
 
-```
+```Objective-C
 
 [CoreDataEnvir asyncBackgroundInBlock:^(CoreDataEnvir *db) {
 	[Book insertItemOnBackgroundWithFillingBlock:^(id item) {
