@@ -2,11 +2,14 @@
 <module type="CIDR_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/CoreDataEnvir.podspec" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CoreDataEnvir/CoreDataEnvir.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CoreDataEnvir/CoreDataEnvir.m" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CoreDataEnvir/CoreDataEnvirHeader.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CoreDataEnvir/CoreDataEnvir_Background.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CoreDataEnvir/CoreDataEnvir_Background.m" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CoreDataEnvir/CoreDataEnvir_Main.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CoreDataEnvir/CoreDataEnvir_Main.m" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CoreDataEnvir/Debug/NSManagedObject_Debug.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CoreDataEnvir/Debug/NSManagedObject_Debug.m" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CoreDataEnvir/Debug/NSObject_Debug.h" isTestSource="false" />
@@ -19,6 +22,7 @@
       <sourceFolder url="file://$MODULE_DIR$/CoreDataEnvir/ManagedObject/NSManagedObject_MainThread.m" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CoreDataEnvir/Private/CoreDataEnvir_Private.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CoreDataEnvir/Private/CoreDataEnvir_Private.m" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CoreDataEnvir/Supporting Files/LionCoreData-Prefix.pch" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CoreDataEnvirSample/AppDelegate.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CoreDataEnvirSample/AppDelegate.m" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CoreDataEnvirSample/ConcurrencyViewController.h" isTestSource="false" />
@@ -45,11 +49,10 @@
       <sourceFolder url="file://$MODULE_DIR$/CoreDataEnvirSampleTests/Supporting Files/CoreDataEnvirSampleTests-Info.plist" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CoreDataEnvirSampleTests/Supporting Files/en.lproj/InfoPlist.strings" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CoreDataEnvirSampleTests/Supporting Files/zh-Hans.lproj/InfoPlist.strings" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/LionCoreData/Supporting Files/LionCoreData-Prefix.pch" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/LionCoreDataTests/LionCoreDataTests.m" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/LionCoreDataTests/Supporting Files/LionCoreDataTests-Info.plist" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/LionCoreDataTests/Supporting Files/en.lproj/InfoPlist.strings" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/LionCoreDataTests/Supporting Files/zh-Hans.lproj/InfoPlist.strings" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CoreDataEnvirTests/CoreDataEnvirTests.m" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CoreDataEnvirTests/Supporting Files/CoreDataEnvirTests-Info.plist" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CoreDataEnvirTests/Supporting Files/en.lproj/InfoPlist.strings" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CoreDataEnvirTests/Supporting Files/zh-Hans.lproj/InfoPlist.strings" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

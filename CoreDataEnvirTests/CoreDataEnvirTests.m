@@ -8,11 +8,11 @@
 
 #import <XCTest/XCTest.h>
 
-@interface LionCoreDataTests : XCTestCase
+@interface CoreDataEnvirTests : XCTestCase
 
 @end
 
-@implementation LionCoreDataTests
+@implementation CoreDataEnvirTests
 
 - (void)setUp
 {
@@ -28,7 +28,7 @@
 
 - (void)testExample
 {
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 }
 
 @end

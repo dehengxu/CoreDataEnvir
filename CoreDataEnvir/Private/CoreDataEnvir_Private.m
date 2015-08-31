@@ -23,7 +23,7 @@
         if ([name rangeOfString:@"."].location == 0) {
             continue;
         }
-        if ([name isEqualToString:[self mainInstance].databaseFileName]) {
+        if ([name isEqualToString:[[self mainInstance] databaseFileName]]) {
             break;
         }
         checkName = [NSString stringWithFormat:@"%@/%@", path, name];
@@ -286,111 +286,5 @@
     [self.context processPendingChanges];
 }
 
-- (id)dataItemWithID:(NSManagedObjectID *)objectId
-{
-    if (objectId && self.context) {
-        
-        NSManagedObject *item = nil;
-        
-        @try {
-            item = [self.context objectWithID:objectId];
-        }
-        @catch (NSException *exception) {
-            NSLog(@"exce :%@", [exception description]);
-            item = nil;
-        }
-        @finally {
-            
-        }
-        
-        return item;
-    }
-    return nil;
-}
-
-- (id)updateDataItem:(NSManagedObject *)object
-{
-    if (object && object.isFault) {
-        return [self dataItemWithID:object.objectID];
-    }
-    return object;
-}
-
-- (BOOL)deleteDataItem:(NSManagedObject *)aItem
-{
-    if (!aItem) {
-        return NO;
-    }
-    
-    NSManagedObject *getObject = aItem;
-    if (aItem.isFault) {
-        getObject = [self dataItemWithID:aItem.objectID];
-    }
-#if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
-    NSLog(@"%s  objectID :%@; getObject :%@;", __FUNCTION__, aItem.objectID, getObject);
-#endif
-    
-    if (getObject) {
-        @try {
-            [self.context deleteObject:getObject];
-        }
-        @catch (NSException *exception) {
-            NSLog(@"exce :%@", [exception description]);
-        }
-        @finally {
-            
-        }
-    }
-#if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
-    NSLog(@" delete finished!");
-#endif
-    
-    return YES;
-}
-
-- (BOOL) deleteDataItemSet:(NSSet *)aItemSet
-{
-    for (NSManagedObject *obj in aItemSet) {
-        [self deleteDataItem:obj];
-    }
-    
-    return YES;
-}
-
-- (BOOL)deleteDataItems:(NSArray *)items
-{
-    [items retain];
-    
-    for (NSManagedObject *obj in items) {
-        [self deleteDataItem:obj];
-    }
-    
-    [items release];
-    return YES;
-}
-
-- (BOOL)saveDataBase
-{
-    BOOL bResult = NO;
-    if (![self.context hasChanges]) {
-        return YES;
-    }
-    
-    [self.storeCoordinator lock];
-    NSError *error = nil;
-    
-    bResult = [self.context save:&error];
-    
-    if (!bResult) {
-        if (error != nil) {
-            NSLog(@"%s, error:%@", __FUNCTION__, error);
-        }
-        //Do we need rollback?
-        //[context rollback];
-    }
-    [self.storeCoordinator unlock];
-    NSLog(@"%s", __FUNCTION__);
-    return bResult;
-}
 
 @end

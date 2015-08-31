@@ -8,6 +8,8 @@
 
 #import "NSManagedObject_Convient.h"
 #import "CoreDataEnvir_Private.h"
+#import "CoreDataEnvir_Main.h"
+#import "CoreDataEnvir_Background.h"
 
 @implementation NSManagedObject (Convient)
 
