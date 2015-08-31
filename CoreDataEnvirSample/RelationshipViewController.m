@@ -8,7 +8,7 @@
 
 #import "RelationshipViewController.h"
 
-#import "CoreDataEnvir.h"
+#import "CoreDataEnvirHeader.h"
 #import "Team.h"
 #import "Member.h"
 
@@ -62,7 +62,7 @@
 {
     Team *team1 = [Team insertItem];
     for (int i = 0; i < 20; i ++) {
-        Member *mem = [Member insertItemWithBlock:^(Member *item) {
+        Member *mem = [Member insertItemWithFillingBlock:^(Member *item) {
             item.name = [NSString stringWithFormat:@"T1_M%d", i];
             item.belongedTeam = team1;
         }];
@@ -72,7 +72,7 @@
     
     Team *team2 = [Team insertItem];
     for (int i = 0; i < 20; i ++) {
-        Member *mem = [Member insertItemWithBlock:^(Member *item) {
+        Member *mem = [Member insertItemWithFillingBlock:^(Member *item) {
             item.name = [NSString stringWithFormat:@"T2_M%d", i];
             item.belongedTeam = team2;
         }];
@@ -91,7 +91,7 @@
     for (Team *t in teams) {
         members_c += [t.members count];
     }
-    NSString *message = [NSString stringWithFormat:@"teams %d\nmembers of teams :%d\ntotal members :%d.", [teams count], members_c, [members count]];
+    NSString *message = [NSString stringWithFormat:@"teams %lu\nmembers of teams :%d\ntotal members :%lu.", [teams count], members_c, [members count]];
     UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"" message:message delegate:Nil cancelButtonTitle:@"Close" otherButtonTitles: nil] autorelease];
     [alert show];
 

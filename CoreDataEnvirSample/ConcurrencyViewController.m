@@ -118,9 +118,9 @@ int runs_forever = THREAD_NUMBER;
         if (!self.teamOnBackground) {
             self.teamOnBackground = [Team lastItemInContext:db];
         }
-        Team *t = [Team lastItemInContext:db];
+        //Team *t = [Team lastItemInContext:db];
         
-//        for (int i = t.number.intValue; i < runTimes; i++) {
+        //for (int i = t.number.intValue; i < runTimes; i++) {
         int i = 0;
         for (;;) {
             Team *team = (Team *)[Team lastItemInContext:db];
@@ -337,7 +337,7 @@ int counter = 0;
         self.teamOnMainThread = [Team lastItem];
     }
     
-    NSString *message = [NSString stringWithFormat:@"teams :%d\nmembers :%d\nTeam name:%@ number:%@\n t number:%@", [teams count], [members count], self.teamOnMainThread.name, self.teamOnMainThread.number, t.number];
+    NSString *message = [NSString stringWithFormat:@"teams :%lu\nmembers :%lu\nTeam name:%@ number:%@\n t number:%@", [teams count], [members count], self.teamOnMainThread.name, self.teamOnMainThread.number, t.number];
     NSLog(@"team background :%@", self.teamOnBackground);
 //    t.number = @(0);
 //    [t save];
