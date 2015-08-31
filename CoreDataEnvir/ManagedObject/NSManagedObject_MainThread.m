@@ -8,6 +8,8 @@
 
 #import "NSManagedObject_MainThread.h"
 #import "CoreDataEnvir_Private.h"
+#import "CoreDataEnvir.h"
+#import "CoreDataEnvir_Main.h"
 
 @implementation NSManagedObject (MainThread)
 

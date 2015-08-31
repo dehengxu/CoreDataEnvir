@@ -29,7 +29,6 @@ break;\
 #define LOCK_BEGIN  [recursiveLock lock];
 #define LOCK_END    [recursiveLock unlock];
 
-static CoreDataEnvir *_coreDataEnvir = nil;
 
 static NSString *_default_model_file_name = nil;
 static NSString *_default_db_file_name = nil;
@@ -141,28 +140,6 @@ fetchedResultsCtrl;
 	return a_new_db;
 }
 
-+ (CoreDataEnvir *)mainInstance
-{
-    if (_coreDataEnvir == nil) {
-        _coreDataEnvir = [[self createInstanceWithDatabaseFileName:nil modelFileName:nil] retain];
-    }
-    
-    if (_coreDataEnvir && ![_coreDataEnvir currentQueue]) {
-        _coreDataEnvir->_currentQueue = dispatch_get_main_queue();
-    }
-    return _coreDataEnvir;
-}
-
-+ (dispatch_queue_t)mainQueue
-{
-    return [[CoreDataEnvir mainInstance] currentQueue];
-}
-
-+ (void)saveDataBaseOnMainThread
-{
-    [[self mainInstance] saveDataBase];
-}
-
 + (CoreDataEnvir *)createInstance
 {
     CoreDataEnvir *cde = [self createInstanceWithDatabaseFileName:nil modelFileName:nil];
@@ -182,14 +159,6 @@ fetchedResultsCtrl;
     NSLog(@"\n\n------\ncreate counter :%d\n\n------", _create_counter);
     return [cde autorelease];
 }
-
-//+ (void) deleteInstance
-//{
-//	if (_coreDataEnvir) {
-//		[_coreDataEnvir dealloc];
-//        _coreDataEnvir = nil;
-//	}
-//}
 
 - (id)init
 {

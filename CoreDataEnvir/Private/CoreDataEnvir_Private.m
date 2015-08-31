@@ -7,6 +7,7 @@
 //
 
 #import "CoreDataEnvir_Private.h"
+#import "CoreDataEnvir_Main.h"
 
 @implementation CoreDataEnvir (Private)
 

@@ -31,12 +31,12 @@
 {
 //    static dispatch_once_t onceTokenQueue;
 //    dispatch_once(&onceTokenQueue, ^{
-        if (!_backgroundQueue) {
-            _backgroundQueue = [[CoreDataEnvir backgroundInstance] currentQueue];
-        }
+//        if (!_backgroundQueue) {
+//            _backgroundQueue = [[CoreDataEnvir backgroundInstance] currentQueue];
+//        }
 //    });
-    
-    return _backgroundQueue;
+//    return _backgroundQueue;
+    return [[CoreDataEnvir backgroundInstance] currentQueue];
 }
 
 + (void)saveDataBaseOnBackground

@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="452b5cdf-72dd-492b-b99d-592b206b1d7c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CoreDataEnvir/CoreDataEnvir.m" afterPath="$PROJECT_DIR$/CoreDataEnvir/CoreDataEnvir.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CoreDataEnvir/ManagedObject/NSManagedObject_Background.h" afterPath="$PROJECT_DIR$/CoreDataEnvir/ManagedObject/NSManagedObject_Background.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CoreDataEnvir/ManagedObject/NSManagedObject_Background.m" afterPath="$PROJECT_DIR$/CoreDataEnvir/ManagedObject/NSManagedObject_Background.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CoreDataEnvir/ManagedObject/NSManagedObject_Convient.h" afterPath="$PROJECT_DIR$/CoreDataEnvir/ManagedObject/NSManagedObject_Convient.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CoreDataEnvir/ManagedObject/NSManagedObject_Convient.m" afterPath="$PROJECT_DIR$/CoreDataEnvir/ManagedObject/NSManagedObject_Convient.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CoreDataEnvir/ManagedObject/NSManagedObject_MainThread.h" afterPath="$PROJECT_DIR$/CoreDataEnvir/ManagedObject/NSManagedObject_MainThread.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CoreDataEnvir/ManagedObject/NSManagedObject_MainThread.m" afterPath="$PROJECT_DIR$/CoreDataEnvir/ManagedObject/NSManagedObject_MainThread.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="CoreDataEnvir.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,22 +23,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="NSManagedObject_Background.h" pinned="false" current-in-tab="false">
+      <file leaf-file-name="NSManagedObject_Background.h" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CoreDataEnvir/ManagedObject/NSManagedObject_Background.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="20" column="3" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
+            <state vertical-scroll-proportion="0.49778762">
+              <caret line="36" column="27" selection-start-line="36" selection-start-column="27" selection-end-line="36" selection-end-column="27" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NSManagedObject_MainThread.h" pinned="false" current-in-tab="true">
+      <file leaf-file-name="NSManagedObject_MainThread.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CoreDataEnvir/ManagedObject/NSManagedObject_MainThread.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.26548672">
+            <state vertical-scroll-proportion="0.0">
               <caret line="9" column="36" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
-              <folding />
+              <folding>
+                <element signature="e#163#196#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -81,8 +76,8 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="55" />
-    <option name="y" value="113" />
+    <option name="x" value="80" />
+    <option name="y" value="97" />
     <option name="width" value="1166" />
     <option name="height" value="549" />
   </component>
@@ -109,6 +104,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Cidr.FilesView" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -155,7 +151,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Cidr.FilesView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -223,7 +218,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="55" y="113" width="1166" height="549" extended-state="0" />
+    <frame x="80" y="97" width="1166" height="549" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -274,8 +269,36 @@
     <entry file="file://$PROJECT_DIR$/CoreDataEnvir/ManagedObject/NSManagedObject_MainThread.h">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="9" column="36" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
+          <folding>
+            <element signature="e#163#196#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CoreDataEnvir/ManagedObject/NSManagedObject_Convient.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="50" column="47" selection-start-line="50" selection-start-column="47" selection-end-line="50" selection-end-column="47" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CoreDataEnvir/ManagedObject/NSManagedObject_Background.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="3" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CoreDataEnvir/ManagedObject/NSManagedObject_MainThread.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#163#196#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -303,18 +326,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CoreDataEnvir/ManagedObject/NSManagedObject_Background.h">
+    <entry file="file://$PROJECT_DIR$/CoreDataEnvir/ManagedObject/NSManagedObject_MainThread.h">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="20" column="3" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
-          <folding />
+          <caret line="9" column="36" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
+          <folding>
+            <element signature="e#163#196#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CoreDataEnvir/ManagedObject/NSManagedObject_MainThread.h">
+    <entry file="file://$PROJECT_DIR$/CoreDataEnvir/ManagedObject/NSManagedObject_Background.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.26548672">
-          <caret line="9" column="36" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
+        <state vertical-scroll-proportion="0.49778762">
+          <caret line="36" column="27" selection-start-line="36" selection-start-column="27" selection-end-line="36" selection-end-column="27" />
           <folding />
         </state>
       </provider>

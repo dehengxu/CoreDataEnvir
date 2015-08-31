@@ -205,28 +205,11 @@ typedef enum
 + (CoreDataEnvir *)createInstanceWithDatabaseFileName:(NSString *)databaseFileName modelFileName:(NSString *)modelFileName;
 
 /**
- Only returen a single instance runs on main thread.
- */
-+ (CoreDataEnvir *)mainInstance;
-
-/**
- Main queue.
- */
-+ (dispatch_queue_t)mainQueue;
-
-+ (void)saveDataBaseOnMainThread;
-
-/**
  Creating a new instance by default db, momd file name.
  */
 + (CoreDataEnvir *)createInstance;
 
 + (CoreDataEnvir *)createInstanceShareingPersistence:(BOOL)isSharePersistence;
-
-/**
- Release the main instance.
- */
-//+ (void)deleteInstance;
 
 /**
  Return data root path

@@ -11,7 +11,8 @@
 
 static id<CoreDataRescureDelegate> _rescureDelegate = nil;
 static CoreDataEnvir *_backgroundInstance = nil;
-static dispatch_queue_t _backgroundQueue = nil;
+static CoreDataEnvir *_coreDataEnvir = nil;
+//static dispatch_queue_t _backgroundQueue = nil;
 static unsigned int _create_counter = 0;
 
 @interface CoreDataEnvir (Private)

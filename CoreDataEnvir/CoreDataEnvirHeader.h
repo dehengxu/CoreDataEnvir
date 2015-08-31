@@ -10,6 +10,7 @@
 //#define CoreDataEnvirSample_CoreDataEnvirHeader_h
 
 #import "CoreDataEnvir.h"
+#import "CoreDataEnvir_Main.h"
 #import "CoreDataEnvir_Background.h"
 
 #import "NSManagedObject_Convient.h"
