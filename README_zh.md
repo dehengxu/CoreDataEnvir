@@ -21,37 +21,36 @@ CoreDataEnvir 是一个 CoreData 框架的封装。提供了一种简单的方�
 
 我们假设 `Book` 类是你的App中一个代表书籍对象的模型类。它有一些成员域 `name`, `author` 等等。
 
-There is an author "John Stevens Cabot Abbott" written a book named "Napoleon Bonnaparte".
-有一个叫 ""
+还有一个叫 "约翰史蒂芬" 的作者，写了一本传记叫 "拿破仑"
 
-### Add new record
+### 添加一个新记录
 
 ```Objective-C
 
 [Book insertItemWithFillingBlock:^(id item) {
-	item.name = @"CoreData tutorial";
-	item.author = @"Headwindx";
+	item.name = @"约翰史蒂芬";
+	item.author = @"拿破仑";
 }];
 
 ```
 
-### Fetch lots of records
+### 查询一批记录
 
 ```Objective-C
-//Find all books of John Stevens Cabot Abbott.
-NSArray *books= [Feed itemsWithFormat:@"author = %@",  @"John Stevens Cabot Abbott"];
+//查询 约翰史蒂芬 写得所有书籍
+NSArray *books= [Feed itemsWithFormat:@"author = %@",  @"约翰史蒂芬"];
 
 ```
 
-### Fetch one record
+### 查询一条记录
 
 ```Objective-C
-//Find one book model object.
-Book *book = [Book lastItemWithFormat:@"name = %@ && author = %@", @"Napoleon Bonnaparte", @"John Stevens Cabot Abbott"];
+//查找约翰史蒂芬写的拿破仑传记
+Book *book = [Book lastItemWithFormat:@"name = %@ && author = %@", @"拿破仑", @"约翰史蒂芬"];
 
 ```
 
-### Delete one record
+### 删除一条记录
 
 ```Objective-C
 [CoreDataEnvir asyncMainInBlock:^(CoreDataEnvir *db) {
@@ -60,7 +59,7 @@ Book *book = [Book lastItemWithFormat:@"name = %@ && author = %@", @"Napoleon Bo
 
 ```
 
-### Delete records
+### 删除多条记录
 
 ```Objective-C
 [CoreDataEnvir asyncMainInBlock:^(CoreDataEnvir *db) {
@@ -68,49 +67,49 @@ Book *book = [Book lastItemWithFormat:@"name = %@ && author = %@", @"Napoleon Bo
 }];
 ```
 
-## Concurrenct programming:
+## 并发编程:
 
 ### On main thread
 
-You can do some lightweight operation on main thread. All of above operation must runs on main thread by default or it will raise an exception by `CoreDataEnvir`. So you should be carefully.
+你可以在主线程上做一些轻量级的操作，但最好不要影响到你的UI响应。所有以上介绍的数据操作，默认都是必须运行在主线程上的，否则 CoreDataEnvir 自己会主动抛出异常。所以你要注意这方面的使用，如果你不确定当前是否主线程，可以这么做：
 
-#### You also can explicit use on main thread
+#### 你也可以明确地在主线程上使用 CoreDataEnvir
 
-It makes you feel more safe :-)
+这样会让你感到比较有底一些：
 
 ```Objective-C
 [CoreDataEnvir asyncMainInBlock:^(CoreDataEnvir *db) {
 	[Book insertItemWithFillingBlock:^(id item) {
-		item.name = @"CoreData tutorial";
-		item.author = @"Headwindx";
+		item.name = @"拿破仑";
+		item.author = @"约翰史蒂芬";
 	}];
 }];
 ```
 
-### On background thread
+### 在后台线程
 
-It's already prepared a background GCD queue for you in `CoreDataEnvir`.
+CoreDataEnvir 也准备了一个后台 GCD 队列供你使用。
 
-The block `asyncBackgroundInBlock` will save memory cache to db file after `void(^)(CoreDataEnvir *db)` works finished.
+Block `asyncBackgroundInBlock` 将会在 `void(^)(CoreDataEnvir *db)` 调用结束后，自动将变动保存到数据库中。
 
-You don't need to use `[db saveDataBase];` like older version.
+你不必像老版本一样直接调用 `[db saveDataBase];` 。
 
 ```Objective-C
 
 [CoreDataEnvir asyncBackgroundInBlock:^(CoreDataEnvir *db) {
 	[Book insertItemOnBackgroundWithFillingBlock:^(id item) {
-		item.name = @"CoreData tutorial";
-		item.author = @"Headwindx";
+		item.name = @"拿破仑";
+		item.author = @"约翰史蒂芬";
 	}];
 }];
 
 ```
 
-It becomes more conveniently on concurrenct programming.
+这样在并发编程中 CoreData 的使用变得更加方便了。
 
-### Convenient methods
+### 几个快捷方法
 
-Must run on main queue:
+必须在 GCD 主队列上运行：
 
 
 * `+ (void)asyncMainInBlock:(void(^)(CoreDataEnvir *db))CoreDataBlock;`
@@ -118,18 +117,22 @@ Must run on main queue:
 * `+ (NSArray *)itemsWithFormat:(NSString *)fmt,...;`
 ...
 
-Must run on background queue, you can use these APIs and some methods name within `Background`:
+必须在后台 GCD 队列上运行，你可以使用这些方法名称中包含 `Background` 的API：
 
 * `+ (void)asyncBackgroundInBlock:(void(^)(CoreDataEnvir *db))CoreDataBlock;`
 * `+ (id)insertItemOnBackgroundWithFillingBlock:(void(^)(id item))fillingBlock;`
 * `+ (NSArray *)itemsOnBackgroundWithFormat:(NSString *)fmt,...;`
 ...
 
-Or you wanna run some operation in your own dispatch queue, you can choose this APIs:
+或者你想运行在你自己的 GCD 队列上，你可以选择这些 API：
 
 * `+ (CoreDataEnvir *)createInstance;` you'd better hold this instance for future.
 * `- (void)asyncInBlock:(void(^)(CoreDataEnvir *db))CoreDataBlock;`
 
-## If your are newcomer to CoreData, please obey the rules below:
+## 如果你是一个 CoreData 新人，请遵守以下军规：
 
-If you wanna keep you NSManagedObject objects, you shouldn't release you CoreDataEnvir object or it will be fault. So if you operate data base in multiple threads, make sure your NSManagedObject object reference fetched from [CoreDataEnvir mainInstance] or [CoreDataEnvir backgroundInstance] which never be released until application exist and it's enough for usual.
+* 如果你想以后使用你的 NSManagedObject 对象，你不要释放 CoreDataEnvir 对象，否则模型对象都将失效。
+
+* 如果你想在多线程上操作数据库，一定要确保每个线程有自己独立的 NSManagedObjectContext 对象。
+
+> PS:在 CoreDataEnvir 中，请确保你的 NSManagedObject 对象是在主线程上从 [CoreDataEnvir mainInstance] 中获取的对象，或者在后台线程上从 [CoreDataEnvir backgroundInstance] 得到的对象。这两个对象是不会被释放的，通常情况下，CoreDataEnvir 提供的两个线程就能应付常见的并发情况了。
