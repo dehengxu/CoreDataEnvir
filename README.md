@@ -131,4 +131,8 @@ Or you wanna run some operation in your own dispatch queue, you can choose this 
 
 ## If your are newcomer to CoreData, please obey the rules below:
 
-If you wanna keep you NSManagedObject objects, you shouldn't release you CoreDataEnvir object or it will be fault. So if you operate data base in multiple threads, make sure your NSManagedObject object reference fetched from [CoreDataEnvir mainInstance] or [CoreDataEnvir backgroundInstance] which never be released until application exist and it's enough for usual.
+* If you wanna keep you NSManagedObject objects, you shouldn't release you CoreDataEnvir object or it will be fault.
+
+* If you operate database in multiple threads, you should make sure you have one NSManagedObjectContext in seperate thread or GCD queue. Or it will occur conflict while one thread reading data and other one thread is writing data.
+
+> PS: So, in CoreDataEnvir please make sure your NSManagedObject object reference fetched from [CoreDataEnvir mainInstance] on main thread or from [CoreDataEnvir backgroundInstance] on background thread supplied by CoreDataEnvir and which never be released until application exist and it's enough for usual.
