@@ -269,8 +269,10 @@ fetchedResultsCtrl;
     [_context release];
 	[fetchedResultsCtrl release];
     [_storeCoordinator release];
-    dispatch_release(_currentQueue);
-    _currentQueue = NULL;
+    if (_currentQueue) {
+        dispatch_release(_currentQueue);
+        _currentQueue = NULL;
+    }
     [super dealloc];
 }
 
