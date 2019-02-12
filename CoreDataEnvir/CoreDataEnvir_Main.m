@@ -13,13 +13,21 @@
 
 + (CoreDataEnvir *)mainInstance
 {
-    if (_coreDataEnvir == nil) {
-        _coreDataEnvir = [[self createInstanceWithDatabaseFileName:nil modelFileName:nil] retain];
-    }
-    
-    if (_coreDataEnvir && ![_coreDataEnvir currentQueue]) {
-        _coreDataEnvir->_currentQueue = dispatch_get_main_queue();
-    }
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (_coreDataEnvir == nil) {
+            _coreDataEnvir = [[self createInstanceWithDatabaseFileName:nil modelFileName:nil] retain];
+        }
+        
+        if (_coreDataEnvir && _coreDataEnvir->_currentQueue != dispatch_get_main_queue()) {
+            if (_coreDataEnvir->_currentQueue) {
+                dispatch_release(_coreDataEnvir->_currentQueue);
+                _coreDataEnvir->_currentQueue = 0;
+            }
+            _coreDataEnvir->_currentQueue = dispatch_get_main_queue();
+        }
+    });
+
     return _coreDataEnvir;
 }
 
