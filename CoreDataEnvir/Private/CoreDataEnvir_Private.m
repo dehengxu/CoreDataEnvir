@@ -9,6 +9,9 @@
 #import "CoreDataEnvir_Private.h"
 #import "CoreDataEnvir_Main.h"
 
+CoreDataEnvir *_backgroundInstance = nil;
+CoreDataEnvir *_coreDataEnvir = nil;
+
 @implementation CoreDataEnvir (Private)
 
 + (void)_renameDatabaseFile

@@ -10,8 +10,8 @@
 #import "CoreDataEnvir.h"
 
 static id<CoreDataRescureDelegate> _rescureDelegate = nil;
-static CoreDataEnvir *_backgroundInstance = nil;
-static CoreDataEnvir *_coreDataEnvir = nil;
+extern CoreDataEnvir *_backgroundInstance;
+extern CoreDataEnvir *_coreDataEnvir;
 //static dispatch_queue_t _backgroundQueue = nil;
 static unsigned int _create_counter = 0;
 
