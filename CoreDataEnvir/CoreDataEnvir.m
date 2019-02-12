@@ -209,7 +209,13 @@ fetchedResultsCtrl;
         }
         
         //[self.class _renameDatabaseFile];
-        
+
+        //Create default work queue
+        if (!_currentQueue) {
+            _currentQueue = dispatch_queue_create([[NSString stringWithFormat:@"%@-%d", [NSString stringWithUTF8String:"com.dehengxu.coredataenvir.background"], _create_counter] UTF8String], NULL);
+        }
+
+
         _create_counter ++;
 
     }
