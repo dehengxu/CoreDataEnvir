@@ -7,22 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		24C11F672225FC3D00733658 /* CoreDataEnvir.h in Headers */ = {isa = PBXBuildFile; fileRef = 24C11F652225FC3D00733658 /* CoreDataEnvir.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		24C11F672225FC3D00733658 /* CoreDataEnvir_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 24C11F652225FC3D00733658 /* CoreDataEnvir_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24C11F6A2225FC3D00733658 /* CoreDataEnvir.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C11F632225FC3D00733658 /* CoreDataEnvir.framework */; };
 		24C11F6B2225FC3D00733658 /* CoreDataEnvir.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 24C11F632225FC3D00733658 /* CoreDataEnvir.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		24C11F702225FC9400733658 /* CoreDataEnvir_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 744F6CCA1B92C9FB003F6AA9 /* CoreDataEnvir_Private.h */; };
+		24C11F702225FC9400733658 /* CoreDataEnvir_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 744F6CCA1B92C9FB003F6AA9 /* CoreDataEnvir_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		24C11F712225FC9400733658 /* CoreDataEnvir_Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 744F6CCB1B92C9FB003F6AA9 /* CoreDataEnvir_Private.m */; };
-		24C11F722225FC9400733658 /* NSManagedObject_Convient.h in Headers */ = {isa = PBXBuildFile; fileRef = 744F6CC21B92C700003F6AA9 /* NSManagedObject_Convient.h */; };
+		24C11F722225FC9400733658 /* NSManagedObject_Convient.h in Headers */ = {isa = PBXBuildFile; fileRef = 744F6CC21B92C700003F6AA9 /* NSManagedObject_Convient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24C11F732225FC9400733658 /* NSManagedObject_Convient.m in Sources */ = {isa = PBXBuildFile; fileRef = 744F6CC31B92C700003F6AA9 /* NSManagedObject_Convient.m */; };
-		24C11F742225FC9400733658 /* NSManagedObject_MainThread.h in Headers */ = {isa = PBXBuildFile; fileRef = 744F6CD31B92D0EA003F6AA9 /* NSManagedObject_MainThread.h */; };
+		24C11F742225FC9400733658 /* NSManagedObject_MainThread.h in Headers */ = {isa = PBXBuildFile; fileRef = 744F6CD31B92D0EA003F6AA9 /* NSManagedObject_MainThread.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24C11F752225FC9400733658 /* NSManagedObject_MainThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 744F6CD41B92D0EA003F6AA9 /* NSManagedObject_MainThread.m */; };
-		24C11F762225FC9400733658 /* NSManagedObject_Background.h in Headers */ = {isa = PBXBuildFile; fileRef = 743950821B92DB9C0036A359 /* NSManagedObject_Background.h */; };
+		24C11F762225FC9400733658 /* NSManagedObject_Background.h in Headers */ = {isa = PBXBuildFile; fileRef = 743950821B92DB9C0036A359 /* NSManagedObject_Background.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24C11F772225FC9400733658 /* NSManagedObject_Background.m in Sources */ = {isa = PBXBuildFile; fileRef = 743950831B92DB9C0036A359 /* NSManagedObject_Background.m */; };
-		24C11F782225FC9400733658 /* CoreDataEnvir.h in Headers */ = {isa = PBXBuildFile; fileRef = A2ED3F0B17112C58003E9A37 /* CoreDataEnvir.h */; };
+		24C11F782225FC9400733658 /* CoreDataEnvir.h in Headers */ = {isa = PBXBuildFile; fileRef = A2ED3F0B17112C58003E9A37 /* CoreDataEnvir.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24C11F792225FC9400733658 /* CoreDataEnvir.m in Sources */ = {isa = PBXBuildFile; fileRef = A2ED3F0C17112C58003E9A37 /* CoreDataEnvir.m */; };
-		24C11F7A2225FC9400733658 /* CoreDataEnvir_Main.h in Headers */ = {isa = PBXBuildFile; fileRef = 740983C11B94510200C7AF8C /* CoreDataEnvir_Main.h */; };
+		24C11F7A2225FC9400733658 /* CoreDataEnvir_Main.h in Headers */ = {isa = PBXBuildFile; fileRef = 740983C11B94510200C7AF8C /* CoreDataEnvir_Main.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24C11F7B2225FC9400733658 /* CoreDataEnvir_Main.m in Sources */ = {isa = PBXBuildFile; fileRef = 740983C21B94510200C7AF8C /* CoreDataEnvir_Main.m */; };
-		24C11F7C2225FC9400733658 /* CoreDataEnvir_Background.h in Headers */ = {isa = PBXBuildFile; fileRef = 744F6CBF1B92C68B003F6AA9 /* CoreDataEnvir_Background.h */; };
+		24C11F7C2225FC9400733658 /* CoreDataEnvir_Background.h in Headers */ = {isa = PBXBuildFile; fileRef = 744F6CBF1B92C68B003F6AA9 /* CoreDataEnvir_Background.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24C11F7D2225FC9400733658 /* CoreDataEnvir_Background.m in Sources */ = {isa = PBXBuildFile; fileRef = 744F6CC01B92C68B003F6AA9 /* CoreDataEnvir_Background.m */; };
 		740983C31B94510200C7AF8C /* CoreDataEnvir_Main.m in Sources */ = {isa = PBXBuildFile; fileRef = 740983C21B94510200C7AF8C /* CoreDataEnvir_Main.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		740983C61B94541500C7AF8C /* libCoreDataEnvir.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A2CC432118079C6E0029C967 /* libCoreDataEnvir.a */; };
@@ -121,7 +121,7 @@
 
 /* Begin PBXFileReference section */
 		24C11F632225FC3D00733658 /* CoreDataEnvir.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreDataEnvir.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		24C11F652225FC3D00733658 /* CoreDataEnvir.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreDataEnvir.h; sourceTree = "<group>"; };
+		24C11F652225FC3D00733658 /* CoreDataEnvir_iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreDataEnvir_iOS.h; sourceTree = "<group>"; };
 		24C11F662225FC3D00733658 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		740983C11B94510200C7AF8C /* CoreDataEnvir_Main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataEnvir_Main.h; sourceTree = "<group>"; };
 		740983C21B94510200C7AF8C /* CoreDataEnvir_Main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataEnvir_Main.m; sourceTree = "<group>"; };
@@ -241,7 +241,7 @@
 		24C11F642225FC3D00733658 /* CoreDataEnvir iOS */ = {
 			isa = PBXGroup;
 			children = (
-				24C11F652225FC3D00733658 /* CoreDataEnvir.h */,
+				24C11F652225FC3D00733658 /* CoreDataEnvir_iOS.h */,
 				24C11F662225FC3D00733658 /* Info.plist */,
 			);
 			path = "CoreDataEnvir iOS";
@@ -427,7 +427,7 @@
 			files = (
 				24C11F782225FC9400733658 /* CoreDataEnvir.h in Headers */,
 				24C11F702225FC9400733658 /* CoreDataEnvir_Private.h in Headers */,
-				24C11F672225FC3D00733658 /* CoreDataEnvir.h in Headers */,
+				24C11F672225FC3D00733658 /* CoreDataEnvir_iOS.h in Headers */,
 				24C11F762225FC9400733658 /* NSManagedObject_Background.h in Headers */,
 				24C11F7A2225FC9400733658 /* CoreDataEnvir_Main.h in Headers */,
 				24C11F722225FC9400733658 /* NSManagedObject_Convient.h in Headers */,
