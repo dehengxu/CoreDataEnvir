@@ -16,14 +16,14 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "CoreDataEnvir"
-  s.version      = "0.4"
+  s.version      = "0.5"
   s.summary      = "CoreDataEnvir is a CoreData wrapper which use CoreData in convient way and supply thread safe in concurrenct programming."
 
   s.description  = <<-DESC
                    CoreDataEnvir is a CoreData wrapper which use CoreData in convient way and supply thread safe in concurrenct programming. You can use it concurrenctly，run seperate CoreDataEnvir instance on one thread.
                    DESC
 
-  s.homepage     = "http://xudeheng.github.io/CoreDataEnvir"
+  s.homepage     = "http://dehengxu.github.io/CoreDataEnvir"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
 
@@ -73,7 +73,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/xudeheng/CoreDataEnvir.git", :tag => "0.4" }
+  s.source       = { :git => "https://github.com/dehengxu/CoreDataEnvir.git", :tag => "0.4" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
