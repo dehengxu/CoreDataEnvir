@@ -16,7 +16,6 @@
 #import <CoreDataEnvir/NSManagedObject_MainThread.h>
 #import <CoreDataEnvir/NSManagedObject_Background.h>
 
-#import <CoreDataEnvir/NSObject_Debug.h>
 
 //! Project version number for CoreDataEnvir_iOS.
 FOUNDATION_EXPORT double CoreDataEnvir_iOSVersionNumber;
