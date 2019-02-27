@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		24C11F672225FC3D00733658 /* CoreDataEnvir_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 24C11F652225FC3D00733658 /* CoreDataEnvir_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		24C11F6A2225FC3D00733658 /* CoreDataEnvir.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C11F632225FC3D00733658 /* CoreDataEnvir.framework */; };
-		24C11F6B2225FC3D00733658 /* CoreDataEnvir.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 24C11F632225FC3D00733658 /* CoreDataEnvir.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		24C11F672225FC3D00733658 /* CoreDataEnviroFwk.h in Headers */ = {isa = PBXBuildFile; fileRef = 24C11F652225FC3D00733658 /* CoreDataEnviroFwk.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		24C11F6A2225FC3D00733658 /* CoreDataEnviroFwk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C11F632225FC3D00733658 /* CoreDataEnviroFwk.framework */; };
+		24C11F6B2225FC3D00733658 /* CoreDataEnviroFwk.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 24C11F632225FC3D00733658 /* CoreDataEnviroFwk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		24C11F702225FC9400733658 /* CoreDataEnvir_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 744F6CCA1B92C9FB003F6AA9 /* CoreDataEnvir_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		24C11F712225FC9400733658 /* CoreDataEnvir_Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 744F6CCB1B92C9FB003F6AA9 /* CoreDataEnvir_Private.m */; };
 		24C11F722225FC9400733658 /* NSManagedObject_Convient.h in Headers */ = {isa = PBXBuildFile; fileRef = 744F6CC21B92C700003F6AA9 /* NSManagedObject_Convient.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -103,7 +103,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				24C11F6B2225FC3D00733658 /* CoreDataEnvir.framework in Embed Frameworks */,
+				24C11F6B2225FC3D00733658 /* CoreDataEnviroFwk.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -120,8 +120,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		24C11F632225FC3D00733658 /* CoreDataEnvir.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreDataEnvir.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		24C11F652225FC3D00733658 /* CoreDataEnvir_iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreDataEnvir_iOS.h; sourceTree = "<group>"; };
+		24C11F632225FC3D00733658 /* CoreDataEnviroFwk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreDataEnviroFwk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		24C11F652225FC3D00733658 /* CoreDataEnviroFwk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreDataEnviroFwk.h; sourceTree = "<group>"; };
 		24C11F662225FC3D00733658 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		740983C11B94510200C7AF8C /* CoreDataEnvir_Main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataEnvir_Main.h; sourceTree = "<group>"; };
 		740983C21B94510200C7AF8C /* CoreDataEnvir_Main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataEnvir_Main.m; sourceTree = "<group>"; };
@@ -218,7 +218,7 @@
 			files = (
 				740983C61B94541500C7AF8C /* libCoreDataEnvir.a in Frameworks */,
 				A2ED3F2F17113E5F003E9A37 /* CoreData.framework in Frameworks */,
-				24C11F6A2225FC3D00733658 /* CoreDataEnvir.framework in Frameworks */,
+				24C11F6A2225FC3D00733658 /* CoreDataEnviroFwk.framework in Frameworks */,
 				A2ED3ECD17112B3F003E9A37 /* UIKit.framework in Frameworks */,
 				A2ED3ECF17112B3F003E9A37 /* Foundation.framework in Frameworks */,
 				A2ED3ED117112B3F003E9A37 /* CoreGraphics.framework in Frameworks */,
@@ -241,7 +241,7 @@
 		24C11F642225FC3D00733658 /* CoreDataEnvir iOS */ = {
 			isa = PBXGroup;
 			children = (
-				24C11F652225FC3D00733658 /* CoreDataEnvir_iOS.h */,
+				24C11F652225FC3D00733658 /* CoreDataEnviroFwk.h */,
 				24C11F662225FC3D00733658 /* Info.plist */,
 			);
 			path = "CoreDataEnvir iOS";
@@ -345,7 +345,7 @@
 				A2ED3EF217112B40003E9A37 /* CoreDataEnvirSampleTests.octest */,
 				A2CC432118079C6E0029C967 /* libCoreDataEnvir.a */,
 				A2CC432E18079C6F0029C967 /* CoreDataEnvirTests.xctest */,
-				24C11F632225FC3D00733658 /* CoreDataEnvir.framework */,
+				24C11F632225FC3D00733658 /* CoreDataEnviroFwk.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -427,7 +427,7 @@
 			files = (
 				24C11F782225FC9400733658 /* CoreDataEnvir.h in Headers */,
 				24C11F702225FC9400733658 /* CoreDataEnvir_Private.h in Headers */,
-				24C11F672225FC3D00733658 /* CoreDataEnvir_iOS.h in Headers */,
+				24C11F672225FC3D00733658 /* CoreDataEnviroFwk.h in Headers */,
 				24C11F762225FC9400733658 /* NSManagedObject_Background.h in Headers */,
 				24C11F7A2225FC9400733658 /* CoreDataEnvir_Main.h in Headers */,
 				24C11F722225FC9400733658 /* NSManagedObject_Convient.h in Headers */,
@@ -454,7 +454,7 @@
 			);
 			name = "CoreDataEnvir iOS";
 			productName = "CoreDataEnvir iOS";
-			productReference = 24C11F632225FC3D00733658 /* CoreDataEnvir.framework */;
+			productReference = 24C11F632225FC3D00733658 /* CoreDataEnviroFwk.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		A2CC432018079C6E0029C967 /* CoreDataEnvir */ = {
@@ -800,7 +800,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.dehengxu.ios.CoreDataEnvir-iOS";
-				PRODUCT_NAME = CoreDataEnvir;
+				PRODUCT_NAME = CoreDataEnviroFwk;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -862,7 +862,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.dehengxu.ios.CoreDataEnvir-iOS";
-				PRODUCT_NAME = CoreDataEnvir;
+				PRODUCT_NAME = CoreDataEnviroFwk;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.2;

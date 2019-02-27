@@ -8,15 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-#import <CoreDataEnvir/CoreDataEnvir.h>
-#import <CoreDataEnvir/CoreDataEnvir_Main.h>
-#import <CoreDataEnvir/CoreDataEnvir_Background.h>
+#import <CoreDataEnviroFwk/CoreDataEnvir.h>
+#import <CoreDataEnviroFwk/CoreDataEnvir_Main.h>
+#import <CoreDataEnviroFwk/CoreDataEnvir_Background.h>
 
-#import <CoreDataEnvir/NSManagedObject_Convient.h>
-#import <CoreDataEnvir/NSManagedObject_MainThread.h>
-#import <CoreDataEnvir/NSManagedObject_Background.h>
+#import <CoreDataEnviroFwk/NSManagedObject_Convient.h>
+#import <CoreDataEnviroFwk/NSManagedObject_MainThread.h>
+#import <CoreDataEnviroFwk/NSManagedObject_Background.h>
 
-#import <CoreDataEnvir/NSObject_Debug.h>
 
 //! Project version number for CoreDataEnvir_iOS.
 FOUNDATION_EXPORT double CoreDataEnvir_iOSVersionNumber;
