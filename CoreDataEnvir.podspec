@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "CoreDataEnvir"
-  s.version      = "0.5"
+  s.version      = "0.6.0-beta.0"
   s.summary      = "CoreDataEnvir is a CoreData wrapper which use CoreData in convient way and supply thread safe in concurrenct programming."
 
   s.description  = <<-DESC
