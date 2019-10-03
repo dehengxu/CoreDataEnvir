@@ -17,12 +17,12 @@
 /**
  Creating managed object on background thread.
  */
-+ (id)insertItemInContext:(CoreDataEnvir *)cde;
++ (instancetype)insertItemInContext:(CoreDataEnvir *)cde;
 
 /**
  Createing managed object in specified context with filling 'block'
  */
-+ (id)insertItemInContext:(CoreDataEnvir *)cde fillData:(void (^)(id item))fillingBlock;
++ (instancetype)insertItemInContext:(CoreDataEnvir *)cde fillData:(void (^)(id item))fillingBlock;
 
 #pragma mark - Fetching operations.
 
@@ -72,7 +72,7 @@
  *
  *  @return Last item of the managed object in context.
  */
-+ (id)lastItemInContext:(CoreDataEnvir *)cde;
++ (instancetype)lastItemInContext:(CoreDataEnvir *)cde;
 
 /**
  *  Fetch item in specified context through predicate.
@@ -82,7 +82,7 @@
  *
  *  @return Last item of the managed object in context.
  */
-+ (id)lastItemInContext:(CoreDataEnvir *)cde usingPredicate:(NSPredicate *)predicate;
++ (instancetype)lastItemInContext:(CoreDataEnvir *)cde usingPredicate:(NSPredicate *)predicate;
 
 /**
  *  Fetch item in specified context through format string.
@@ -92,7 +92,7 @@
  *
  *  @return Last item of the managed object in context.
  */
-+ (id)lastItemInContext:(CoreDataEnvir *)cde withFormat:(NSString *)fmt,...;
++ (instancetype)lastItemInContext:(CoreDataEnvir *)cde withFormat:(NSString *)fmt,...;
 
 #pragma mark - fault process.
 
@@ -101,14 +101,14 @@
  *
  *  @return Updated object.
  */
-- (id)update;
+- (instancetype)update;
 
 /**
  Update NSManagedObject in specified context if faulted.
  
  @param cde     CoreDataEnvir object.
  */
-- (id)updateInContext:(CoreDataEnvir *)cde;
+- (instancetype)updateInContext:(CoreDataEnvir *)cde;
 
 #pragma mark - Deleting .
 

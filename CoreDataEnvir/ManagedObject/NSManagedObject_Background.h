@@ -14,12 +14,12 @@
 /**
  Creating managed object on main thread.
  */
-+ (id)insertItemOnBackground;
++ (instancetype)insertItemOnBackground;
 
 /**
  Creating managed object in main context by filling 'block'
  */
-+ (id)insertItemOnBackgroundWithFillingBlock:(void(^)(id item))fillingBlock;
++ (instancetype)insertItemOnBackgroundWithFillingBlock:(void(^)(id item))fillingBlock;
 
 /**
  Just fetching record items by the predicate in main context.
@@ -61,7 +61,7 @@
 /**
  * Fetching last record item.
  */
-+ (id)lastItemOnBackground;
++ (instancetype)lastItemOnBackground;
 
 /**
  *  Fetch record item by predicate in main context.
@@ -70,7 +70,7 @@
  *
  *  @return Last item of the managed object in context.
  */
-+ (id)lastItemOnBackgroundWithPredicate:(NSPredicate *)predicate;
++ (instancetype)lastItemOnBackgroundWithPredicate:(NSPredicate *)predicate;
 
 /**
  
@@ -82,6 +82,6 @@
  *
  *  @return Last item of the managed object in context.
  */
-+ (id)lastItemOnBackgroundWithFormat:(NSString *)fmt,...;
++ (instancetype)lastItemOnBackgroundWithFormat:(NSString *)fmt,...;
 
 @end

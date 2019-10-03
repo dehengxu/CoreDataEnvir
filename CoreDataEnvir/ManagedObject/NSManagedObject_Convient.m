@@ -15,7 +15,7 @@
 
 #pragma mark - Insert item record
 
-+ (id)insertItemInContext:(CoreDataEnvir *)cde
++ (instancetype)insertItemInContext:(CoreDataEnvir *)cde
 {
 #if DEBUG
     NSLog(@"%s thread :%u, %@", __func__, [NSThread isMainThread], [NSString stringWithCString:dispatch_queue_get_label(dispatch_get_current_queue()) encoding:NSUTF8StringEncoding]);
@@ -25,7 +25,7 @@
     return item;
 }
 
-+ (id)insertItemInContext:(CoreDataEnvir *)cde fillData:(void (^)(id item))fillingBlock
++ (instancetype)insertItemInContext:(CoreDataEnvir *)cde fillData:(void (^)(id item))fillingBlock
 {
 #if DEBUG
     NSLog(@"%s thread :%u, %@", __func__, [NSThread isMainThread], [NSString stringWithCString:dispatch_queue_get_label(dispatch_get_current_queue()) encoding:NSUTF8StringEncoding]);
@@ -82,17 +82,17 @@
 
 #pragma mark - fetch last item
 
-+ (id)lastItemInContext:(CoreDataEnvir *)cde
++ (instancetype)lastItemInContext:(CoreDataEnvir *)cde
 {
     return [[self itemsInContext:cde] lastObject];
 }
 
-+ (id)lastItemInContext:(CoreDataEnvir *)cde usingPredicate:(NSPredicate *)predicate
++ (instancetype)lastItemInContext:(CoreDataEnvir *)cde usingPredicate:(NSPredicate *)predicate
 {
     return [[self itemsInContext:cde usingPredicate:predicate] lastObject];
 }
 
-+ (id)lastItemInContext:(CoreDataEnvir *)cde withFormat:(NSString *)fmt, ...
++ (instancetype)lastItemInContext:(CoreDataEnvir *)cde withFormat:(NSString *)fmt, ...
 {
     va_list args;
     va_start(args, fmt);
@@ -104,7 +104,7 @@
 
 #pragma mark - merge context when update
 
-- (id)update
+- (instancetype)update
 {
     if ([NSThread isMainThread]) {
         return [[CoreDataEnvir instance] updateDataItem:self];
@@ -112,7 +112,7 @@
     return nil;
 }
 
-- (id)updateInContext:(CoreDataEnvir *)cde
+- (instancetype)updateInContext:(CoreDataEnvir *)cde
 {
     return [cde updateDataItem:self];
 }

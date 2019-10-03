@@ -18,7 +18,7 @@
  *
  *  @return
  */
-+ (id)insertItem
++ (instancetype)insertItem
 {
     if (![NSThread isMainThread]) {
 #if DEBUG
@@ -39,7 +39,7 @@
  *
  *  @return
  */
-+ (id)insertItemWithFillingBlock:(void (^)(id item))fillingBlock
++ (instancetype)insertItemWithFillingBlock:(void (^)(id item))fillingBlock
 {
     id item = [self insertItem];
     fillingBlock(item);
@@ -132,7 +132,7 @@
     return items;
 }
 
-+ (id)lastItem
++ (instancetype)lastItem
 {
     if (![NSThread isMainThread]) {
 #if DEBUG
@@ -158,7 +158,7 @@
     return [[self itemsInContext:[CoreDataEnvir mainInstance] usingPredicate:predicate] lastObject];
 }
 
-+ (id)lastItemWithFormat:(NSString *)fmt, ...
++ (instancetype)lastItemWithFormat:(NSString *)fmt, ...
 {
     va_list args;
     va_start(args, fmt);

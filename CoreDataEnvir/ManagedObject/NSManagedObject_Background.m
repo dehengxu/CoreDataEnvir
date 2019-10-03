@@ -18,7 +18,7 @@
  *
  *  @return
  */
-+ (id)insertItemOnBackground
++ (instancetype)insertItemOnBackground
 {
     CoreDataEnvir *db = [CoreDataEnvir backgroundInstance];
     id item = [self insertItemInContext:db];
@@ -32,7 +32,7 @@
  *
  *  @return
  */
-+ (id)insertItemOnBackgroundWithFillingBlock:(void (^)(id item))fillingBlock
++ (instancetype)insertItemOnBackgroundWithFillingBlock:(void (^)(id item))fillingBlock
 {
     id item = [self insertItemOnBackground];
     fillingBlock(item);
@@ -87,7 +87,7 @@
     return items;
 }
 
-+ (id)lastItemOnBackground
++ (instancetype)lastItemOnBackground
 {
     return [[self itemsOnBackground] lastObject];
 }
@@ -97,7 +97,7 @@
     return [[self itemsInContext:[CoreDataEnvir backgroundInstance] usingPredicate:predicate] lastObject];
 }
 
-+ (id)lastItemOnBackgroundWithFormat:(NSString *)fmt, ...
++ (instancetype)lastItemOnBackgroundWithFormat:(NSString *)fmt, ...
 {
     va_list args;
     va_start(args, fmt);
