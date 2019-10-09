@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
                    CoreDataEnvir is a CoreData wrapper which use CoreData in convient way and supply thread safe in concurrenct programming. You can use it concurrenctly，run seperate CoreDataEnvir instance on one thread.
                    DESC
 
-  s.homepage     = "http://dehengxu.github.io/CoreDataEnvir"
+  s.homepage     = "https://dehengxu.github.io/CoreDataEnvir"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
 
@@ -51,7 +51,7 @@ Pod::Spec.new do |s|
   s.author             = { "DehengXu" => "dehengxu@outlook.com" }
   # Or just: s.author    = "CyberLion"
   # s.authors            = { "CyberLion" => "dehengxu@outlook.com" }
-  s.social_media_url   = "https://twitter.com/dehengxu"
+  s.social_media_url   = "https://github.com/dehengxu"
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
