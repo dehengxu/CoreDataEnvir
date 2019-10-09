@@ -32,7 +32,7 @@ CoreDataEnvir *_coreDataEnvir = nil;
         checkName = [NSString stringWithFormat:@"%@/%@", path, name];
         
         BOOL isDir = NO;
-        if ([fm fileExistsAtPath:checkName isDirectory:&isDir] && !isDir, [[name pathExtension] isEqualToString:@"sqlite"]) {
+        if ([fm fileExistsAtPath:checkName isDirectory:&isDir] && !isDir && [[name pathExtension] isEqualToString:@"sqlite"]) {
             [fm moveItemAtPath:checkName toPath:[NSString stringWithFormat:@"%@/%@", path, [[self mainInstance] databaseFileName]] error:nil];
             NSLog(@"Rename sqlite database from %@ to %@ finished!", name, [[self mainInstance] databaseFileName]);
             break;
@@ -245,19 +245,30 @@ CoreDataEnvir *_coreDataEnvir = nil;
 #if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
     NSLog(@"%s %@ ->>> %@", __FUNCTION__, notification.object, self.context);
 #endif
-    
-    [self.storeCoordinator lock];
-    @try {
-        //After this merge operating, context update it's state 'hasChanges' .
-        [self.context mergeChangesFromContextDidSaveNotification:notification];
+
+    void (^doWork)(void) = ^ {
+        @try {
+            //After this merge operating, context update it's state 'hasChanges' .
+            [self.context mergeChangesFromContextDidSaveNotification:notification];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"exce :%@", exception);
+        }
+        @finally {
+            //NSLog(@"Merge finished!");
+        }
+    };
+    #pragma clang push
+    #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    if ([[UIDevice currentDevice] systemVersion].floatValue >= 8.0) {
+        [self.storeCoordinator performBlockAndWait:doWork];
+    }else {
+        [self.storeCoordinator lock];
+        doWork();
+        [self.storeCoordinator unlock];
     }
-    @catch (NSException *exception) {
-        NSLog(@"exce :%@", exception);
-    }
-    @finally {
-        //NSLog(@"Merge finished!");
-    }
-    [self.storeCoordinator unlock];
+    #pragma clang pop
+
 }
 
 /**

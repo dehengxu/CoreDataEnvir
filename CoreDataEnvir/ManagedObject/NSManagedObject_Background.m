@@ -92,7 +92,7 @@
     return [[self itemsOnBackground] lastObject];
 }
 
-+ (NSArray *)lastItemOnBackgroundWithPredicate:(NSPredicate *)predicate
++ (instancetype)lastItemOnBackgroundWithPredicate:(NSPredicate *)predicate
 {
     return [[self itemsInContext:[CoreDataEnvir backgroundInstance] usingPredicate:predicate] lastObject];
 }

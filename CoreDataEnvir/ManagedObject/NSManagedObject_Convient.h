@@ -58,7 +58,7 @@
  *  @param cde              CoreDataEnvir instance
  *  @param sortDescriptions SortDescriptions
  *  @param offset           offset
- *  @param limtNumber       limted number
+ *  @param limitNumber       limted number
  *  @param fmt              Predicate format.
  *
  *  @return Array of items match the condition.
@@ -87,7 +87,7 @@
 /**
  *  Fetch item in specified context through format string.
  *
- *  @param cde
+ *  @param cde CoreDataEnvir object.
  *  @param fmt Predicate format string.
  *
  *  @return Last item of the managed object in context.
@@ -115,7 +115,7 @@
 /**
  *  Remove item.
  *
- *  @param cde
+ *  @param cde CoreDataEnvir object.
  */
 - (void)removeFrom:(CoreDataEnvir *)cde;
 
@@ -129,7 +129,7 @@
 /**
  *  Save db on main thread.
  *
- *  @param cde
+ *  @param cde CoreDataEnvir object.
  *
  *  @return Success(YES) or failed(NO).
  */

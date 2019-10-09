@@ -25,8 +25,8 @@ static unsigned int _create_counter = 0;
 /**
  *  Init coredata enviroment at specified path and with name.
  *
- *  @param path
- *  @param dbName
+ *  @param path Database file directory
+ *  @param dbName Database file name
  */
 - (void)_initCoreDataEnvirWithPath:(NSString *) path andFileName:(NSString *) dbName;
 
@@ -39,9 +39,9 @@ static unsigned int _create_counter = 0;
 /**
  *  Insert a new record into the table by Class type.
  *
- *  @param theClass
+ *  @param theClass Object class
  *
- *  @return
+ *  @return NSManagedObject entity.
  */
 - (NSManagedObject *)buildManagedObjectByClass:(Class)theClass;
 
@@ -72,14 +72,14 @@ static unsigned int _create_counter = 0;
 /**
  *  Update context while data changes.
  *
- *  @param notification
+ *  @param notification NSNotification object.
  */
 - (void)updateContext:(NSNotification *)notification;
 
 /**
  *  Merge context data while other context occur data changing.
  *
- *  @param notification 
+ *  @param notification NSNotification object.
  */
 - (void)mergeChanges:(NSNotification *)notification;
 

@@ -51,7 +51,7 @@
  *
  *  @param sortDescriptions SortDescriptions
  *  @param offset           offset
- *  @param limtNumber       limit number
+ *  @param limitNumber       limit number
  *  @param fmt              predicate format string.
  *
  *  @return Array of items match the condition.

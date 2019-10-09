@@ -48,10 +48,10 @@ Pod::Spec.new do |s|
   #  profile URL.
   #
 
-  s.author             = { "Deheng Xu" => "dehengxu@outlook.com" }
+  s.author             = { "DehengXu" => "dehengxu@outlook.com" }
   # Or just: s.author    = "CyberLion"
   # s.authors            = { "CyberLion" => "dehengxu@outlook.com" }
-  s.social_media_url   = "http://twitter.com/dehengxu"
+  s.social_media_url   = "https://twitter.com/dehengxu"
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -73,7 +73,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/dehengxu/CoreDataEnvir.git", :tag => "0.4" }
+  s.source       = { :git => "https://github.com/dehengxu/CoreDataEnvir.git", :tag => s.version }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #

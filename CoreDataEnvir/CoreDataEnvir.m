@@ -295,24 +295,33 @@ fetchedResultsCtrl;
 
 - (BOOL)saveDataBase
 {
-    BOOL bResult = NO;
+    __block BOOL bResult = NO;
     if (![self.context hasChanges]) {
         return YES;
     }
-    
-    [self.storeCoordinator lock];
-    NSError *error = nil;
-    
-    bResult = [self.context save:&error];
-    
-    if (!bResult) {
-        if (error != nil) {
-            NSLog(@"%s, error:%@", __FUNCTION__, error);
+    #pragma clang push
+    #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
+    void(^doWork)(void) = ^ {
+        NSError *error = nil;
+        bResult = [self.context save:&error];
+
+        if (!bResult) {
+            if (error != nil) {
+                NSLog(@"%s, error:%@", __FUNCTION__, error);
+            }
+            //Do we need rollback?
+            //[context rollback];
         }
-        //Do we need rollback?
-        //[context rollback];
+    };
+    if ([[UIDevice currentDevice] systemVersion].floatValue >= 8.0) {
+        [self.storeCoordinator performBlockAndWait:doWork];
+    }else {
+        [self.storeCoordinator lock];
+        doWork();
+        [self.storeCoordinator unlock];
     }
-    [self.storeCoordinator unlock];
+    #pragma clang pop
     NSLog(@"%s", __FUNCTION__);
     return bResult;
 }

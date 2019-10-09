@@ -145,7 +145,7 @@
     return [[self items] lastObject];
 }
 
-+ (NSArray *)lastItemWithPredicate:(NSPredicate *)predicate
++ (instancetype)lastItemWithPredicate:(NSPredicate *)predicate
 {
     if (![NSThread isMainThread]) {
 #if DEBUG
