@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "CoreDataEnvir.h"
 
-@interface CoreDataEnvir (background)
+@interface CoreDataEnvir (CDEBackground)
 
 + (dispatch_queue_t)backgroundQueue;
 

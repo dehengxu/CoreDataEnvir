@@ -15,7 +15,7 @@ extern CoreDataEnvir *_coreDataEnvir;
 //static dispatch_queue_t _backgroundQueue = nil;
 static unsigned int _create_counter = 0;
 
-@interface CoreDataEnvir (Private)
+@interface CoreDataEnvir (CDEPrivate)
 
 /**
  Rename database file with new registed name.

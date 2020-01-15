@@ -13,11 +13,16 @@
 #import "CoreDataEnvir_Main.h"
 #import "CoreDataEnvir_Background.h"
 
-#import "NSManagedObject_Convient.h"
+#import "NSManagedObject_Convenient.h"
 #import "NSManagedObject_MainThread.h"
 #import "NSManagedObject_Background.h"
 
 #import "NSObject_Debug.h"
 
+//! Project version number for CoreDataEnvir.
+FOUNDATION_EXPORT double CoreDataEnvirVersionNumber;
+
+//! Project version string for CoreDataEnvir.
+FOUNDATION_EXPORT const unsigned char CoreDataEnvirVersionString[];
 
 //#endif

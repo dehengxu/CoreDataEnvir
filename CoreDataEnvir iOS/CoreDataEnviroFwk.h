@@ -12,16 +12,16 @@
 #import <CoreDataEnviroFwk/CoreDataEnvir_Main.h>
 #import <CoreDataEnviroFwk/CoreDataEnvir_Background.h>
 
-#import <CoreDataEnviroFwk/NSManagedObject_Convient.h>
+#import <CoreDataEnviroFwk/NSManagedObject_Convenient.h>
 #import <CoreDataEnviroFwk/NSManagedObject_MainThread.h>
 #import <CoreDataEnviroFwk/NSManagedObject_Background.h>
 
 
-//! Project version number for CoreDataEnvir_iOS.
-FOUNDATION_EXPORT double CoreDataEnvir_iOSVersionNumber;
+//! Project version number for CoreDataEnvir.
+FOUNDATION_EXPORT double CoreDataEnvirVersionNumber;
 
-//! Project version string for CoreDataEnvir_iOS.
-FOUNDATION_EXPORT const unsigned char CoreDataEnvir_iOSVersionString[];
+//! Project version string for CoreDataEnvir.
+FOUNDATION_EXPORT const unsigned char CoreDataEnvirVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <CoreDataEnvir_iOS/PublicHeader.h>
 

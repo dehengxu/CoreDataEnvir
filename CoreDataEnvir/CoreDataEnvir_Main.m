@@ -9,7 +9,7 @@
 #import "CoreDataEnvir_Main.h"
 #import "CoreDataEnvir_Private.h"
 
-@implementation CoreDataEnvir (Main)
+@implementation CoreDataEnvir (CDEMain)
 
 + (CoreDataEnvir *)mainInstance
 {

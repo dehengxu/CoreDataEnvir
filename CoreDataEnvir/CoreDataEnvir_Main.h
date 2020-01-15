@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "CoreDataEnvir.h"
 
-@interface CoreDataEnvir (Main)
+@interface CoreDataEnvir (CDEMain)
 
 /**
  Only returen a single instance runs on main thread.

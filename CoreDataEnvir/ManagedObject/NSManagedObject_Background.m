@@ -9,9 +9,9 @@
 #import "NSManagedObject_Background.h"
 #import "CoreDataEnvir_Background.h"
 #import "CoreDataEnvir_Private.h"
-#import "NSManagedObject_Convient.h"
+#import "NSManagedObject_Convenient.h"
 
-@implementation NSManagedObject (Background)
+@implementation NSManagedObject (CDEBackground)
 
 /**
  *  Insert an item.

@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "NSManagedObject_Convient.h"
+#import "NSManagedObject_Convenient.h"
 
-@interface NSManagedObject (MainThread)
+@interface NSManagedObject (CDEMainThread)
 
 #pragma mark - Inserting operations.
 

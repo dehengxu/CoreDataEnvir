@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "NSManagedObject_Convient.h"
+#import "NSManagedObject_Convenient.h"
 
-@interface NSManagedObject (Background)
+@interface NSManagedObject (CDEBackground)
 
 /**
  Creating managed object on main thread.

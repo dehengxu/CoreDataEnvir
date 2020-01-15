@@ -9,7 +9,7 @@
 #import "CoreDataEnvir_Background.h"
 #import "CoreDataEnvir_Private.h"
 
-@implementation CoreDataEnvir (background)
+@implementation CoreDataEnvir (CDEBackground)
 
 + (CoreDataEnvir *)backgroundInstance
 {

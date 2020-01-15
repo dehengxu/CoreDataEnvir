@@ -13,6 +13,7 @@
 #import "CoreDataEnvir.h"
 #import "Team.h"
 #import "Member.h"
+#import <CoreDataEnvir/CoreDataEnvir.h>
 
 @implementation AppDelegate
 
@@ -33,7 +34,9 @@
     // Override point for customization after application launch.
     self.viewController = [[[ViewController alloc] initWithNibName:nil bundle:nil] autorelease];
     self.navigationController = [[[UINavigationController alloc] initWithRootViewController:self.viewController] autorelease];
-
+    
+    NSLog(@"ver: %f", CoreDataEnvirVersionNumber);
+    
     self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
     

@@ -6,12 +6,12 @@
 //  Copyright (c) 2015年 Nicholas.Xu. All rights reserved.
 //
 
-#import "NSManagedObject_Convient.h"
+#import "NSManagedObject_Convenient.h"
 #import "CoreDataEnvir_Private.h"
 #import "CoreDataEnvir_Main.h"
 #import "CoreDataEnvir_Background.h"
 
-@implementation NSManagedObject (Convient)
+@implementation NSManagedObject (CDEConevient)
 
 #pragma mark - Insert item record
 

@@ -21,6 +21,12 @@
 
 #define CORE_DATA_ENVIR_SHOW_LOG        0
 
+//! Project version number for CoreDataEnvir.
+FOUNDATION_EXPORT double CoreDataEnvirVersionNumber;
+
+//! Project version string for CoreDataEnvir.
+FOUNDATION_EXPORT const unsigned char CoreDataEnvirVersionString[];
+
 @class CoreDataEnvir;
 
 #pragma mark - CoreDataEnvirObserver (Not be used temporarily)

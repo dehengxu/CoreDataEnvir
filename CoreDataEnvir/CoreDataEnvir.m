@@ -11,7 +11,7 @@
 #import "CoreDataEnvir_Main.h"
 
 #import "NSManagedObject_Debug.h"
-#import "NSManagedObject_Convient.h"
+#import "NSManagedObject_Convenient.h"
 #import "NSManagedObject_MainThread.h"
 #import "NSManagedObject_Background.h"
 #import "NSObject_Debug.h"
@@ -159,7 +159,9 @@ fetchedResultsCtrl;
 {
     id cde = nil;
     cde = [[self alloc] initWithDatabaseFileName:databaseFileName modelFileName:modelFileName];
+#if DEBGU && CORE_DATA_ENVIR_SHOW_LOG
     NSLog(@"\n\n------\ncreate counter :%d\n\n------", _create_counter);
+#endif
     return [cde autorelease];
 }
 
@@ -267,7 +269,9 @@ fetchedResultsCtrl;
 #endif
     _create_counter --;
 
+#if DEBGU && CORE_DATA_ENVIR_SHOW_LOG
     NSLog(@"%s\ncreate counter :%d\n\n", __func__, _create_counter);
+#endif
     [self unregisterObserving];
     //[_context reset];
     
@@ -322,7 +326,10 @@ fetchedResultsCtrl;
         [self.storeCoordinator unlock];
     }
     #pragma clang pop
+
+#if DEBGU && CORE_DATA_ENVIR_SHOW_LOG
     NSLog(@"%s", __FUNCTION__);
+#endif
     return bResult;
 }
 

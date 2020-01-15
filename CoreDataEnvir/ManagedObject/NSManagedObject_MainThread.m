@@ -11,7 +11,7 @@
 #import "CoreDataEnvir.h"
 #import "CoreDataEnvir_Main.h"
 
-@implementation NSManagedObject (MainThread)
+@implementation NSManagedObject (CDEMainThread)
 
 /**
  *  Insert an item.

@@ -10,7 +10,7 @@
 #import "CoreDataEnvir.h"
 #import "CoreDataEnvir_Background.h"
 
-@interface NSManagedObject (Convient)
+@interface NSManagedObject (CDEConevient)
 
 #pragma mark - Inserting operations.
 
