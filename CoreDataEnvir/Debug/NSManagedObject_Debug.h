@@ -10,6 +10,6 @@
 #import "CoreDataEnvir.h"
 #import "CoreDataEnvir_Background.h"
 
-@interface NSManagedObject (Debug)
+@interface NSManagedObject (CDEDebug)
 
 @end

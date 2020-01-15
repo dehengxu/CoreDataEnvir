@@ -159,7 +159,9 @@ fetchedResultsCtrl;
 {
     id cde = nil;
     cde = [[self alloc] initWithDatabaseFileName:databaseFileName modelFileName:modelFileName];
+#if DEBGU && CORE_DATA_ENVIR_SHOW_LOG
     NSLog(@"\n\n------\ncreate counter :%d\n\n------", _create_counter);
+#endif
     return [cde autorelease];
 }
 
@@ -267,7 +269,9 @@ fetchedResultsCtrl;
 #endif
     _create_counter --;
 
+#if DEBGU && CORE_DATA_ENVIR_SHOW_LOG
     NSLog(@"%s\ncreate counter :%d\n\n", __func__, _create_counter);
+#endif
     [self unregisterObserving];
     //[_context reset];
     
@@ -322,7 +326,10 @@ fetchedResultsCtrl;
         [self.storeCoordinator unlock];
     }
     #pragma clang pop
+
+#if DEBGU && CORE_DATA_ENVIR_SHOW_LOG
     NSLog(@"%s", __FUNCTION__);
+#endif
     return bResult;
 }
 

@@ -10,7 +10,7 @@
 #import "CoreDataEnvir.h"
 #import "CoreDataEnvir_Background.h"
 
-@interface NSObject (Debug)
+@interface NSObject (CDEDebug)
 
 /**
  Get current dispatch queue label string.

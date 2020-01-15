@@ -8,7 +8,7 @@
 
 #import "NSObject_Debug.h"
 
-@implementation NSObject (Debug)
+@implementation NSObject (CDEDebug)
 
 - (NSString *)currentDispatchQueueLabel
 {

@@ -43,7 +43,10 @@ CoreDataEnvir *_coreDataEnvir = nil;
 
 - (void) _initCoreDataEnvirWithPath:(NSString *)path andFileName:(NSString *) dbName
 {
+#if DEBGU && CORE_DATA_ENVIR_SHOW_LOG
     NSLog(@"%s   %@  /  %@", __FUNCTION__,path, dbName);
+#endif
+
     //Scan all of momd directory.
     //NSArray *momdPaths = [[NSBundle mainBundle] pathsForResourcesOfType:@"momd" inDirectory:nil];
     NSURL *fileUrl = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@", path, dbName]];

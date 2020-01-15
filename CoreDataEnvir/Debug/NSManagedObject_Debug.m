@@ -8,6 +8,6 @@
 
 #import "NSManagedObject_Debug.h"
 
-@implementation NSManagedObject (Debug)
+@implementation NSManagedObject (CDEDebug)
 
 @end
