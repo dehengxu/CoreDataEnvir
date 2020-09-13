@@ -87,6 +87,11 @@ CoreDataEnvir *_coreDataEnvir = nil;
     
     if (self.storeCoordinator == nil) {
         NSString *momdPath = [[NSBundle mainBundle] pathForResource:[self modelFileName] ofType:@"momd"];
+		if (!momdPath.length) {
+			NSException *exce = [NSException exceptionWithName:[NSString stringWithFormat:@"CoreDataEnvir exception %d", CDEErrorModelFileNotFound] reason:@"Model file momd " userInfo:@{@"error": [NSError errorWithDomain:CDE_ERROR_DOMAIN code:CDEErrorModelFileNotFound userInfo:nil]}];
+			[exce raise];
+			return;
+		}
         NSURL *momdURL = [NSURL fileURLWithPath:momdPath];
         
         NSManagedObjectModel *model = nil;

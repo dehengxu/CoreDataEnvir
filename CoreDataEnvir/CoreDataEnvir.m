@@ -32,6 +32,7 @@ break;\
 #define LOCK_BEGIN  [recursiveLock lock];
 #define LOCK_END    [recursiveLock unlock];
 
+NSString* CDE_ERROR_DOMAIN = @"com.dehengxu.CoreDataEnvir";
 
 static NSString *_default_model_file_name = nil;
 static NSString *_default_db_file_name = nil;
@@ -66,6 +67,14 @@ fetchedResultsCtrl;
 
 + (void)registDefaultModelFileName:(NSString *)name
 {
+	NSString *momdPath = [[NSBundle mainBundle] pathForResource:name ofType:@"momd"];
+	if (!momdPath.length) {
+		NSString* reason = [NSString stringWithFormat:@"Model file %@.momd not found", name];
+		NSException *exce = [NSException exceptionWithName:[NSString stringWithFormat:@"CoreDataEnvir exception %d", CDEErrorModelFileNotFound] reason:reason userInfo:@{@"error": [NSError errorWithDomain:CDE_ERROR_DOMAIN code:CDEErrorModelFileNotFound userInfo:nil]}];
+		[exce raise];
+		return;
+	}
+
     if (_default_model_file_name) {
         [_default_model_file_name release];
         _default_model_file_name = nil;

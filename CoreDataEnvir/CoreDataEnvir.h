@@ -91,8 +91,11 @@ FOUNDATION_EXPORT const unsigned char CoreDataEnvirVersionString[];
 
 typedef enum
 {
-    CDEErrorInstanceCreateTooMutch = 1000
+    CDEErrorInstanceCreateTooMutch = 1000,
+	CDEErrorModelFileNotFound = 1001
 }CoreDataEnvirError;
+
+extern NSString* CDE_ERROR_DOMAIN;
 
 @interface CoreDataEnvir : NSObject {
     NSRecursiveLock *__recursiveLock;
@@ -158,9 +161,9 @@ typedef enum
 @property (nonatomic) BOOL sharePersistence;
 
 /**
- Regist the specified model file name.
+ Regist the specified model file name exclude extension.
  
- @prarm name    xcdatamodeld file name.(Except file extension.)
+ @prarm name    xcdatamodeld file name.(Exclude file extension.)
  */
 + (void)registDefaultModelFileName:(NSString *)name;
 
