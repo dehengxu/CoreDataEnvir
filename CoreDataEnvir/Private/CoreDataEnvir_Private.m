@@ -41,6 +41,12 @@ CoreDataEnvir *_coreDataEnvir = nil;
     NSLog(@"No sqlite database be renamed!");
 }
 
+- (NSFetchRequest *)newFetchRequest {
+	NSFetchRequest *req = [[NSFetchRequest alloc] init];
+	[req setEntity:[NSEntityDescription entityForName:NSStringFromClass(self.class) inManagedObjectContext:self.context]];
+	return req;
+}
+
 - (void) _initCoreDataEnvirWithPath:(NSString *)path andFileName:(NSString *) dbName
 {
 #if DEBGU && CORE_DATA_ENVIR_SHOW_LOG
@@ -147,6 +153,13 @@ CoreDataEnvir *_coreDataEnvir = nil;
 - (NSEntityDescription *) entityDescriptionByName:(NSString *)className
 {
     return [NSEntityDescription entityForName:className inManagedObjectContext:self.context];
+}
+
+- (NSUInteger)fetchRequestCount {
+
+	NSFetchRequest *req = [self newFetchRequest];
+	NSUInteger rtn = [self.context countForFetchRequest:req error:nil];
+	return rtn;
 }
 
 - (NSArray *) fetchItemsByEntityDescriptionName:(NSString *)entityName

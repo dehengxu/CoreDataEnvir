@@ -22,6 +22,8 @@ static unsigned int _create_counter = 0;
  */
 + (void)_renameDatabaseFile;
 
+- (NSFetchRequest*)newFetchRequest;
+
 /**
  *  Init coredata enviroment at specified path and with name.
  *
@@ -50,6 +52,8 @@ static unsigned int _create_counter = 0;
  Get entity descritpion from name string
  */
 - (NSEntityDescription *) entityDescriptionByName:(NSString *)className;
+
+- (NSUInteger)fetchRequestCount;
 
 /**
  Fetching record item.
