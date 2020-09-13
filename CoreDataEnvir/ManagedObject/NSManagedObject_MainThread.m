@@ -39,7 +39,7 @@
  *
  *  @return
  */
-+ (instancetype)insertItemWithFillingBlock:(void (^)(id item))fillingBlock
++ (instancetype)insertItemWithFillingBlock:(void (^)(id _Nullable item))fillingBlock
 {
     id item = [self insertItem];
     fillingBlock(item);

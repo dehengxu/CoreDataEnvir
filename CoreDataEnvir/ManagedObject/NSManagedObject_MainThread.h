@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Creating managed object in main context by filling 'block'
  */
-+ (instancetype)insertItemWithFillingBlock:(void(^)(id item))fillingBlock;
++ (instancetype _Nullable)insertItemWithFillingBlock:(void(^)(id _Nullable item))fillingBlock;
 
 + (NSUInteger)totalCount;
 

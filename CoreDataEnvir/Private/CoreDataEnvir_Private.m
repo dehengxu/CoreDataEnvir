@@ -146,7 +146,11 @@ CoreDataEnvir *_coreDataEnvir = nil;
 - (NSManagedObject *)buildManagedObjectByClass:(Class)theClass
 {
     NSManagedObject *_object = nil;
-    _object = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass(theClass) inManagedObjectContext:self.context];
+	NSString* className = NSStringFromClass(theClass);
+    _object = [NSEntityDescription insertNewObjectForEntityForName:className inManagedObjectContext:self.context];
+	if (!_object) {
+		NSLog(@"Error: build managed object by class:%@ failed", className);
+	}
     return _object;
 }
 
