@@ -46,6 +46,11 @@
     return item;
 }
 
++ (NSUInteger)totalCount {
+	CoreDataEnvir *db = [CoreDataEnvir mainInstance];
+	return [db fetchRequestCount];
+}
+
 + (NSArray *)items
 {
     if (![NSThread isMainThread]) {
@@ -59,6 +64,14 @@
     NSArray *items = [db fetchItemsByEntityDescriptionName:NSStringFromClass(self)];
     
     return items;
+}
+
++ (NSArray *)itemsOffset:(NSUInteger)offset withLimit:(NSUInteger)limitNumber {
+	CoreDataEnvir *db = [CoreDataEnvir mainInstance];
+
+	NSArray *items = [db fetchItemsByEntityDescriptionName:NSStringFromClass(self) usingPredicate:nil usingSortDescriptions:nil fromOffset:offset LimitedBy:limitNumber];
+
+	return items;
 }
 
 + (NSArray *)itemsWithPredicate:(NSPredicate *)predicate
@@ -130,6 +143,12 @@
     CoreDataEnvir *db = [CoreDataEnvir mainInstance];
     NSArray *items = [db fetchItemsByEntityDescriptionName:NSStringFromClass(self) usingPredicate:pred usingSortDescriptions:sortDescriptions fromOffset:offset LimitedBy:limitNumber];
     return items;
+}
+
++ (NSArray *)itemsWithSortDescriptions:(NSArray *)sortDescriptions fromOffset:(NSUInteger)offset limitedBy:(NSUInteger)limitNumber andPredicate:(NSPredicate *)predicate {
+	CoreDataEnvir *db = [CoreDataEnvir mainInstance];
+	NSArray* items = [db fetchItemsByEntityDescriptionName:NSStringFromClass(self) usingPredicate:predicate usingSortDescriptions:sortDescriptions fromOffset:offset LimitedBy:limitNumber];
+	return items;
 }
 
 + (instancetype)lastItem

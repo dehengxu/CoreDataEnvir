@@ -25,10 +25,14 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (instancetype)insertItemWithFillingBlock:(void(^)(id item))fillingBlock;
 
++ (NSUInteger)totalCount;
+
 /**
  Just fetching record items by the predicate in main context.
  */
 + (NSArray *)items;
+
++ (NSArray * _Nullable)itemsOffset:(NSUInteger)offset withLimit:(NSUInteger)limitNumber;
 
 /**
  Fetch record items in main context by predicate.
@@ -61,6 +65,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return Array of items match the condition.
  */
 + (NSArray *)itemsSortDescriptions:(NSArray *)sortDescriptions fromOffset:(NSUInteger)offset limitedBy:(NSUInteger)limitNumber withFormat:(NSString *)fmt,...;
+
++ (NSArray *)itemsWithSortDescriptions:(NSArray * _Nullable)sortDescriptions fromOffset:(NSUInteger)offset limitedBy:(NSUInteger)limitNumber andPredicate:(NSPredicate* _Nullable)predicate;
 
 /**
  * Fetching last record item.
