@@ -10,6 +10,8 @@
 #import "CoreDataEnvir.h"
 #import "CoreDataEnvir_Background.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface NSManagedObject (CDEConevient)
 
 #pragma mark - Inserting operations.
@@ -141,3 +143,5 @@
 - (BOOL)save;
 
 @end
+
+NS_ASSUME_NONNULL_END

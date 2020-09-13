@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "NSManagedObject_Convenient.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface NSManagedObject (CDEBackground)
 
 /**
@@ -85,3 +87,5 @@
 + (instancetype)lastItemOnBackgroundWithFormat:(NSString *)fmt,...;
 
 @end
+
+NS_ASSUME_NONNULL_END

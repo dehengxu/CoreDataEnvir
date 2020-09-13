@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "NSManagedObject_Convenient.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface NSManagedObject (CDEMainThread)
 
 #pragma mark - Inserting operations.
@@ -87,3 +89,5 @@
 + (instancetype)lastItemWithFormat:(NSString *)fmt,...;
 
 @end
+
+NS_ASSUME_NONNULL_END
