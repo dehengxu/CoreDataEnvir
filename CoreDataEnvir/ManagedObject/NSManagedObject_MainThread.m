@@ -13,6 +13,7 @@
 
 @implementation NSManagedObject (CDEMainThread)
 
+
 /**
  *  Insert an item.
  *
@@ -48,7 +49,8 @@
 
 + (NSUInteger)totalCount {
 	CoreDataEnvir *db = [CoreDataEnvir mainInstance];
-	return [db fetchRequestCount];
+	NSFetchRequest* req = [self newFetchRequestInContext:db];
+	return [db countForFetchRequest:req error:nil];
 }
 
 + (NSArray *)items

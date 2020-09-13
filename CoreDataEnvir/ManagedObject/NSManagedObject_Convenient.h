@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Inserting operations.
 
++ (NSFetchRequest*)newFetchRequestInContext:(CoreDataEnvir*)db;
+
 /**
  Creating managed object on background thread.
  */

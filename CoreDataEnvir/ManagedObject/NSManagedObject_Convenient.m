@@ -13,6 +13,13 @@
 
 @implementation NSManagedObject (CDEConevient)
 
++ (NSFetchRequest*)newFetchRequestInContext:(CoreDataEnvir*)db {
+	NSFetchRequest *req = [[NSFetchRequest alloc] init];
+	NSEntityDescription *entity = [NSEntityDescription entityForName:NSStringFromClass(self.class) inManagedObjectContext:db.context];
+	[req setEntity:entity];
+	return req;
+}
+
 #pragma mark - Insert item record
 
 + (instancetype)insertItemInContext:(CoreDataEnvir *)cde

@@ -22,7 +22,9 @@ static unsigned int _create_counter = 0;
  */
 + (void)_renameDatabaseFile;
 
-- (NSFetchRequest*)newFetchRequest;
+- (NSFetchRequest*)newFetchRequestWithName:(NSString*)name error:(NSError**)error;
+
+- (NSFetchRequest*)newFetchRequestWithClass:(Class)clazz error:(NSError**)error;
 
 /**
  *  Init coredata enviroment at specified path and with name.
@@ -45,15 +47,23 @@ static unsigned int _create_counter = 0;
  *
  *  @return NSManagedObject entity.
  */
-- (NSManagedObject *)buildManagedObjectByClass:(Class)theClass;
+- (NSManagedObject *)buildManagedObjectByClass:(Class _Nullable)theClass NS_DEPRECATED_IOS(4.0, 10.0, "Replace with: - (NSManagedObject* _Nullable)buildManagedObjectByClass:(Class _Nullable)theClass error:(NSError* _Nullable * _Nullable)error;");
 
+/// Insert a new record into the table by Class type.
+/// @param theClass Object class
+/// @param error NSError with failed information.
+- (NSManagedObject* _Nullable)buildManagedObjectByClass:(Class _Nullable)theClass error:(NSError* _Nullable * _Nullable)error;
+
+/// Create entity from a 'Class' object
+/// @param clazz Class object
+- (NSEntityDescription * _Nullable) entityDescriptionByClass:(Class _Nullable)clazz;
 
 /**
  Get entity descritpion from name string
  */
-- (NSEntityDescription *) entityDescriptionByName:(NSString *)className;
+- (NSEntityDescription * _Nullable) entityDescriptionByName:(NSString *_Nullable)className;
 
-- (NSUInteger)fetchRequestCount;
+- (NSUInteger)countForFetchRequest:(NSFetchRequest* _Nonnull)fetchRequest error:(NSError* _Nullable * _Nullable)error;
 
 /**
  Fetching record item.

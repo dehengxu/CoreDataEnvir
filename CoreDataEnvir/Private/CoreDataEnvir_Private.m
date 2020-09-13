@@ -41,9 +41,28 @@ CoreDataEnvir *_coreDataEnvir = nil;
     NSLog(@"No sqlite database be renamed!");
 }
 
-- (NSFetchRequest *)newFetchRequest {
+- (NSFetchRequest *)newFetchRequestWithName:(NSString *)name error:(NSError **)error {
 	NSFetchRequest *req = [[NSFetchRequest alloc] init];
-	[req setEntity:[NSEntityDescription entityForName:NSStringFromClass(self.class) inManagedObjectContext:self.context]];
+	NSEntityDescription *entity = [NSEntityDescription entityForName:name inManagedObjectContext:self.context];
+	if (!entity) {
+		*error = [NSError errorWithDomain:@"CoreDataEnvir: entity create failed" code:0 userInfo:nil];
+	}
+	[req setEntity:entity];
+	return req;
+}
+
+- (NSFetchRequest *)newFetchRequestWithClass:(Class)clazz error:(NSError **)error {
+	if (!clazz) {
+		*error = [NSError errorWithDomain:@"CoreDataEnvir: class is nil." code:0 userInfo:nil];
+		return nil;
+	}
+	NSString* name = NSStringFromClass(clazz);
+	if (!name.length) {
+		*error = [NSError errorWithDomain:@"CoreDataEnvir: class name not found." code:0 userInfo:nil];
+		return nil;
+	}
+
+	NSFetchRequest *req = [self newFetchRequestWithName:name error:error];
 	return req;
 }
 
@@ -154,16 +173,35 @@ CoreDataEnvir *_coreDataEnvir = nil;
     return _object;
 }
 
+- (NSManagedObject *)buildManagedObjectByClass:(Class)theClass error:(NSError **)error {
+	NSManagedObject *_object = nil;
+	NSString* className = NSStringFromClass(theClass);
+	if (!className) {
+		*error = [NSError errorWithDomain:[NSString stringWithFormat:@"CoreDataEnvir: class:(%@) name not found.", className] code:0 userInfo:0];
+		return nil;
+	}
+
+	_object = [NSEntityDescription insertNewObjectForEntityForName:className inManagedObjectContext:self.context];
+
+	if (!_object) {
+		*error = [NSError errorWithDomain:[NSString stringWithFormat:@"CoreDataEnvir: Insert object of class:(%@) failed", className] code:0 userInfo:0];
+		return nil;
+	}
+	return _object;
+}
+
+- (NSEntityDescription *)entityDescriptionByClass:(Class)clazz {
+	NSString* name = NSStringFromClass(clazz);
+	return [self entityDescriptionByName:name];
+}
+
 - (NSEntityDescription *) entityDescriptionByName:(NSString *)className
 {
     return [NSEntityDescription entityForName:className inManagedObjectContext:self.context];
 }
 
-- (NSUInteger)fetchRequestCount {
-
-	NSFetchRequest *req = [self newFetchRequest];
-	NSUInteger rtn = [self.context countForFetchRequest:req error:nil];
-	return rtn;
+- (NSUInteger)countForFetchRequest:(NSFetchRequest *)fetchRequest error:(NSError **)error {
+	return [self.context countForFetchRequest:fetchRequest error:error];
 }
 
 - (NSArray *) fetchItemsByEntityDescriptionName:(NSString *)entityName
