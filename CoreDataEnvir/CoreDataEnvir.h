@@ -162,15 +162,15 @@ extern NSString* CDE_ERROR_DOMAIN;
 
 /**
  Regist the specified model file name exclude extension.
- 
+ Default: "Model"
  @prarm name    xcdatamodeld file name.(Exclude file extension.)
  */
 + (void)registDefaultModelFileName:(NSString *)name;
 
 /**
  Regist the specified data file name.
- 
- @param name    Data file name.(Except path.)
+ Default: "db.sqlite"
+ @param name    Data file name.(Exclude path name.)
  */
 + (void)registDefaultDataFileName:(NSString *)name;
 
