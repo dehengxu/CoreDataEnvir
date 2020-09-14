@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "CoreDataEnvir.h"
 
-static id<CoreDataRescureDelegate> _rescureDelegate = nil;
-extern CoreDataEnvir *_backgroundInstance;
-extern CoreDataEnvir *_coreDataEnvir;
+extern id<CoreDataRescureDelegate> _Nullable _rescureDelegate;
+extern CoreDataEnvir* _Nullable _backgroundInstance;
+extern CoreDataEnvir* _Nullable _mainInstance;
 //static dispatch_queue_t _backgroundQueue = nil;
 static unsigned int _create_counter = 0;
 
@@ -22,9 +22,9 @@ static unsigned int _create_counter = 0;
  */
 + (void)_renameDatabaseFile;
 
-- (NSFetchRequest*)newFetchRequestWithName:(NSString*)name error:(NSError**)error;
+- (NSFetchRequest * _Nullable)newFetchRequestWithName:(NSString* _Nullable)name error:(NSError* _Nullable * _Nullable)error;
 
-- (NSFetchRequest*)newFetchRequestWithClass:(Class)clazz error:(NSError**)error;
+- (NSFetchRequest * _Nullable)newFetchRequestWithClass:(Class _Nullable)clazz error:(NSError * _Nullable * _Nullable)error;
 
 /**
  *  Init coredata enviroment at specified path and with name.
@@ -32,13 +32,13 @@ static unsigned int _create_counter = 0;
  *  @param path Database file directory
  *  @param dbName Database file name
  */
-- (void)_initCoreDataEnvirWithPath:(NSString *) path andFileName:(NSString *) dbName;
+- (void)_initCoreDataEnvirWithPath:(NSString * _Nonnull) path andFileName:(NSString * _Nonnull) dbName;
 
 
 /**
  Insert a new record into the table by className.
  */
-- (NSManagedObject *)buildManagedObjectByName:(NSString *)className;
+- (NSManagedObject * _Nullable)buildManagedObjectByName:(NSString * _Nonnull)className;
 
 /**
  *  Insert a new record into the table by Class type.
@@ -47,12 +47,12 @@ static unsigned int _create_counter = 0;
  *
  *  @return NSManagedObject entity.
  */
-- (NSManagedObject *)buildManagedObjectByClass:(Class _Nullable)theClass NS_DEPRECATED_IOS(4.0, 10.0, "Replace with: - (NSManagedObject* _Nullable)buildManagedObjectByClass:(Class _Nullable)theClass error:(NSError* _Nullable * _Nullable)error;");
+- (NSManagedObject * _Nullable)buildManagedObjectByClass:(Class _Nonnull)theClass NS_DEPRECATED_IOS(4.0, 10.0, "Replace with: - (NSManagedObject* _Nullable)buildManagedObjectByClass:(Class _Nullable)theClass error:(NSError* _Nullable * _Nullable)error;");
 
 /// Insert a new record into the table by Class type.
 /// @param theClass Object class
 /// @param error NSError with failed information.
-- (NSManagedObject* _Nullable)buildManagedObjectByClass:(Class _Nullable)theClass error:(NSError* _Nullable * _Nullable)error;
+- (NSManagedObject* _Nullable)buildManagedObjectByClass:(Class _Nonnull)theClass error:(NSError* _Nullable * _Nullable)error;
 
 /// Create entity from a 'Class' object
 /// @param clazz Class object

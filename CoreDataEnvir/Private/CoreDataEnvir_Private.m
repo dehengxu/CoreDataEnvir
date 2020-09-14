@@ -9,8 +9,9 @@
 #import "CoreDataEnvir_Private.h"
 #import "CoreDataEnvir_Main.h"
 
+id<CoreDataRescureDelegate> _rescureDelegate;
 CoreDataEnvir *_backgroundInstance = nil;
-CoreDataEnvir *_coreDataEnvir = nil;
+CoreDataEnvir *_mainInstance = nil;
 
 @implementation CoreDataEnvir (CDEPrivate)
 
@@ -42,11 +43,12 @@ CoreDataEnvir *_coreDataEnvir = nil;
 }
 
 - (NSFetchRequest *)newFetchRequestWithName:(NSString *)name error:(NSError **)error {
-	NSFetchRequest *req = [[NSFetchRequest alloc] init];
 	NSEntityDescription *entity = [NSEntityDescription entityForName:name inManagedObjectContext:self.context];
 	if (!entity) {
 		*error = [NSError errorWithDomain:@"CoreDataEnvir: entity create failed" code:0 userInfo:nil];
+        return nil;
 	}
+    NSFetchRequest *req = [[NSFetchRequest alloc] init];
 	[req setEntity:entity];
 	return req;
 }
@@ -57,11 +59,6 @@ CoreDataEnvir *_coreDataEnvir = nil;
 		return nil;
 	}
 	NSString* name = NSStringFromClass(clazz);
-	if (!name.length) {
-		*error = [NSError errorWithDomain:@"CoreDataEnvir: class name not found." code:0 userInfo:nil];
-		return nil;
-	}
-
 	NSFetchRequest *req = [self newFetchRequestWithName:name error:error];
 	return req;
 }
@@ -182,14 +179,18 @@ CoreDataEnvir *_coreDataEnvir = nil;
 	NSManagedObject *_object = nil;
 	NSString* className = NSStringFromClass(theClass);
 	if (!className) {
-		*error = [NSError errorWithDomain:[NSString stringWithFormat:@"CoreDataEnvir: class:(%@) name not found.", className] code:0 userInfo:0];
+        if (*error) {
+            *error = [NSError errorWithDomain:[NSString stringWithFormat:@"CoreDataEnvir: class:(%@) name not found.", className] code:0 userInfo:0];
+        }
 		return nil;
 	}
 
 	_object = [NSEntityDescription insertNewObjectForEntityForName:className inManagedObjectContext:self.context];
 
 	if (!_object) {
-		*error = [NSError errorWithDomain:[NSString stringWithFormat:@"CoreDataEnvir: Insert object of class:(%@) failed", className] code:0 userInfo:0];
+        if (*error) {
+            *error = [NSError errorWithDomain:[NSString stringWithFormat:@"CoreDataEnvir: Insert object of class:(%@) failed", className] code:0 userInfo:0];
+        }
 		return nil;
 	}
 	return _object;
@@ -213,8 +214,13 @@ CoreDataEnvir *_coreDataEnvir = nil;
 {
     NSArray *items = nil;
     
+    NSEntityDescription* entity = [self entityDescriptionByName:entityName];
+    if (!entity) {
+        return nil;
+    }
+
     NSFetchRequest *req = [[NSFetchRequest alloc] init];
-    [req setEntity:[self entityDescriptionByName:entityName]];
+    [req setEntity:entity];
     
     NSError *error = nil;
     items = [self.context executeFetchRequest:req error:&error];

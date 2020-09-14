@@ -15,20 +15,20 @@
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        if (_coreDataEnvir == nil) {
-            _coreDataEnvir = [[self createInstanceWithDatabaseFileName:nil modelFileName:nil] retain];
+        if (_mainInstance == nil) {
+            _mainInstance = [[self createInstanceWithDatabaseFileName:nil modelFileName:nil] retain];
         }
         
-        if (_coreDataEnvir && _coreDataEnvir->_currentQueue != dispatch_get_main_queue()) {
-            if (_coreDataEnvir->_currentQueue) {
-                dispatch_release(_coreDataEnvir->_currentQueue);
-                _coreDataEnvir->_currentQueue = 0;
+        if (_mainInstance && _mainInstance->_currentQueue != dispatch_get_main_queue()) {
+            if (_mainInstance->_currentQueue) {
+                dispatch_release(_mainInstance->_currentQueue);
+                _mainInstance->_currentQueue = 0;
             }
-            _coreDataEnvir->_currentQueue = dispatch_get_main_queue();
+            _mainInstance->_currentQueue = dispatch_get_main_queue();
         }
     });
 
-    return _coreDataEnvir;
+    return _mainInstance;
 }
 
 + (dispatch_queue_t)mainQueue
