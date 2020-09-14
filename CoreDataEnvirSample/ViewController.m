@@ -100,9 +100,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UIViewController *vc = [[[NSClassFromString([NSString stringWithFormat:@"%@ViewController", [self.demonNames objectAtIndex:indexPath.row]]) alloc] init] autorelease];
+    NSString* name = [NSString stringWithFormat:@"%@ViewController", [self.demonNames objectAtIndex:indexPath.row]];
+    UIViewController *vc = [[[NSClassFromString(name) alloc] init] autorelease];
     if (vc) {
         [self.navigationController pushViewController:vc animated:YES];
+    }else {
+        NSLog(@"class: %@ not found.", name);
     }
     [[self.tableView cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
 }

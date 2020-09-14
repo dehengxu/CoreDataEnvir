@@ -8,7 +8,10 @@
 
 #import "ConcurrencyViewController.h"
 
-#import "CoreDataEnvir.h"
+#import <UIKit/UIKit.h>
+#import <CoreGraphics/CoreGraphics.h>
+
+#import <CoreDataEnvir/CoreDataEnvir.h>
 #import "Team.h"
 #import "Member.h"
 

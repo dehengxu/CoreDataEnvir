@@ -87,7 +87,7 @@ Pod::Spec.new do |s|
   s.source_files  = "CoreDataEnvir", "CoreDataEnvir/**/*.{h,m}"
   s.exclude_files = "Classes/Exclude"
 
-  # s.public_header_files = "Classes/**/*.h"
+  s.public_header_files = "CoreDataEnvir/*.h", "CoreDataEnvir/ManagedObject/*.h"
 
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #

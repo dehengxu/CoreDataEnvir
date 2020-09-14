@@ -1,0 +1,6 @@
+framework module CoreDataEnvir {
+  umbrella header "CoreDataEnvir-umbrella.h"
+
+  export *
+  module * { export * }
+}

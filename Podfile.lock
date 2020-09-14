@@ -1,0 +1,16 @@
+PODS:
+  - CoreDataEnvir (0.13.0-beta.1)
+
+DEPENDENCIES:
+  - CoreDataEnvir (from `./`)
+
+EXTERNAL SOURCES:
+  CoreDataEnvir:
+    :path: "./"
+
+SPEC CHECKSUMS:
+  CoreDataEnvir: dc88bb06f13760b3e7dde83da276e480edff2162
+
+PODFILE CHECKSUM: 8fcd6f87ce573c1fe493c00b373a0f78e3423c48
+
+COCOAPODS: 1.9.3
