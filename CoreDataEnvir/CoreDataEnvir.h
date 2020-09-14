@@ -126,17 +126,23 @@ extern NSString* CDE_ERROR_DOMAIN;
 /**
  Model file name. It normally be name.momd
  */
-@property (nonatomic, copy, setter = registModelFileName:, getter = modelFileName) NSString *modelFileName;
+@property (nonatomic, copy, setter = registerModelFileName:, getter = modelFileName) NSString *modelFileName;
+
+
+///
+/// modelFilePath = "Bundle path" + modelFileName
+///
+@property (nonatomic, class, copy, setter = registerModelFilePath:, getter = modelFilePath) NSString* modelFilePath;
 
 /**
  Data base file name. It can be whatever you want.
  */
-@property (nonatomic, copy, setter = registDatabaseFileName:, getter = databaseFileName) NSString *databaseFileName;
+@property (nonatomic, copy, setter = registerDatabaseFileName:, getter = databaseFileName) NSString *databaseFileName;
 
 /**
  Data file root path.
  */
-@property (nonatomic, copy, setter = registDataFileRootPath:, getter = dataRootPath) NSString *dataRootPath;
+@property (nonatomic, copy, setter = registerDataFileRootPath:, getter = dataRootPath) NSString *dataRootPath;
 
 /**
  Data rescure when CoreData envirement init occurs error.
@@ -161,37 +167,44 @@ extern NSString* CDE_ERROR_DOMAIN;
 @property (nonatomic) BOOL sharePersistence;
 
 /**
- Regist the specified model file name exclude extension.
+ Register the specified model file name exclude extension.
  Default: "Model"
  @prarm name    xcdatamodeld file name.(Exclude file extension.)
  */
-+ (void)registDefaultModelFileName:(NSString *)name;
++ (void)registerDefaultModelFileName:(NSString *)name;
+
+/// Register
+/// @param fielPath absolute file path for out of main bundle
++ (void)registerModelFilePath:(NSString *)fielPath;
 
 /**
- Regist the specified data file name.
+ Register the specified data file name.
  Default: "db.sqlite"
  @param name    Data file name.(Exclude path name.)
  */
-+ (void)registDefaultDataFileName:(NSString *)name;
++ (void)registerDefaultDataFileName:(NSString *)name;
 
 /**
- Regist the specified path as data file root.
+ Register the specified path as data file root.
  
  @param path    Data file root path.
  */
-+ (void)registDefaultDataFileRootPath:(NSString *)path;
++ (void)registerDefaultDataFileRootPath:(NSString *)path;
 
 /**
- Regist resucrer, recommend using UIApplicationDelegate instance.
+ Register resucrer, recommend using UIApplicationDelegate instance.
  
  @param delegate    Rescure delegate
  */
-+ (void)registRescureDelegate:(id<CoreDataRescureDelegate>)delegate;
++ (void)registerRescureDelegate:(id<CoreDataRescureDelegate>)delegate;
 
 /**
- Get model file name.(Name likes: xxxx.mmod in sandbox.)
+ Get model file name.(Name likes: xxxx.momd in sandbox.)
  */
 + (NSString *)defaultModelFileName;
+
+/// Get model file path with extension ".momd"
++ (NSString *)defaultModelFilePath;
 
 /**
  Get data base file name.

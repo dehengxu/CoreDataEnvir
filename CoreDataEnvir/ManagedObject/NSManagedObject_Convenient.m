@@ -15,7 +15,9 @@
 
 + (NSFetchRequest*)newFetchRequestInContext:(CoreDataEnvir*)db {
 	NSFetchRequest *req = [[NSFetchRequest alloc] init];
-	NSEntityDescription *entity = [NSEntityDescription entityForName:NSStringFromClass(self.class) inManagedObjectContext:db.context];
+	NSString* name = NSStringFromClass(self.class);
+	NSAssert(name.length, @"class name not found.");
+	NSEntityDescription *entity = [NSEntityDescription entityForName:name inManagedObjectContext:db.context];
 	[req setEntity:entity];
 	return req;
 }

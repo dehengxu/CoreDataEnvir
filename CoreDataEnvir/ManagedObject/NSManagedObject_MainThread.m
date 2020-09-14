@@ -48,6 +48,11 @@
 }
 
 + (NSUInteger)totalCount {
+	if (![NSThread isMainThread]) {
+		[[NSException exceptionWithName:@"CoreDataEnviroment" reason:@"Fetch all items record failed, must run on main thread!" userInfo:nil] raise];
+		return NSUIntegerMax;
+	}
+
 	CoreDataEnvir *db = [CoreDataEnvir mainInstance];
 	NSFetchRequest* req = [self newFetchRequestInContext:db];
 	return [db countForFetchRequest:req error:nil];

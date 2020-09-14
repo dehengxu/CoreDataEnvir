@@ -83,7 +83,20 @@ CoreDataEnvir *_mainInstance = nil;
     [self.context setMergePolicy:NSOverwriteMergePolicy];
     
     if (self.storeCoordinator == nil) {
-        NSString *momdPath = [[NSBundle mainBundle] pathForResource:[self modelFileName] ofType:@"momd"];
+		NSString *momdPath = nil;
+		//Use modelFilePath
+		if (CoreDataEnvir.modelFilePath.length) {
+			momdPath = CoreDataEnvir.modelFilePath;
+		}
+
+		//Or search from main bundle
+		if (!momdPath.length) {
+#if DEBUG
+			NSLog(@"");
+#endif
+			momdPath = [NSBundle.mainBundle pathForResource:[self modelFileName] ofType:@"momd"];
+		}
+
 		if (!momdPath.length) {
 			NSException *exce = [NSException exceptionWithName:[NSString stringWithFormat:@"CoreDataEnvir exception %d", CDEErrorModelFileNotFound] reason:@"Model file momd " userInfo:@{@"error": [NSError errorWithDomain:CDE_ERROR_DOMAIN code:CDEErrorModelFileNotFound userInfo:nil]}];
 			[exce raise];

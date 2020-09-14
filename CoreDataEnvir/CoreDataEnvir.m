@@ -36,6 +36,7 @@ break;\
 NSString* CDE_ERROR_DOMAIN = @"com.dehengxu.CoreDataEnvir";
 
 static NSString *_default_model_file_name = nil;
+static NSString *_default_model_file_path = nil;
 static NSString *_default_db_file_name = nil;
 static NSString *_default_data_file_root_path = nil;
 
@@ -66,7 +67,7 @@ fetchedResultsCtrl;
     _sem_main = dispatch_semaphore_create(1l);
 }
 
-+ (void)registDefaultModelFileName:(NSString *)name
++ (void)registerDefaultModelFileName:(NSString *)name
 {
 	NSString *momdPath = [[NSBundle mainBundle] pathForResource:name ofType:@"momd"];
 	if (!momdPath.length) {
@@ -83,7 +84,20 @@ fetchedResultsCtrl;
     _default_model_file_name = [name copy];
 }
 
-+ (void)registDefaultDataFileName:(NSString *)name
++ (void)registerModelFilePath:(NSString *)filePath {
+	if (!filePath.length) return;
+	if (_default_model_file_path) {
+		[_default_model_file_path release];
+		_default_model_file_path = nil;
+	}
+	_default_model_file_path = [filePath copy];
+}
+
++ (NSString *)modelFilePath {
+	return _default_model_file_path;
+}
+
++ (void)registerDefaultDataFileName:(NSString *)name
 {
     if (_default_db_file_name) {
         [_default_db_file_name release];
@@ -92,7 +106,7 @@ fetchedResultsCtrl;
     _default_db_file_name = [name copy];
 }
 
-+ (void)registDefaultDataFileRootPath:(NSString *)path
++ (void)registerDefaultDataFileRootPath:(NSString *)path
 {
     if (_default_data_file_root_path) {
         [_default_data_file_root_path release];
@@ -101,7 +115,7 @@ fetchedResultsCtrl;
     _default_data_file_root_path = [path copy];
 }
 
-+ (void)registRescureDelegate:(id<CoreDataRescureDelegate>)delegate
++ (void)registerRescureDelegate:(id<CoreDataRescureDelegate>)delegate
 {
     _rescureDelegate = delegate;
 }
@@ -194,18 +208,18 @@ fetchedResultsCtrl;
         __recursiveLock = [[NSRecursiveLock alloc] init];
         
         if (databaseFileName) {
-            [self registDatabaseFileName:databaseFileName];
+            [self registerDatabaseFileName:databaseFileName];
         }else {
-            [self registDatabaseFileName:_default_db_file_name];
+            [self registerDatabaseFileName:_default_db_file_name];
         }
         
         if (modelFileName) {
-            [self registModelFileName:modelFileName];
+            [self registerModelFileName:modelFileName];
         }else {
-            [self registModelFileName:_default_model_file_name];
+            [self registerModelFileName:_default_model_file_name];
         }
         
-        [self registDataFileRootPath:_default_data_file_root_path];
+        [self registerDataFileRootPath:_default_data_file_root_path];
         
         @try {
             [self _initCoreDataEnvirWithPath:[self dataRootPath] andFileName:[self databaseFileName]];
@@ -220,13 +234,10 @@ fetchedResultsCtrl;
             
         }
         
-        //[self.class _renameDatabaseFile];
-
-        //Create default work queue
+        //Create buildin background work queue
         if (!_currentQueue) {
             _currentQueue = dispatch_queue_create([[NSString stringWithFormat:@"%@-%d", [NSString stringWithUTF8String:"com.dehengxu.coredataenvir.background"], _create_counter] UTF8String], NULL);
         }
-
 
         _create_counter ++;
 
@@ -309,10 +320,10 @@ fetchedResultsCtrl;
 
 - (BOOL)saveDataBase
 {
+	if (![self.context hasChanges]) {
+		return YES;
+	}
     __block BOOL bResult = NO;
-    if (![self.context hasChanges]) {
-        return YES;
-    }
     #pragma clang push
     #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 

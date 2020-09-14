@@ -8,13 +8,13 @@ CoreDataEnvir is a CoreData wrapper which use CoreData in convient way and suppl
 Register your data base file name
 
 ```Objective-C
-	[CoreDataEnvir registDatabaseFileName:@"db.sqlite"];
+	[CoreDataEnvir registerDatabaseFileName:@"db.sqlite"];
 ```
 
 Register your model file name(no file extension name)
 
 ```Objective-C
-	[CoreDataEnvir registModelFileName:@"SampleModel"];
+	[CoreDataEnvir registerModelFileName:@"SampleModel"];
 ```
 
 ## Simple data base access:
