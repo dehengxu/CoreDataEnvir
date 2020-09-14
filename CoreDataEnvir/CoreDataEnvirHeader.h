@@ -16,8 +16,9 @@
 #import "NSManagedObject_Convenient.h"
 #import "NSManagedObject_MainThread.h"
 #import "NSManagedObject_Background.h"
-
+#if __has_include("NSObject_Debug.h")
 #import "NSObject_Debug.h"
+#endif
 
 //! Project version number for CoreDataEnvir.
 FOUNDATION_EXPORT double CoreDataEnvirVersionNumber;
