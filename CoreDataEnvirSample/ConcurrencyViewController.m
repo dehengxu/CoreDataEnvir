@@ -11,7 +11,8 @@
 #import <UIKit/UIKit.h>
 #import <CoreGraphics/CoreGraphics.h>
 
-#import <CoreDataEnvir/CoreDataEnvir.h>
+//#import <CoreDataEnvir/CoreDataEnvir.h>
+@import CoreDataEnvir;
 #import "Team.h"
 #import "Member.h"
 

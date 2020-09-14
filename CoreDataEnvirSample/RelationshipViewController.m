@@ -8,7 +8,8 @@
 
 #import "RelationshipViewController.h"
 
-#import "CoreDataEnvirHeader.h"
+//#import "CoreDataEnvirHeader.h"
+@import CoreDataEnvir;
 #import "Team.h"
 #import "Member.h"
 
