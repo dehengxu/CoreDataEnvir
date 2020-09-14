@@ -7,13 +7,16 @@
 //
 
 import UIKit
+import CoreDataEnvir
 
-@objc class SwiftViewController: UIViewController {
+@objc(SwiftViewController)
+class SwiftViewController: UIViewController {
     
-    override func viewDidLoad() {
+    @objc override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+        CoreDataEnvir.mainInstance()
+        print("Team.totalCount:", Team.totalCount())
+        print("Member.totalCount:", Member.totalCount())
     }
     
 }

@@ -17,6 +17,7 @@
 #import "NSManagedObject_Background.h"
 #import "NSManagedObject_Convenient.h"
 #import "NSManagedObject_MainThread.h"
+#import "CoreDataEnvir_Private.h"
 
 FOUNDATION_EXPORT double CoreDataEnvirVersionNumber;
 FOUNDATION_EXPORT const unsigned char CoreDataEnvirVersionString[];

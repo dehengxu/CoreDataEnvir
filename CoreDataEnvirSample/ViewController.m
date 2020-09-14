@@ -101,7 +101,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString* name = [NSString stringWithFormat:@"%@ViewController", [self.demonNames objectAtIndex:indexPath.row]];
-    UIViewController *vc = [[[NSClassFromString(name) alloc] init] autorelease];
+    Class theClass = NSClassFromString(name);
+    
+    UIViewController *vc = [[[theClass alloc] init] autorelease];
     if (vc) {
         [self.navigationController pushViewController:vc animated:YES];
     }else {

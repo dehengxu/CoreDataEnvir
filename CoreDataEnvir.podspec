@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
 
   s.homepage     = "https://dehengxu.github.io/CoreDataEnvir"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
-
+  s.module_name = "CoreDataEnvir"
 
   # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -84,10 +84,10 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "CoreDataEnvir", "CoreDataEnvir/**/*.{h,m}"
-  s.exclude_files = "Classes/Exclude"
+  s.source_files  = "CoreDataEnvir/*.h", "CoreDataEnvir/**/*.{h,m}"
+  s.exclude_files = "CoreDataEnvir/Debug"
 
-  s.public_header_files = "CoreDataEnvir/*.h", "CoreDataEnvir/ManagedObject/*.h"
+  s.public_header_files = "CoreDataEnvir/**/*.h" #, "CoreDataEnvir/ManagedObject/*.h"
 
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #

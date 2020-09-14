@@ -9,12 +9,13 @@
 #import "CoreDataEnvir.h"
 #import "CoreDataEnvir_Private.h"
 #import "CoreDataEnvir_Main.h"
-
+#if __has_include("NSManagedObject_Debug.h")
 #import "NSManagedObject_Debug.h"
+#import "NSObject_Debug.h"
+#endif
 #import "NSManagedObject_Convenient.h"
 #import "NSManagedObject_MainThread.h"
 #import "NSManagedObject_Background.h"
-#import "NSObject_Debug.h"
 
 
 /**
