@@ -24,5 +24,8 @@
   "exclude_files": "CoreDataEnvir/Debug",
   "public_header_files": "CoreDataEnvir/**/*.h",
   "frameworks": "CoreData",
-  "requires_arc": false
+  "requires_arc": false,
+  "info_plist": {
+    "CFBundleIdentifier": "com.dehengxu.CoreDataEnvir"
+  }
 }

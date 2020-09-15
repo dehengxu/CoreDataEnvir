@@ -25,7 +25,6 @@
 		5ACCE1ECF42AAF0FBF625851 /* Pods_CoreDataEnvirSampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A00E8896FF8CF16B791A8C9 /* Pods_CoreDataEnvirSampleTests.framework */; };
 		743651B4250F1534000EC837 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3ED017112B3F003E9A37 /* CoreGraphics.framework */; };
 		743651BA250F1771000EC837 /* SwiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743651B9250F1771000EC837 /* SwiftViewController.swift */; };
-		743651BB250F1984000EC837 /* CoreDataEnvir.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C11F632225FC3D00733658 /* CoreDataEnvir.framework */; };
 		746EA5E623EDC3DB0050FB01 /* CoreDataEnvirHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 744F6CD61B92D3E5003F6AA9 /* CoreDataEnvirHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A2CC433018079C6F0029C967 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2CC432F18079C6F0029C967 /* XCTest.framework */; };
 		A2CC433118079C6F0029C967 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3ECE17112B3F003E9A37 /* Foundation.framework */; };
@@ -161,7 +160,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				743651BB250F1984000EC837 /* CoreDataEnvir.framework in Frameworks */,
 				743651B4250F1534000EC837 /* CoreGraphics.framework in Frameworks */,
 				A2ED3F2F17113E5F003E9A37 /* CoreData.framework in Frameworks */,
 				A2ED3ECD17112B3F003E9A37 /* UIKit.framework in Frameworks */,
@@ -777,7 +775,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.dehengxu.ios.CoreDataEnvir-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dehengxu.CoreDataEnvir;
 				PRODUCT_NAME = CoreDataEnvir;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -843,7 +841,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.dehengxu.ios.CoreDataEnvir-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dehengxu.CoreDataEnvir;
 				PRODUCT_NAME = CoreDataEnvir;
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
