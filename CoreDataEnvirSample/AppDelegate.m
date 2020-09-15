@@ -26,9 +26,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+	NSLog(@"CoreDataEnvirVersionString: %s", CoreDataEnvirVersionString);
+	NSLog(@"CoreDataEnvirVersionNumber: %f", CoreDataEnvirVersionNumber);
     //Set db file name and model file name.
-    [CoreDataEnvir registDefaultDataFileName:@"db.sqlite"];
-    [CoreDataEnvir registDefaultModelFileName:@"SampleModel"];
+    [CoreDataEnvir registerDefaultDataFileName:@"db.sqlite"];
+    [CoreDataEnvir registerDefaultModelFileName:@"SampleModel"];
 
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.

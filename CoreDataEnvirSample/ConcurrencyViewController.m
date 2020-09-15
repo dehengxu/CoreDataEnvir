@@ -115,7 +115,7 @@ int runs_forever = THREAD_NUMBER;
     int runTimes = times;
     dispatch_async(queue, ^{
         CoreDataEnvir *db = [[CoreDataEnvir instance] retain];
-        [CoreDataEnvir registRescureDelegate:self];
+        [CoreDataEnvir registerRescureDelegate:self];
 
         NSString *queueLabel = [NSString stringWithCString:dispatch_queue_get_label(queue) encoding:NSUTF8StringEncoding];
         
