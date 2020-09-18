@@ -27,6 +27,8 @@ FOUNDATION_EXPORT double CoreDataEnvirVersionNumber;
 //! Project version string for CoreDataEnvir.
 FOUNDATION_EXPORT const unsigned char CoreDataEnvirVersionString[];
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class CoreDataEnvir;
 
 #pragma mark - CoreDataEnvirObserver (Not be used temporarily)
@@ -116,7 +118,7 @@ extern NSString* CDE_ERROR_DOMAIN;
 /**
  A persistance coordinator object.
  */
-@property (nonatomic, retain) NSPersistentStoreCoordinator *storeCoordinator;
+@property (nonatomic, readonly) NSPersistentStoreCoordinator *storeCoordinator;
 
 /**
  A NSFetchedResultsController object, not be used by now.
@@ -281,3 +283,4 @@ extern NSString* CDE_ERROR_DOMAIN;
 
 @end
 
+NS_ASSUME_NONNULL_END

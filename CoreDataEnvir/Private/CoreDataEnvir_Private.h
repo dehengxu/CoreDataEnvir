@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "CoreDataEnvir.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 extern id<CoreDataRescureDelegate> _Nullable _rescureDelegate;
 extern CoreDataEnvir* _Nullable _backgroundInstance;
 extern CoreDataEnvir* _Nullable _mainInstance;
@@ -16,6 +18,8 @@ extern CoreDataEnvir* _Nullable _mainInstance;
 static unsigned int _create_counter = 0;
 
 @interface CoreDataEnvir (CDEPrivate)
+
+@property (nonatomic, strong) NSPersistentStoreCoordinator *storeCoordinator;
 
 /**
  Rename database file with new registed name.
@@ -106,3 +110,5 @@ static unsigned int _create_counter = 0;
 
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "CoreDataEnvir.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface CoreDataEnvir (CDEMain)
 
 /**
@@ -24,3 +26,5 @@
 + (void)saveDataBaseOnMainThread;
 
 @end
+
+NS_ASSUME_NONNULL_END

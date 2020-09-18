@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "CoreDataEnvir.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface CoreDataEnvir (CDEBackground)
 
 + (dispatch_queue_t)backgroundQueue;
@@ -18,3 +20,5 @@
 + (void)saveDataBaseOnBackground;
 
 @end
+
+NS_ASSUME_NONNULL_END
