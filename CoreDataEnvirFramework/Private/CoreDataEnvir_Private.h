@@ -28,6 +28,8 @@ static long _create_counter = 0;
  */
 + (void)_renameDatabaseFile;
 
+- (NSDictionary*)persistentOptions;
+
 - (NSFetchRequest * _Nullable)newFetchRequestWithName:(NSString* _Nullable)name error:(NSError* _Nullable * _Nullable)error;
 
 - (NSFetchRequest * _Nullable)newFetchRequestWithClass:(Class _Nullable)clazz error:(NSError * _Nullable * _Nullable)error;

@@ -42,6 +42,13 @@ CoreDataEnvir *_mainInstance = nil;
     NSLog(@"No sqlite database be renamed!");
 }
 
+- (NSDictionary *)persistentOptions {
+    NSDictionary *options = @{
+        NSMigratePersistentStoresAutomaticallyOption:@YES, NSInferMappingModelAutomaticallyOption:@YES
+    };
+    return options;
+}
+
 - (NSFetchRequest *)newFetchRequestWithName:(NSString *)name error:(NSError **)error {
 	NSEntityDescription *entity = [NSEntityDescription entityForName:name inManagedObjectContext:self.context];
 	if (!entity) {

@@ -229,44 +229,6 @@ dispatch_semaphore_t _sem_main = NULL;
     return self;
 }
 
-#pragma mark - setup CoreData requires
-
-- (instancetype)setupModelWithURL:(NSURL *)fileURL {
-    NSAssert(fileURL, @"fileURL must be non-null.");
-    NSAssert(fileURL.isFileURL, @"fileURL must begin with file://");
-    if (!fileURL || !fileURL.isFileURL) {
-        return nil;
-    }
-    
-    BOOL isDir = false;
-    NSLog(@"model %d, url: %@", fileURL.isFileURL, fileURL.path);
-    if ([NSFileManager.defaultManager fileExistsAtPath:fileURL.path isDirectory:&isDir]) {
-        NSAssert(!isDir, @"fileURL must not be directory: %@", fileURL.absoluteString);
-        if (isDir) {
-            return nil;
-        }
-    }
-    
-    self.model = [[NSManagedObjectModel alloc] initWithContentsOfURL:fileURL];
-    return self;
-}
-
-- (instancetype)setupDefaultPersistentStoreWithURL:(NSURL *)fileURL {
-    return self;
-}
-
-- (instancetype)setupPersistentStoreWithURL:(NSURL *)fileURL forConfiguration:(nonnull NSString *)name {
-    return self;
-}
-
-- (NSPersistentStore *)persistentStoreForURL:(NSURL *)fileURL {
-    return [self.persistentStoreCoordinator persistentStoreForURL:fileURL];
-}
-
-- (NSPersistentStore *)persistentStoreForConfiguration:(NSString *)name {
-    return [self.persistentStoreCoordinator persistentStoreForConfiguration:name];
-}
-
 //- (NSPersistentStoreCoordinator *)persistentStoreCoordinator
 //{
 //    if (self.sharePersistence) {
@@ -449,12 +411,17 @@ dispatch_semaphore_t _sem_main = NULL;
     });
 }
 
-- (void)syncInBlock:(void (^)(CoreDataEnvir *))CoreDataBlock
+- (void)syncInBlock:(void (^)(CoreDataEnvir *)) CoreDataBlock
 {
-    dispatch_sync([self currentQueue], ^{
+    if ([NSThread isMainThread] && self.currentQueue == dispatch_get_main_queue()) {
         CoreDataBlock(self);
         [self saveDataBase];
-    });
+    }else {
+        dispatch_sync([self currentQueue], ^{
+            CoreDataBlock(self);
+            [self saveDataBase];
+        });
+    }
 }
 
 + (void)asyncMainInBlock:(void (^)(CoreDataEnvir *))CoreDataBlock
@@ -466,6 +433,83 @@ dispatch_semaphore_t _sem_main = NULL;
 {
     [[self backgroundInstance] asyncInBlock:CoreDataBlock];
 }
+
+#pragma mark - NewAPIs
+
++ (instancetype)create {
+    CoreDataEnvir* db = [CoreDataEnvir new];
+    db.currentQueue = dispatch_queue_create([[NSString stringWithFormat:@"%@-%ld", [NSString stringWithUTF8String:"com.dehengxu.coredataenvir.background"], _create_counter] UTF8String], NULL);
+    return db;
+}
+
++ (instancetype)createMain {
+    CoreDataEnvir* db = [CoreDataEnvir new];
+    db.currentQueue = dispatch_get_main_queue();
+    return db;
+}
+
+
+#pragma mark - setup CoreData requires
+
+- (instancetype)setupWithBlock:(void (^)(CoreDataEnvir * _Nonnull))config {
+    [self syncInBlock:config];
+    return self;
+}
+
+- (instancetype)setupModelWithURL:(NSURL *)fileURL {
+    NSAssert(fileURL, @"fileURL must be non-null.");
+    NSAssert(fileURL.isFileURL, @"fileURL must begin with file://");
+    if (!fileURL || !fileURL.isFileURL) {
+        return nil;
+    }
+    
+    NSLog(@"model %d, url: %@", fileURL.isFileURL, fileURL.path);
+    if (![NSFileManager.defaultManager fileExistsAtPath:fileURL.path isDirectory:NULL]) {
+        NSAssert(false, @"fileURL does not exist: %@", fileURL.absoluteString);
+        return nil;
+    }
+    
+    self.model = [[NSManagedObjectModel alloc] initWithContentsOfURL:fileURL];
+    return self;
+}
+
+- (instancetype)setupDefaultPersistentStoreWithURL:(NSURL *)fileURL {
+    if (!self.model) {
+        NSAssert(false, @"Should initialize model prior");
+        return nil;
+    }
+    
+    self.persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.model];
+    if (!self.persistentStoreCoordinator) {
+        NSAssert(false, @"Create persistentStoreCoordinator failed");
+        return nil;
+    }
+    
+    NSError* error = nil;
+    [self.persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:fileURL options:self.persistentOptions error:&error];
+    if (error) {
+        NSAssert(error, @"Add persistent store failed: %@", error);
+        return nil;
+    }
+    
+    [self.context setPersistentStoreCoordinator:self.persistentStoreCoordinator];
+    
+    [self registerObserving];
+    return self;
+}
+
+- (instancetype)setupPersistentStoreWithURL:(NSURL *)fileURL forConfiguration:(nonnull NSString *)name {
+    return self;
+}
+
+- (NSPersistentStore *)persistentStoreForURL:(NSURL *)fileURL {
+    return [self.persistentStoreCoordinator persistentStoreForURL:fileURL];
+}
+
+- (NSPersistentStore *)persistentStoreForConfiguration:(NSString *)name {
+    return [self.persistentStoreCoordinator persistentStoreForConfiguration:name];
+}
+
 
 @end
 

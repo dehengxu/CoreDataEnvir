@@ -101,9 +101,9 @@ extern NSString* CDE_ERROR_DOMAIN;
 
 @interface CoreDataEnvir : NSObject {
     NSRecursiveLock *__recursiveLock;
-@public
-    dispatch_queue_t _currentQueue;
 }
+
+@property (nonatomic, strong) dispatch_queue_t currentQueue;
 
 /**
  A model object.
@@ -259,18 +259,6 @@ extern NSString* CDE_ERROR_DOMAIN;
  */
 - (id)initWithDatabaseFileName:(NSString *)databaseFileName modelFileName:(NSString *)modelFileName sharingPersistence:(BOOL)isSharePersistence;
 
-#pragma mark - setup CoreData requires
-
-- (instancetype)setupModelWithURL:(NSURL*)fileURL;
-
-- (instancetype)setupDefaultPersistentStoreWithURL:(NSURL*)fileURL;
-
-- (instancetype)setupPersistentStoreWithURL:(NSURL*)fileURL forConfiguration:(NSString*)name;
-
-- (NSPersistentStore*)persistentStoreForURL:(NSURL*)fileURL;
-
-- (NSPersistentStore*)persistentStoreForConfiguration:(NSString*)name;
-
 /**
  Save
  */
@@ -292,6 +280,28 @@ extern NSString* CDE_ERROR_DOMAIN;
 
 + (void)asyncMainInBlock:(void(^)(CoreDataEnvir *db))CoreDataBlock;
 + (void)asyncBackgroundInBlock:(void(^)(CoreDataEnvir *db))CoreDataBlock;
+
+#pragma mark - NewAPIs initialization
+
+typedef void(^CoreDataEnvirBlock)(CoreDataEnvir* _Nonnull);
+
++ (instancetype)create;
+
++ (instancetype)createMain;
+
+#pragma mark - NewAPIs setup CoreData requires
+
+- (instancetype)setupWithBlock:(CoreDataEnvirBlock _Nonnull)config;
+
+- (instancetype)setupModelWithURL:(NSURL*)fileURL;
+
+- (instancetype)setupDefaultPersistentStoreWithURL:(NSURL*)fileURL;
+
+- (instancetype)setupPersistentStoreWithURL:(NSURL*)fileURL forConfiguration:(NSString*)name;
+
+- (NSPersistentStore*)persistentStoreForURL:(NSURL*)fileURL;
+
+- (NSPersistentStore*)persistentStoreForConfiguration:(NSString*)name;
 
 @end
 

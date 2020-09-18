@@ -36,7 +36,7 @@ _Bool checkEnv(const char* name) {
         self.window.rootViewController = [UIViewController new];
         self.window.rootViewController.view.backgroundColor = UIColor.blackColor;
         [self.window makeKeyAndVisible];
-#if true // test legacy
+#if false // test legacy
         [CoreDataEnvir registerDefaultDataFileName:@"db.sqlite"];
         [CoreDataEnvir registerDefaultModelFileName:@"SampleModel"];
         [Team insertItemWithFillingBlock:^(Team* item) {
@@ -46,7 +46,33 @@ _Bool checkEnv(const char* name) {
         printf("Team total count: %lu", Team.totalCount);
 #else
         NSURL* modelURL = [NSBundle.mainBundle URLForResource:@"SampleModel" withExtension:@"momd"];
-        [[CoreDataEnvir new] setupModelWithURL:modelURL];
+        CoreDataEnvirBlock initBlock = ^(CoreDataEnvir* db) {
+            [db setupModelWithURL:modelURL];
+            
+            NSString* searchedPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true) lastObject];
+            NSLog(@"search path: %@", searchedPath);
+            NSURL* dbURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/db.sqlite", searchedPath]];
+            NSLog(@"dbURL: %@", dbURL);
+            if (dbURL) {
+                [db setupDefaultPersistentStoreWithURL:dbURL];
+            }
+        };
+        CoreDataEnvir* db = [CoreDataEnvir create];
+        [db setupWithBlock:initBlock];
+        CoreDataEnvir* db2 = [CoreDataEnvir create];
+        [db2 setupWithBlock:initBlock];
+        
+        [db syncInBlock:^(CoreDataEnvir * _Nonnull db) {
+            Team* obj = [Team insertItemInContext:db];
+            obj.name = @"new pattern";
+            [db saveDataBase];
+            
+            NSFetchRequest* req = [Team newFetchRequestInContext:db];
+            NSError* err = nil;
+            NSUInteger count = [db.context countForFetchRequest:req error:&err];
+            printf("Team total count: %lu\n", count);
+        }];
+        
 #endif
         return true;
     }

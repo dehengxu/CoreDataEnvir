@@ -19,8 +19,8 @@
             _mainInstance = [self createInstanceWithDatabaseFileName:nil modelFileName:nil];
         }
         
-        if (_mainInstance && _mainInstance->_currentQueue != dispatch_get_main_queue()) {
-            _mainInstance->_currentQueue = dispatch_get_main_queue();
+        if (_mainInstance && _mainInstance.currentQueue != dispatch_get_main_queue()) {
+            _mainInstance.currentQueue = dispatch_get_main_queue();
         }
     });
 
