@@ -16,14 +16,10 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         if (_mainInstance == nil) {
-            _mainInstance = [[self createInstanceWithDatabaseFileName:nil modelFileName:nil] retain];
+            _mainInstance = [self createInstanceWithDatabaseFileName:nil modelFileName:nil];
         }
         
         if (_mainInstance && _mainInstance->_currentQueue != dispatch_get_main_queue()) {
-            if (_mainInstance->_currentQueue) {
-                dispatch_release(_mainInstance->_currentQueue);
-                _mainInstance->_currentQueue = 0;
-            }
             _mainInstance->_currentQueue = dispatch_get_main_queue();
         }
     });

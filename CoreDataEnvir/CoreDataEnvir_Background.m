@@ -16,7 +16,7 @@
     static dispatch_once_t onceTokenInstance;
     dispatch_once(&onceTokenInstance, ^{
         if (!_backgroundInstance) {
-            _backgroundInstance = [[CoreDataEnvir createInstance] retain];
+            _backgroundInstance = [CoreDataEnvir createInstance];
         }
         
         if (_backgroundInstance && ![_backgroundInstance currentQueue] ) {

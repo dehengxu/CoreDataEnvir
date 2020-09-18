@@ -77,19 +77,11 @@ fetchedResultsCtrl;
 		return;
 	}
 
-    if (_default_model_file_name) {
-        [_default_model_file_name release];
-        _default_model_file_name = nil;
-    }
     _default_model_file_name = [name copy];
 }
 
 + (void)registerModelFilePath:(NSString *)filePath {
 	if (!filePath.length) return;
-	if (_default_model_file_path) {
-		[_default_model_file_path release];
-		_default_model_file_path = nil;
-	}
 	_default_model_file_path = [filePath copy];
 }
 
@@ -99,19 +91,11 @@ fetchedResultsCtrl;
 
 + (void)registerDefaultDataFileName:(NSString *)name
 {
-    if (_default_db_file_name) {
-        [_default_db_file_name release];
-        _default_db_file_name = nil;
-    }
     _default_db_file_name = [name copy];
 }
 
 + (void)registerDefaultDataFileRootPath:(NSString *)path
 {
-    if (_default_data_file_root_path) {
-        [_default_data_file_root_path release];
-        _default_data_file_root_path = nil;
-    }
     _default_data_file_root_path = [path copy];
 }
 
@@ -123,19 +107,19 @@ fetchedResultsCtrl;
 
 + (NSString *)defaultModelFileName
 {
-    return [[_default_model_file_name copy] autorelease];
+    return _default_model_file_name;
 }
 
 + (NSString *)defaultDatabaseFileName
 {
-    return [[_default_db_file_name copy] autorelease];
+    return _default_db_file_name;
 }
 
 + (NSString *)dataRootPath
 {
     //NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     //return path;
-    return [[_default_data_file_root_path copy] autorelease];
+    return _default_data_file_root_path;
 }
 
 #pragma mark - instance handle
@@ -176,7 +160,7 @@ fetchedResultsCtrl;
 + (CoreDataEnvir *)createInstanceShareingPersistence:(BOOL)isSharePersistence
 {
     CoreDataEnvir *cde = [[self alloc] initWithDatabaseFileName:nil modelFileName:nil sharingPersistence:isSharePersistence];
-    return [cde autorelease];
+    return cde;
 }
 
 + (CoreDataEnvir *)createInstanceWithDatabaseFileName:(NSString *)databaseFileName modelFileName:(NSString *)modelFileName
@@ -186,7 +170,7 @@ fetchedResultsCtrl;
 #if DEBGU && CORE_DATA_ENVIR_SHOW_LOG
     NSLog(@"\n\n------\ncreate counter :%d\n\n------", _create_counter);
 #endif
-    return [cde autorelease];
+    return cde;
 }
 
 - (id)init
@@ -227,7 +211,6 @@ fetchedResultsCtrl;
         @catch (NSException *exception) {
             NSError *err = [[exception userInfo] valueForKey:@"error"];
             NSLog(@"err %@, %s %d", [err description], __FILE__, __LINE__);
-            [self release];
             return nil;
         }
         @finally {
@@ -258,13 +241,11 @@ fetchedResultsCtrl;
 {
     if (_sharePersistence) {
         if (__sharedStoreCoordinator != storeCoordinator) {
-            [__sharedStoreCoordinator release];
-            __sharedStoreCoordinator = [storeCoordinator retain];
+            __sharedStoreCoordinator = storeCoordinator;
         }
     }else {
         if (_storeCoordinator != storeCoordinator) {
-            [_storeCoordinator release];
-            _storeCoordinator = [storeCoordinator retain];
+            _storeCoordinator = storeCoordinator;
         }
     }
 }
@@ -289,22 +270,16 @@ fetchedResultsCtrl;
     NSLog(@"%@", [self currentDispatchQueueLabel]);
 #endif
     _create_counter --;
-
+    NSAssert(_create_counter >=0, @"over dealloc. %ld", _create_counter);
 #if DEBGU && CORE_DATA_ENVIR_SHOW_LOG
     NSLog(@"%s\ncreate counter :%d\n\n", __func__, _create_counter);
 #endif
     [self unregisterObserving];
     //[_context reset];
     
-    [__recursiveLock release];
-    [_context release];
-	[fetchedResultsCtrl release];
-    [_storeCoordinator release];
-    if (_currentQueue) {
-        dispatch_release(_currentQueue);
-        _currentQueue = NULL;
-    }
-    [super dealloc];
+    //[__recursiveLock release];
+    //[_context release];
+
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate
@@ -429,13 +404,10 @@ fetchedResultsCtrl;
 
 - (BOOL)deleteDataItems:(NSArray *)items
 {
-    [items retain];
-    
     for (NSManagedObject *obj in items) {
         [self deleteDataItem:obj];
     }
     
-    [items release];
     return YES;
 }
 

@@ -105,7 +105,7 @@ CoreDataEnvir *_mainInstance = nil;
         NSURL *momdURL = [NSURL fileURLWithPath:momdPath];
         
         NSManagedObjectModel *model = nil;
-        model = [[[NSManagedObjectModel alloc] initWithContentsOfURL:momdURL] autorelease];
+        model = [[NSManagedObjectModel alloc] initWithContentsOfURL:momdURL];
         if (!model) {
             NSLog(@"You create instances' number more than 123.");
             NSException *exce = [NSException exceptionWithName:[NSString stringWithFormat:@"CoreDataEnvir exception %d", CDEErrorInstanceCreateTooMutch] reason:@"You create instances' number more than 123." userInfo:@{@"error": [NSError errorWithDomain:@"com.cyblion.CoreDataEnvir" code:CDEErrorInstanceCreateTooMutch userInfo:nil]}];
@@ -113,7 +113,7 @@ CoreDataEnvir *_mainInstance = nil;
             return;
         }
         
-        self.storeCoordinator = [[[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model] autorelease];
+        self.storeCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
         
         NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
                                  [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
@@ -133,7 +133,7 @@ CoreDataEnvir *_mainInstance = nil;
                 }
                 
                 //Create new store coordinator.
-                self.storeCoordinator = [[[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model] autorelease];
+                self.storeCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
                 
                 
                 if (![self.storeCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:fileUrl options:options error:&error]) {
@@ -240,7 +240,6 @@ CoreDataEnvir *_mainInstance = nil;
     if (error) {
         NSLog(@"%s, error:%@, entityName:%@", __FUNCTION__, error, entityName);
     }
-    [req release];
     
     return items;
 }
@@ -258,7 +257,6 @@ CoreDataEnvir *_mainInstance = nil;
     if (error) {
         NSLog(@"%s, error:%@, entityName:%@", __FUNCTION__, [error localizedDescription], entityName);
     }
-    [req release];
     
     return items;
 }
@@ -277,7 +275,6 @@ CoreDataEnvir *_mainInstance = nil;
     if (error) {
         NSLog(@"%s, error:%@", __FUNCTION__, [error localizedDescription]);
     }
-    [req release];
     
     return items;
 }
@@ -301,7 +298,6 @@ CoreDataEnvir *_mainInstance = nil;
     if (error) {
         NSLog(@"%s, error:%@", __FUNCTION__, [error localizedDescription]);
     }
-    [req release];
     
     return items;
 }

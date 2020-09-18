@@ -15,7 +15,7 @@ extern id<CoreDataRescureDelegate> _Nullable _rescureDelegate;
 extern CoreDataEnvir* _Nullable _backgroundInstance;
 extern CoreDataEnvir* _Nullable _mainInstance;
 //static dispatch_queue_t _backgroundQueue = nil;
-static unsigned int _create_counter = 0;
+static long _create_counter = 0;
 
 @interface CoreDataEnvir (CDEPrivate)
 

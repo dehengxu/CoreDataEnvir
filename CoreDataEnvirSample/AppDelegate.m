@@ -15,6 +15,11 @@
 #import "Member.h"
 #import <CoreDataEnvir/CoreDataEnvir.h>
 
+_Bool checkEnv(const char* name) {
+    const char* env  = getenv(name);
+    return (env != 0 && strcmp(env, "1") == 0);
+}
+
 @implementation AppDelegate
 
 - (void)dealloc
@@ -26,16 +31,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    const char* debug = getenv("debug");
-    if (!debug || strcmp(debug, "1") != 0) {
+    if (!checkEnv("debug")) {
         exit(0);
     }
-    const char* demo = getenv("demo");
-    if (!demo || strcmp(demo, "1") != 0) {
+    if (!checkEnv("demo")) {
         self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
         self.window.rootViewController = [UIViewController new];
         self.window.rootViewController.view.backgroundColor = UIColor.blackColor;
         [self.window makeKeyAndVisible];
+        
         return true;
     }
 	NSLog(@"CoreDataEnvirVersionString: %s", CoreDataEnvirVersionString);
