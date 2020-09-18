@@ -13,7 +13,7 @@
 #import "CoreDataEnvir.h"
 #import "Team.h"
 #import "Member.h"
-#import <CoreDataEnvir/CoreDataEnvir.h>
+#import <CoreDataEnvir/CoreDataEnvirHeader.h>
 
 _Bool checkEnv(const char* name) {
     const char* env  = getenv(name);
@@ -39,7 +39,13 @@ _Bool checkEnv(const char* name) {
         self.window.rootViewController = [UIViewController new];
         self.window.rootViewController.view.backgroundColor = UIColor.blackColor;
         [self.window makeKeyAndVisible];
-        
+        [CoreDataEnvir registerDefaultDataFileName:@"db.sqlite"];
+        [CoreDataEnvir registerDefaultModelFileName:@"SampleModel"];
+        [Team insertItemWithFillingBlock:^(Team* item) {
+            item.name = @"Lion";
+            [item save];
+        }];
+        printf("Team total count: %lu", Team.totalCount);
         return true;
     }
 	NSLog(@"CoreDataEnvirVersionString: %s", CoreDataEnvirVersionString);
