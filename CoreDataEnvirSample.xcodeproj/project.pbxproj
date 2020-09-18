@@ -25,6 +25,7 @@
 		5ACCE1ECF42AAF0FBF625851 /* Pods_CoreDataEnvirSampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A00E8896FF8CF16B791A8C9 /* Pods_CoreDataEnvirSampleTests.framework */; };
 		743651B4250F1534000EC837 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3ED017112B3F003E9A37 /* CoreGraphics.framework */; };
 		743651BA250F1771000EC837 /* SwiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743651B9250F1771000EC837 /* SwiftViewController.swift */; };
+		745CC04C25144ADD00FF6EF5 /* CoreDataEnvirTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 745CC04B25144ADD00FF6EF5 /* CoreDataEnvirTests.m */; };
 		746EA5E623EDC3DB0050FB01 /* CoreDataEnvirHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 744F6CD61B92D3E5003F6AA9 /* CoreDataEnvirHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A2CC433018079C6F0029C967 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2CC432F18079C6F0029C967 /* XCTest.framework */; };
 		A2CC433118079C6F0029C967 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3ECE17112B3F003E9A37 /* Foundation.framework */; };
@@ -47,7 +48,6 @@
 		A2ED3EF517112B40003E9A37 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3ECC17112B3F003E9A37 /* UIKit.framework */; };
 		A2ED3EF617112B40003E9A37 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3ECE17112B3F003E9A37 /* Foundation.framework */; };
 		A2ED3EFE17112B40003E9A37 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A2ED3EFC17112B40003E9A37 /* InfoPlist.strings */; };
-		A2ED3F0117112B40003E9A37 /* CoreDataEnvirSampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A2ED3F0017112B40003E9A37 /* CoreDataEnvirSampleTests.m */; };
 		A2ED3F1117112D37003E9A37 /* SampleModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A2ED3F0F17112D37003E9A37 /* SampleModel.xcdatamodeld */; };
 		A2ED3F1217112D37003E9A37 /* SampleModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A2ED3F0F17112D37003E9A37 /* SampleModel.xcdatamodeld */; };
 		A2ED3F2F17113E5F003E9A37 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2ED3F2E17113E5F003E9A37 /* CoreData.framework */; };
@@ -91,6 +91,7 @@
 		744F6CD31B92D0EA003F6AA9 /* NSManagedObject_MainThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSManagedObject_MainThread.h; sourceTree = "<group>"; };
 		744F6CD41B92D0EA003F6AA9 /* NSManagedObject_MainThread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSManagedObject_MainThread.m; sourceTree = "<group>"; };
 		744F6CD61B92D3E5003F6AA9 /* CoreDataEnvirHeader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; path = CoreDataEnvirHeader.h; sourceTree = "<group>"; };
+		745CC04B25144ADD00FF6EF5 /* CoreDataEnvirTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreDataEnvirTests.m; sourceTree = "<group>"; };
 		74C52DB3186C31BE00D2BD25 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		74C52DB4186C31BF00D2BD25 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		936A1D693C27FCB2AC9F9255 /* Pods-CoreDataEnvirSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoreDataEnvirSample.debug.xcconfig"; path = "Target Support Files/Pods-CoreDataEnvirSample/Pods-CoreDataEnvirSample.debug.xcconfig"; sourceTree = "<group>"; };
@@ -128,8 +129,6 @@
 		A2ED3EF317112B40003E9A37 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		A2ED3EFB17112B40003E9A37 /* CoreDataEnvirSampleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CoreDataEnvirSampleTests-Info.plist"; sourceTree = "<group>"; };
 		A2ED3EFD17112B40003E9A37 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		A2ED3EFF17112B40003E9A37 /* CoreDataEnvirSampleTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreDataEnvirSampleTests.h; sourceTree = "<group>"; };
-		A2ED3F0017112B40003E9A37 /* CoreDataEnvirSampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreDataEnvirSampleTests.m; sourceTree = "<group>"; };
 		A2ED3F0B17112C58003E9A37 /* CoreDataEnvir.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataEnvir.h; sourceTree = "<group>"; };
 		A2ED3F0C17112C58003E9A37 /* CoreDataEnvir.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataEnvir.m; sourceTree = "<group>"; };
 		A2ED3F1017112D37003E9A37 /* SampleModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SampleModel.xcdatamodel; sourceTree = "<group>"; };
@@ -362,9 +361,8 @@
 		A2ED3EF917112B40003E9A37 /* CoreDataEnvirSampleTests */ = {
 			isa = PBXGroup;
 			children = (
-				A2ED3EFF17112B40003E9A37 /* CoreDataEnvirSampleTests.h */,
-				A2ED3F0017112B40003E9A37 /* CoreDataEnvirSampleTests.m */,
 				A2ED3EFA17112B40003E9A37 /* Supporting Files */,
+				745CC04B25144ADD00FF6EF5 /* CoreDataEnvirTests.m */,
 			);
 			path = CoreDataEnvirSampleTests;
 			sourceTree = "<group>";
@@ -491,7 +489,6 @@
 						TestTargetID = A2ED3EC817112B3F003E9A37;
 					};
 					A2ED3EC817112B3F003E9A37 = {
-						DevelopmentTeam = 375GT6S3QN;
 						LastSwiftMigration = 1200;
 					};
 				};
@@ -674,8 +671,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A2ED3F0117112B40003E9A37 /* CoreDataEnvirSampleTests.m in Sources */,
 				A2ED3F1217112D37003E9A37 /* SampleModel.xcdatamodeld in Sources */,
+				745CC04C25144ADD00FF6EF5 /* CoreDataEnvirTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -747,12 +744,13 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0.13.0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 375GT6S3QN;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -812,13 +810,14 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 0.13.0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 375GT6S3QN;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -862,6 +861,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				DEVELOPMENT_TEAM = 375GT6S3QN;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -895,6 +895,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				DEVELOPMENT_TEAM = 375GT6S3QN;
 				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -1024,6 +1025,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0.13.0;
+				DEVELOPMENT_TEAM = 375GT6S3QN;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoreDataEnvirSample/Supporting Files/CoreDataEnvirSample-Prefix.pch";
 				INFOPLIST_FILE = "CoreDataEnvirSample/Supporting Files/CoreDataEnvirSample-Info.plist";
@@ -1054,6 +1056,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0.13.0;
+				DEVELOPMENT_TEAM = 375GT6S3QN;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoreDataEnvirSample/Supporting Files/CoreDataEnvirSample-Prefix.pch";
 				INFOPLIST_FILE = "CoreDataEnvirSample/Supporting Files/CoreDataEnvirSample-Info.plist";
@@ -1080,6 +1083,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CoreDataEnvirSample.app/CoreDataEnvirSample";
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				DEVELOPMENT_TEAM = 375GT6S3QN;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
@@ -1100,6 +1104,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CoreDataEnvirSample.app/CoreDataEnvirSample";
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				DEVELOPMENT_TEAM = 375GT6S3QN;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",

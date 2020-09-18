@@ -26,6 +26,18 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    const char* debug = getenv("debug");
+    if (!debug || strcmp(debug, "1") != 0) {
+        exit(0);
+    }
+    const char* demo = getenv("demo");
+    if (!demo || strcmp(demo, "1") != 0) {
+        self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+        self.window.rootViewController = [UIViewController new];
+        self.window.rootViewController.view.backgroundColor = UIColor.blackColor;
+        [self.window makeKeyAndVisible];
+        return true;
+    }
 	NSLog(@"CoreDataEnvirVersionString: %s", CoreDataEnvirVersionString);
 	NSLog(@"CoreDataEnvirVersionNumber: %f", CoreDataEnvirVersionNumber);
     //Set db file name and model file name.
