@@ -1,13 +1,13 @@
 # Uncomment the next line to define a global platform for your project
 platform :ios, '9.0'
 
-#target 'CoreDataEnvir' do
+#target 'CoreDataEnvirFramework' do
 #  # Comment the next line if you don't want to use dynamic frameworks
 #  use_frameworks!
 #
 #  # Pods for CoreDataEnvir
 #
-#  target 'CoreDataEnvirTests' do
+#  target 'CoreDataEnvirFrameworkTests' do
 #    # Pods for testing
 #  end
 #

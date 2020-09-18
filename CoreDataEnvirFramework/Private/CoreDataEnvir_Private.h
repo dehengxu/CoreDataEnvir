@@ -19,7 +19,9 @@ static long _create_counter = 0;
 
 @interface CoreDataEnvir (CDEPrivate)
 
-@property (nonatomic, strong) NSPersistentStoreCoordinator *storeCoordinator;
+@property (nonatomic, strong) NSManagedObjectModel    *model;
+@property (nonatomic, strong) NSManagedObjectContext *context;
+@property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 /**
  Rename database file with new registed name.

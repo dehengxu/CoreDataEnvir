@@ -24,9 +24,6 @@ _Bool checkEnv(const char* name) {
 
 - (void)dealloc
 {
-    [_window release];
-    [_viewController release];
-    [super dealloc];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -35,10 +32,11 @@ _Bool checkEnv(const char* name) {
         exit(0);
     }
     if (!checkEnv("demo")) {
-        self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
         self.window.rootViewController = [UIViewController new];
         self.window.rootViewController.view.backgroundColor = UIColor.blackColor;
         [self.window makeKeyAndVisible];
+#if true // test legacy
         [CoreDataEnvir registerDefaultDataFileName:@"db.sqlite"];
         [CoreDataEnvir registerDefaultModelFileName:@"SampleModel"];
         [Team insertItemWithFillingBlock:^(Team* item) {
@@ -46,6 +44,10 @@ _Bool checkEnv(const char* name) {
             [item save];
         }];
         printf("Team total count: %lu", Team.totalCount);
+#else
+        NSURL* modelURL = [NSBundle.mainBundle URLForResource:@"SampleModel" withExtension:@"momd"];
+        [[CoreDataEnvir new] setupModelWithURL:modelURL];
+#endif
         return true;
     }
 	NSLog(@"CoreDataEnvirVersionString: %s", CoreDataEnvirVersionString);
@@ -54,10 +56,10 @@ _Bool checkEnv(const char* name) {
     [CoreDataEnvir registerDefaultDataFileName:@"db.sqlite"];
     [CoreDataEnvir registerDefaultModelFileName:@"SampleModel"];
 
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.viewController = [[[ViewController alloc] initWithNibName:nil bundle:nil] autorelease];
-    self.navigationController = [[[UINavigationController alloc] initWithRootViewController:self.viewController] autorelease];
+    self.viewController = [[ViewController alloc] initWithNibName:nil bundle:nil];
+    self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
     
     //NSLog(@"ver: %f", CoreDataEnvirVersionNumber);
     

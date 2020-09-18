@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Main queue.
  */
-+ (dispatch_queue_t)mainQueue;
++ (dispatch_queue_t)mainQueue NS_DEPRECATED_IOS(3.0, 10.0, "Replace with - (dispatch_queue_t)currentQueue");
 
 + (void)saveDataBaseOnMainThread;
 

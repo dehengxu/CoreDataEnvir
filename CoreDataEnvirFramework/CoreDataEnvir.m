@@ -42,21 +42,21 @@ static NSString *_default_data_file_root_path = nil;
 
 static BOOL _default_is_share_persistence = YES;
 
-static NSPersistentStoreCoordinator * __sharedStoreCoordinator = nil;
+//static NSPersistentStoreCoordinator * __sharedStoreCoordinator = nil;
 
 dispatch_semaphore_t _sem = NULL;
 dispatch_semaphore_t _sem_main = NULL;
 
 #pragma mark - CoreDataEnvir implementation
 
+@interface CoreDataEnvir ()
+@property (nonatomic, strong) NSManagedObjectModel    *model;
+@property (nonatomic, strong) NSManagedObjectContext *context;
+@property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+
+@end
+
 @implementation CoreDataEnvir
-
-@synthesize //model,
-context = _context,
-
-storeCoordinator = _storeCoordinator,
-
-fetchedResultsCtrl;
 
 + (void)initialize
 {
@@ -173,9 +173,12 @@ fetchedResultsCtrl;
     return cde;
 }
 
-- (id)init
-{
-    return [self initWithDatabaseFileName:nil modelFileName:nil];
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _create_counter ++;
+    }
+    return self;
 }
 
 - (id)initWithDatabaseFileName:(NSString *)databaseFileName modelFileName:(NSString *)modelFileName
@@ -185,7 +188,7 @@ fetchedResultsCtrl;
 
 - (id)initWithDatabaseFileName:(NSString *)databaseFileName modelFileName:(NSString *)modelFileName sharingPersistence:(BOOL)isSharePersistence
 {
-    self = [super init];
+    self = [self init];
     
     if (self) {
         _sharePersistence = isSharePersistence;
@@ -222,33 +225,69 @@ fetchedResultsCtrl;
             _currentQueue = dispatch_queue_create([[NSString stringWithFormat:@"%@-%d", [NSString stringWithUTF8String:"com.dehengxu.coredataenvir.background"], _create_counter] UTF8String], NULL);
         }
 
-        _create_counter ++;
-
     }
     return self;
 }
 
-- (NSPersistentStoreCoordinator *)storeCoordinator
-{
-    if (self.sharePersistence) {
-        return __sharedStoreCoordinator;
-    }else {
-        return _storeCoordinator;
+#pragma mark - setup CoreData requires
+
+- (instancetype)setupModelWithURL:(NSURL *)fileURL {
+    NSAssert(fileURL, @"fileURL must be non-null.");
+    NSAssert(fileURL.isFileURL, @"fileURL must begin with file://");
+    if (!fileURL || !fileURL.isFileURL) {
+        return nil;
     }
+    
+    BOOL isDir = false;
+    NSLog(@"model %d, url: %@", fileURL.isFileURL, fileURL.path);
+    if ([NSFileManager.defaultManager fileExistsAtPath:fileURL.path isDirectory:&isDir]) {
+        NSAssert(!isDir, @"fileURL must not be directory: %@", fileURL.absoluteString);
+        if (isDir) {
+            return nil;
+        }
+    }
+    
+    self.model = [[NSManagedObjectModel alloc] initWithContentsOfURL:fileURL];
+    return self;
 }
 
-- (void)setStoreCoordinator:(NSPersistentStoreCoordinator *)storeCoordinator
-{
-    if (_sharePersistence) {
-        if (__sharedStoreCoordinator != storeCoordinator) {
-            __sharedStoreCoordinator = storeCoordinator;
-        }
-    }else {
-        if (_storeCoordinator != storeCoordinator) {
-            _storeCoordinator = storeCoordinator;
-        }
-    }
+- (instancetype)setupDefaultPersistentStoreWithURL:(NSURL *)fileURL {
+    return self;
 }
+
+- (instancetype)setupPersistentStoreWithURL:(NSURL *)fileURL forConfiguration:(nonnull NSString *)name {
+    return self;
+}
+
+- (NSPersistentStore *)persistentStoreForURL:(NSURL *)fileURL {
+    return [self.persistentStoreCoordinator persistentStoreForURL:fileURL];
+}
+
+- (NSPersistentStore *)persistentStoreForConfiguration:(NSString *)name {
+    return [self.persistentStoreCoordinator persistentStoreForConfiguration:name];
+}
+
+//- (NSPersistentStoreCoordinator *)persistentStoreCoordinator
+//{
+//    if (self.sharePersistence) {
+//        return __sharedStoreCoordinator;
+//    }else {
+//        return _persistentStoreCoordinator;
+//    }
+//}
+//
+//- (void)setPersistentStoreCoordinator:(NSPersistentStoreCoordinator *)storeCoordinator
+//{
+//    if (_sharePersistence) {
+//        if (__sharedStoreCoordinator != storeCoordinator) {
+//            __sharedStoreCoordinator = storeCoordinator;
+//        }
+//    }else {
+//        if (_persistentStoreCoordinator != storeCoordinator) {
+//            _persistentStoreCoordinator = storeCoordinator;
+//        }
+//    }
+//}
 
 - (NSManagedObjectContext *)context
 {
@@ -256,11 +295,6 @@ fetchedResultsCtrl;
         _context = [[NSManagedObjectContext alloc] init];
     }
     return _context;
-}
-
-- (NSManagedObjectModel *)model
-{
-    return self.storeCoordinator.managedObjectModel;
 }
 
 #pragma mark - Synchronous method
@@ -283,15 +317,6 @@ fetchedResultsCtrl;
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate
-- (NSFetchedResultsController *) fetchedResultsCtrl
-{
-	//It no used!
-	if (fetchedResultsCtrl != nil) {
-		return fetchedResultsCtrl;
-	}
-	
-	return fetchedResultsCtrl;
-}
 
 - (BOOL)saveDataBase
 {
@@ -315,11 +340,11 @@ fetchedResultsCtrl;
         }
     };
     if ([[UIDevice currentDevice] systemVersion].floatValue >= 8.0) {
-        [self.storeCoordinator performBlockAndWait:doWork];
+        [self.persistentStoreCoordinator performBlockAndWait:doWork];
     }else {
-        [self.storeCoordinator lock];
+        [self.persistentStoreCoordinator lock];
         doWork();
-        [self.storeCoordinator unlock];
+        [self.persistentStoreCoordinator unlock];
     }
     #pragma clang pop
 
@@ -444,3 +469,17 @@ fetchedResultsCtrl;
 
 @end
 
+#pragma mark - NSPersistentStoreCoordinator
+
+@implementation NSPersistentStoreCoordinator (CoreDataEnvir)
+
+- (NSPersistentStore *)persistentStoreForConfiguration:(NSString *)name {
+    for (NSPersistentStore* persi in self.persistentStores) {
+        if ([persi.configurationName isEqualToString:name]) {
+            return persi;
+        }
+    }
+    return nil;
+}
+
+@end

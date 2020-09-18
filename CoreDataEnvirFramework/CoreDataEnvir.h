@@ -118,12 +118,12 @@ extern NSString* CDE_ERROR_DOMAIN;
 /**
  A persistance coordinator object.
  */
-@property (nonatomic, readonly) NSPersistentStoreCoordinator *storeCoordinator;
+@property (nonatomic, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 /**
  A NSFetchedResultsController object, not be used by now.
  */
-@property (nonatomic, retain) NSFetchedResultsController * fetchedResultsCtrl;
+@property (nonatomic, strong) NSFetchedResultsController * fetchedResultsCtrl;
 
 /**
  Model file name. It normally be name.momd
@@ -226,7 +226,7 @@ extern NSString* CDE_ERROR_DOMAIN;
  @param databaseFileName    A specified db file name.
  @param modelFileName       A specified momd file name.
  */
-+ (CoreDataEnvir *)createInstanceWithDatabaseFileName:(NSString *)databaseFileName modelFileName:(NSString *)modelFileName;
++ (CoreDataEnvir *)createInstanceWithDatabaseFileName:(NSString *)databaseFileName modelFileName:(NSString *)modelFileName NS_DEPRECATED_IOS(3.0, 10.0, "Will be removed in future");
 
 /**
  Creating a new instance by default db, momd file name.
@@ -247,7 +247,7 @@ extern NSString* CDE_ERROR_DOMAIN;
  @param modelFileName       Model mapping file name.
  @return CoreDataEnvir instance.
  */
-- (id)initWithDatabaseFileName:(NSString *)databaseFileName modelFileName:(NSString *)modelFileName;
+- (id)initWithDatabaseFileName:(NSString *)databaseFileName modelFileName:(NSString *)modelFileName NS_DEPRECATED_IOS(3.0, 10.0, "Will be removed");
 
 /**
  Init instance with specified db , model file name.
@@ -258,6 +258,18 @@ extern NSString* CDE_ERROR_DOMAIN;
  @return CoreDataEnvir instance.
  */
 - (id)initWithDatabaseFileName:(NSString *)databaseFileName modelFileName:(NSString *)modelFileName sharingPersistence:(BOOL)isSharePersistence;
+
+#pragma mark - setup CoreData requires
+
+- (instancetype)setupModelWithURL:(NSURL*)fileURL;
+
+- (instancetype)setupDefaultPersistentStoreWithURL:(NSURL*)fileURL;
+
+- (instancetype)setupPersistentStoreWithURL:(NSURL*)fileURL forConfiguration:(NSString*)name;
+
+- (NSPersistentStore*)persistentStoreForURL:(NSURL*)fileURL;
+
+- (NSPersistentStore*)persistentStoreForConfiguration:(NSString*)name;
 
 /**
  Save
@@ -280,6 +292,14 @@ extern NSString* CDE_ERROR_DOMAIN;
 
 + (void)asyncMainInBlock:(void(^)(CoreDataEnvir *db))CoreDataBlock;
 + (void)asyncBackgroundInBlock:(void(^)(CoreDataEnvir *db))CoreDataBlock;
+
+@end
+
+#pragma mark - NSPersistentStoreCoordinator
+
+@interface NSPersistentStoreCoordinator (CoreDataEnvir)
+
+- (NSPersistentStore *)persistentStoreForConfiguration:(NSString *)name;
 
 @end
 

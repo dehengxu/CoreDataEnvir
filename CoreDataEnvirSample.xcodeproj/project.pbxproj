@@ -54,6 +54,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		745CC04F25145F7B00FF6EF5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A2ED3EC117112B3F003E9A37 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 24C11F622225FC3D00733658;
+			remoteInfo = CoreDataEnvirFramework;
+		};
 		A2ED3EF717112B40003E9A37 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A2ED3EC117112B3F003E9A37 /* Project object */;
@@ -96,7 +103,7 @@
 		74C52DB4186C31BF00D2BD25 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		936A1D693C27FCB2AC9F9255 /* Pods-CoreDataEnvirSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoreDataEnvirSample.debug.xcconfig"; path = "Target Support Files/Pods-CoreDataEnvirSample/Pods-CoreDataEnvirSample.debug.xcconfig"; sourceTree = "<group>"; };
 		A2CC432518079C6E0029C967 /* LionCoreData-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LionCoreData-Prefix.pch"; sourceTree = "<group>"; };
-		A2CC432E18079C6F0029C967 /* CoreDataEnvirTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreDataEnvirTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2CC432E18079C6F0029C967 /* CoreDataEnvirFrameworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreDataEnvirFrameworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2CC432F18079C6F0029C967 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		A2CC433818079C6F0029C967 /* CoreDataEnvirTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CoreDataEnvirTests-Info.plist"; sourceTree = "<group>"; };
 		A2CC433A18079C6F0029C967 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -234,7 +241,7 @@
 			path = Private;
 			sourceTree = "<group>";
 		};
-		A2CC432318079C6E0029C967 /* CoreDataEnvir */ = {
+		A2CC432318079C6E0029C967 /* CoreDataEnvirFramework */ = {
 			isa = PBXGroup;
 			children = (
 				744F6CCF1B92CB25003F6AA9 /* Private */,
@@ -249,7 +256,7 @@
 				744F6CD61B92D3E5003F6AA9 /* CoreDataEnvirHeader.h */,
 				A2CC432418079C6E0029C967 /* Supporting Files */,
 			);
-			path = CoreDataEnvir;
+			path = CoreDataEnvirFramework;
 			sourceTree = "<group>";
 		};
 		A2CC432418079C6E0029C967 /* Supporting Files */ = {
@@ -284,7 +291,7 @@
 				740983C71B94579B00C7AF8C /* CoreDataEnvir.podspec */,
 				A2ED3ED217112B3F003E9A37 /* CoreDataEnvirSample */,
 				A2ED3EF917112B40003E9A37 /* CoreDataEnvirSampleTests */,
-				A2CC432318079C6E0029C967 /* CoreDataEnvir */,
+				A2CC432318079C6E0029C967 /* CoreDataEnvirFramework */,
 				A2CC433618079C6F0029C967 /* CoreDataEnvirTests */,
 				24C11F642225FC3D00733658 /* CoreDataEnvir iOS */,
 				A2ED3ECB17112B3F003E9A37 /* Frameworks */,
@@ -298,7 +305,7 @@
 			children = (
 				A2ED3EC917112B3F003E9A37 /* CoreDataEnvirSample.app */,
 				A2ED3EF217112B40003E9A37 /* CoreDataEnvirSampleTests.octest */,
-				A2CC432E18079C6F0029C967 /* CoreDataEnvirTests.xctest */,
+				A2CC432E18079C6F0029C967 /* CoreDataEnvirFrameworkTests.xctest */,
 				24C11F632225FC3D00733658 /* CoreDataEnvir.framework */,
 			);
 			name = Products;
@@ -397,9 +404,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		24C11F622225FC3D00733658 /* CoreDataEnvir */ = {
+		24C11F622225FC3D00733658 /* CoreDataEnvirFramework */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 24C11F6E2225FC3E00733658 /* Build configuration list for PBXNativeTarget "CoreDataEnvir" */;
+			buildConfigurationList = 24C11F6E2225FC3E00733658 /* Build configuration list for PBXNativeTarget "CoreDataEnvirFramework" */;
 			buildPhases = (
 				24C11F5E2225FC3D00733658 /* Headers */,
 				24C11F5F2225FC3D00733658 /* Sources */,
@@ -410,14 +417,14 @@
 			);
 			dependencies = (
 			);
-			name = CoreDataEnvir;
+			name = CoreDataEnvirFramework;
 			productName = "CoreDataEnvir iOS";
 			productReference = 24C11F632225FC3D00733658 /* CoreDataEnvir.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		A2CC432D18079C6F0029C967 /* CoreDataEnvirTests */ = {
+		A2CC432D18079C6F0029C967 /* CoreDataEnvirFrameworkTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A2CC434318079C6F0029C967 /* Build configuration list for PBXNativeTarget "CoreDataEnvirTests" */;
+			buildConfigurationList = A2CC434318079C6F0029C967 /* Build configuration list for PBXNativeTarget "CoreDataEnvirFrameworkTests" */;
 			buildPhases = (
 				A2CC432A18079C6F0029C967 /* Sources */,
 				A2CC432B18079C6F0029C967 /* Frameworks */,
@@ -427,9 +434,9 @@
 			);
 			dependencies = (
 			);
-			name = CoreDataEnvirTests;
+			name = CoreDataEnvirFrameworkTests;
 			productName = LionCoreDataTests;
-			productReference = A2CC432E18079C6F0029C967 /* CoreDataEnvirTests.xctest */;
+			productReference = A2CC432E18079C6F0029C967 /* CoreDataEnvirFrameworkTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		A2ED3EC817112B3F003E9A37 /* CoreDataEnvirSample */ = {
@@ -445,6 +452,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				745CC05025145F7B00FF6EF5 /* PBXTargetDependency */,
 			);
 			name = CoreDataEnvirSample;
 			productName = CoreDataEnvirSample;
@@ -478,7 +486,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastTestingUpgradeCheck = 0640;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1160;
 				ORGANIZATIONNAME = Nicholas.Xu;
 				TargetAttributes = {
 					24C11F622225FC3D00733658 = {
@@ -509,8 +517,8 @@
 			targets = (
 				A2ED3EC817112B3F003E9A37 /* CoreDataEnvirSample */,
 				A2ED3EF117112B40003E9A37 /* CoreDataEnvirSampleTests */,
-				A2CC432D18079C6F0029C967 /* CoreDataEnvirTests */,
-				24C11F622225FC3D00733658 /* CoreDataEnvir */,
+				A2CC432D18079C6F0029C967 /* CoreDataEnvirFrameworkTests */,
+				24C11F622225FC3D00733658 /* CoreDataEnvirFramework */,
 			);
 		};
 /* End PBXProject section */
@@ -679,6 +687,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		745CC05025145F7B00FF6EF5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 24C11F622225FC3D00733658 /* CoreDataEnvirFramework */;
+			targetProxy = 745CC04F25145F7B00FF6EF5 /* PBXContainerItemProxy */;
+		};
 		A2ED3EF817112B40003E9A37 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A2ED3EC817112B3F003E9A37 /* CoreDataEnvirSample */;
@@ -726,7 +739,7 @@
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -744,7 +757,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0.13.0;
@@ -792,7 +805,7 @@
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -810,7 +823,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
@@ -1010,6 +1023,7 @@
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv7 arm64 x86_64";
@@ -1021,7 +1035,9 @@
 			baseConfigurationReference = 936A1D693C27FCB2AC9F9255 /* Pods-CoreDataEnvirSample.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_MODULES_AUTOLINK = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0.13.0;
@@ -1052,7 +1068,9 @@
 			baseConfigurationReference = 262FD9026AB240C80B0AE9E1 /* Pods-CoreDataEnvirSample.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_MODULES_AUTOLINK = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0.13.0;
@@ -1122,7 +1140,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		24C11F6E2225FC3E00733658 /* Build configuration list for PBXNativeTarget "CoreDataEnvir" */ = {
+		24C11F6E2225FC3E00733658 /* Build configuration list for PBXNativeTarget "CoreDataEnvirFramework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				24C11F6C2225FC3E00733658 /* Debug */,
@@ -1131,7 +1149,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A2CC434318079C6F0029C967 /* Build configuration list for PBXNativeTarget "CoreDataEnvirTests" */ = {
+		A2CC434318079C6F0029C967 /* Build configuration list for PBXNativeTarget "CoreDataEnvirFrameworkTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A2CC434018079C6F0029C967 /* Debug */,

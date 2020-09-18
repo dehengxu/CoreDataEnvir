@@ -55,7 +55,7 @@
 - (NSArray *)demonNames
 {
     if (!_demonNames) {
-        _demonNames = [[NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"demo" ofType:@"plist"]] retain];
+        _demonNames = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"demo" ofType:@"plist"]];
     }
     return _demonNames;
 }
@@ -86,7 +86,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     
     if (cell) {
@@ -103,7 +103,7 @@
     NSString* name = [NSString stringWithFormat:@"%@ViewController", [self.demonNames objectAtIndex:indexPath.row]];
     Class theClass = NSClassFromString(name);
     
-    UIViewController *vc = [[[theClass alloc] init] autorelease];
+    UIViewController *vc = [[theClass alloc] init];
     if (vc) {
         [self.navigationController pushViewController:vc animated:YES];
     }else {

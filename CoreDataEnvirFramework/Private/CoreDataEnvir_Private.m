@@ -82,7 +82,7 @@ CoreDataEnvir *_mainInstance = nil;
     [self.context setPropagatesDeletesAtEndOfEvent:NO];
     [self.context setMergePolicy:NSOverwriteMergePolicy];
     
-    if (self.storeCoordinator == nil) {
+    if (self.persistentStoreCoordinator == nil) {
 		NSString *momdPath = nil;
 		//Use modelFilePath
 		if (CoreDataEnvir.modelFilePath.length) {
@@ -104,16 +104,17 @@ CoreDataEnvir *_mainInstance = nil;
 		}
         NSURL *momdURL = [NSURL fileURLWithPath:momdPath];
         
-        NSManagedObjectModel *model = nil;
-        model = [[NSManagedObjectModel alloc] initWithContentsOfURL:momdURL];
-        if (!model) {
-            NSLog(@"You create instances' number more than 123.");
-            NSException *exce = [NSException exceptionWithName:[NSString stringWithFormat:@"CoreDataEnvir exception %d", CDEErrorInstanceCreateTooMutch] reason:@"You create instances' number more than 123." userInfo:@{@"error": [NSError errorWithDomain:@"com.cyblion.CoreDataEnvir" code:CDEErrorInstanceCreateTooMutch userInfo:nil]}];
+        self.model = [[NSManagedObjectModel alloc] initWithContentsOfURL:momdURL];
+        if (!self.model) {
+            NSString* msg = [NSString stringWithFormat:@"CoreData model is nil. model file: %@", momdPath];
+            NSError* err = [NSError errorWithDomain:@"com.cyblion.CoreDataEnvir" code:CDEErrorInstanceCreateTooMutch userInfo:nil];
+            NSLog(@"%@", msg);
+            NSException *exce = [NSException exceptionWithName:[NSString stringWithFormat:@"CoreDataEnvir exception %d", CDEErrorInstanceCreateTooMutch] reason:msg userInfo:@{@"error": err}];
             [exce raise];
             return;
         }
         
-        self.storeCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
+        self.persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.model];
         
         NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
                                  [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
@@ -122,7 +123,7 @@ CoreDataEnvir *_mainInstance = nil;
         
         NSError *error;
         
-        if (![self.storeCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:fileUrl options:options error:&error]) {
+        if (![self.persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:fileUrl options:options error:&error]) {
             NSLog(@"%s Failed! %@", __FUNCTION__, error);
             if (_rescureDelegate &&
                 [_rescureDelegate respondsToSelector:@selector(shouldRescureCoreData)] &&
@@ -133,10 +134,10 @@ CoreDataEnvir *_mainInstance = nil;
                 }
                 
                 //Create new store coordinator.
-                self.storeCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
+                self.persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.model];
                 
                 
-                if (![self.storeCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:fileUrl options:options error:&error]) {
+                if (![self.persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:fileUrl options:options error:&error]) {
                     //Rescure failed again!!
                     if (_rescureDelegate &&
                         [_rescureDelegate respondsToSelector:@selector(rescureFailed:)]) {
@@ -151,7 +152,7 @@ CoreDataEnvir *_mainInstance = nil;
                     }
                 }else {
                     //Rescure finished.
-                    [self.context setPersistentStoreCoordinator:self.storeCoordinator];
+                    [self.context setPersistentStoreCoordinator:self.persistentStoreCoordinator];
                     if (_rescureDelegate && [_rescureDelegate respondsToSelector:@selector(didFinishedRescuringCoreData:)]) {
                         [_rescureDelegate didFinishedRescuringCoreData:self];
                     }
@@ -160,11 +161,11 @@ CoreDataEnvir *_mainInstance = nil;
                 abort();
             }
         }else {
-            [self.context setPersistentStoreCoordinator:self.storeCoordinator];
+            [self.context setPersistentStoreCoordinator:self.persistentStoreCoordinator];
         }
         
     }else {
-        [self.context setPersistentStoreCoordinator:self.storeCoordinator];
+        [self.context setPersistentStoreCoordinator:self.persistentStoreCoordinator];
     }
     
     [self registerObserving];
@@ -339,11 +340,11 @@ CoreDataEnvir *_mainInstance = nil;
     #pragma clang push
     #pragma clang diagnostic ignored "-Wdeprecated-declarations"
     if ([[UIDevice currentDevice] systemVersion].floatValue >= 8.0) {
-        [self.storeCoordinator performBlockAndWait:doWork];
+        [self.persistentStoreCoordinator performBlockAndWait:doWork];
     }else {
-        [self.storeCoordinator lock];
+        [self.persistentStoreCoordinator lock];
         doWork();
-        [self.storeCoordinator unlock];
+        [self.persistentStoreCoordinator unlock];
     }
     #pragma clang pop
 

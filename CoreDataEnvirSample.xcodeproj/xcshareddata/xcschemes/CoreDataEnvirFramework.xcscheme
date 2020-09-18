@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1200"
+   LastUpgradeVersion = "1160"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "24C11F622225FC3D00733658"
                BuildableName = "CoreDataEnvir.framework"
-               BlueprintName = "CoreDataEnvir"
+               BlueprintName = "CoreDataEnvirFramework"
                ReferencedContainer = "container:CoreDataEnvirSample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -52,7 +52,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "24C11F622225FC3D00733658"
             BuildableName = "CoreDataEnvir.framework"
-            BlueprintName = "CoreDataEnvir"
+            BlueprintName = "CoreDataEnvirFramework"
             ReferencedContainer = "container:CoreDataEnvirSample.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
