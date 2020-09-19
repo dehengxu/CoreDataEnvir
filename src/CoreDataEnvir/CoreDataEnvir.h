@@ -49,17 +49,17 @@ extern NSString* CDE_DOMAIN;
 }
 
 /// Current work queue
-@property (nonatomic, strong) dispatch_queue_t currentQueue;
+@property (nonatomic, readonly) dispatch_queue_t currentQueue;
 
 /**
  A model object.
  */
-@property (nonatomic, strong) NSManagedObjectModel *model;
+@property (nonatomic, readonly) NSManagedObjectModel *model;
 
 /**
  A context object.
  */
-@property (nonatomic, strong) NSManagedObjectContext *context;
+@property (nonatomic, readonly) NSManagedObjectContext *context;
 
 /**
  A persistance coordinator object.

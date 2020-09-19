@@ -50,6 +50,21 @@ static dispatch_semaphore_t _sem_main = NULL;
 #pragma mark - CoreDataEnvir implementation
 
 @interface CoreDataEnvir ()
+#pragma mark - rewrite property
+
+/// Current work queue
+@property (nonatomic, strong) dispatch_queue_t currentQueue;
+
+/**
+ A model object.
+ */
+@property (nonatomic, strong) NSManagedObjectModel *model;
+
+/**
+ A context object.
+ */
+@property (nonatomic, strong) NSManagedObjectContext *context;
+
 
 @end
 
@@ -176,7 +191,7 @@ static dispatch_semaphore_t _sem_main = NULL;
     return self;
 }
 
-- (void) initCoreDataEnvirWithDatabaseFileURL:(NSURL*)fileURL
+- (void)initCoreDataEnvirWithDatabaseFileURL:(NSURL*)fileURL
 {
 #if DEBGU && CORE_DATA_ENVIR_SHOW_LOG
 	NSLog(@"%s   %@  /  %@", __FUNCTION__,path, dbName);
@@ -186,6 +201,7 @@ static dispatch_semaphore_t _sem_main = NULL;
 
 	if (!momdPath.length) {
 		NSException *exce = [NSException exceptionWithName:[NSString stringWithFormat:@"CoreDataEnvir exception %d", CDEErrorModelFileNotFound] reason:@"Model file momd " userInfo:@{@"error": [NSError errorWithDomain:CDE_DOMAIN code:CDEErrorModelFileNotFound userInfo:nil]}];
+		NSLog(@"%@", exce);
 		[exce raise];
 		return;
 	}
@@ -207,16 +223,6 @@ static dispatch_semaphore_t _sem_main = NULL;
 	NSLog(@"%s\ncreate counter :%d\n\n", __func__, _create_counter);
 #endif
 	[self unregisterObserving];
-}
-
-#pragma mark - Lazy load
-
-- (NSManagedObjectContext *)context
-{
-    if (nil == _context) {
-        _context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-    }
-    return _context;
 }
 
 #pragma mark - Handle data store
@@ -424,7 +430,9 @@ static dispatch_semaphore_t _sem_main = NULL;
     }
     
     self.model = [[NSManagedObjectModel alloc] initWithContentsOfURL:fileURL];
-
+	if (!_context) {
+		_context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+	}
 	[self.context setRetainsRegisteredObjects:NO];
 	[self.context setPropagatesDeletesAtEndOfEvent:NO];
 	[self.context setMergePolicy:NSOverwriteMergePolicy];

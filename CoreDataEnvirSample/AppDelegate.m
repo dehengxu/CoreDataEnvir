@@ -37,12 +37,13 @@ _Bool checkEnv(const char* name) {
         self.window.rootViewController.view.backgroundColor = UIColor.blackColor;
         [self.window makeKeyAndVisible];
 #if true // test legacy
-		[CoreDataEnvir.backgroundInstance asyncWithBlock:^(CoreDataEnvir * _Nonnull db) {
-			[Team insertItemInContext:db fillData:^(Team*  _Nonnull item) {
-				item.name = @"CybLion";
-			}];
-			[db saveDataBase];
-		}];
+//		[CoreDataEnvir.backgroundInstance asyncWithBlock:^(CoreDataEnvir * _Nonnull db) {
+//			[Team insertItemInContext:db fillData:^(Team*  _Nonnull item) {
+//				item.name = @"CybLion";
+//			}];
+//			[db saveDataBase];
+//		}];
+		
 //		[Team insertItemOnBackgroundWithFillingBlock:^(Team*  _Nonnull item) {
 //			item.name = @"Lion";
 //		}];
