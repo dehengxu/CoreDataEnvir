@@ -34,6 +34,11 @@
 	return ins;
 }
 
+- (instancetype)init {
+	self = [self initWithModelName:nil bundle:nil storeFileName:nil storedUnderDirectory:nil];
+	return self;
+}
+
 - (instancetype)initWithModelName:(NSString *)modelName bundle:(NSBundle *)bundle storeFileName:(NSString *)fileName storedUnderDirectory:(NSString *)directory {
 	self = [super init];
 	if (self) {
