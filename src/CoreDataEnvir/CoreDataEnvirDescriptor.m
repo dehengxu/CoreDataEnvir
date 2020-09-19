@@ -30,12 +30,19 @@
 }
 
 + (instancetype)instanceWithModelName:(NSString *)modelName bundle:(NSBundle *)bundle storeFileName:(NSString *)fileName storedUnderDirectory:(NSString *)directory {
-	CoreDataEnvirDescriptor* ins = [[self alloc] init];
-	ins.modelName = modelName;
-	ins.storeFileName = fileName;
-	ins.storeDirectory = directory;
-	ins.bundle = bundle;
+	CoreDataEnvirDescriptor* ins = [[CoreDataEnvirDescriptor alloc] initWithModelName:modelName bundle:bundle storeFileName:fileName storedUnderDirectory:directory];
 	return ins;
+}
+
+- (instancetype)initWithModelName:(NSString *)modelName bundle:(NSBundle *)bundle storeFileName:(NSString *)fileName storedUnderDirectory:(NSString *)directory {
+	self = [super init];
+	if (self) {
+		self.modelName = modelName ?: [self.class.defaultInstance modelName];
+		self.storeFileName = fileName ?: self.class.defaultInstance.storeFileName;
+		self.storeDirectory = directory ?: self.class.defaultInstance.storeDirectory;
+		self.bundle = bundle ?: self.class.defaultInstance.bundle;
+	}
+	return self;
 }
 
 - (NSURL*)modelURL {

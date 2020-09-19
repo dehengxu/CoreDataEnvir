@@ -14,12 +14,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CoreDataEnvirDescriptor : NSObject
 
+@property (class, nonatomic, readonly) CoreDataEnvirDescriptor* defaultInstance;
+
 @property (nonatomic, copy, nullable) NSString* modelName;
 @property (nonatomic, copy) NSString* storeFileName;
 @property (nonatomic, copy) NSString* storeDirectory;
+@property (nonatomic, copy) NSArray<NSString*>* configurations;
 
-+ (instancetype)defaultInstance;
-+ (instancetype)instanceWithModelName:(NSString*)modelName bundle:(NSBundle*)bundle storeFileName:(NSString*)fileName storedUnderDirectory:(NSString*)directory;
++ (instancetype)instanceWithModelName:(NSString* _Nullable)modelName bundle:(NSBundle* _Nullable)bundle storeFileName:(NSString* _Nullable)fileName storedUnderDirectory:(NSString* _Nullable)directory;
+
+- (instancetype)initWithModelName:(NSString* _Nullable)modelName bundle:(NSBundle* _Nullable)bundle storeFileName:(NSString* _Nullable)fileName storedUnderDirectory:(NSString* _Nullable)directory;
 
 - (CoreDataEnvir*)mainInstance;
 - (CoreDataEnvir*)backgroundInstance;
