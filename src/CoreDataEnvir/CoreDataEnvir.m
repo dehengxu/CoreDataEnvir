@@ -147,6 +147,7 @@ static dispatch_semaphore_t _sem_main = NULL;
 - (BOOL)saveDataBase
 {
 	if (![self.context hasChanges]) {
+		NSLog(@"Context no changed.");
 		return YES;
 	}
     __block BOOL bResult = NO;

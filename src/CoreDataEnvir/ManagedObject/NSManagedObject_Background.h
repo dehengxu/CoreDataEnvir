@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Creating managed object in main context by filling 'block'
  */
-+ (instancetype)insertItemOnBackgroundWithFillingBlock:(void(^)(id item))fillingBlock;
++ (instancetype)insertItemOnBackgroundWithFillingBlock:(void(^)(NSManagedObject* item))fillingBlock;
 
 /**
  Just fetching record items by the predicate in main context.

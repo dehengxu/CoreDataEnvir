@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Createing managed object in specified context with filling 'block'
  */
-+ (instancetype)insertItemInContext:(CoreDataEnvir *)cde fillData:(void (^)(id item))fillingBlock;
++ (instancetype)insertItemInContext:(CoreDataEnvir *)cde fillData:(void (^)(NSManagedObject* item))fillingBlock;
 
 #pragma mark - Fetching operations.
 

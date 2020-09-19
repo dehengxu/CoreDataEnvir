@@ -23,14 +23,14 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Creating managed object in main context by filling 'block'
  */
-+ (instancetype _Nullable)insertItemWithFillingBlock:(void(^)(id _Nullable item))fillingBlock;
++ (instancetype _Nullable)insertItemWithFillingBlock:(void(^)(NSManagedObject* _Nullable item))fillingBlock;
 
 + (NSUInteger)totalCount;
 
 /**
  Just fetching record items by the predicate in main context.
  */
-+ (NSArray *)items NS_DEPRECATED_IOS(4.0, 10.0, "Replace with:  + (NSArray * _Nullable)itemsOffset:(NSUInteger)offset withLimit:(NSUInteger)limitNumber;");
++ (NSArray *)items;
 
 + (NSArray * _Nullable)itemsOffset:(NSUInteger)offset withLimit:(NSUInteger)limitNumber;
 
