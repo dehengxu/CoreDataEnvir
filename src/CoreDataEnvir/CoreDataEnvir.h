@@ -154,7 +154,7 @@ typedef void(^CoreDataEnvirBlock)(CoreDataEnvir* _Nonnull);
 /// Setup persistent for configuration
 /// @param fileURL Store file path
 /// @param name Configuration
-- (instancetype)setupPersistentStoreWithURL:(NSURL*)fileURL forConfiguration:(NSString*)name;
+- (instancetype)setupPersistentStoreWithURL:(NSURL*)fileURL forConfiguration:(NSString* _Nullable)name;
 
 /// Return persistent store from persistent store coordinator
 /// @param fileURL Persistent store location

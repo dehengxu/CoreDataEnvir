@@ -59,9 +59,7 @@
 	
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		_mainInstance = [CoreDataEnvir new];
-		[_mainInstance setupModelWithURL:[self modelURL]];
-		[_mainInstance setupDefaultPersistentStoreWithURL:[self storeURL]];
+		_mainInstance = [self generate];
 		_mainInstance.currentQueue = dispatch_get_main_queue();
 	});
 
@@ -78,11 +76,25 @@
 	return _backgroundInstance;
 }
 
-- (CoreDataEnvir *)instance {
+- (CoreDataEnvir*)generate {
 	CoreDataEnvir* ins = [CoreDataEnvir new];
 	[ins setupModelWithURL:[self modelURL]];
 	[ins setupDefaultPersistentStoreWithURL:[self storeURL]];
+	for (int i = 0; i < self.configurations.count; i++) {
+		NSString* name = self.configurations[i];
+		NSURL* url = [self storeURL];
 
+		if (self.storeURLs.count) {
+			url = [self.storeURLs objectAtIndex:i];
+		}
+		
+		[ins setupPersistentStoreWithURL:url forConfiguration:name];
+	}
+	return ins;
+}
+
+- (CoreDataEnvir *)instance {
+	CoreDataEnvir* ins = [self generate];
 	if (ins && ![ins currentQueue] ) {
 		ins.currentQueue = dispatch_queue_create([[NSString stringWithFormat:@"%@-%ld", [NSString stringWithUTF8String:"com.dehengxu.coredataenvir.background"], _create_counter] UTF8String], NULL);
 	}

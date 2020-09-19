@@ -19,7 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) NSString* modelName;
 @property (nonatomic, copy) NSString* storeFileName;
 @property (nonatomic, copy) NSString* storeDirectory;
-@property (nonatomic, copy) NSArray<NSString*>* configurations;
+@property (nonatomic, copy, nullable) NSArray<NSURL*>* storeURLs;
+@property (nonatomic, copy, nullable) NSArray<NSString*>* configurations;
 
 + (instancetype)instanceWithModelName:(NSString* _Nullable)modelName bundle:(NSBundle* _Nullable)bundle storeFileName:(NSString* _Nullable)fileName storedUnderDirectory:(NSString* _Nullable)directory;
 

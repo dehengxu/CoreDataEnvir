@@ -359,27 +359,35 @@ static dispatch_semaphore_t _sem_main = NULL;
         NSAssert(false, @"Should initialize model prior");
         return nil;
     }
-    
-    self.persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.model];
+
+	if (!_persistentStoreCoordinator) {
+		self.persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.model];
+	}
     if (!self.persistentStoreCoordinator) {
         NSAssert(false, @"Create persistentStoreCoordinator failed");
         return nil;
     }
+	[self.context setPersistentStoreCoordinator:self.persistentStoreCoordinator];
+
+	[self registerObserving];
+
+	if (![self setupPersistentStoreWithURL:fileURL forConfiguration:nil]) {
+		return nil;
+	}
     
-    NSError* error = nil;
-    [self.persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:fileURL options:[self defaultPersistentOptions] error:&error];
-    if (error) {
-        NSAssert(error, @"Add persistent store failed: %@", error);
-        return nil;
-    }
-    
-    [self.context setPersistentStoreCoordinator:self.persistentStoreCoordinator];
-    
-    [self registerObserving];
     return self;
 }
 
-- (instancetype)setupPersistentStoreWithURL:(NSURL *)fileURL forConfiguration:(nonnull NSString *)name {
+- (instancetype)setupPersistentStoreWithURL:(NSURL *)fileURL forConfiguration:(NSString *_Nullable)name {
+
+	NSError* error = nil;
+	[self.persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:name URL:fileURL options:[self defaultPersistentOptions] error:&error];
+	if (error) {
+		NSAssert(error, @"Add persistent store failed: %@", error);
+		return nil;
+	}
+	NSLog(@"Add persistent store %@ to %@", name, fileURL);
+
     return self;
 }
 
