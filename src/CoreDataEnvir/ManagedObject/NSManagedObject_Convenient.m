@@ -13,10 +13,12 @@
 
 @implementation NSManagedObject (CDEConevient)
 
-+ (NSUInteger)totalCountInContext:(CoreDataEnvir *)db forConfiguration:(nonnull NSString *)name {
++ (NSUInteger)totalCountInContext:(CoreDataEnvir *)db forConfiguration:(NSString *)name {
 	NSFetchRequest* req = [self newFetchRequestInContext:db];
-	NSPersistentStore* store = [db persistentStoreForConfiguration:name];
-	req.affectedStores = @[store];
+	if (name.length) {
+		NSPersistentStore* store = [db persistentStoreForConfiguration:name];
+		req.affectedStores = @[store];
+	}
 	return [db countForFetchRequest:req error:nil];
 }
 

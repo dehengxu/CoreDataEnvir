@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSManagedObject (CDEConevient)
 
-+ (NSUInteger)totalCountInContext:(CoreDataEnvir*)db forConfiguration:(NSString*)name;
++ (NSUInteger)totalCountInContext:(CoreDataEnvir*)db forConfiguration:(NSString* _Nullable)name;
 
 #pragma mark - Inserting operations.
 
