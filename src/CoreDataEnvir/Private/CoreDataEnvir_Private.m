@@ -17,32 +17,32 @@ long _create_counter = 0;
 
 @implementation CoreDataEnvir (CDEPrivate)
 
-+ (void)_renameDatabaseFile
-{
-    NSFileManager *fm = [NSFileManager defaultManager];
-    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *checkName = nil;
-    
-    NSArray *contents = [fm contentsOfDirectoryAtPath:path error:nil];
-    
-    for (NSString *name in contents) {
-        if ([name rangeOfString:@"."].location == 0) {
-            continue;
-        }
-        if ([name isEqualToString:[[self mainInstance] databaseFileName]]) {
-            break;
-        }
-        checkName = [NSString stringWithFormat:@"%@/%@", path, name];
-        
-        BOOL isDir = NO;
-        if ([fm fileExistsAtPath:checkName isDirectory:&isDir] && !isDir && [[name pathExtension] isEqualToString:@"sqlite"]) {
-            [fm moveItemAtPath:checkName toPath:[NSString stringWithFormat:@"%@/%@", path, [[self mainInstance] databaseFileName]] error:nil];
-            NSLog(@"Rename sqlite database from %@ to %@ finished!", name, [[self mainInstance] databaseFileName]);
-            break;
-        }
-    }
-    NSLog(@"No sqlite database be renamed!");
-}
+//+ (void)_renameDatabaseFile
+//{
+//    NSFileManager *fm = [NSFileManager defaultManager];
+//    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//    NSString *checkName = nil;
+//    
+//    NSArray *contents = [fm contentsOfDirectoryAtPath:path error:nil];
+//    
+//    for (NSString *name in contents) {
+//        if ([name rangeOfString:@"."].location == 0) {
+//            continue;
+//        }
+//        if ([name isEqualToString:[[self mainInstance] databaseFileName]]) {
+//            break;
+//        }
+//        checkName = [NSString stringWithFormat:@"%@/%@", path, name];
+//        
+//        BOOL isDir = NO;
+//        if ([fm fileExistsAtPath:checkName isDirectory:&isDir] && !isDir && [[name pathExtension] isEqualToString:@"sqlite"]) {
+//            [fm moveItemAtPath:checkName toPath:[NSString stringWithFormat:@"%@/%@", path, [[self mainInstance] databaseFileName]] error:nil];
+//            NSLog(@"Rename sqlite database from %@ to %@ finished!", name, [[self mainInstance] databaseFileName]);
+//            break;
+//        }
+//    }
+//    NSLog(@"No sqlite database be renamed!");
+//}
 
 - (NSDictionary *)defaultPersistentOptions {
     NSDictionary *options = @{

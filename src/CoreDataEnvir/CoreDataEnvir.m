@@ -71,43 +71,12 @@ static dispatch_semaphore_t _sem_main = NULL;
 
 @implementation CoreDataEnvir
 
-#pragma mark - Configuration
-
-+ (NSString *)defaultModelName {
-	return _default_model_name;
-}
-
-/**
- Get data base file name.
- */
-+ (NSString *)defaultDatabaseFileName {
-	return _default_db_file_name;
-}
-
-+ (NSString*)defaultDatabaseDir {
-	return _default_db_dir;
-}
-
 + (id<CoreDataRescureDelegate>)rescureDelegate {
 	return _rescureDelegate;
 }
 
 + (void)setRescureDelegate:(id<CoreDataRescureDelegate>)rescureDelegate {
 	_rescureDelegate = rescureDelegate;
-}
-
-- (void)setModelName:(NSString *)modelName {
-	if (!modelName.length) {
-		_modelName = [_default_model_name copy];
-	}
-	_modelName = [modelName copy];
-}
-
-- (void)setDatabaseFileName:(NSString *)databaseFileName {
-	if (!databaseFileName.length) {
-		_databaseFileName = [_default_db_file_name copy];
-	}
-	_modelName = [databaseFileName copy];
 }
 
 #pragma mark - Initialization

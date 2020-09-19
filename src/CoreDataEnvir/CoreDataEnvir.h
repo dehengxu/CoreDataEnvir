@@ -71,30 +71,10 @@ extern NSString* CDE_DOMAIN;
  */
 @property (nonatomic, strong) NSFetchedResultsController * fetchedResultsCtrl;
 
-#pragma mark - Configuration
-
-///Get name of model, which is compiled from name.xcdatamodeld to name.momd
-@property (class, readonly) NSString* defaultModelName;
-
-/// db file name
-@property (class, readonly) NSString* defaultDatabaseDir;
-
-/// db directory
-@property (class, readonly) NSString* defaultDatabaseFileName;
-
 /**
  Register resucrer, recommend using UIApplicationDelegate instance.
  */
 @property (class, nonatomic, weak) id<CoreDataRescureDelegate> rescureDelegate;
-
-/// A name of `.xcdatamodeld` file without extension
-@property (nonatomic, copy) NSString* modelName;
-
-/**
- Data base file name with extension.
- */
-@property (nonatomic, copy) NSString *databaseFileName;
-
 
 #pragma mark - Initialization
 
