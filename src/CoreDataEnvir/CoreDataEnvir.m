@@ -242,12 +242,13 @@ static dispatch_semaphore_t _sem_main = NULL;
 
         if (!bResult) {
             if (error != nil) {
-                NSLog(@"%s, error:%@", __FUNCTION__, error);
+                NSLog(@"%s, %d, error:%@", __PRETTY_FUNCTION__, __LINE__, error);
             }
             //Do we need rollback?
             //[context rollback];
         }
     };
+
     if ([[UIDevice currentDevice] systemVersion].floatValue >= 8.0) {
         [self.persistentStoreCoordinator performBlockAndWait:doWork];
     }else {

@@ -187,16 +187,29 @@ typedef void(^CoreDataEnvirBlock)(CoreDataEnvir* _Nonnull);
 
 #pragma mark - NewAPIs setup CoreData requires
 
+/// Setup CoreData with reusable block
+/// @param config Block
 - (instancetype)setupWithBlock:(CoreDataEnvirBlock _Nonnull)config;
 
+/// Setup model and context
+/// @param fileURL model path
 - (instancetype)setupModelWithURL:(NSURL*)fileURL;
 
+/// Setup persistent with default configuration
+/// @param fileURL Store file path
 - (instancetype)setupDefaultPersistentStoreWithURL:(NSURL*)fileURL;
 
+/// Setup persistent for configuration
+/// @param fileURL Store file path
+/// @param name Configuration
 - (instancetype)setupPersistentStoreWithURL:(NSURL*)fileURL forConfiguration:(NSString*)name;
 
+/// Return persistent store from persistent store coordinator
+/// @param fileURL Persistent store location
 - (NSPersistentStore*)persistentStoreForURL:(NSURL*)fileURL;
 
+/// Return persistent store from persistent store coordinator
+/// @param name Configuration
 - (NSPersistentStore*)persistentStoreForConfiguration:(NSString*)name;
 
 @end
@@ -205,6 +218,8 @@ typedef void(^CoreDataEnvirBlock)(CoreDataEnvir* _Nonnull);
 
 @interface NSPersistentStoreCoordinator (CoreDataEnvir)
 
+/// Return persistent store from persistent store coordinator
+/// @param name Configuration
 - (NSPersistentStore *)persistentStoreForConfiguration:(NSString *)name;
 
 @end
