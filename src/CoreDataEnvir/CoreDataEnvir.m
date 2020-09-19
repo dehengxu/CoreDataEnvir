@@ -12,6 +12,7 @@
 #import "CoreDataEnvir_Main.h"
 #import "CoreDataEnvirObserver.h"
 #import "CoreDataRescureDelegate.h"
+#import "CoreDataEnvirDescriptor.h"
 
 // debug
 #if __has_include("NSManagedObject_Debug.h")
@@ -143,7 +144,7 @@ static dispatch_semaphore_t _sem_main = NULL;
 
 + (CoreDataEnvir *)createInstance
 {
-    CoreDataEnvir *cde = [[self alloc] initWithDatabaseFileName:nil modelFileName:nil];
+	CoreDataEnvir *cde = [CoreDataEnvirDescriptor.defaultInstance instance]; //[[self alloc] initWithDatabaseFileName:nil modelFileName:nil];
     return cde;
 }
 
@@ -154,63 +155,6 @@ static dispatch_semaphore_t _sem_main = NULL;
 		__recursiveLock = [[NSRecursiveLock alloc] init];
     }
     return self;
-}
-
-- (id)initWithDatabaseFileName:(NSString *)databaseFileName modelFileName:(NSString *)modelName
-{
-    return [self initWithDatabaseFileName:databaseFileName modelFileName:modelName forConfigurations:nil];
-}
-
-- (id)initWithDatabaseFileName:(NSString *)databaseFileName modelFileName:(NSString *)modelName forConfigurations:(nullable NSArray<NSString *> *)names
-{
-    self = [self init];
-    
-    if (self) {
-		self.databaseFileName = databaseFileName;
-
-		self.modelName = modelName;
-
-        @try {
-			NSURL* fileURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@", [CoreDataEnvir defaultDatabaseDir], self.databaseFileName]];
-            [self initCoreDataEnvirWithDatabaseFileURL:fileURL];
-        }
-        @catch (NSException *exception) {
-            NSLog(@"Exception(%@): %@, %s %d", CDE_DOMAIN, [exception description], __FILE__, __LINE__);
-            return nil;
-        }
-        @finally {
-            
-        }
-        
-        //Create buildin background work queue
-//        if (!_currentQueue) {
-//            _currentQueue = dispatch_queue_create([[NSString stringWithFormat:@"%@-%ld", [NSString stringWithUTF8String:"com.dehengxu.coredataenvir.background"], _create_counter] UTF8String], NULL);
-//        }
-
-    }
-    return self;
-}
-
-- (void)initCoreDataEnvirWithDatabaseFileURL:(NSURL*)fileURL
-{
-#if DEBGU && CORE_DATA_ENVIR_SHOW_LOG
-	NSLog(@"%s   %@  /  %@", __FUNCTION__,path, dbName);
-#endif
-	//Auto find first momd met, if `self.modelName` not set up.
-	NSString *momdPath = [NSBundle.mainBundle pathForResource:self.modelName ofType:@"momd"];
-
-	if (!momdPath.length) {
-		NSException *exce = [NSException exceptionWithName:[NSString stringWithFormat:@"CoreDataEnvir exception %d", CDEErrorModelFileNotFound] reason:@"Model file momd " userInfo:@{@"error": [NSError errorWithDomain:CDE_DOMAIN code:CDEErrorModelFileNotFound userInfo:nil]}];
-		NSLog(@"%@", exce);
-		[exce raise];
-		return;
-	}
-	NSURL *momdURL = [NSURL fileURLWithPath:momdPath];
-	[self setupModelWithURL:momdURL];
-
-	[self setupDefaultPersistentStoreWithURL:fileURL];
-
-	[self registerObserving];
 }
 
 - (void)dealloc {

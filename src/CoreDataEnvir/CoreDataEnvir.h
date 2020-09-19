@@ -108,34 +108,6 @@ extern NSString* CDE_DOMAIN;
  */
 + (CoreDataEnvir *)createInstance;
 
-/**
- Initialize instance with specified db , model file name and default persistent store configuration
- 
- @param databaseFileName    db file name.
- @param modelName       Model mapping file name.
- @return CoreDataEnvir instance.
- */
-- (id)initWithDatabaseFileName:(NSString * _Nullable)databaseFileName modelFileName:(NSString * _Nullable)modelName;
-
-/**
- Init instance with specified db , model file name.
-
- Auto create work queue bind to currentQueue
- 
- @param databaseFileName    db file name.
- @param modelName       Model mapping file name.
- @param names  NSArray: name list of configuration
- @return CoreDataEnvir instance.
- */
-- (id)initWithDatabaseFileName:(NSString * _Nullable)databaseFileName modelFileName:(NSString * _Nullable)modelName forConfigurations:(NSArray<NSString*> * _Nullable)names;
-
-/**
- *  Init coredata enviroment at specified path and with name.
- *
- *  @param fileURL Database file path
- */
-- (void)initCoreDataEnvirWithDatabaseFileURL:(NSURL * _Nonnull)fileURL;
-
 #pragma mark - Handle data store
 
 /**
