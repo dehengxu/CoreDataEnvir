@@ -9,16 +9,13 @@
 //#ifndef CoreDataEnvirSample_CoreDataEnvirHeader_h
 //#define CoreDataEnvirSample_CoreDataEnvirHeader_h
 
-#import "CoreDataEnvir.h"
-#import "CoreDataEnvir_Main.h"
-#import "CoreDataEnvir_Background.h"
+#import <CoreDataEnvir/CoreDataEnvir.h>
+#import <CoreDataEnvir/CoreDataEnvir_Main.h>
+#import <CoreDataEnvir/CoreDataEnvir_Background.h>
 
-#import "NSManagedObject_Convenient.h"
-#import "NSManagedObject_MainThread.h"
-#import "NSManagedObject_Background.h"
-#if __has_include("NSObject_Debug.h")
-#import "NSObject_Debug.h"
-#endif
+#import <CoreDataEnvir/NSManagedObject_Convenient.h>
+#import <CoreDataEnvir/NSManagedObject_MainThread.h>
+#import <CoreDataEnvir/NSManagedObject_Background.h>
 
 //! Project version number for CoreDataEnvir.
 FOUNDATION_EXPORT double CoreDataEnvirVersionNumber;

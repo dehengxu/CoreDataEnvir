@@ -36,14 +36,22 @@ _Bool checkEnv(const char* name) {
         self.window.rootViewController = [UIViewController new];
         self.window.rootViewController.view.backgroundColor = UIColor.blackColor;
         [self.window makeKeyAndVisible];
-#if false // test legacy
-        [CoreDataEnvir registerDefaultDataFileName:@"db.sqlite"];
-        [CoreDataEnvir registerDefaultModelFileName:@"SampleModel"];
-        [Team insertItemWithFillingBlock:^(Team* item) {
-            item.name = @"Lion";
-            [item save];
-        }];
-        printf("Team total count: %lu", Team.totalCount);
+#if true // test legacy
+		[CoreDataEnvir.backgroundInstance asyncWithBlock:^(CoreDataEnvir * _Nonnull db) {
+			[Team insertItemInContext:db fillData:^(Team*  _Nonnull item) {
+				item.name = @"CybLion";
+			}];
+			[db saveDataBase];
+		}];
+//		[Team insertItemOnBackgroundWithFillingBlock:^(Team*  _Nonnull item) {
+//			item.name = @"Lion";
+//		}];
+
+//        [Team insertItemWithFillingBlock:^(Team* item) {
+//            item.name = @"Lion";
+//            [item save];
+//        }];
+        printf("Team total count: %lu\n", Team.totalCount);
 #else
         NSURL* modelURL = [NSBundle.mainBundle URLForResource:@"SampleModel" withExtension:@"momd"];
         CoreDataEnvirBlock initBlock = ^(CoreDataEnvir* db) {
@@ -79,8 +87,8 @@ _Bool checkEnv(const char* name) {
 	NSLog(@"CoreDataEnvirVersionString: %s", CoreDataEnvirVersionString);
 	NSLog(@"CoreDataEnvirVersionNumber: %f", CoreDataEnvirVersionNumber);
     //Set db file name and model file name.
-    [CoreDataEnvir registerDefaultDataFileName:@"db.sqlite"];
-    [CoreDataEnvir registerDefaultModelFileName:@"SampleModel"];
+//    [CoreDataEnvir registerDefaultDataFileName:@"db.sqlite"];
+//    [CoreDataEnvir registerDefaultModelFileName:@"SampleModel"];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.

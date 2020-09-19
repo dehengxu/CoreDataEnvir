@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CoreDataEnvir.h"
-#import "CoreDataEnvir_Background.h"
+#import <CoreDataEnvir/CoreDataEnvir.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

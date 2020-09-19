@@ -18,11 +18,10 @@
     "tag": "0.13.0-beta.1"
   },
   "source_files": [
-    "CoreDataEnvirFramework/*.h",
-    "CoreDataEnvirFramework/**/*.{h,m}"
+    "src/CoreDataEnvir/*.h",
+    "src/CoreDataEnvir/**/*.{h,m}"
   ],
-  "exclude_files": "CoreDataEnvirFramework/Debug",
-  "public_header_files": "CoreDataEnvirFramework/**/*.h",
+  "public_header_files": "src/CoreDataEnvir/**/*.h",
   "frameworks": "CoreData",
   "requires_arc": true,
   "info_plist": {

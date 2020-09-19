@@ -16,7 +16,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         if (_mainInstance == nil) {
-            _mainInstance = [self createInstanceWithDatabaseFileName:nil modelFileName:nil];
+            _mainInstance = [[self alloc] initWithDatabaseFileName:nil modelFileName:nil];
         }
         
         if (_mainInstance && _mainInstance.currentQueue != dispatch_get_main_queue()) {
@@ -31,11 +31,5 @@
 {
     return [[CoreDataEnvir mainInstance] currentQueue];
 }
-
-+ (void)saveDataBaseOnMainThread
-{
-    [[self mainInstance] saveDataBase];
-}
-
 
 @end

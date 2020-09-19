@@ -20,7 +20,7 @@
         }
         
         if (_backgroundInstance && ![_backgroundInstance currentQueue] ) {
-            _backgroundInstance.currentQueue = dispatch_queue_create([[NSString stringWithFormat:@"%@-%d", [NSString stringWithUTF8String:"com.dehengxu.coredataenvir.background"], _create_counter] UTF8String], NULL);
+            _backgroundInstance.currentQueue = dispatch_queue_create([[NSString stringWithFormat:@"%@-%ld", [NSString stringWithUTF8String:"com.dehengxu.coredataenvir.background"], _create_counter] UTF8String], NULL);
         }
 
     });
@@ -29,19 +29,7 @@
 
 + (dispatch_queue_t)backgroundQueue
 {
-//    static dispatch_once_t onceTokenQueue;
-//    dispatch_once(&onceTokenQueue, ^{
-//        if (!_backgroundQueue) {
-//            _backgroundQueue = [[CoreDataEnvir backgroundInstance] currentQueue];
-//        }
-//    });
-//    return _backgroundQueue;
     return [[CoreDataEnvir backgroundInstance] currentQueue];
-}
-
-+ (void)saveDataBaseOnBackground
-{
-    [[self backgroundInstance] saveDataBase];
 }
 
 @end

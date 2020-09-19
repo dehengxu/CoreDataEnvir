@@ -7,9 +7,11 @@
 //
 
 #import "NSManagedObject_MainThread.h"
+
+#import "CoreDataEnvir_Main.h"
 #import "CoreDataEnvir_Private.h"
 #import "CoreDataEnvir.h"
-#import "CoreDataEnvir_Main.h"
+#import "NSManagedObject_Convenient.h"
 
 @implementation NSManagedObject (CDEMainThread)
 
@@ -17,7 +19,7 @@
 /**
  *  Insert an item.
  *
- *  @return
+ *  @return NSManagedObject
  */
 + (instancetype)insertItem
 {
@@ -36,9 +38,9 @@
 /**
  *  Insert an item by block
  *
- *  @param settingBlock
+ *  @param fillingBlock Fill data 
  *
- *  @return
+ *  @return NSManagedObject
  */
 + (instancetype)insertItemWithFillingBlock:(void (^)(id _Nullable item))fillingBlock
 {

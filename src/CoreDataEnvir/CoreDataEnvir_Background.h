@@ -7,17 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CoreDataEnvir.h"
+#import <CoreDataEnvir/CoreDataEnvir.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CoreDataEnvir (CDEBackground)
 
-+ (dispatch_queue_t)backgroundQueue;
-
 + (CoreDataEnvir *)backgroundInstance;
 
-+ (void)saveDataBaseOnBackground;
++ (dispatch_queue_t)backgroundQueue;
 
 @end
 

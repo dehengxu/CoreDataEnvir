@@ -7,55 +7,32 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CoreDataEnvir.h"
+#import <CoreDataEnvir/CoreDataEnvir.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 extern id<CoreDataRescureDelegate> _Nullable _rescureDelegate;
 extern CoreDataEnvir* _Nullable _backgroundInstance;
 extern CoreDataEnvir* _Nullable _mainInstance;
-//static dispatch_queue_t _backgroundQueue = nil;
-static long _create_counter = 0;
+extern long _create_counter;
 
 @interface CoreDataEnvir (CDEPrivate)
-
-@property (nonatomic, strong) NSManagedObjectModel    *model;
-@property (nonatomic, strong) NSManagedObjectContext *context;
-@property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 /**
  Rename database file with new registed name.
  */
 + (void)_renameDatabaseFile;
 
-- (NSDictionary*)persistentOptions;
+- (NSDictionary*)defaultPersistentOptions;
 
 - (NSFetchRequest * _Nullable)newFetchRequestWithName:(NSString* _Nullable)name error:(NSError* _Nullable * _Nullable)error;
 
 - (NSFetchRequest * _Nullable)newFetchRequestWithClass:(Class _Nullable)clazz error:(NSError * _Nullable * _Nullable)error;
 
 /**
- *  Init coredata enviroment at specified path and with name.
- *
- *  @param path Database file directory
- *  @param dbName Database file name
- */
-- (void)_initCoreDataEnvirWithPath:(NSString * _Nonnull) path andFileName:(NSString * _Nonnull) dbName;
-
-
-/**
  Insert a new record into the table by className.
  */
-- (NSManagedObject * _Nullable)buildManagedObjectByName:(NSString * _Nonnull)className;
-
-/**
- *  Insert a new record into the table by Class type.
- *
- *  @param theClass Object class
- *
- *  @return NSManagedObject entity.
- */
-- (NSManagedObject * _Nullable)buildManagedObjectByClass:(Class _Nonnull)theClass NS_DEPRECATED_IOS(4.0, 10.0, "Replace with: - (NSManagedObject* _Nullable)buildManagedObjectByClass:(Class _Nullable)theClass error:(NSError* _Nullable * _Nullable)error;");
+- (NSManagedObject * _Nullable)buildManagedObjectByName:(NSString * _Nonnull)className error:(NSError**)error;
 
 /// Insert a new record into the table by Class type.
 /// @param theClass Object class
@@ -79,17 +56,7 @@ static long _create_counter = 0;
 - (NSArray *)fetchItemsByEntityDescriptionName:(NSString *)entityName;
 - (NSArray *)fetchItemsByEntityDescriptionName:(NSString *)entityName usingPredicate:(NSPredicate *) predicate;
 - (NSArray *)fetchItemsByEntityDescriptionName:(NSString *)entityName usingPredicate:(NSPredicate *)predicate usingSortDescriptions:(NSArray *)sortDescriptions;
-- (NSArray *)fetchItemsByEntityDescriptionName:(NSString *)entityName usingPredicate:(NSPredicate *) predicate usingSortDescriptions:(NSArray *)sortDescriptions fromOffset:(NSUInteger) aOffset LimitedBy:(NSUInteger)aLimited;
-
-/**
- Add observing for concurrency.
- */
-- (void)registerObserving;
-
-/**
- *  Remove observer.
- */
-- (void)unregisterObserving;
+- (NSArray *)fetchItemsByEntityDescriptionName:(NSString *)entityName usingPredicate:(NSPredicate * _Nullable) predicate usingSortDescriptions:(NSArray * _Nullable)sortDescriptions fromOffset:(NSUInteger) aOffset LimitedBy:(NSUInteger)aLimited;
 
 /**
  *  Update context while data changes.

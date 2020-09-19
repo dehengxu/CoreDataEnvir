@@ -26,19 +26,14 @@
 
 + (instancetype)insertItemInContext:(CoreDataEnvir *)cde
 {
-#if DEBUG
-    NSLog(@"%s thread :%u, %@", __func__, [NSThread isMainThread], [NSString stringWithCString:dispatch_queue_get_label(dispatch_get_current_queue()) encoding:NSUTF8StringEncoding]);
-#endif
     id item = nil;
-    item = [cde buildManagedObjectByClass:self];
+	NSError* err = nil;
+    item = [cde buildManagedObjectByClass:self error:&err];
     return item;
 }
 
 + (instancetype)insertItemInContext:(CoreDataEnvir *)cde fillData:(void (^)(id item))fillingBlock
 {
-#if DEBUG
-    NSLog(@"%s thread :%u, %@", __func__, [NSThread isMainThread], [NSString stringWithCString:dispatch_queue_get_label(dispatch_get_current_queue()) encoding:NSUTF8StringEncoding]);
-#endif
     id item = [self insertItemInContext:cde];
     fillingBlock(item);
     return item;

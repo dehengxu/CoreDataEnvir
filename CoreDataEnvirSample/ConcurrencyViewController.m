@@ -113,7 +113,7 @@ int runs_forever = THREAD_NUMBER;
     int runTimes = times;
     dispatch_async(queue, ^{
         CoreDataEnvir *db = [CoreDataEnvir instance];
-        [CoreDataEnvir registerRescureDelegate:self];
+        [CoreDataEnvir setRescureDelegate:self];
 
         NSString *queueLabel = [NSString stringWithCString:dispatch_queue_get_label(queue) encoding:NSUTF8StringEncoding];
         
@@ -151,9 +151,9 @@ int runs_forever = THREAD_NUMBER;
             
             [NSThread sleepForTimeInterval:0.05];
         }
-        dispatch_semaphore_wait(__runs_sema, ~0ull);
+		dispatch_semaphore_wait(self->__runs_sema, ~0ull);
         runs_forever--;
-        dispatch_semaphore_signal(__runs_sema);
+		dispatch_semaphore_signal(self->__runs_sema);
         NSLog(@"runs_forever :%d", runs_forever);
     });
 }
@@ -186,9 +186,9 @@ int runs_forever = THREAD_NUMBER;
             }
             [db saveDataBase];
         }
-        dispatch_semaphore_wait(__runs_sema, ~0ull);
+		dispatch_semaphore_wait(self->__runs_sema, ~0ull);
         runs_forever--;
-        dispatch_semaphore_signal(__runs_sema);
+		dispatch_semaphore_signal(self->__runs_sema);
         NSLog(@"runs_forever :%d", runs_forever);
     });
 }

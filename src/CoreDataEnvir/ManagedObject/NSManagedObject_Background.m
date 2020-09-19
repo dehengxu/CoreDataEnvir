@@ -15,28 +15,30 @@
 
 /**
  *  Insert an item.
- *
- *  @return
  */
 + (instancetype)insertItemOnBackground
 {
     CoreDataEnvir *db = [CoreDataEnvir backgroundInstance];
-    id item = [self insertItemInContext:db];
+	id item = nil;
+	item = [self insertItemInContext:db];
     return item;
 }
 
 /**
  *  Insert an item by block
  *
- *  @param settingBlock
+ *  @param fillingBlock Fill data with this block
  *
- *  @return
+ *  @return NSManagedObject 
  */
 + (instancetype)insertItemOnBackgroundWithFillingBlock:(void (^)(id item))fillingBlock
 {
-    id item = [self insertItemOnBackground];
-    fillingBlock(item);
-    return item;
+	CoreDataEnvir* db = [CoreDataEnvir backgroundInstance];
+	[db asyncWithBlock:^(CoreDataEnvir * _Nonnull db) {
+		[self insertItemInContext:db fillData:fillingBlock];
+		[db saveDataBase];
+	}];
+    return nil;
 }
 
 + (NSArray *)itemsOnBackground

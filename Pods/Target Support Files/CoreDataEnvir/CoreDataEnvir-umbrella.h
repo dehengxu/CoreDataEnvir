@@ -12,8 +12,10 @@
 
 #import "CoreDataEnvir.h"
 #import "CoreDataEnvirHeader.h"
+#import "CoreDataEnvirObserver.h"
 #import "CoreDataEnvir_Background.h"
 #import "CoreDataEnvir_Main.h"
+#import "CoreDataRescureDelegate.h"
 #import "NSManagedObject_Background.h"
 #import "NSManagedObject_Convenient.h"
 #import "NSManagedObject_MainThread.h"

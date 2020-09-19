@@ -7,16 +7,22 @@
 //
 
 #import "CoreDataEnvir.h"
+
 #import "CoreDataEnvir_Private.h"
 #import "CoreDataEnvir_Main.h"
+#import "CoreDataEnvirObserver.h"
+#import "CoreDataRescureDelegate.h"
+
+// debug
 #if __has_include("NSManagedObject_Debug.h")
 #import "NSManagedObject_Debug.h"
 #import "NSObject_Debug.h"
 #endif
+
+// NSManagedObeject
 #import "NSManagedObject_Convenient.h"
 #import "NSManagedObject_MainThread.h"
 #import "NSManagedObject_Background.h"
-
 
 /**
  Do not use any lock method to protect thread resources in CoreData under concurrency condition!
@@ -33,16 +39,12 @@ break;\
 #define LOCK_BEGIN  [recursiveLock lock];
 #define LOCK_END    [recursiveLock unlock];
 
-NSString* CDE_ERROR_DOMAIN = @"com.dehengxu.CoreDataEnvir";
+NSString* CDE_DOMAIN = @"com.dehengxu.CoreDataEnvir";
 
-static NSString *_default_model_file_name = nil;
-static NSString *_default_model_file_path = nil;
+static NSString *_default_model_name = nil;
+static NSString *_default_model_dir = nil;
+static NSString *_default_db_dir = nil;
 static NSString *_default_db_file_name = nil;
-static NSString *_default_data_file_root_path = nil;
-
-static BOOL _default_is_share_persistence = YES;
-
-//static NSPersistentStoreCoordinator * __sharedStoreCoordinator = nil;
 
 dispatch_semaphore_t _sem = NULL;
 dispatch_semaphore_t _sem_main = NULL;
@@ -50,76 +52,65 @@ dispatch_semaphore_t _sem_main = NULL;
 #pragma mark - CoreDataEnvir implementation
 
 @interface CoreDataEnvir ()
-@property (nonatomic, strong) NSManagedObjectModel    *model;
-@property (nonatomic, strong) NSManagedObjectContext *context;
-@property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 @end
 
 @implementation CoreDataEnvir
 
+#pragma mark - Configuration
+
++ (NSString *)defaultModelName {
+	return _default_model_name;
+}
+
+/**
+ Get data base file name.
+ */
++ (NSString *)defaultDatabaseFileName {
+	return _default_db_file_name;
+}
+
++ (NSString*)defaultDatabaseDir {
+	return _default_db_dir;
+}
+
++ (id<CoreDataRescureDelegate>)rescureDelegate {
+	return _rescureDelegate;
+}
+
++ (void)setRescureDelegate:(id<CoreDataRescureDelegate>)rescureDelegate {
+	_rescureDelegate = rescureDelegate;
+}
+
+- (void)setModelName:(NSString *)modelName {
+	if (!modelName.length) {
+		_modelName = [_default_model_name copy];
+	}
+	_modelName = [modelName copy];
+}
+
+- (void)setDatabaseFileName:(NSString *)databaseFileName {
+	if (!databaseFileName.length) {
+		_databaseFileName = [_default_db_file_name copy];
+	}
+	_modelName = [databaseFileName copy];
+}
+
+#pragma mark - Initialization
+
 + (void)initialize
 {
-    _default_data_file_root_path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] copy];
-    _default_db_file_name = @"db.sqlite";
-    _default_model_file_name = @"Model";
+	// Default db dir is document
+	_default_db_dir = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] copy];
+	_default_db_file_name = @"db.sqlite";
+	_default_model_name = @"Model";
     _sem = dispatch_semaphore_create(1l);
     _sem_main = dispatch_semaphore_create(1l);
 }
 
-+ (void)registerDefaultModelFileName:(NSString *)name
-{
-	NSString *momdPath = [[NSBundle mainBundle] pathForResource:name ofType:@"momd"];
-	if (!momdPath.length) {
-		NSString* reason = [NSString stringWithFormat:@"Model file %@.momd not found", name];
-		NSException *exce = [NSException exceptionWithName:[NSString stringWithFormat:@"CoreDataEnvir exception %d", CDEErrorModelFileNotFound] reason:reason userInfo:@{@"error": [NSError errorWithDomain:CDE_ERROR_DOMAIN code:CDEErrorModelFileNotFound userInfo:nil]}];
-		[exce raise];
-		return;
-	}
-
-    _default_model_file_name = [name copy];
-}
-
-+ (void)registerModelFilePath:(NSString *)filePath {
-	if (!filePath.length) return;
-	_default_model_file_path = [filePath copy];
-}
-
-+ (NSString *)modelFilePath {
-	return _default_model_file_path;
-}
-
-+ (void)registerDefaultDataFileName:(NSString *)name
-{
-    _default_db_file_name = [name copy];
-}
-
-+ (void)registerDefaultDataFileRootPath:(NSString *)path
-{
-    _default_data_file_root_path = [path copy];
-}
-
 + (void)registerRescureDelegate:(id<CoreDataRescureDelegate>)delegate
 {
-    _rescureDelegate = delegate;
-}
-
-
-+ (NSString *)defaultModelFileName
-{
-    return _default_model_file_name;
-}
-
-+ (NSString *)defaultDatabaseFileName
-{
-    return _default_db_file_name;
-}
-
-+ (NSString *)dataRootPath
-{
-    //NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    //return path;
-    return _default_data_file_root_path;
+	_rescureDelegate = delegate;
 }
 
 #pragma mark - instance handle
@@ -142,7 +133,7 @@ dispatch_semaphore_t _sem_main = NULL;
             a_new_db = [self createInstance];
             
             if (a_new_db && ![a_new_db currentQueue]) {
-                a_new_db->_currentQueue = dispatch_queue_create([[NSString stringWithFormat:@"%@-%d", [NSString stringWithUTF8String:"com.dehengxu.coredataenvir.background"], _create_counter] UTF8String], NULL);
+                a_new_db->_currentQueue = dispatch_queue_create([[NSString stringWithFormat:@"%@-%ld", [NSString stringWithUTF8String:"com.dehengxu.coredataenvir.background"], _create_counter] UTF8String], NULL);
 
             }
         }
@@ -153,23 +144,7 @@ dispatch_semaphore_t _sem_main = NULL;
 
 + (CoreDataEnvir *)createInstance
 {
-    CoreDataEnvir *cde = [self createInstanceWithDatabaseFileName:nil modelFileName:nil];
-    return cde;
-}
-
-+ (CoreDataEnvir *)createInstanceShareingPersistence:(BOOL)isSharePersistence
-{
-    CoreDataEnvir *cde = [[self alloc] initWithDatabaseFileName:nil modelFileName:nil sharingPersistence:isSharePersistence];
-    return cde;
-}
-
-+ (CoreDataEnvir *)createInstanceWithDatabaseFileName:(NSString *)databaseFileName modelFileName:(NSString *)modelFileName
-{
-    id cde = nil;
-    cde = [[self alloc] initWithDatabaseFileName:databaseFileName modelFileName:modelFileName];
-#if DEBGU && CORE_DATA_ENVIR_SHOW_LOG
-    NSLog(@"\n\n------\ncreate counter :%d\n\n------", _create_counter);
-#endif
+    CoreDataEnvir *cde = [[self alloc] initWithDatabaseFileName:nil modelFileName:nil];
     return cde;
 }
 
@@ -177,43 +152,31 @@ dispatch_semaphore_t _sem_main = NULL;
     self = [super init];
     if (self) {
         _create_counter ++;
+		__recursiveLock = [[NSRecursiveLock alloc] init];
     }
     return self;
 }
 
-- (id)initWithDatabaseFileName:(NSString *)databaseFileName modelFileName:(NSString *)modelFileName
+- (id)initWithDatabaseFileName:(NSString *)databaseFileName modelFileName:(NSString *)modelName
 {
-    return [self initWithDatabaseFileName:databaseFileName modelFileName:modelFileName sharingPersistence:_default_is_share_persistence];
+    return [self initWithDatabaseFileName:databaseFileName modelFileName:modelName forConfigurations:nil];
 }
 
-- (id)initWithDatabaseFileName:(NSString *)databaseFileName modelFileName:(NSString *)modelFileName sharingPersistence:(BOOL)isSharePersistence
+- (id)initWithDatabaseFileName:(NSString *)databaseFileName modelFileName:(NSString *)modelName forConfigurations:(nullable NSArray<NSString *> *)names
 {
     self = [self init];
     
     if (self) {
-        _sharePersistence = isSharePersistence;
-        __recursiveLock = [[NSRecursiveLock alloc] init];
-        
-        if (databaseFileName) {
-            [self registerDatabaseFileName:databaseFileName];
-        }else {
-            [self registerDatabaseFileName:_default_db_file_name];
-        }
-        
-        if (modelFileName) {
-            [self registerModelFileName:modelFileName];
-        }else {
-            [self registerModelFileName:_default_model_file_name];
-        }
-        
-        [self registerDataFileRootPath:_default_data_file_root_path];
-        
+		self.databaseFileName = databaseFileName;
+
+		self.modelName = modelName;
+
         @try {
-            [self _initCoreDataEnvirWithPath:[self dataRootPath] andFileName:[self databaseFileName]];
+			NSURL* fileURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@", [CoreDataEnvir defaultDatabaseDir], self.databaseFileName]];
+            [self initCoreDataEnvirWithDatabaseFileURL:fileURL];
         }
         @catch (NSException *exception) {
-            NSError *err = [[exception userInfo] valueForKey:@"error"];
-            NSLog(@"err %@, %s %d", [err description], __FILE__, __LINE__);
+            NSLog(@"Exception(%@): %@, %s %d", CDE_DOMAIN, [exception description], __FILE__, __LINE__);
             return nil;
         }
         @finally {
@@ -222,63 +185,57 @@ dispatch_semaphore_t _sem_main = NULL;
         
         //Create buildin background work queue
         if (!_currentQueue) {
-            _currentQueue = dispatch_queue_create([[NSString stringWithFormat:@"%@-%d", [NSString stringWithUTF8String:"com.dehengxu.coredataenvir.background"], _create_counter] UTF8String], NULL);
+            _currentQueue = dispatch_queue_create([[NSString stringWithFormat:@"%@-%ld", [NSString stringWithUTF8String:"com.dehengxu.coredataenvir.background"], _create_counter] UTF8String], NULL);
         }
 
     }
     return self;
 }
 
-//- (NSPersistentStoreCoordinator *)persistentStoreCoordinator
-//{
-//    if (self.sharePersistence) {
-//        return __sharedStoreCoordinator;
-//    }else {
-//        return _persistentStoreCoordinator;
-//    }
-//}
-//
-//- (void)setPersistentStoreCoordinator:(NSPersistentStoreCoordinator *)storeCoordinator
-//{
-//    if (_sharePersistence) {
-//        if (__sharedStoreCoordinator != storeCoordinator) {
-//            __sharedStoreCoordinator = storeCoordinator;
-//        }
-//    }else {
-//        if (_persistentStoreCoordinator != storeCoordinator) {
-//            _persistentStoreCoordinator = storeCoordinator;
-//        }
-//    }
-//}
+- (void) initCoreDataEnvirWithDatabaseFileURL:(NSURL*)fileURL
+{
+#if DEBGU && CORE_DATA_ENVIR_SHOW_LOG
+	NSLog(@"%s   %@  /  %@", __FUNCTION__,path, dbName);
+#endif
+	//Auto find first momd met, if `self.modelName` not set up.
+	NSString *momdPath = [NSBundle.mainBundle pathForResource:self.modelName ofType:@"momd"];
+
+	if (!momdPath.length) {
+		NSException *exce = [NSException exceptionWithName:[NSString stringWithFormat:@"CoreDataEnvir exception %d", CDEErrorModelFileNotFound] reason:@"Model file momd " userInfo:@{@"error": [NSError errorWithDomain:CDE_DOMAIN code:CDEErrorModelFileNotFound userInfo:nil]}];
+		[exce raise];
+		return;
+	}
+	NSURL *momdURL = [NSURL fileURLWithPath:momdPath];
+	[self setupModelWithURL:momdURL];
+
+	[self setupDefaultPersistentStoreWithURL:fileURL];
+
+	[self registerObserving];
+}
+
+- (void)dealloc {
+#if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
+	NSLog(@"%@", [self currentDispatchQueueLabel]);
+#endif
+	_create_counter --;
+	NSAssert(_create_counter >=0, @"over dealloc. %ld", _create_counter);
+#if DEBGU && CORE_DATA_ENVIR_SHOW_LOG
+	NSLog(@"%s\ncreate counter :%d\n\n", __func__, _create_counter);
+#endif
+	[self unregisterObserving];
+}
+
+#pragma mark - Lazy load
 
 - (NSManagedObjectContext *)context
 {
     if (nil == _context) {
-        _context = [[NSManagedObjectContext alloc] init];
+        _context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     }
     return _context;
 }
 
-#pragma mark - Synchronous method
-
-- (void)dealloc {
-#if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
-    NSLog(@"%@", [self currentDispatchQueueLabel]);
-#endif
-    _create_counter --;
-    NSAssert(_create_counter >=0, @"over dealloc. %ld", _create_counter);
-#if DEBGU && CORE_DATA_ENVIR_SHOW_LOG
-    NSLog(@"%s\ncreate counter :%d\n\n", __func__, _create_counter);
-#endif
-    [self unregisterObserving];
-    //[_context reset];
-    
-    //[__recursiveLock release];
-    //[_context release];
-
-}
-
-#pragma mark - NSFetchedResultsControllerDelegate
+#pragma mark - Handle data store
 
 - (BOOL)saveDataBase
 {
@@ -316,7 +273,7 @@ dispatch_semaphore_t _sem_main = NULL;
     return bResult;
 }
 
-#pragma mark - Deleting
+#pragma mark - Data handling
 
 - (id)dataItemWithID:(NSManagedObjectID *)objectId
 {
@@ -342,21 +299,21 @@ dispatch_semaphore_t _sem_main = NULL;
 
 - (id)updateDataItem:(NSManagedObject *)object
 {
-    if (object && object.isFault) {
+    if (object.isFault) {
         return [self dataItemWithID:object.objectID];
     }
     return object;
 }
 
-- (BOOL)deleteDataItem:(NSManagedObject *)aItem
+- (BOOL)deleteDataItem:(NSManagedObject *)object
 {
-    if (!aItem) {
+    if (!object) {
         return NO;
     }
     
-    NSManagedObject *getObject = aItem;
-    if (aItem.isFault) {
-        getObject = [self dataItemWithID:aItem.objectID];
+    NSManagedObject *getObject = object;
+    if (object.isFault) {
+        getObject = [self dataItemWithID:object.objectID];
     }
 #if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
     NSLog(@"%s  objectID :%@; getObject :%@;", __FUNCTION__, aItem.objectID, getObject);
@@ -367,14 +324,15 @@ dispatch_semaphore_t _sem_main = NULL;
             [self.context deleteObject:getObject];
         }
         @catch (NSException *exception) {
-            NSLog(@"exce :%@", [exception description]);
+            NSLog(@"Deleting abort cause exce :%@", [exception description]);
+			return NO;
         }
         @finally {
             
         }
     }
 #if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
-    NSLog(@" delete finished!");
+    NSLog(@"delete finished!");
 #endif
     
     return YES;
@@ -398,41 +356,53 @@ dispatch_semaphore_t _sem_main = NULL;
     return YES;
 }
 
-- (dispatch_queue_t)currentQueue
+#pragma mark - Obseving context
+
+- (void)registerObserving
 {
-    return _currentQueue;
+#if DEBUG
+	NSLog(@"%s", __FUNCTION__);
+#endif
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mergeChanges:) name:NSManagedObjectContextDidSaveNotification object:nil];
 }
 
-- (void)asyncInBlock:(void (^)(CoreDataEnvir *))CoreDataBlock
+- (void)unregisterObserving
+{
+#if DEBUG
+	NSLog(@"%s", __FUNCTION__);
+#endif
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextDidSaveNotification object:nil];
+}
+
+#pragma mark - Work queue relevant
+
+- (void)asyncWithBlock:(void (^)(CoreDataEnvir *))CoreDataBlock
 {
     dispatch_async([self currentQueue], ^{
         CoreDataBlock(self);
-        [self saveDataBase];
     });
 }
 
-- (void)syncInBlock:(void (^)(CoreDataEnvir *)) CoreDataBlock
+- (void)syncWithBlock:(void (^)(CoreDataEnvir *)) CoreDataBlock
 {
     if ([NSThread isMainThread] && self.currentQueue == dispatch_get_main_queue()) {
         CoreDataBlock(self);
-        [self saveDataBase];
     }else {
         dispatch_sync([self currentQueue], ^{
             CoreDataBlock(self);
-            [self saveDataBase];
         });
     }
 }
 
-+ (void)asyncMainInBlock:(void (^)(CoreDataEnvir *))CoreDataBlock
-{
-    [[self mainInstance] asyncInBlock:CoreDataBlock];
-}
-
-+ (void)asyncBackgroundInBlock:(void (^)(CoreDataEnvir *))CoreDataBlock
-{
-    [[self backgroundInstance] asyncInBlock:CoreDataBlock];
-}
+//+ (void)asyncMainInBlock:(void (^)(CoreDataEnvir *))CoreDataBlock
+//{
+//    [[self mainInstance] asyncInBlock:CoreDataBlock];
+//}
+//
+//+ (void)asyncBackgroundInBlock:(void (^)(CoreDataEnvir *))CoreDataBlock
+//{
+//    [[self backgroundInstance] asyncInBlock:CoreDataBlock];
+//}
 
 #pragma mark - NewAPIs
 
@@ -452,7 +422,7 @@ dispatch_semaphore_t _sem_main = NULL;
 #pragma mark - setup CoreData requires
 
 - (instancetype)setupWithBlock:(void (^)(CoreDataEnvir * _Nonnull))config {
-    [self syncInBlock:config];
+    [self syncWithBlock:config];
     return self;
 }
 
@@ -470,6 +440,11 @@ dispatch_semaphore_t _sem_main = NULL;
     }
     
     self.model = [[NSManagedObjectModel alloc] initWithContentsOfURL:fileURL];
+
+	[self.context setRetainsRegisteredObjects:NO];
+	[self.context setPropagatesDeletesAtEndOfEvent:NO];
+	[self.context setMergePolicy:NSOverwriteMergePolicy];
+
     return self;
 }
 
@@ -486,7 +461,7 @@ dispatch_semaphore_t _sem_main = NULL;
     }
     
     NSError* error = nil;
-    [self.persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:fileURL options:self.persistentOptions error:&error];
+    [self.persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:fileURL options:[self defaultPersistentOptions] error:&error];
     if (error) {
         NSAssert(error, @"Add persistent store failed: %@", error);
         return nil;

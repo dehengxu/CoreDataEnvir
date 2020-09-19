@@ -84,10 +84,10 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "CoreDataEnvirFramework/*.h", "CoreDataEnvirFramework/**/*.{h,m}"
-  s.exclude_files = "CoreDataEnvirFramework/Debug"
+  s.source_files  = "src/CoreDataEnvir/*.h", "src/CoreDataEnvir/**/*.{h,m}"
+#  s.exclude_files = "CoreDataEnvir/Debug"
 
-  s.public_header_files = "CoreDataEnvirFramework/**/*.h" #, "CoreDataEnvir/ManagedObject/*.h"
+  s.public_header_files = "src/CoreDataEnvir/**/*.h" #, "src/CoreDataEnvir/*.h"
 
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #

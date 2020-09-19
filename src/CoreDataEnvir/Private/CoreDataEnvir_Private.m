@@ -7,11 +7,13 @@
 //
 
 #import "CoreDataEnvir_Private.h"
+
 #import "CoreDataEnvir_Main.h"
 
 id<CoreDataRescureDelegate> _rescureDelegate;
 CoreDataEnvir *_backgroundInstance = nil;
 CoreDataEnvir *_mainInstance = nil;
+long _create_counter = 0;
 
 @implementation CoreDataEnvir (CDEPrivate)
 
@@ -42,7 +44,7 @@ CoreDataEnvir *_mainInstance = nil;
     NSLog(@"No sqlite database be renamed!");
 }
 
-- (NSDictionary *)persistentOptions {
+- (NSDictionary *)defaultPersistentOptions {
     NSDictionary *options = @{
         NSMigratePersistentStoresAutomaticallyOption:@YES, NSInferMappingModelAutomaticallyOption:@YES
     };
@@ -70,129 +72,19 @@ CoreDataEnvir *_mainInstance = nil;
 	return req;
 }
 
-- (void) _initCoreDataEnvirWithPath:(NSString *)path andFileName:(NSString *) dbName
-{
-#if DEBGU && CORE_DATA_ENVIR_SHOW_LOG
-    NSLog(@"%s   %@  /  %@", __FUNCTION__,path, dbName);
-#endif
-
-    //Scan all of momd directory.
-    //NSArray *momdPaths = [[NSBundle mainBundle] pathsForResourcesOfType:@"momd" inDirectory:nil];
-    NSURL *fileUrl = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@", path, dbName]];
-    
-    NSFileManager *fman = [NSFileManager defaultManager];
-    if (![fman fileExistsAtPath:path]) {
-        [fman createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
-    }
-    
-    [self.context setRetainsRegisteredObjects:NO];
-    [self.context setPropagatesDeletesAtEndOfEvent:NO];
-    [self.context setMergePolicy:NSOverwriteMergePolicy];
-    
-    if (self.persistentStoreCoordinator == nil) {
-		NSString *momdPath = nil;
-		//Use modelFilePath
-		if (CoreDataEnvir.modelFilePath.length) {
-			momdPath = CoreDataEnvir.modelFilePath;
-		}
-
-		//Or search from main bundle
-		if (!momdPath.length) {
-#if DEBUG
-			NSLog(@"");
-#endif
-			momdPath = [NSBundle.mainBundle pathForResource:[self modelFileName] ofType:@"momd"];
-		}
-
-		if (!momdPath.length) {
-			NSException *exce = [NSException exceptionWithName:[NSString stringWithFormat:@"CoreDataEnvir exception %d", CDEErrorModelFileNotFound] reason:@"Model file momd " userInfo:@{@"error": [NSError errorWithDomain:CDE_ERROR_DOMAIN code:CDEErrorModelFileNotFound userInfo:nil]}];
-			[exce raise];
-			return;
-		}
-        NSURL *momdURL = [NSURL fileURLWithPath:momdPath];
-        
-        self.model = [[NSManagedObjectModel alloc] initWithContentsOfURL:momdURL];
-        if (!self.model) {
-            NSString* msg = [NSString stringWithFormat:@"CoreData model is nil. model file: %@", momdPath];
-            NSError* err = [NSError errorWithDomain:@"com.cyblion.CoreDataEnvir" code:CDEErrorInstanceCreateTooMutch userInfo:nil];
-            NSLog(@"%@", msg);
-            NSException *exce = [NSException exceptionWithName:[NSString stringWithFormat:@"CoreDataEnvir exception %d", CDEErrorInstanceCreateTooMutch] reason:msg userInfo:@{@"error": err}];
-            [exce raise];
-            return;
-        }
-        
-        self.persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.model];
-        
-        NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
-                                 [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
-                                 [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption,
-                                 nil];
-        
-        NSError *error;
-        
-        if (![self.persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:fileUrl options:options error:&error]) {
-            NSLog(@"%s Failed! %@", __FUNCTION__, error);
-            if (_rescureDelegate &&
-                [_rescureDelegate respondsToSelector:@selector(shouldRescureCoreData)] &&
-                [_rescureDelegate shouldRescureCoreData]) {
-                
-                if (_rescureDelegate && [_rescureDelegate respondsToSelector:@selector(didStartRescureCoreData:)]) {
-                    [_rescureDelegate didStartRescureCoreData:self];
-                }
-                
-                //Create new store coordinator.
-                self.persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.model];
-                
-                
-                if (![self.persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:fileUrl options:options error:&error]) {
-                    //Rescure failed again!!
-                    if (_rescureDelegate &&
-                        [_rescureDelegate respondsToSelector:@selector(rescureFailed:)]) {
-                        [_rescureDelegate rescureFailed:self];
-                    }
-                    
-                    //Abort while rescure failed.
-                    if (_rescureDelegate &&
-                        [_rescureDelegate respondsToSelector:@selector(shouldAbortWhileRescureFailed)] &&
-                        [_rescureDelegate shouldAbortWhileRescureFailed]) {
-                        abort();
-                    }
-                }else {
-                    //Rescure finished.
-                    [self.context setPersistentStoreCoordinator:self.persistentStoreCoordinator];
-                    if (_rescureDelegate && [_rescureDelegate respondsToSelector:@selector(didFinishedRescuringCoreData:)]) {
-                        [_rescureDelegate didFinishedRescuringCoreData:self];
-                    }
-                }
-            }else {
-                abort();
-            }
-        }else {
-            [self.context setPersistentStoreCoordinator:self.persistentStoreCoordinator];
-        }
-        
-    }else {
-        [self.context setPersistentStoreCoordinator:self.persistentStoreCoordinator];
-    }
-    
-    [self registerObserving];
-}
-
-- (NSManagedObject *) buildManagedObjectByName:(NSString *)className
+- (NSManagedObject *) buildManagedObjectByName:(NSString *)className error:(NSError *__autoreleasing  _Nullable * _Nullable)error
 {
     NSManagedObject *_object = nil;
-    _object = [NSEntityDescription insertNewObjectForEntityForName:className inManagedObjectContext:self.context];
-    return _object;
-}
-
-- (NSManagedObject *)buildManagedObjectByClass:(Class)theClass
-{
-    NSManagedObject *_object = nil;
-	NSString* className = NSStringFromClass(theClass);
     _object = [NSEntityDescription insertNewObjectForEntityForName:className inManagedObjectContext:self.context];
 	if (!_object) {
-		NSLog(@"Error: build managed object by class:%@ failed", className);
+		NSString* msg = [NSString stringWithFormat:@"Error(%@): Insert object of class:(%@) failed", CDE_DOMAIN, className];
+		if (*error) {
+			*error = [NSError errorWithDomain:msg code:0 userInfo:nil];
+		}
+		NSAssert(false, msg);
+		return nil;
 	}
+
     return _object;
 }
 
@@ -200,20 +92,15 @@ CoreDataEnvir *_mainInstance = nil;
 	NSManagedObject *_object = nil;
 	NSString* className = NSStringFromClass(theClass);
 	if (!className) {
+		NSString* msg = [NSString stringWithFormat:@"Error(%@): class: \"%@\" name not found.", CDE_DOMAIN, className];
         if (*error) {
-            *error = [NSError errorWithDomain:[NSString stringWithFormat:@"CoreDataEnvir: class:(%@) name not found.", className] code:0 userInfo:0];
+            *error = [NSError errorWithDomain:msg code:0 userInfo:0];
         }
+		NSAssert(false, msg);
 		return nil;
 	}
 
-	_object = [NSEntityDescription insertNewObjectForEntityForName:className inManagedObjectContext:self.context];
-
-	if (!_object) {
-        if (*error) {
-            *error = [NSError errorWithDomain:[NSString stringWithFormat:@"CoreDataEnvir: Insert object of class:(%@) failed", className] code:0 userInfo:0];
-        }
-		return nil;
-	}
+	_object = [self buildManagedObjectByName:className error:error];
 	return _object;
 }
 
@@ -308,22 +195,6 @@ CoreDataEnvir *_mainInstance = nil;
     }
     
     return items;
-}
-
-- (void)registerObserving
-{
-#if DEBUG
-    NSLog(@"%s", __FUNCTION__);
-#endif
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mergeChanges:) name:NSManagedObjectContextDidSaveNotification object:nil];
-}
-
-- (void)unregisterObserving
-{
-#if DEBUG
-    NSLog(@"%s", __FUNCTION__);
-#endif
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextDidSaveNotification object:nil];
 }
 
 - (void)updateContext:(NSNotification *)notification
