@@ -45,9 +45,7 @@ static NSString *_default_model_name = nil;
 static NSString *_default_model_dir = nil;
 static NSString *_default_db_dir = nil;
 static NSString *_default_db_file_name = nil;
-
-dispatch_semaphore_t _sem = NULL;
-dispatch_semaphore_t _sem_main = NULL;
+static dispatch_semaphore_t _sem_main = NULL;
 
 #pragma mark - CoreDataEnvir implementation
 
@@ -104,7 +102,6 @@ dispatch_semaphore_t _sem_main = NULL;
 	_default_db_dir = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] copy];
 	_default_db_file_name = @"db.sqlite";
 	_default_model_name = @"Model";
-    _sem = dispatch_semaphore_create(1l);
     _sem_main = dispatch_semaphore_create(1l);
 }
 
@@ -117,29 +114,16 @@ dispatch_semaphore_t _sem_main = NULL;
 
 + (CoreDataEnvir *)instance
 {
-    
     dispatch_semaphore_wait(_sem_main, ~0ull);
-
-    CoreDataEnvir *a_new_db = nil;
-        if ([[NSThread currentThread] isMainThread]) {
-#if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
-            NSLog(@"CoreDataEnvir on main thread!");
-#endif
-            a_new_db = [self mainInstance];
-        }else {
-#if DEBUG && CORE_DATA_ENVIR_SHOW_LOG
-            NSLog(@"CoreDataEnvir on other thread!");
-#endif
-            a_new_db = [self createInstance];
-            
-            if (a_new_db && ![a_new_db currentQueue]) {
-                a_new_db->_currentQueue = dispatch_queue_create([[NSString stringWithFormat:@"%@-%ld", [NSString stringWithUTF8String:"com.dehengxu.coredataenvir.background"], _create_counter] UTF8String], NULL);
-
-            }
-        }
+    CoreDataEnvir *db = nil;
+	if ([[NSThread currentThread] isMainThread]) {
+		db = [self mainInstance];
+	}else {
+		db = [self createInstance];
+	}
     dispatch_semaphore_signal(_sem_main);
 
-	return a_new_db;
+	return db;
 }
 
 + (CoreDataEnvir *)createInstance
