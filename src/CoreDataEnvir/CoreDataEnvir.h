@@ -19,8 +19,8 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-#ifndef __CoreDataEnvir__
-#define __CoreDataEnvir__
+//#ifndef __CoreDataEnvir__
+//#define __CoreDataEnvir__
 
 #define CORE_DATA_ENVIR_SHOW_LOG        0
 
@@ -49,7 +49,11 @@ extern NSString* const CDE_DOMAIN;
 }
 
 /// Current work queue
-@property (nonatomic, readonly) dispatch_queue_t currentQueue;
+#if OS_OBJECT_USE_OBJC
+@property (nonatomic, strong) dispatch_queue_t currentQueue;
+#else
+@property (nonatomic, assign) dispatch_queue_t currentQueue;
+#endif
 
 /**
  A model object.
@@ -180,5 +184,5 @@ typedef void(^CoreDataEnvirBlock)(CoreDataEnvir* _Nonnull);
 
 NS_ASSUME_NONNULL_END
 
-#endif
+//#endif
 

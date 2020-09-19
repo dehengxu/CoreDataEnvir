@@ -523,10 +523,11 @@
 			};
 			name = Debug;
 		};
-		2B75E9A8AB482F534AA8FD9EC56C70CC /* Debug */ = {
+		10730EF609C19AB7B2BC3556594B8C95 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 783716D1BD2A1DED5DFD38F63DF2C6C0 /* CoreDataEnvir.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -539,7 +540,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/CoreDataEnvir/CoreDataEnvir-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/CoreDataEnvir/CoreDataEnvir-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -594,6 +595,43 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
+		};
+		6F1A63327355BB39467855D6EE5F8102 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1F790CA2F8B9E53FEF1E6584DDF3BA22 /* CoreDataEnvir.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/CoreDataEnvir/CoreDataEnvir-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/CoreDataEnvir/CoreDataEnvir-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/CoreDataEnvir/CoreDataEnvir.modulemap";
+				PRODUCT_MODULE_NAME = CoreDataEnvir;
+				PRODUCT_NAME = CoreDataEnvir;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
 		};
 		724EA0E881E6A37CA59A63B176D6A1E6 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -757,42 +795,6 @@
 			};
 			name = Debug;
 		};
-		9EE6BDB07C766A6755958BB312E3FE7E /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1F790CA2F8B9E53FEF1E6584DDF3BA22 /* CoreDataEnvir.release.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/CoreDataEnvir/CoreDataEnvir-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/CoreDataEnvir/CoreDataEnvir-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/CoreDataEnvir/CoreDataEnvir.modulemap";
-				PRODUCT_MODULE_NAME = CoreDataEnvir;
-				PRODUCT_NAME = CoreDataEnvir;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		EBEE512275ADA6330924189A58A47EC6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 609C01CDCAAB3CD17BF39241A4111B3B /* Pods-CoreDataEnvirSampleTests.release.xcconfig */;
@@ -846,8 +848,8 @@
 		4FFF007B28E873A84D3E7C663C2D6E53 /* Build configuration list for PBXNativeTarget "CoreDataEnvir" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2B75E9A8AB482F534AA8FD9EC56C70CC /* Debug */,
-				9EE6BDB07C766A6755958BB312E3FE7E /* Release */,
+				10730EF609C19AB7B2BC3556594B8C95 /* Debug */,
+				6F1A63327355BB39467855D6EE5F8102 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

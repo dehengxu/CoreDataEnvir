@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)instanceWithModelName:(NSString* _Nullable)modelName bundle:(NSBundle* _Nullable)bundle storeFileName:(NSString* _Nullable)fileName storedUnderDirectory:(NSString* _Nullable)directory;
 
-- (instancetype)init;
+//- (instancetype) NS_DESIGNATED_INITIALIZER init;
 
 - (instancetype) NS_DESIGNATED_INITIALIZER initWithModelName:(NSString* _Nullable)modelName bundle:(NSBundle* _Nullable)bundle storeFileName:(NSString* _Nullable)fileName storedUnderDirectory:(NSString* _Nullable)directory;
 

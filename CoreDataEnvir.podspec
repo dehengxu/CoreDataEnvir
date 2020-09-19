@@ -59,7 +59,7 @@ Pod::Spec.new do |s|
   #  the deployment target. You can optionally include the target after the platform.
   #
 
-  s.platform     = :ios, '9.0'
+  s.platform     = :ios, '10.0'
   # s.platform     = :ios, "5.0"
 
   #  When using multiple platforms
@@ -110,8 +110,8 @@ Pod::Spec.new do |s|
   #  the lib prefix of their name.
   #
 
-  s.framework  = "CoreData"
-  # s.frameworks = "SomeFramework", "AnotherFramework"
+  # s.framework  = "CoreData"
+   s.frameworks = "CoreData"#, "AnotherFramework"
 
   # s.library   = "iconv"
   # s.libraries = "iconv", "xml2"

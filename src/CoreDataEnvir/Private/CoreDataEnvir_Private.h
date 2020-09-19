@@ -18,9 +18,6 @@ extern long _create_counter;
 
 @interface CoreDataEnvir (CDEPrivate)
 
-/// Current work queue
-@property (nonatomic, strong) dispatch_queue_t currentQueue;
-
 /**
  Rename database file with new registed name.
  */

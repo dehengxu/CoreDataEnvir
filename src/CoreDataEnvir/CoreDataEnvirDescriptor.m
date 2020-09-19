@@ -20,7 +20,7 @@
 	static dispatch_once_t onceToken = 0;
 	static CoreDataEnvirDescriptor* __shared__ = nil;
 	dispatch_once(&onceToken, ^{
-		__shared__ = [[self alloc] init];
+		__shared__ = [[super alloc] init];
 		__shared__.modelName = nil;//@"Model";
 		__shared__.storeFileName = @"db.sqlite";
 		__shared__.storeDirectory = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] copy];
@@ -34,10 +34,16 @@
 	return ins;
 }
 
-- (instancetype)init {
-	self = [self initWithModelName:nil bundle:nil storeFileName:nil storedUnderDirectory:nil];
-	return self;
-}
+//- (instancetype)init {
+//	self = [super init];
+//	if (self) {
+//		self.modelName = [self.class.defaultInstance modelName];
+//		self.storeFileName = self.class.defaultInstance.storeFileName;
+//		self.storeDirectory = self.class.defaultInstance.storeDirectory;
+//		self.bundle = self.class.defaultInstance.bundle;
+//	}
+//	return self;
+//}
 
 - (instancetype)initWithModelName:(NSString *)modelName bundle:(NSBundle *)bundle storeFileName:(NSString *)fileName storedUnderDirectory:(NSString *)directory {
 	self = [super init];

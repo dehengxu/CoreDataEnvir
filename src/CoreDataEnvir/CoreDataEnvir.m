@@ -56,7 +56,7 @@ static dispatch_semaphore_t _sem_main = NULL;
 #pragma mark - rewrite property
 
 /// Current work queue
-@property (nonatomic, strong) dispatch_queue_t currentQueue;
+//@property (nonatomic, strong) dispatch_queue_t currentQueue;
 
 /**
  A model object.
