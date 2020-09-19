@@ -13,6 +13,13 @@
 
 @implementation NSManagedObject (CDEConevient)
 
++ (NSUInteger)totalCountInContext:(CoreDataEnvir *)db forConfiguration:(nonnull NSString *)name {
+	NSFetchRequest* req = [self newFetchRequestInContext:db];
+	NSPersistentStore* store = [db persistentStoreForConfiguration:name];
+	req.affectedStores = @[store];
+	return [db countForFetchRequest:req error:nil];
+}
+
 + (NSFetchRequest*)newFetchRequestInContext:(CoreDataEnvir*)db {
 	NSFetchRequest *req = [[NSFetchRequest alloc] init];
 	NSString* name = NSStringFromClass(self.class);
@@ -167,6 +174,13 @@
     }
     
     return [[CoreDataEnvir mainInstance] saveDataBase];
+}
+
+- (BOOL)saveTo:(CoreDataEnvir *)cde forConfiguration:(NSString *)name {
+	NSPersistentStore* store = [cde persistentStoreForConfiguration:name];
+	[cde.context assignObject:self toPersistentStore:store];
+	[cde saveDataBase];
+	return NO;
 }
 
 @end

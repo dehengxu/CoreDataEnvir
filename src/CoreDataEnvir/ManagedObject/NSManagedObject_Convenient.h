@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSManagedObject (CDEConevient)
 
++ (NSUInteger)totalCountInContext:(CoreDataEnvir*)db forConfiguration:(NSString*)name;
+
 #pragma mark - Inserting operations.
 
 + (NSFetchRequest*)newFetchRequestInContext:(CoreDataEnvir*)db;
@@ -142,6 +144,15 @@ NS_ASSUME_NONNULL_BEGIN
  Save db on main thread.
  */
 - (BOOL)save;
+
+/**
+ *  Save db on main thread.
+ *
+ *  @param cde CoreDataEnvir object.
+ *
+ *  @return Success(YES) or failed(NO).
+ */
+- (BOOL)saveTo:(CoreDataEnvir *)cde forConfiguration:(NSString*)name;
 
 @end
 

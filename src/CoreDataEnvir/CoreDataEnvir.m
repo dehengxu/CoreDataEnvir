@@ -40,7 +40,9 @@ break;\
 #define LOCK_BEGIN  [recursiveLock lock];
 #define LOCK_END    [recursiveLock unlock];
 
-NSString* CDE_DOMAIN = @"com.dehengxu.CoreDataEnvir";
+NSString* const CDE_DOMAIN = @"com.dehengxu.CoreDataEnvir";
+
+NSString* const kDEFAULT_CONFIGURATION_NAME = @"PF_DEFAULT_CONFIGURATION_NAME";
 
 static NSString *_default_model_name = nil;
 static NSString *_default_model_dir = nil;
@@ -175,6 +177,10 @@ static dispatch_semaphore_t _sem_main = NULL;
     NSLog(@"%s", __FUNCTION__);
 #endif
     return bResult;
+}
+
+- (BOOL)saveForConfiguration:(NSString *)name {
+	return NO;
 }
 
 #pragma mark - Data handling

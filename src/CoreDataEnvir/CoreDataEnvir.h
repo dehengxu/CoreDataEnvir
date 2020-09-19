@@ -42,7 +42,7 @@ typedef enum
 	CDEErrorModelFileNotFound = 1001
 }CoreDataEnvirError;
 
-extern NSString* CDE_DOMAIN;
+extern NSString* const CDE_DOMAIN;
 
 @interface CoreDataEnvir : NSObject {
     NSRecursiveLock *__recursiveLock;
@@ -94,6 +94,8 @@ extern NSString* CDE_DOMAIN;
  Save
  */
 - (BOOL)saveDataBase;
+
+- (BOOL)saveForConfiguration:(NSString*)name;
 
 /**
  Operating on NSManagedObject
