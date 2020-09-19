@@ -11,7 +11,6 @@
 #import "CoreDataEnvir_Private.h"
 
 @interface CoreDataEnvirDescriptor ()
-@property (nonatomic, strong) NSBundle* bundle;
 @end
 
 @implementation CoreDataEnvirDescriptor
