@@ -68,6 +68,7 @@ static dispatch_semaphore_t _sem_main = NULL;
  */
 @property (nonatomic, strong) NSManagedObjectContext *context;
 
+@property (nonatomic, strong) NSMutableDictionary* persistentStoreCacheForName;
 
 @end
 
@@ -124,6 +125,7 @@ static dispatch_semaphore_t _sem_main = NULL;
     if (self) {
         _create_counter ++;
 		__recursiveLock = [[NSRecursiveLock alloc] init];
+		_persistentStoreCacheForName = @{}.mutableCopy;
     }
     return self;
 }
@@ -398,11 +400,15 @@ static dispatch_semaphore_t _sem_main = NULL;
 }
 
 - (NSPersistentStore *)persistentStoreForURL:(NSURL *)fileURL {
-    return [self.persistentStoreCoordinator persistentStoreForURL:fileURL];
+    return [_persistentStoreCoordinator persistentStoreForURL:fileURL];
 }
 
 - (NSPersistentStore *)persistentStoreForConfiguration:(NSString *)name {
-    return [self.persistentStoreCoordinator persistentStoreForConfiguration:name];
+	id store = _persistentStoreCacheForName[name];
+	if (store) { return store; }
+    store = [_persistentStoreCoordinator persistentStoreForConfiguration:name];
+	_persistentStoreCacheForName[name] = store; // over write cache
+	return store;
 }
 
 
