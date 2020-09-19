@@ -7,37 +7,39 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		05DFD57D877C54F14B4DB5045902E46B /* CoreDataEnvir.m in Sources */ = {isa = PBXBuildFile; fileRef = 64450EDB7FEAB155D4E5EDC03266BC35 /* CoreDataEnvir.m */; };
-		063BE378B08519CDB0C82E0ABDB49C43 /* NSManagedObject_Background.h in Headers */ = {isa = PBXBuildFile; fileRef = F573259FEAE22CC17B7A3A331633B5A9 /* NSManagedObject_Background.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0E98F2ED1D567CDDBF361E727F25C78E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A13E37530B47F5DA0E598490887362E7 /* CoreData.framework */; };
-		1A60F4C24B9BDF5F8D4064AF5E916AB9 /* CoreDataRescureDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 53D085DDE61A5ECD3F09685AB8A6C907 /* CoreDataRescureDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1B25A285757E784FD391E10CD700AF4B /* CoreDataEnvir_Background.m in Sources */ = {isa = PBXBuildFile; fileRef = D5039690AA0E88DEB85E955EEC4A926D /* CoreDataEnvir_Background.m */; };
-		1D153E722109BC902F1E2629B2480FC4 /* NSManagedObject_Background.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB704E8503108F939B81138AD8DD23 /* NSManagedObject_Background.m */; };
-		24E874980FCE39F936E8CF6A08DF0729 /* NSManagedObject_Convenient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6361C8DCF81A47CF5D5A2CCA06DA9F0F /* NSManagedObject_Convenient.m */; };
-		40E95598737415488DCA743F7E4ED38D /* CoreDataEnvir_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = CF3553CCFB14187B4253A2DA3A95D91A /* CoreDataEnvir_Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		42A688D5BBAA7B08B61329749060B765 /* NSManagedObject_MainThread.h in Headers */ = {isa = PBXBuildFile; fileRef = C44FA1E9F92DD528EBE1ED3CCB63C458 /* NSManagedObject_MainThread.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4F7EADE6B6BE35361D2B144734F9155C /* NSManagedObject_Convenient.h in Headers */ = {isa = PBXBuildFile; fileRef = 524CD045B24CF7FE41D0850E6498BB59 /* NSManagedObject_Convenient.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5D99EEA1BA1C0616A908B7F64D675B7B /* CoreDataEnvir_Background.h in Headers */ = {isa = PBXBuildFile; fileRef = 822D477CDF625E4BBBC4302F761A27A5 /* CoreDataEnvir_Background.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0594653B3C28255C3B4E1773955958DD /* CoreDataEnvirHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C3AA12DC8A074181E237990598039C0 /* CoreDataEnvirHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		25141B15338DD8E09CB0F1053DDD1ADB /* CoreDataEnvir_Background.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C3D38720342855C2E8AA1D2B20F606 /* CoreDataEnvir_Background.m */; };
+		2B6E2038FCF4168D24C77797F13D3E65 /* NSManagedObject_Convenient.m in Sources */ = {isa = PBXBuildFile; fileRef = B986E01EAEADFF14A8AE8DE2B77CAB75 /* NSManagedObject_Convenient.m */; };
+		38B841BF26505879465DBB351AE72220 /* CoreDataEnvir-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 763298824DC90AE600DD1FAE16333D63 /* CoreDataEnvir-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3E4195AAD694C06752E4B13B3A066114 /* CoreDataEnvirDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CA97C4BB615B1B84606507E40C30076 /* CoreDataEnvirDescriptor.m */; };
+		40BA0E1234F2AE863CEC901F59B34CA4 /* NSManagedObject_MainThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 846AB2DB456A77FAE827EC0017929F0B /* NSManagedObject_MainThread.m */; };
+		45B6EFC344C0383C53378069AAC9ED8B /* NSManagedObject_Background.h in Headers */ = {isa = PBXBuildFile; fileRef = A92186678EC875E67A13ADA450DECA14 /* NSManagedObject_Background.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		52E7B33AC6FF7CC50AC14C17D8F5F922 /* CoreDataEnvir-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 818BC18C5879D77FC43EA13E2801C1ED /* CoreDataEnvir-dummy.m */; };
+		638BBB67CEDFBABA479D63A4684984A2 /* CoreDataEnvir.h in Headers */ = {isa = PBXBuildFile; fileRef = 74446C5FA07B637BDDF7812CDCE81323 /* CoreDataEnvir.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7263668BD34EE1DF449A23E2504ECD42 /* Pods-CoreDataEnvirSampleTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 95D7406EBE7823D9D3C330EE5CA51DCF /* Pods-CoreDataEnvirSampleTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		753FABFDFC703645F369684B53880B43 /* CoreDataEnvir-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C0ADDA7D056EB4892BBC67B9387F7B /* CoreDataEnvir-dummy.m */; };
+		760F7054C5660D03F642F6B70948CA62 /* CoreDataEnvir.m in Sources */ = {isa = PBXBuildFile; fileRef = 20143C9D2B709AF2413100580B4E0615 /* CoreDataEnvir.m */; };
 		7989C130A9983751A6A2CB3B8DA39B93 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E52A6C3B1B94B8C68F11070716C2E0A7 /* Foundation.framework */; };
-		81371196034CBD1B346F2C1D581321F7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E52A6C3B1B94B8C68F11070716C2E0A7 /* Foundation.framework */; };
-		8E832FC4B01B73AABCFE6AA5CEBD686E /* NSManagedObject_MainThread.m in Sources */ = {isa = PBXBuildFile; fileRef = C20AE435EBDD9746619837F0B8C0B4EE /* NSManagedObject_MainThread.m */; };
-		902B0CEC38D7163172CE9465F60349DB /* CoreDataEnvirObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 4ABD702DC2B280DBCC354A41278381E9 /* CoreDataEnvirObserver.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7CDEAEDEAA6FBC8AD00C3F1F6A288A85 /* CoreDataEnvirDescriptor.h in Headers */ = {isa = PBXBuildFile; fileRef = EDB646B6863C9794BCA2C0F4D62055C6 /* CoreDataEnvirDescriptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7E2B0B60AA16E422DD0AFBEB7297A395 /* CoreDataEnvir_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = F5000B1048DC9FEC83E9DD43A85B0453 /* CoreDataEnvir_Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		85616DC3B2A3135E2F4A481423AD8D68 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E52A6C3B1B94B8C68F11070716C2E0A7 /* Foundation.framework */; };
+		893A88F406A654430EA858B39AD13F55 /* CoreDataEnvir_Main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A1156FA17826106F26476EF04C25F /* CoreDataEnvir_Main.m */; };
+		8BA1842A74AA12CFE1F86392242632CF /* CoreDataRescureDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 53D3902DD262B8A8FE55620AF073560D /* CoreDataRescureDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		96379D7E4B7745A8D83FBF08174E4C19 /* Pods-CoreDataEnvirSampleTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 52BA8AF6A175F9CB4A576395DFC52D1E /* Pods-CoreDataEnvirSampleTests-dummy.m */; };
-		A402BA1F6DBE58012660701C78A30AAE /* CoreDataEnvirHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 5751D86C787334097634EAE4A77BAB07 /* CoreDataEnvirHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B5EE585136A3E8E26047B837998948A5 /* CoreDataEnvir_Main.h in Headers */ = {isa = PBXBuildFile; fileRef = 32E0BAE89DDAAE0D9C64B92196905E20 /* CoreDataEnvir_Main.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BAE69197EE6B7B0B9B1BC4A1F1BA5DB3 /* CoreDataEnvir_Main.m in Sources */ = {isa = PBXBuildFile; fileRef = 17EA9D632C1790A9D74BB140D6C16E6D /* CoreDataEnvir_Main.m */; };
-		BBAC9C7494592ABCF7F5D9DFEB93AEEF /* CoreDataEnvir-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A7DB9B13B2382BE111AF3B333730FB8B /* CoreDataEnvir-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BD59C49A5C583DD9A7AC9D27CC9FBB15 /* CoreDataEnvir_Private.m in Sources */ = {isa = PBXBuildFile; fileRef = F9857651DE6FBA0BF96FCA6EEC1A2217 /* CoreDataEnvir_Private.m */; };
+		B5506C0C4BED2FF0F880008BBD756BEB /* NSManagedObject_MainThread.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A1BF29F8CBA155D0BACC72E6B4BAAA1 /* NSManagedObject_MainThread.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B77D7EF362CE6765C1B46EAC339C3C2C /* NSManagedObject_Background.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE0F4249A71B55422E4CF35CCC9C6E2 /* NSManagedObject_Background.m */; };
+		BA17784955801036D6A87E2D2F0197C6 /* CoreDataEnvir_Background.h in Headers */ = {isa = PBXBuildFile; fileRef = 8ED30641FA4FA5F05F81F256FEDA06D6 /* CoreDataEnvir_Background.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C047DA1265430DAD371BB2655156761B /* Pods-CoreDataEnvirSample-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 794B4161C2A8587BFA0B606E3B313C9F /* Pods-CoreDataEnvirSample-dummy.m */; };
 		C33A77C25CA0BCAFBB632FCFBE890D42 /* Pods-CoreDataEnvirSample-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = EA22FEFB59F71BE09BDCEBC608208853 /* Pods-CoreDataEnvirSample-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E2CDE75E836A43CD71AA6A2B109610A3 /* CoreDataEnvir.h in Headers */ = {isa = PBXBuildFile; fileRef = D0B0F9CC6681AD6344A87937CCE8318B /* CoreDataEnvir.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E0E15255B71A3E004B0092BD106FCFE2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A13E37530B47F5DA0E598490887362E7 /* CoreData.framework */; };
+		E5A99FD4617553C3FBF889A8C372E433 /* CoreDataEnvir_Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 795F4A67BB8D3D0222F820B505C210FC /* CoreDataEnvir_Private.m */; };
+		E759BB61C93433234C21D0FAE84FE848 /* NSManagedObject_Convenient.h in Headers */ = {isa = PBXBuildFile; fileRef = AD5A6831BC378383434DBDB6B1BD0AF2 /* NSManagedObject_Convenient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EF85E8B20361B7079C99EBFA4F70EA6A /* CoreDataEnvir_Main.h in Headers */ = {isa = PBXBuildFile; fileRef = 782ADE97ECFCC151F64076579C4CBE96 /* CoreDataEnvir_Main.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F8D2BDFE8A03C30E319C5347AB4BE86E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E52A6C3B1B94B8C68F11070716C2E0A7 /* Foundation.framework */; };
+		FC30016F262274822061E0067F8E3EF2 /* CoreDataEnvirObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C197A6435678848CA7D01834B51EF1D /* CoreDataEnvirObserver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		A335D926DAD0448D657DC277B9AA9BEB /* PBXContainerItemProxy */ = {
+		0EC8AFA8C243A4245C61ACC0171BEBC2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
@@ -47,68 +49,61 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		090F55EC01F3DA83DA8D69EF302213A4 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		0DE0F4249A71B55422E4CF35CCC9C6E2 /* NSManagedObject_Background.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = NSManagedObject_Background.m; sourceTree = "<group>"; };
+		0F7A1156FA17826106F26476EF04C25F /* CoreDataEnvir_Main.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CoreDataEnvir_Main.m; path = src/CoreDataEnvir/CoreDataEnvir_Main.m; sourceTree = "<group>"; };
 		103A87F66BAA6588430FF0874C639FA9 /* Pods-CoreDataEnvirSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CoreDataEnvirSample.release.xcconfig"; sourceTree = "<group>"; };
 		13A5B99CD63A31CCF49D55AFF92E6317 /* Pods-CoreDataEnvirSample-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-CoreDataEnvirSample-acknowledgements.markdown"; sourceTree = "<group>"; };
-		173028B5E5582B1A15FD54433F3B1C3B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
-		17EA9D632C1790A9D74BB140D6C16E6D /* CoreDataEnvir_Main.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CoreDataEnvir_Main.m; path = src/CoreDataEnvir/CoreDataEnvir_Main.m; sourceTree = "<group>"; };
-		1AA7D5E13FD447B0AC3847A4E920A56E /* CoreDataEnvir-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "CoreDataEnvir-Info.plist"; sourceTree = "<group>"; };
-		32E0BAE89DDAAE0D9C64B92196905E20 /* CoreDataEnvir_Main.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CoreDataEnvir_Main.h; path = src/CoreDataEnvir/CoreDataEnvir_Main.h; sourceTree = "<group>"; };
-		33046CA49C78DE4FAFC4EB777B479489 /* CoreDataEnvir.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = CoreDataEnvir.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		1CA97C4BB615B1B84606507E40C30076 /* CoreDataEnvirDescriptor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CoreDataEnvirDescriptor.m; path = src/CoreDataEnvir/CoreDataEnvirDescriptor.m; sourceTree = "<group>"; };
+		1F790CA2F8B9E53FEF1E6584DDF3BA22 /* CoreDataEnvir.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CoreDataEnvir.release.xcconfig; sourceTree = "<group>"; };
+		20143C9D2B709AF2413100580B4E0615 /* CoreDataEnvir.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CoreDataEnvir.m; path = src/CoreDataEnvir/CoreDataEnvir.m; sourceTree = "<group>"; };
 		3D84EFCC7F31317446BC8D993BD8A841 /* Pods-CoreDataEnvirSample.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-CoreDataEnvirSample.modulemap"; sourceTree = "<group>"; };
+		42432AD019CA08CD6FADB17C203583B7 /* CoreDataEnvir-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "CoreDataEnvir-Info.plist"; sourceTree = "<group>"; };
 		49B60476F83423EDACFDF5B9DC347A30 /* Pods_CoreDataEnvirSampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_CoreDataEnvirSampleTests.framework; path = "Pods-CoreDataEnvirSampleTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4ABD702DC2B280DBCC354A41278381E9 /* CoreDataEnvirObserver.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CoreDataEnvirObserver.h; path = src/CoreDataEnvir/CoreDataEnvirObserver.h; sourceTree = "<group>"; };
-		4EFB704E8503108F939B81138AD8DD23 /* NSManagedObject_Background.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = NSManagedObject_Background.m; sourceTree = "<group>"; };
-		524CD045B24CF7FE41D0850E6498BB59 /* NSManagedObject_Convenient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = NSManagedObject_Convenient.h; sourceTree = "<group>"; };
+		4A1BF29F8CBA155D0BACC72E6B4BAAA1 /* NSManagedObject_MainThread.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = NSManagedObject_MainThread.h; sourceTree = "<group>"; };
+		4B157A770DE344F93B34E55C9D28079A /* CoreDataEnvir.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = CoreDataEnvir.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		52BA8AF6A175F9CB4A576395DFC52D1E /* Pods-CoreDataEnvirSampleTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CoreDataEnvirSampleTests-dummy.m"; sourceTree = "<group>"; };
-		53D085DDE61A5ECD3F09685AB8A6C907 /* CoreDataRescureDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CoreDataRescureDelegate.h; path = src/CoreDataEnvir/CoreDataRescureDelegate.h; sourceTree = "<group>"; };
-		5751D86C787334097634EAE4A77BAB07 /* CoreDataEnvirHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CoreDataEnvirHeader.h; path = src/CoreDataEnvir/CoreDataEnvirHeader.h; sourceTree = "<group>"; };
+		53D3902DD262B8A8FE55620AF073560D /* CoreDataRescureDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CoreDataRescureDelegate.h; path = src/CoreDataEnvir/CoreDataRescureDelegate.h; sourceTree = "<group>"; };
 		609C01CDCAAB3CD17BF39241A4111B3B /* Pods-CoreDataEnvirSampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CoreDataEnvirSampleTests.release.xcconfig"; sourceTree = "<group>"; };
-		6361C8DCF81A47CF5D5A2CCA06DA9F0F /* NSManagedObject_Convenient.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = NSManagedObject_Convenient.m; sourceTree = "<group>"; };
-		64450EDB7FEAB155D4E5EDC03266BC35 /* CoreDataEnvir.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CoreDataEnvir.m; path = src/CoreDataEnvir/CoreDataEnvir.m; sourceTree = "<group>"; };
 		6914EB855DACC45BEA65F6643B8664FB /* Pods-CoreDataEnvirSampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CoreDataEnvirSampleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		74446C5FA07B637BDDF7812CDCE81323 /* CoreDataEnvir.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CoreDataEnvir.h; path = src/CoreDataEnvir/CoreDataEnvir.h; sourceTree = "<group>"; };
 		749C9A3E4389CBC67EE1B15F99BD8CDF /* Pods-CoreDataEnvirSampleTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CoreDataEnvirSampleTests-Info.plist"; sourceTree = "<group>"; };
+		763298824DC90AE600DD1FAE16333D63 /* CoreDataEnvir-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CoreDataEnvir-umbrella.h"; sourceTree = "<group>"; };
+		76C3D38720342855C2E8AA1D2B20F606 /* CoreDataEnvir_Background.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CoreDataEnvir_Background.m; path = src/CoreDataEnvir/CoreDataEnvir_Background.m; sourceTree = "<group>"; };
+		782ADE97ECFCC151F64076579C4CBE96 /* CoreDataEnvir_Main.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CoreDataEnvir_Main.h; path = src/CoreDataEnvir/CoreDataEnvir_Main.h; sourceTree = "<group>"; };
 		783412083735CBFF0BD1171CC96A6547 /* Pods-CoreDataEnvirSampleTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-CoreDataEnvirSampleTests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		783716D1BD2A1DED5DFD38F63DF2C6C0 /* CoreDataEnvir.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CoreDataEnvir.debug.xcconfig; sourceTree = "<group>"; };
 		794B4161C2A8587BFA0B606E3B313C9F /* Pods-CoreDataEnvirSample-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CoreDataEnvirSample-dummy.m"; sourceTree = "<group>"; };
-		796C3ED3075B039B23C5B805B2B0ADEB /* CoreDataEnvir.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = CoreDataEnvir.modulemap; sourceTree = "<group>"; };
-		7CCD51600DAD4F06D5E8844C44D1BDCD /* CoreDataEnvir-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CoreDataEnvir-prefix.pch"; sourceTree = "<group>"; };
-		7D2C40F2057F9BF146126FA279705E97 /* CoreDataEnvir.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CoreDataEnvir.debug.xcconfig; sourceTree = "<group>"; };
-		7D8C3CEBA2E4DF21DB8F8C956059F51D /* CoreDataEnvir.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CoreDataEnvir.release.xcconfig; sourceTree = "<group>"; };
+		795F4A67BB8D3D0222F820B505C210FC /* CoreDataEnvir_Private.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = CoreDataEnvir_Private.m; sourceTree = "<group>"; };
+		79CCE3F3EB892D39EE3AE6E3A3A623A6 /* CoreDataEnvir-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CoreDataEnvir-prefix.pch"; sourceTree = "<group>"; };
+		7C197A6435678848CA7D01834B51EF1D /* CoreDataEnvirObserver.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CoreDataEnvirObserver.h; path = src/CoreDataEnvir/CoreDataEnvirObserver.h; sourceTree = "<group>"; };
 		7ED1129B8C8C2BD88332D5A607F06AEC /* Pods-CoreDataEnvirSampleTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CoreDataEnvirSampleTests-acknowledgements.plist"; sourceTree = "<group>"; };
-		822D477CDF625E4BBBC4302F761A27A5 /* CoreDataEnvir_Background.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CoreDataEnvir_Background.h; path = src/CoreDataEnvir/CoreDataEnvir_Background.h; sourceTree = "<group>"; };
+		818BC18C5879D77FC43EA13E2801C1ED /* CoreDataEnvir-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CoreDataEnvir-dummy.m"; sourceTree = "<group>"; };
 		8360BFCBD544C04889B82647E24DA5F3 /* CoreDataEnvir.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = CoreDataEnvir.framework; path = CoreDataEnvir.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		846AB2DB456A77FAE827EC0017929F0B /* NSManagedObject_MainThread.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = NSManagedObject_MainThread.m; sourceTree = "<group>"; };
 		8771E408B155F5BB1FA404B7AE0A6171 /* Pods-CoreDataEnvirSample-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CoreDataEnvirSample-Info.plist"; sourceTree = "<group>"; };
+		8C3AA12DC8A074181E237990598039C0 /* CoreDataEnvirHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CoreDataEnvirHeader.h; path = src/CoreDataEnvir/CoreDataEnvirHeader.h; sourceTree = "<group>"; };
+		8ED30641FA4FA5F05F81F256FEDA06D6 /* CoreDataEnvir_Background.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CoreDataEnvir_Background.h; path = src/CoreDataEnvir/CoreDataEnvir_Background.h; sourceTree = "<group>"; };
 		95D7406EBE7823D9D3C330EE5CA51DCF /* Pods-CoreDataEnvirSampleTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-CoreDataEnvirSampleTests-umbrella.h"; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A0A0D963EA09D3D203D94ECC0BC4B9E5 /* CoreDataEnvir.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = CoreDataEnvir.modulemap; sourceTree = "<group>"; };
 		A13E37530B47F5DA0E598490887362E7 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		A459F2AB33264DE3F4BC00C6BD650318 /* Pods-CoreDataEnvirSampleTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-CoreDataEnvirSampleTests.modulemap"; sourceTree = "<group>"; };
 		A7509B96D16A62EFE95D914F7F13F54B /* Pods_CoreDataEnvirSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_CoreDataEnvirSample.framework; path = "Pods-CoreDataEnvirSample.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A7DB9B13B2382BE111AF3B333730FB8B /* CoreDataEnvir-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CoreDataEnvir-umbrella.h"; sourceTree = "<group>"; };
-		C20AE435EBDD9746619837F0B8C0B4EE /* NSManagedObject_MainThread.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = NSManagedObject_MainThread.m; sourceTree = "<group>"; };
-		C3C0ADDA7D056EB4892BBC67B9387F7B /* CoreDataEnvir-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CoreDataEnvir-dummy.m"; sourceTree = "<group>"; };
-		C44FA1E9F92DD528EBE1ED3CCB63C458 /* NSManagedObject_MainThread.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = NSManagedObject_MainThread.h; sourceTree = "<group>"; };
+		A92186678EC875E67A13ADA450DECA14 /* NSManagedObject_Background.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = NSManagedObject_Background.h; sourceTree = "<group>"; };
+		AD5A6831BC378383434DBDB6B1BD0AF2 /* NSManagedObject_Convenient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = NSManagedObject_Convenient.h; sourceTree = "<group>"; };
+		B986E01EAEADFF14A8AE8DE2B77CAB75 /* NSManagedObject_Convenient.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = NSManagedObject_Convenient.m; sourceTree = "<group>"; };
+		C335A0F0E09A5F3DDFAEFEB52FFC4663 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
 		CDA1832095F0C541F80F90498B7B29A6 /* Pods-CoreDataEnvirSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CoreDataEnvirSample.debug.xcconfig"; sourceTree = "<group>"; };
-		CF3553CCFB14187B4253A2DA3A95D91A /* CoreDataEnvir_Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = CoreDataEnvir_Private.h; sourceTree = "<group>"; };
 		CFD402A754571E72E3C489F13CBF4AFA /* Pods-CoreDataEnvirSample-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-CoreDataEnvirSample-frameworks.sh"; sourceTree = "<group>"; };
-		D0B0F9CC6681AD6344A87937CCE8318B /* CoreDataEnvir.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CoreDataEnvir.h; path = src/CoreDataEnvir/CoreDataEnvir.h; sourceTree = "<group>"; };
-		D5039690AA0E88DEB85E955EEC4A926D /* CoreDataEnvir_Background.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CoreDataEnvir_Background.m; path = src/CoreDataEnvir/CoreDataEnvir_Background.m; sourceTree = "<group>"; };
 		DB2BA19B872FC9D0F26EC69B3EFAF6FB /* Pods-CoreDataEnvirSample-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CoreDataEnvirSample-acknowledgements.plist"; sourceTree = "<group>"; };
 		E52A6C3B1B94B8C68F11070716C2E0A7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		EA22FEFB59F71BE09BDCEBC608208853 /* Pods-CoreDataEnvirSample-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-CoreDataEnvirSample-umbrella.h"; sourceTree = "<group>"; };
-		EC92BEB042802430DD4B1BA15E4C5C5C /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
-		F573259FEAE22CC17B7A3A331633B5A9 /* NSManagedObject_Background.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = NSManagedObject_Background.h; sourceTree = "<group>"; };
-		F9857651DE6FBA0BF96FCA6EEC1A2217 /* CoreDataEnvir_Private.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = CoreDataEnvir_Private.m; sourceTree = "<group>"; };
+		EDB646B6863C9794BCA2C0F4D62055C6 /* CoreDataEnvirDescriptor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CoreDataEnvirDescriptor.h; path = src/CoreDataEnvir/CoreDataEnvirDescriptor.h; sourceTree = "<group>"; };
+		F5000B1048DC9FEC83E9DD43A85B0453 /* CoreDataEnvir_Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = CoreDataEnvir_Private.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		570E1F34396424AEF0FE0106F4F53D73 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0E98F2ED1D567CDDBF361E727F25C78E /* CoreData.framework in Frameworks */,
-				81371196034CBD1B346F2C1D581321F7 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		7156EF60B912640E73FA68005107BF22 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -125,6 +120,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F5B27F889BF21A3DB62E08CCCE5576EB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E0E15255B71A3E004B0092BD106FCFE2 /* CoreData.framework in Frameworks */,
+				85616DC3B2A3135E2F4A481423AD8D68 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -136,22 +140,29 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		1D824F58ABA8B6994FA8F1E011E128A2 /* Pod */ = {
+		1C2455B94D931DEE6E2585F9CF46C489 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				33046CA49C78DE4FAFC4EB777B479489 /* CoreDataEnvir.podspec */,
-				173028B5E5582B1A15FD54433F3B1C3B /* LICENSE */,
-				EC92BEB042802430DD4B1BA15E4C5C5C /* README.md */,
+				A0A0D963EA09D3D203D94ECC0BC4B9E5 /* CoreDataEnvir.modulemap */,
+				818BC18C5879D77FC43EA13E2801C1ED /* CoreDataEnvir-dummy.m */,
+				42432AD019CA08CD6FADB17C203583B7 /* CoreDataEnvir-Info.plist */,
+				79CCE3F3EB892D39EE3AE6E3A3A623A6 /* CoreDataEnvir-prefix.pch */,
+				763298824DC90AE600DD1FAE16333D63 /* CoreDataEnvir-umbrella.h */,
+				783716D1BD2A1DED5DFD38F63DF2C6C0 /* CoreDataEnvir.debug.xcconfig */,
+				1F790CA2F8B9E53FEF1E6584DDF3BA22 /* CoreDataEnvir.release.xcconfig */,
 			);
-			name = Pod;
+			name = "Support Files";
+			path = "Pods/Target Support Files/CoreDataEnvir";
 			sourceTree = "<group>";
 		};
-		381FBD034355BE0337D4F00A7188E1C2 /* Development Pods */ = {
+		320413B0DA46492191A01402ABD32A5A /* Private */ = {
 			isa = PBXGroup;
 			children = (
-				5AFC55C8C1160C6043F45F85FC9F98FD /* CoreDataEnvir */,
+				F5000B1048DC9FEC83E9DD43A85B0453 /* CoreDataEnvir_Private.h */,
+				795F4A67BB8D3D0222F820B505C210FC /* CoreDataEnvir_Private.m */,
 			);
-			name = "Development Pods";
+			name = Private;
+			path = src/CoreDataEnvir/Private;
 			sourceTree = "<group>";
 		};
 		429055C9436D20C513F0D334460D56BB /* iOS */ = {
@@ -180,64 +191,18 @@
 			path = "Target Support Files/Pods-CoreDataEnvirSample";
 			sourceTree = "<group>";
 		};
-		5AFC55C8C1160C6043F45F85FC9F98FD /* CoreDataEnvir */ = {
+		89831F1941905D24DA7E0D4CA5060E6C /* ManagedObject */ = {
 			isa = PBXGroup;
 			children = (
-				D0B0F9CC6681AD6344A87937CCE8318B /* CoreDataEnvir.h */,
-				64450EDB7FEAB155D4E5EDC03266BC35 /* CoreDataEnvir.m */,
-				822D477CDF625E4BBBC4302F761A27A5 /* CoreDataEnvir_Background.h */,
-				D5039690AA0E88DEB85E955EEC4A926D /* CoreDataEnvir_Background.m */,
-				32E0BAE89DDAAE0D9C64B92196905E20 /* CoreDataEnvir_Main.h */,
-				17EA9D632C1790A9D74BB140D6C16E6D /* CoreDataEnvir_Main.m */,
-				5751D86C787334097634EAE4A77BAB07 /* CoreDataEnvirHeader.h */,
-				4ABD702DC2B280DBCC354A41278381E9 /* CoreDataEnvirObserver.h */,
-				53D085DDE61A5ECD3F09685AB8A6C907 /* CoreDataRescureDelegate.h */,
-				5D6BD2E2C8636E9D5804E7737DC74E1B /* ManagedObject */,
-				1D824F58ABA8B6994FA8F1E011E128A2 /* Pod */,
-				679D2BF40DA96D90594D148805F68709 /* Private */,
-				88EE64F93ADD06B9BB32E2D0BB17F9D6 /* Support Files */,
-			);
-			name = CoreDataEnvir;
-			path = ..;
-			sourceTree = "<group>";
-		};
-		5D6BD2E2C8636E9D5804E7737DC74E1B /* ManagedObject */ = {
-			isa = PBXGroup;
-			children = (
-				F573259FEAE22CC17B7A3A331633B5A9 /* NSManagedObject_Background.h */,
-				4EFB704E8503108F939B81138AD8DD23 /* NSManagedObject_Background.m */,
-				524CD045B24CF7FE41D0850E6498BB59 /* NSManagedObject_Convenient.h */,
-				6361C8DCF81A47CF5D5A2CCA06DA9F0F /* NSManagedObject_Convenient.m */,
-				C44FA1E9F92DD528EBE1ED3CCB63C458 /* NSManagedObject_MainThread.h */,
-				C20AE435EBDD9746619837F0B8C0B4EE /* NSManagedObject_MainThread.m */,
+				A92186678EC875E67A13ADA450DECA14 /* NSManagedObject_Background.h */,
+				0DE0F4249A71B55422E4CF35CCC9C6E2 /* NSManagedObject_Background.m */,
+				AD5A6831BC378383434DBDB6B1BD0AF2 /* NSManagedObject_Convenient.h */,
+				B986E01EAEADFF14A8AE8DE2B77CAB75 /* NSManagedObject_Convenient.m */,
+				4A1BF29F8CBA155D0BACC72E6B4BAAA1 /* NSManagedObject_MainThread.h */,
+				846AB2DB456A77FAE827EC0017929F0B /* NSManagedObject_MainThread.m */,
 			);
 			name = ManagedObject;
 			path = src/CoreDataEnvir/ManagedObject;
-			sourceTree = "<group>";
-		};
-		679D2BF40DA96D90594D148805F68709 /* Private */ = {
-			isa = PBXGroup;
-			children = (
-				CF3553CCFB14187B4253A2DA3A95D91A /* CoreDataEnvir_Private.h */,
-				F9857651DE6FBA0BF96FCA6EEC1A2217 /* CoreDataEnvir_Private.m */,
-			);
-			name = Private;
-			path = src/CoreDataEnvir/Private;
-			sourceTree = "<group>";
-		};
-		88EE64F93ADD06B9BB32E2D0BB17F9D6 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				796C3ED3075B039B23C5B805B2B0ADEB /* CoreDataEnvir.modulemap */,
-				C3C0ADDA7D056EB4892BBC67B9387F7B /* CoreDataEnvir-dummy.m */,
-				1AA7D5E13FD447B0AC3847A4E920A56E /* CoreDataEnvir-Info.plist */,
-				7CCD51600DAD4F06D5E8844C44D1BDCD /* CoreDataEnvir-prefix.pch */,
-				A7DB9B13B2382BE111AF3B333730FB8B /* CoreDataEnvir-umbrella.h */,
-				7D2C40F2057F9BF146126FA279705E97 /* CoreDataEnvir.debug.xcconfig */,
-				7D8C3CEBA2E4DF21DB8F8C956059F51D /* CoreDataEnvir.release.xcconfig */,
-			);
-			name = "Support Files";
-			path = "Pods/Target Support Files/CoreDataEnvir";
 			sourceTree = "<group>";
 		};
 		9147323CF2FC867DA3C00271A31F73FD /* Pods-CoreDataEnvirSampleTests */ = {
@@ -254,6 +219,16 @@
 			);
 			name = "Pods-CoreDataEnvirSampleTests";
 			path = "Target Support Files/Pods-CoreDataEnvirSampleTests";
+			sourceTree = "<group>";
+		};
+		A37A9950C4803A0AF4BC04B483A84761 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				4B157A770DE344F93B34E55C9D28079A /* CoreDataEnvir.podspec */,
+				090F55EC01F3DA83DA8D69EF302213A4 /* LICENSE */,
+				C335A0F0E09A5F3DDFAEFEB52FFC4663 /* README.md */,
+			);
+			name = Pod;
 			sourceTree = "<group>";
 		};
 		C03A85ABD808A826CB08212C27C9C0DD /* Targets Support Files */ = {
@@ -279,11 +254,42 @@
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
-				381FBD034355BE0337D4F00A7188E1C2 /* Development Pods */,
+				F44C1ED847C0DA54597EF47E28DA9DAE /* Development Pods */,
 				1628BF05B4CAFDCC3549A101F5A10A17 /* Frameworks */,
 				CDE420DF9C8CE5E584A343EA0E426B3F /* Products */,
 				C03A85ABD808A826CB08212C27C9C0DD /* Targets Support Files */,
 			);
+			sourceTree = "<group>";
+		};
+		ECB4151B338480FB3613AED777AE1995 /* CoreDataEnvir */ = {
+			isa = PBXGroup;
+			children = (
+				74446C5FA07B637BDDF7812CDCE81323 /* CoreDataEnvir.h */,
+				20143C9D2B709AF2413100580B4E0615 /* CoreDataEnvir.m */,
+				8ED30641FA4FA5F05F81F256FEDA06D6 /* CoreDataEnvir_Background.h */,
+				76C3D38720342855C2E8AA1D2B20F606 /* CoreDataEnvir_Background.m */,
+				782ADE97ECFCC151F64076579C4CBE96 /* CoreDataEnvir_Main.h */,
+				0F7A1156FA17826106F26476EF04C25F /* CoreDataEnvir_Main.m */,
+				EDB646B6863C9794BCA2C0F4D62055C6 /* CoreDataEnvirDescriptor.h */,
+				1CA97C4BB615B1B84606507E40C30076 /* CoreDataEnvirDescriptor.m */,
+				8C3AA12DC8A074181E237990598039C0 /* CoreDataEnvirHeader.h */,
+				7C197A6435678848CA7D01834B51EF1D /* CoreDataEnvirObserver.h */,
+				53D3902DD262B8A8FE55620AF073560D /* CoreDataRescureDelegate.h */,
+				89831F1941905D24DA7E0D4CA5060E6C /* ManagedObject */,
+				A37A9950C4803A0AF4BC04B483A84761 /* Pod */,
+				320413B0DA46492191A01402ABD32A5A /* Private */,
+				1C2455B94D931DEE6E2585F9CF46C489 /* Support Files */,
+			);
+			name = CoreDataEnvir;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		F44C1ED847C0DA54597EF47E28DA9DAE /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				ECB4151B338480FB3613AED777AE1995 /* CoreDataEnvir */,
+			);
+			name = "Development Pods";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -305,21 +311,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D711A6A6320A63505884462221E692B0 /* Headers */ = {
+		94EBD9E919838415FC4E0C8A4C2BF05A /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BBAC9C7494592ABCF7F5D9DFEB93AEEF /* CoreDataEnvir-umbrella.h in Headers */,
-				E2CDE75E836A43CD71AA6A2B109610A3 /* CoreDataEnvir.h in Headers */,
-				5D99EEA1BA1C0616A908B7F64D675B7B /* CoreDataEnvir_Background.h in Headers */,
-				B5EE585136A3E8E26047B837998948A5 /* CoreDataEnvir_Main.h in Headers */,
-				40E95598737415488DCA743F7E4ED38D /* CoreDataEnvir_Private.h in Headers */,
-				A402BA1F6DBE58012660701C78A30AAE /* CoreDataEnvirHeader.h in Headers */,
-				902B0CEC38D7163172CE9465F60349DB /* CoreDataEnvirObserver.h in Headers */,
-				1A60F4C24B9BDF5F8D4064AF5E916AB9 /* CoreDataRescureDelegate.h in Headers */,
-				063BE378B08519CDB0C82E0ABDB49C43 /* NSManagedObject_Background.h in Headers */,
-				4F7EADE6B6BE35361D2B144734F9155C /* NSManagedObject_Convenient.h in Headers */,
-				42A688D5BBAA7B08B61329749060B765 /* NSManagedObject_MainThread.h in Headers */,
+				38B841BF26505879465DBB351AE72220 /* CoreDataEnvir-umbrella.h in Headers */,
+				638BBB67CEDFBABA479D63A4684984A2 /* CoreDataEnvir.h in Headers */,
+				BA17784955801036D6A87E2D2F0197C6 /* CoreDataEnvir_Background.h in Headers */,
+				EF85E8B20361B7079C99EBFA4F70EA6A /* CoreDataEnvir_Main.h in Headers */,
+				7E2B0B60AA16E422DD0AFBEB7297A395 /* CoreDataEnvir_Private.h in Headers */,
+				7CDEAEDEAA6FBC8AD00C3F1F6A288A85 /* CoreDataEnvirDescriptor.h in Headers */,
+				0594653B3C28255C3B4E1773955958DD /* CoreDataEnvirHeader.h in Headers */,
+				FC30016F262274822061E0067F8E3EF2 /* CoreDataEnvirObserver.h in Headers */,
+				8BA1842A74AA12CFE1F86392242632CF /* CoreDataRescureDelegate.h in Headers */,
+				45B6EFC344C0383C53378069AAC9ED8B /* NSManagedObject_Background.h in Headers */,
+				E759BB61C93433234C21D0FAE84FE848 /* NSManagedObject_Convenient.h in Headers */,
+				B5506C0C4BED2FF0F880008BBD756BEB /* NSManagedObject_MainThread.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,12 +335,12 @@
 /* Begin PBXNativeTarget section */
 		29F6F762B2B2BAFF39B502610FDF8362 /* CoreDataEnvir */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D504313DB759011E30C4E61A881B8279 /* Build configuration list for PBXNativeTarget "CoreDataEnvir" */;
+			buildConfigurationList = 4FFF007B28E873A84D3E7C663C2D6E53 /* Build configuration list for PBXNativeTarget "CoreDataEnvir" */;
 			buildPhases = (
-				D711A6A6320A63505884462221E692B0 /* Headers */,
-				8EEDFCA520B0090C23C798D0C869F28A /* Sources */,
-				570E1F34396424AEF0FE0106F4F53D73 /* Frameworks */,
-				5597BCE72F595028740CA22C44AB4D06 /* Resources */,
+				94EBD9E919838415FC4E0C8A4C2BF05A /* Headers */,
+				6B42C41360A1489CC3BA5831FA791C85 /* Sources */,
+				F5B27F889BF21A3DB62E08CCCE5576EB /* Frameworks */,
+				AD61C369BE78671EBE86504C5E1C5AC0 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -356,7 +363,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				5B74E6DA32B4251CACFD4D40BB07C51F /* PBXTargetDependency */,
+				8E1E989A5F34A6EB48EE4CEDF7AB1913 /* PBXTargetDependency */,
 			);
 			name = "Pods-CoreDataEnvirSample";
 			productName = "Pods-CoreDataEnvirSample";
@@ -418,7 +425,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5597BCE72F595028740CA22C44AB4D06 /* Resources */ = {
+		AD61C369BE78671EBE86504C5E1C5AC0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -435,18 +442,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		8EEDFCA520B0090C23C798D0C869F28A /* Sources */ = {
+		6B42C41360A1489CC3BA5831FA791C85 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				753FABFDFC703645F369684B53880B43 /* CoreDataEnvir-dummy.m in Sources */,
-				05DFD57D877C54F14B4DB5045902E46B /* CoreDataEnvir.m in Sources */,
-				1B25A285757E784FD391E10CD700AF4B /* CoreDataEnvir_Background.m in Sources */,
-				BAE69197EE6B7B0B9B1BC4A1F1BA5DB3 /* CoreDataEnvir_Main.m in Sources */,
-				BD59C49A5C583DD9A7AC9D27CC9FBB15 /* CoreDataEnvir_Private.m in Sources */,
-				1D153E722109BC902F1E2629B2480FC4 /* NSManagedObject_Background.m in Sources */,
-				24E874980FCE39F936E8CF6A08DF0729 /* NSManagedObject_Convenient.m in Sources */,
-				8E832FC4B01B73AABCFE6AA5CEBD686E /* NSManagedObject_MainThread.m in Sources */,
+				52E7B33AC6FF7CC50AC14C17D8F5F922 /* CoreDataEnvir-dummy.m in Sources */,
+				760F7054C5660D03F642F6B70948CA62 /* CoreDataEnvir.m in Sources */,
+				25141B15338DD8E09CB0F1053DDD1ADB /* CoreDataEnvir_Background.m in Sources */,
+				893A88F406A654430EA858B39AD13F55 /* CoreDataEnvir_Main.m in Sources */,
+				E5A99FD4617553C3FBF889A8C372E433 /* CoreDataEnvir_Private.m in Sources */,
+				3E4195AAD694C06752E4B13B3A066114 /* CoreDataEnvirDescriptor.m in Sources */,
+				B77D7EF362CE6765C1B46EAC339C3C2C /* NSManagedObject_Background.m in Sources */,
+				2B6E2038FCF4168D24C77797F13D3E65 /* NSManagedObject_Convenient.m in Sources */,
+				40BA0E1234F2AE863CEC901F59B34CA4 /* NSManagedObject_MainThread.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,11 +477,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		5B74E6DA32B4251CACFD4D40BB07C51F /* PBXTargetDependency */ = {
+		8E1E989A5F34A6EB48EE4CEDF7AB1913 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = CoreDataEnvir;
 			target = 29F6F762B2B2BAFF39B502610FDF8362 /* CoreDataEnvir */;
-			targetProxy = A335D926DAD0448D657DC277B9AA9BEB /* PBXContainerItemProxy */;
+			targetProxy = 0EC8AFA8C243A4245C61ACC0171BEBC2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -515,9 +523,9 @@
 			};
 			name = Debug;
 		};
-		39CE350FBCD4E8162EA423B68953EA47 /* Debug */ = {
+		2B75E9A8AB482F534AA8FD9EC56C70CC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7D2C40F2057F9BF146126FA279705E97 /* CoreDataEnvir.debug.xcconfig */;
+			baseConfigurationReference = 783716D1BD2A1DED5DFD38F63DF2C6C0 /* CoreDataEnvir.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -586,42 +594,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
-		};
-		7177708D4ABB87D965D611245C630E7D /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7D8C3CEBA2E4DF21DB8F8C956059F51D /* CoreDataEnvir.release.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/CoreDataEnvir/CoreDataEnvir-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/CoreDataEnvir/CoreDataEnvir-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/CoreDataEnvir/CoreDataEnvir.modulemap";
-				PRODUCT_MODULE_NAME = CoreDataEnvir;
-				PRODUCT_NAME = CoreDataEnvir;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
 		};
 		724EA0E881E6A37CA59A63B176D6A1E6 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -785,6 +757,42 @@
 			};
 			name = Debug;
 		};
+		9EE6BDB07C766A6755958BB312E3FE7E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1F790CA2F8B9E53FEF1E6584DDF3BA22 /* CoreDataEnvir.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/CoreDataEnvir/CoreDataEnvir-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/CoreDataEnvir/CoreDataEnvir-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/CoreDataEnvir/CoreDataEnvir.modulemap";
+				PRODUCT_MODULE_NAME = CoreDataEnvir;
+				PRODUCT_NAME = CoreDataEnvir;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		EBEE512275ADA6330924189A58A47EC6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 609C01CDCAAB3CD17BF39241A4111B3B /* Pods-CoreDataEnvirSampleTests.release.xcconfig */;
@@ -835,20 +843,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		4FFF007B28E873A84D3E7C663C2D6E53 /* Build configuration list for PBXNativeTarget "CoreDataEnvir" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2B75E9A8AB482F534AA8FD9EC56C70CC /* Debug */,
+				9EE6BDB07C766A6755958BB312E3FE7E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		84122AE19109C5BA1E5329A65144829C /* Build configuration list for PBXNativeTarget "Pods-CoreDataEnvirSampleTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				007FA0241BC3EE98F15B2B195B1E8C96 /* Debug */,
 				EBEE512275ADA6330924189A58A47EC6 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D504313DB759011E30C4E61A881B8279 /* Build configuration list for PBXNativeTarget "CoreDataEnvir" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				39CE350FBCD4E8162EA423B68953EA47 /* Debug */,
-				7177708D4ABB87D965D611245C630E7D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

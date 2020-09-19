@@ -7,24 +7,13 @@
 //
 
 #import "CoreDataEnvir_Main.h"
-#import "CoreDataEnvir_Private.h"
+#import "CoreDataEnvirDescriptor.h"
 
 @implementation CoreDataEnvir (CDEMain)
 
 + (CoreDataEnvir *)mainInstance
 {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        if (_mainInstance == nil) {
-            _mainInstance = [[self alloc] initWithDatabaseFileName:nil modelFileName:nil];
-        }
-        
-        if (_mainInstance && _mainInstance.currentQueue != dispatch_get_main_queue()) {
-            _mainInstance.currentQueue = dispatch_get_main_queue();
-        }
-    });
-
-    return _mainInstance;
+    return [CoreDataEnvirDescriptor.defaultInstance mainInstance];
 }
 
 + (dispatch_queue_t)mainQueue

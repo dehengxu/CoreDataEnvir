@@ -1,0 +1,85 @@
+//
+//  CoreDataEnvirDescriptor.m
+//  CoreDataEnvirSample
+//
+//  Created by Deheng Xu on 2020/9/19.
+//  Copyright © 2020 Nicholas.Xu. All rights reserved.
+//
+
+#import "CoreDataEnvirDescriptor.h"
+#import "CoreDataEnvir.h"
+#import "CoreDataEnvir_Private.h"
+
+@interface CoreDataEnvirDescriptor ()
+@property (nonatomic, strong) NSBundle* bundle;
+@end
+
+@implementation CoreDataEnvirDescriptor
+
++ (instancetype)defaultInstance {
+	static dispatch_once_t onceToken = 0;
+	static CoreDataEnvirDescriptor* __shared__ = nil;
+	dispatch_once(&onceToken, ^{
+		__shared__ = [[self alloc] init];
+		__shared__.modelName = nil;//@"Model";
+		__shared__.storeFileName = @"db.sqlite";
+		__shared__.storeDirectory = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] copy];
+		__shared__.bundle = NSBundle.mainBundle;
+	});
+	return __shared__;
+}
+
++ (instancetype)instanceWithModelName:(NSString *)modelName bundle:(NSBundle *)bundle storeFileName:(NSString *)fileName storedUnderDirectory:(NSString *)directory {
+	CoreDataEnvirDescriptor* ins = [[self alloc] init];
+	ins.modelName = modelName;
+	ins.storeFileName = fileName;
+	ins.storeDirectory = directory;
+	ins.bundle = bundle;
+	return ins;
+}
+
+- (NSURL*)modelURL {
+	NSURL* url = [self.bundle URLForResource:self.modelName withExtension:@"momd"];
+	return url;
+}
+
+- (NSURL*)storeURL {
+	NSURL* url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@", self.storeDirectory, self.storeFileName]];
+	return url;
+}
+
+- (CoreDataEnvir *)mainInstance {
+	
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		_mainInstance = [CoreDataEnvir new];
+		[_mainInstance setupModelWithURL:[self modelURL]];
+		[_mainInstance setupDefaultPersistentStoreWithURL:[self storeURL]];
+		_mainInstance.currentQueue = dispatch_get_main_queue();
+	});
+
+	return _mainInstance;
+}
+
+- (CoreDataEnvir *)backgroundInstance {
+
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		_backgroundInstance = [self instance];
+	});
+
+	return _backgroundInstance;
+}
+
+- (CoreDataEnvir *)instance {
+	CoreDataEnvir* ins = [CoreDataEnvir new];
+	[ins setupModelWithURL:[self modelURL]];
+	[ins setupDefaultPersistentStoreWithURL:[self storeURL]];
+
+	if (ins && ![ins currentQueue] ) {
+		ins.currentQueue = dispatch_queue_create([[NSString stringWithFormat:@"%@-%ld", [NSString stringWithUTF8String:"com.dehengxu.coredataenvir.background"], _create_counter] UTF8String], NULL);
+	}
+	return ins;
+}
+
+@end

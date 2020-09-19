@@ -62,6 +62,8 @@
 		24B659D9251593E8006EED9E /* CoreDataEnvir.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreDataEnvir.h; sourceTree = "<group>"; };
 		24B659DA251593E8006EED9E /* CoreDataEnvirHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreDataEnvirHeader.h; sourceTree = "<group>"; };
 		24B659DB251593E8006EED9E /* CoreDataEnvirObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreDataEnvirObserver.h; sourceTree = "<group>"; };
+		24B65A0B25159D0E006EED9E /* CoreDataEnvirDescriptor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreDataEnvirDescriptor.h; sourceTree = "<group>"; };
+		24B65A0C25159D0E006EED9E /* CoreDataEnvirDescriptor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreDataEnvirDescriptor.m; sourceTree = "<group>"; };
 		262FD9026AB240C80B0AE9E1 /* Pods-CoreDataEnvirSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoreDataEnvirSample.release.xcconfig"; path = "Target Support Files/Pods-CoreDataEnvirSample/Pods-CoreDataEnvirSample.release.xcconfig"; sourceTree = "<group>"; };
 		273FD0866510B908FF9E3338 /* Pods_CoreDataEnvirSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoreDataEnvirSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		740983C71B94579B00C7AF8C /* CoreDataEnvir.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = CoreDataEnvir.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -144,17 +146,19 @@
 		24B659C8251593E8006EED9E /* CoreDataEnvir */ = {
 			isa = PBXGroup;
 			children = (
-				24B659C9251593E8006EED9E /* CoreDataEnvir.m */,
+				24B659D5251593E8006EED9E /* CoreDataEnvir_Background.h */,
 				24B659CA251593E8006EED9E /* CoreDataEnvir_Background.m */,
 				24B659CB251593E8006EED9E /* CoreDataEnvir_Main.h */,
-				24B659CC251593E8006EED9E /* CoreDataRescureDelegate.h */,
-				24B659CD251593E8006EED9E /* ManagedObject */,
 				24B659D4251593E8006EED9E /* CoreDataEnvir_Main.m */,
-				24B659D5251593E8006EED9E /* CoreDataEnvir_Background.h */,
-				24B659D6251593E8006EED9E /* Private */,
 				24B659D9251593E8006EED9E /* CoreDataEnvir.h */,
+				24B659C9251593E8006EED9E /* CoreDataEnvir.m */,
+				24B65A0B25159D0E006EED9E /* CoreDataEnvirDescriptor.h */,
+				24B65A0C25159D0E006EED9E /* CoreDataEnvirDescriptor.m */,
 				24B659DA251593E8006EED9E /* CoreDataEnvirHeader.h */,
 				24B659DB251593E8006EED9E /* CoreDataEnvirObserver.h */,
+				24B659CC251593E8006EED9E /* CoreDataRescureDelegate.h */,
+				24B659CD251593E8006EED9E /* ManagedObject */,
+				24B659D6251593E8006EED9E /* Private */,
 			);
 			path = CoreDataEnvir;
 			sourceTree = "<group>";

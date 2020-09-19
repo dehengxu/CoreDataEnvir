@@ -183,9 +183,9 @@ static dispatch_semaphore_t _sem_main = NULL;
         }
         
         //Create buildin background work queue
-        if (!_currentQueue) {
-            _currentQueue = dispatch_queue_create([[NSString stringWithFormat:@"%@-%ld", [NSString stringWithUTF8String:"com.dehengxu.coredataenvir.background"], _create_counter] UTF8String], NULL);
-        }
+//        if (!_currentQueue) {
+//            _currentQueue = dispatch_queue_create([[NSString stringWithFormat:@"%@-%ld", [NSString stringWithUTF8String:"com.dehengxu.coredataenvir.background"], _create_counter] UTF8String], NULL);
+//        }
 
     }
     return self;

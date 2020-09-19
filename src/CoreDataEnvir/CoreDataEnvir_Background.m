@@ -7,24 +7,13 @@
 //
 
 #import "CoreDataEnvir_Background.h"
-#import "CoreDataEnvir_Private.h"
+#import "CoreDataEnvirDescriptor.h"
 
 @implementation CoreDataEnvir (CDEBackground)
 
 + (CoreDataEnvir *)backgroundInstance
 {
-    static dispatch_once_t onceTokenInstance;
-    dispatch_once(&onceTokenInstance, ^{
-        if (!_backgroundInstance) {
-            _backgroundInstance = [CoreDataEnvir createInstance];
-        }
-        
-        if (_backgroundInstance && ![_backgroundInstance currentQueue] ) {
-            _backgroundInstance.currentQueue = dispatch_queue_create([[NSString stringWithFormat:@"%@-%ld", [NSString stringWithUTF8String:"com.dehengxu.coredataenvir.background"], _create_counter] UTF8String], NULL);
-        }
-
-    });
-    return _backgroundInstance;
+    return [CoreDataEnvirDescriptor.defaultInstance backgroundInstance];
 }
 
 + (dispatch_queue_t)backgroundQueue

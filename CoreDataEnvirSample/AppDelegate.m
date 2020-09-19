@@ -52,6 +52,10 @@ _Bool checkEnv(const char* name) {
 //            item.name = @"Lion";
 //            [item save];
 //        }];
+
+		CoreDataEnvir* db = [CoreDataEnvirDescriptor.defaultInstance backgroundInstance];
+		[Team insertItemInContext:db];
+		[db saveDataBase];
         printf("Team total count: %lu\n", Team.totalCount);
 #else
         NSURL* modelURL = [NSBundle.mainBundle URLForResource:@"SampleModel" withExtension:@"momd"];

@@ -10,6 +10,7 @@
 //#define CoreDataEnvirSample_CoreDataEnvirHeader_h
 
 #import <CoreDataEnvir/CoreDataEnvir.h>
+#import <CoreDataEnvir/CoreDataEnvirDescriptor.h>
 #import <CoreDataEnvir/CoreDataEnvir_Main.h>
 #import <CoreDataEnvir/CoreDataEnvir_Background.h>
 

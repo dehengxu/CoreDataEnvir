@@ -11,6 +11,7 @@
 #endif
 
 #import "CoreDataEnvir.h"
+#import "CoreDataEnvirDescriptor.h"
 #import "CoreDataEnvirHeader.h"
 #import "CoreDataEnvirObserver.h"
 #import "CoreDataEnvir_Background.h"
