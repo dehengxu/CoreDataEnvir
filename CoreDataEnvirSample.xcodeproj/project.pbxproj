@@ -885,7 +885,6 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "armv7 arm64 x86_64";
 			};
 			name = Debug;
 		};
@@ -932,7 +931,6 @@
 				SWIFT_COMPILATION_MODE = wholemodule;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "armv7 arm64 x86_64";
 			};
 			name = Release;
 		};
