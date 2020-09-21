@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A2ED3EC817112B3F003E9A37"
-               BuildableName = "CoreDataEnvirSample.app"
-               BlueprintName = "CoreDataEnvirSample"
+               BlueprintIdentifier = "74B1807B25183D5A00FAB385"
+               BuildableName = "CoreDataEnvir.framework"
+               BlueprintName = "CoreDataEnvir"
                ReferencedContainer = "container:CoreDataEnvirSample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,16 +28,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A2CC432D18079C6F0029C967"
-               BuildableName = "CoreDataEnvirFrameworkTests.xctest"
-               BlueprintName = "CoreDataEnvirFrameworkTests"
-               ReferencedContainer = "container:CoreDataEnvirSample.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -50,23 +40,6 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A2ED3EC817112B3F003E9A37"
-            BuildableName = "CoreDataEnvirSample.app"
-            BlueprintName = "CoreDataEnvirSample"
-            ReferencedContainer = "container:CoreDataEnvirSample.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "debug"
-            value = "1"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -74,16 +47,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A2ED3EC817112B3F003E9A37"
-            BuildableName = "CoreDataEnvirSample.app"
-            BlueprintName = "CoreDataEnvirSample"
+            BlueprintIdentifier = "74B1807B25183D5A00FAB385"
+            BuildableName = "CoreDataEnvir.framework"
+            BlueprintName = "CoreDataEnvir"
             ReferencedContainer = "container:CoreDataEnvirSample.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
