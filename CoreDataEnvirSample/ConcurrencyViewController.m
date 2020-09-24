@@ -48,8 +48,6 @@
 
 - (void)dealloc
 {
-    dispatch_release(__runs_sema);
-    [super dealloc];
 }
 
 - (void)viewDidLoad
@@ -65,7 +63,7 @@
     
     for (int i = 0; i < 3; i++) {
         
-        UIButton *btn = [[[UIButton alloc] initWithFrame:CGRectZero] autorelease];
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectZero];
         btn.frame = CGRectMake(20, 20 + self.navigationController.navigationBar.frame.size.height + i * buttonSize.height, buttonSize.width, buttonSize.height);
         [btn addTarget:self action:NSSelectorFromString(actions[i]) forControlEvents:UIControlEventTouchUpInside];
         [btn setTitle:titles[i] forState:UIControlStateNormal];
@@ -114,8 +112,8 @@ int runs_forever = THREAD_NUMBER;
     //Every thread runs 101 times Request operation.
     int runTimes = times;
     dispatch_async(queue, ^{
-        CoreDataEnvir *db = [[CoreDataEnvir instance] retain];
-        [CoreDataEnvir registRescureDelegate:self];
+        CoreDataEnvir *db = [CoreDataEnvir instance];
+        [CoreDataEnvir setRescureDelegate:self];
 
         NSString *queueLabel = [NSString stringWithCString:dispatch_queue_get_label(queue) encoding:NSUTF8StringEncoding];
         
@@ -153,11 +151,10 @@ int runs_forever = THREAD_NUMBER;
             
             [NSThread sleepForTimeInterval:0.05];
         }
-        dispatch_semaphore_wait(__runs_sema, ~0ull);
+		dispatch_semaphore_wait(self->__runs_sema, ~0ull);
         runs_forever--;
-        dispatch_semaphore_signal(__runs_sema);
+		dispatch_semaphore_signal(self->__runs_sema);
         NSLog(@"runs_forever :%d", runs_forever);
-        [db release];
     });
 }
 
@@ -189,9 +186,9 @@ int runs_forever = THREAD_NUMBER;
             }
             [db saveDataBase];
         }
-        dispatch_semaphore_wait(__runs_sema, ~0ull);
+		dispatch_semaphore_wait(self->__runs_sema, ~0ull);
         runs_forever--;
-        dispatch_semaphore_signal(__runs_sema);
+		dispatch_semaphore_signal(self->__runs_sema);
         NSLog(@"runs_forever :%d", runs_forever);
     });
 }
@@ -346,7 +343,7 @@ int counter = 0;
 //    t.number = @(0);
 //    [t save];
 
-    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"" message:message delegate:Nil cancelButtonTitle:@"Close" otherButtonTitles: nil] autorelease];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:message delegate:Nil cancelButtonTitle:@"Close" otherButtonTitles: nil];
     [alert show];
 }
 

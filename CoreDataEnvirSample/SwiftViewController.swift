@@ -15,6 +15,9 @@ class SwiftViewController: UIViewController {
     @objc override func viewDidLoad() {
         super.viewDidLoad()
         
+        CoreDataEnvir.mainInstance()
+        print("Team.totalCount:", Team.totalCount())
+        print("Member.totalCount:", Member.totalCount())
     }
     
 }

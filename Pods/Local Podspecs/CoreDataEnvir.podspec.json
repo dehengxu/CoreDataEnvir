@@ -4,27 +4,27 @@
   "summary": "CoreDataEnvir is a CoreData wrapper which use CoreData in convient way and supply thread safe in concurrenct programming.",
   "description": "CoreDataEnvir is a CoreData wrapper which use CoreData in convient way and supply thread safe in concurrenct programming. You can use it concurrenctly，run seperate CoreDataEnvir instance on one thread.",
   "homepage": "https://dehengxu.github.io/CoreDataEnvir",
+  "module_name": "CoreDataEnvir",
   "license": "MIT",
   "authors": {
     "DehengXu": "dehengxu@outlook.com"
   },
   "social_media_url": "https://github.com/dehengxu",
   "platforms": {
-    "ios": "9.0"
+    "ios": "10.0"
   },
   "source": {
     "git": "https://github.com/dehengxu/CoreDataEnvir.git",
     "tag": "0.13.0-beta.1"
   },
   "source_files": [
-    "CoreDataEnvir",
-    "CoreDataEnvir/**/*.{h,m}"
+    "src/CoreDataEnvir/*.h",
+    "src/CoreDataEnvir/**/*.{h,m}"
   ],
-  "exclude_files": "Classes/Exclude",
-  "public_header_files": [
-    "CoreDataEnvir/*.h",
-    "CoreDataEnvir/ManagedObject/*.h"
-  ],
+  "public_header_files": "src/CoreDataEnvir/**/*.h",
   "frameworks": "CoreData",
-  "requires_arc": false
+  "requires_arc": true,
+  "info_plist": {
+    "CFBundleIdentifier": "com.dehengxu.CoreDataEnvir"
+  }
 }

@@ -11,12 +11,16 @@
 #endif
 
 #import "CoreDataEnvir.h"
+#import "CoreDataEnvirDescriptor.h"
 #import "CoreDataEnvirHeader.h"
+#import "CoreDataEnvirObserver.h"
 #import "CoreDataEnvir_Background.h"
 #import "CoreDataEnvir_Main.h"
+#import "CoreDataRescureDelegate.h"
 #import "NSManagedObject_Background.h"
 #import "NSManagedObject_Convenient.h"
 #import "NSManagedObject_MainThread.h"
+#import "CoreDataEnvir_Private.h"
 
 FOUNDATION_EXPORT double CoreDataEnvirVersionNumber;
 FOUNDATION_EXPORT const unsigned char CoreDataEnvirVersionString[];

@@ -9,6 +9,7 @@
 #import "RelationshipViewController.h"
 
 //#import "CoreDataEnvirHeader.h"
+#import <CoreDataEnvirHeader.h>
 @import CoreDataEnvir;
 #import "Team.h"
 #import "Member.h"
@@ -26,6 +27,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+		
     }
     return self;
 }
@@ -43,7 +45,7 @@
 
     for (int i = 0; i < BUTTONS_NUMBER; i++) {
         
-        UIButton *btn = [[[UIButton alloc] initWithFrame:CGRectZero] autorelease];
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectZero];
         btn.frame = CGRectMake(20, 20 + self.navigationController.navigationBar.frame.size.height + i * buttonSize.height, buttonSize.width, buttonSize.height);
         [btn addTarget:self action:NSSelectorFromString(actions[i]) forControlEvents:UIControlEventTouchUpInside];
         [btn setTitle:titles[i] forState:UIControlStateNormal];
@@ -93,7 +95,7 @@
         members_c += [t.members count];
     }
     NSString *message = [NSString stringWithFormat:@"teams %lu\nmembers of teams :%d\ntotal members :%lu.", [teams count], members_c, [members count]];
-    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"" message:message delegate:Nil cancelButtonTitle:@"Close" otherButtonTitles: nil] autorelease];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:message delegate:Nil cancelButtonTitle:@"Close" otherButtonTitles: nil];
     [alert show];
 
 }

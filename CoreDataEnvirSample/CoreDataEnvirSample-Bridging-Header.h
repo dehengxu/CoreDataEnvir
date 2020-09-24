@@ -4,3 +4,6 @@
 
 #import "Team.h"
 #import "Member.h"
+#if __has_include(<CoreDataEnvir/CoreDataEnvirHeader.h>)
+#import <CoreDataEnvir/CoreDataEnvirHeader.h>
+#endif

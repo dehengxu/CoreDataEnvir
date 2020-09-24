@@ -1,8 +1,8 @@
 //
 //  CoreDataEnvirTests.m
-//  CoreDataEnvirTests
+//  CoreDataEnvirSampleTests
 //
-//  Created by NicholasXu on 2020/9/21.
+//  Created by NicholasXu on 2020/9/18.
 //  Copyright © 2020 Nicholas.Xu. All rights reserved.
 //
 

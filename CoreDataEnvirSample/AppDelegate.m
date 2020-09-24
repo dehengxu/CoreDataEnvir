@@ -13,27 +13,92 @@
 #import "CoreDataEnvir.h"
 #import "Team.h"
 #import "Member.h"
-#import <CoreDataEnvir/CoreDataEnvir.h>
+#import <CoreDataEnvir/CoreDataEnvirHeader.h>
+
+_Bool checkEnv(const char* name) {
+    const char* env  = getenv(name);
+    return (env != 0 && strcmp(env, "1") == 0);
+}
 
 @implementation AppDelegate
 
 - (void)dealloc
 {
-    [_window release];
-    [_viewController release];
-    [super dealloc];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //Set db file name and model file name.
-    [CoreDataEnvir registDefaultDataFileName:@"db.sqlite"];
-    [CoreDataEnvir registDefaultModelFileName:@"SampleModel"];
+    if (!checkEnv("debug")) {
+        exit(0);
+    }
+    if (!checkEnv("demo")) {
+        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        self.window.rootViewController = [UIViewController new];
+        self.window.rootViewController.view.backgroundColor = UIColor.blackColor;
+        [self.window makeKeyAndVisible];
+#if true // test legacy
+//		[CoreDataEnvir.backgroundInstance asyncWithBlock:^(CoreDataEnvir * _Nonnull db) {
+//			[Team insertItemInContext:db fillData:^(Team*  _Nonnull item) {
+//				item.name = @"CybLion";
+//			}];
+//			[db saveDataBase];
+//		}];
+		
+//		[Team insertItemOnBackgroundWithFillingBlock:^(Team*  _Nonnull item) {
+//			item.name = @"Lion";
+//		}];
 
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+//        [Team insertItemWithFillingBlock:^(Team* item) {
+//            item.name = @"Lion";
+//            [item save];
+//        }];
+
+		CoreDataEnvir* db = [CoreDataEnvirDescriptor.defaultInstance backgroundInstance];
+		[Team insertItemInContext:db];
+		[db saveDataBase];
+        printf("Team total count: %lu\n", Team.totalCount);
+#else
+        NSURL* modelURL = [NSBundle.mainBundle URLForResource:@"SampleModel" withExtension:@"momd"];
+        CoreDataEnvirBlock initBlock = ^(CoreDataEnvir* db) {
+            [db setupModelWithURL:modelURL];
+            
+            NSString* searchedPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true) lastObject];
+            NSLog(@"search path: %@", searchedPath);
+            NSURL* dbURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/db.sqlite", searchedPath]];
+            NSLog(@"dbURL: %@", dbURL);
+            if (dbURL) {
+                [db setupDefaultPersistentStoreWithURL:dbURL];
+            }
+        };
+        CoreDataEnvir* db = [CoreDataEnvir create];
+        [db setupWithBlock:initBlock];
+        CoreDataEnvir* db2 = [CoreDataEnvir create];
+        [db2 setupWithBlock:initBlock];
+        
+        [db syncInBlock:^(CoreDataEnvir * _Nonnull db) {
+            Team* obj = [Team insertItemInContext:db];
+            obj.name = @"new pattern";
+            [db saveDataBase];
+            
+            NSFetchRequest* req = [Team newFetchRequestInContext:db];
+            NSError* err = nil;
+            NSUInteger count = [db.context countForFetchRequest:req error:&err];
+            printf("Team total count: %lu\n", count);
+        }];
+        
+#endif
+        return true;
+    }
+	NSLog(@"CoreDataEnvirVersionString: %s", CoreDataEnvirVersionString);
+	NSLog(@"CoreDataEnvirVersionNumber: %f", CoreDataEnvirVersionNumber);
+    //Set db file name and model file name.
+//    [CoreDataEnvir registerDefaultDataFileName:@"db.sqlite"];
+//    [CoreDataEnvir registerDefaultModelFileName:@"SampleModel"];
+
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.viewController = [[[ViewController alloc] initWithNibName:nil bundle:nil] autorelease];
-    self.navigationController = [[[UINavigationController alloc] initWithRootViewController:self.viewController] autorelease];
+    self.viewController = [[ViewController alloc] initWithNibName:nil bundle:nil];
+    self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
     
     //NSLog(@"ver: %f", CoreDataEnvirVersionNumber);
     
