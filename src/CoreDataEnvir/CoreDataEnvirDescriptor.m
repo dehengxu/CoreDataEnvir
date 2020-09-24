@@ -28,21 +28,14 @@
 	return __shared__;
 }
 
++ (instancetype)instance {
+	return [self instanceWithModelName:nil bundle:nil storeFileName:nil storedUnderDirectory:nil];
+}
+
 + (instancetype)instanceWithModelName:(NSString *)modelName bundle:(NSBundle *)bundle storeFileName:(NSString *)fileName storedUnderDirectory:(NSString *)directory {
 	CoreDataEnvirDescriptor* ins = [[CoreDataEnvirDescriptor alloc] initWithModelName:modelName bundle:bundle storeFileName:fileName storedUnderDirectory:directory];
 	return ins;
 }
-
-//- (instancetype)init {
-//	self = [super init];
-//	if (self) {
-//		self.modelName = [self.class.defaultInstance modelName];
-//		self.storeFileName = self.class.defaultInstance.storeFileName;
-//		self.storeDirectory = self.class.defaultInstance.storeDirectory;
-//		self.bundle = self.class.defaultInstance.bundle;
-//	}
-//	return self;
-//}
 
 - (instancetype)initWithModelName:(NSString *)modelName bundle:(NSBundle *)bundle storeFileName:(NSString *)fileName storedUnderDirectory:(NSString *)directory {
 	self = [super init];

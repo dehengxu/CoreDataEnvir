@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) NSArray<NSString*>* configurations;
 @property (nonatomic, strong) NSBundle* bundle;
 
++ (instancetype)instance;
+
 + (instancetype)instanceWithModelName:(NSString* _Nullable)modelName bundle:(NSBundle* _Nullable)bundle storeFileName:(NSString* _Nullable)fileName storedUnderDirectory:(NSString* _Nullable)directory;
 
 //- (instancetype) NS_DESIGNATED_INITIALIZER init;
