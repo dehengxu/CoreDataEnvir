@@ -71,7 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Fetching last record item.
  */
-+ (instancetype)lastItem;
++ (instancetype _Nullable)lastItem;
 
 /**
  *  Fetch record item by predicate in main context.
