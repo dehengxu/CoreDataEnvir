@@ -299,6 +299,16 @@ static dispatch_semaphore_t _sem_main = NULL;
     return YES;
 }
 
+- (BOOL)insertDataIntoEntity:(NSEntityDescription *)entity withItems:(NSArray<NSDictionary<NSString*, id> *> *)items API_AVAILABLE(macosx(10.15),ios(13.0),tvos(13.0),watchos(6.0)) {
+    NSBatchInsertRequest *batchInsert = [[NSBatchInsertRequest alloc] initWithEntity:entity objects:items];
+    NSError *err = nil;
+    [self.context executeRequest:batchInsert error:&err];
+    if (err) {
+        return NO;
+    }
+    return YES;
+}
+
 #pragma mark - Obseving context
 
 - (void)registerObserving
