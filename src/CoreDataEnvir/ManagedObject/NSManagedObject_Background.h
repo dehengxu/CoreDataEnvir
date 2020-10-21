@@ -16,27 +16,27 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Creating managed object on main thread.
  */
-+ (instancetype)insertItemOnBackground;
++ (instancetype _Nullable)insertItemOnBackground;
 
 /**
  Creating managed object in main context by filling 'block'
  */
-+ (instancetype)insertItemOnBackgroundWithFillingBlock:(void(^)(NSManagedObject* item))fillingBlock;
++ (instancetype _Nullable)insertItemOnBackgroundWithFillingBlock:(void(^)(NSManagedObject* item))fillingBlock;
 
 /**
  Just fetching record items by the predicate in main context.
  */
-+ (NSArray *)itemsOnBackground;
++ (NSArray * _Nullable)itemsOnBackground;
 
 /**
  Fetch record items in main context by predicate.
  */
-+ (NSArray *)itemsOnBackgroundWithPredicate:(NSPredicate *)predicate;
++ (NSArray * _Nullable)itemsOnBackgroundWithPredicate:(NSPredicate *)predicate;
 
 /**
  Fetch record items in main context by formated string.
  */
-+ (NSArray *)itemsOnBackgroundWithFormat:(NSString *)fmt,...;
++ (NSArray * _Nullable)itemsOnBackgroundWithFormat:(NSString *)fmt,...;
 
 /**
  *  Fetch record items in main context by predicate format string more simpler.
@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return Array of items match the condition.
  */
-+ (NSArray *)itemsOnBackgroundSortDescriptions:(NSArray *)sortDescriptions withFormat:(NSString *)fmt,...;
++ (NSArray * _Nullable)itemsOnBackgroundSortDescriptions:(NSArray *)sortDescriptions withFormat:(NSString *)fmt,...;
 
 /**
  *  Fetch record items in main context by predicate format string more simpler.
@@ -58,12 +58,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return Array of items match the condition.
  */
-+ (NSArray *)itemsOnBackgroundSortDescriptions:(NSArray *)sortDescriptions fromOffset:(NSUInteger)offset limitedBy:(NSUInteger)limitNumber withFormat:(NSString *)fmt,...;
++ (NSArray * _Nullable)itemsOnBackgroundSortDescriptions:(NSArray *)sortDescriptions fromOffset:(NSUInteger)offset limitedBy:(NSUInteger)limitNumber withFormat:(NSString *)fmt,...;
 
 /**
  * Fetching last record item.
  */
-+ (instancetype)lastItemOnBackground;
++ (instancetype _Nullable)lastItemOnBackground;
 
 /**
  *  Fetch record item by predicate in main context.
@@ -72,7 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return Last item of the managed object in context.
  */
-+ (instancetype)lastItemOnBackgroundWithPredicate:(NSPredicate *)predicate;
++ (instancetype _Nullable)lastItemOnBackgroundWithPredicate:(NSPredicate *)predicate;
 
 /**
  
@@ -84,7 +84,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return Last item of the managed object in context.
  */
-+ (instancetype)lastItemOnBackgroundWithFormat:(NSString *)fmt,...;
++ (instancetype _Nullable)lastItemOnBackgroundWithFormat:(NSString *)fmt,...;
 
 @end
 

@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Creating managed object on main thread.
  */
-+ (instancetype)insertItem;
++ (instancetype _Nullable)insertItem;
 
 /**
  Creating managed object in main context by filling 'block'
@@ -30,19 +30,19 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Just fetching record items by the predicate in main context.
  */
-+ (NSArray *)items;
++ (NSArray * _Nullable)items;
 
 + (NSArray * _Nullable)itemsOffset:(NSUInteger)offset withLimit:(NSUInteger)limitNumber;
 
 /**
  Fetch record items in main context by predicate.
  */
-+ (NSArray *)itemsWithPredicate:(NSPredicate *)predicate;
++ (NSArray * _Nullable)itemsWithPredicate:(NSPredicate *)predicate;
 
 /**
  Fetch record items in main context by formated string.
  */
-+ (NSArray *)itemsWithFormat:(NSString *)fmt,...;
++ (NSArray * _Nullable)itemsWithFormat:(NSString *)fmt,...;
 
 /**
  *  Fetch record items in main context by predicate format string more simpler.
@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return Array of items match the condition.
  */
-+ (NSArray *)itemsSortDescriptions:(NSArray *)sortDescriptions withFormat:(NSString *)fmt,...;
++ (NSArray * _Nullable)itemsSortDescriptions:(NSArray *)sortDescriptions withFormat:(NSString *)fmt,...;
 
 /**
  *  Fetch record items in main context by predicate format string more simpler.
@@ -64,9 +64,9 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return Array of items match the condition.
  */
-+ (NSArray *)itemsSortDescriptions:(NSArray *)sortDescriptions fromOffset:(NSUInteger)offset limitedBy:(NSUInteger)limitNumber withFormat:(NSString *)fmt,...;
++ (NSArray * _Nullable)itemsSortDescriptions:(NSArray *)sortDescriptions fromOffset:(NSUInteger)offset limitedBy:(NSUInteger)limitNumber withFormat:(NSString *)fmt,...;
 
-+ (NSArray *)itemsWithSortDescriptions:(NSArray * _Nullable)sortDescriptions fromOffset:(NSUInteger)offset limitedBy:(NSUInteger)limitNumber andPredicate:(NSPredicate* _Nullable)predicate;
++ (NSArray * _Nullable)itemsWithSortDescriptions:(NSArray * _Nullable)sortDescriptions fromOffset:(NSUInteger)offset limitedBy:(NSUInteger)limitNumber andPredicate:(NSPredicate* _Nullable)predicate;
 
 /**
  * Fetching last record item.
@@ -80,7 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return Last item of the managed object in context.
  */
-+ (instancetype)lastItemWithPredicate:(NSPredicate *)predicate;
++ (instancetype _Nullable)lastItemWithPredicate:(NSPredicate *)predicate;
 
 /**
  
@@ -92,7 +92,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return Last item of the managed object in context.
  */
-+ (instancetype)lastItemWithFormat:(NSString *)fmt,...;
++ (instancetype _Nullable)lastItemWithFormat:(NSString *)fmt,...;
 
 @end
 

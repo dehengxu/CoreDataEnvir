@@ -22,29 +22,29 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Creating managed object on background thread.
  */
-+ (instancetype)insertItemInContext:(CoreDataEnvir *)cde;
++ (instancetype _Nullable)insertItemInContext:(CoreDataEnvir *)cde;
 
 /**
  Createing managed object in specified context with filling 'block'
  */
-+ (instancetype)insertItemInContext:(CoreDataEnvir *)cde fillData:(void (^)(NSManagedObject* item))fillingBlock;
++ (instancetype _Nullable)insertItemInContext:(CoreDataEnvir *)cde fillData:(void (^)(NSManagedObject* item))fillingBlock;
 
 #pragma mark - Fetching operations.
 
 /**
  Fetching record items in specified context.
  */
-+ (NSArray *)itemsInContext:(CoreDataEnvir *)cde;
++ (NSArray * _Nullable)itemsInContext:(CoreDataEnvir *)cde;
 
 /**
  Fetch record items by predicate.
  */
-+ (NSArray *)itemsInContext:(CoreDataEnvir *)cde usingPredicate:(NSPredicate *)predicate;
++ (NSArray * _Nullable)itemsInContext:(CoreDataEnvir *)cde usingPredicate:(NSPredicate *)predicate;
 
 /**
  Fetch record items by format string.
  */
-+ (NSArray *)itemsInContext:(CoreDataEnvir *)cde withFormat:(NSString *)fmt,...;
++ (NSArray * _Nullable)itemsInContext:(CoreDataEnvir *)cde withFormat:(NSString *)fmt,...;
 
 /**
  *  Fetch items by sort descriptions.
@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return Array of items match the condition.
  */
-+ (NSArray *)itemsInContext:(CoreDataEnvir *)cde sortDescriptions:(NSArray *)sortDescriptions withFormat:(NSString *)fmt,...;
++ (NSArray * _Nullable)itemsInContext:(CoreDataEnvir *)cde sortDescriptions:(NSArray *)sortDescriptions withFormat:(NSString *)fmt,...;
 
 /**
  *  Fetch items addition by limited range.
@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return Array of items match the condition.
  */
-+ (NSArray *)itemsInContext:(CoreDataEnvir *)cde sortDescriptions:(NSArray *)sortDescriptions fromOffset:(NSUInteger)offset limitedBy:(NSUInteger)limitNumber withFormat:(NSString *)fmt,...;
++ (NSArray * _Nullable)itemsInContext:(CoreDataEnvir *)cde sortDescriptions:(NSArray *)sortDescriptions fromOffset:(NSUInteger)offset limitedBy:(NSUInteger)limitNumber withFormat:(NSString *)fmt,...;
 
 /**
  *  Fetch item in specified context.
@@ -77,7 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return Last item of the managed object in context.
  */
-+ (instancetype)lastItemInContext:(CoreDataEnvir *)cde;
++ (instancetype _Nullable)lastItemInContext:(CoreDataEnvir *)cde;
 
 /**
  *  Fetch item in specified context through predicate.
@@ -87,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return Last item of the managed object in context.
  */
-+ (instancetype)lastItemInContext:(CoreDataEnvir *)cde usingPredicate:(NSPredicate *)predicate;
++ (instancetype _Nullable)lastItemInContext:(CoreDataEnvir *)cde usingPredicate:(NSPredicate *)predicate;
 
 /**
  *  Fetch item in specified context through format string.
@@ -97,7 +97,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return Last item of the managed object in context.
  */
-+ (instancetype)lastItemInContext:(CoreDataEnvir *)cde withFormat:(NSString *)fmt,...;
++ (instancetype _Nullable)lastItemInContext:(CoreDataEnvir *)cde withFormat:(NSString *)fmt,...;
 
 #pragma mark - fault process.
 

@@ -41,7 +41,7 @@
     return item;
 }
 
-+ (instancetype)insertItemInContext:(CoreDataEnvir *)cde fillData:(void (^)(id item))fillingBlock
++ (instancetype)insertItemInContext:(CoreDataEnvir *)cde fillData:(void (^)(NSManagedObject* item))fillingBlock
 {
     id item = [self insertItemInContext:cde];
     fillingBlock(item);
