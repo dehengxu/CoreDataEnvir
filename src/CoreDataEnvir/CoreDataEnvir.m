@@ -253,19 +253,49 @@ static dispatch_semaphore_t _sem_main = NULL;
 
 - (BOOL) deleteDataItemSet:(NSSet *)aItemSet
 {
-    for (NSManagedObject *obj in aItemSet) {
-        [self deleteDataItem:obj];
+    if (@available(iOS 9.0, *)) {
+        NSMutableArray* ids = [NSMutableArray arrayWithCapacity:16];
+        for (NSManagedObject *item in aItemSet) {
+            [ids addObject:item.objectID];
+        }
+        return [self deleteDataIDs:ids];
+    }else {
+        NSInteger c = 0;
+        for (NSManagedObject *obj in aItemSet) {
+            c += (int)[self deleteDataItem:obj];
+        }
+        return c == aItemSet.count;
     }
-    
     return YES;
 }
 
 - (BOOL)deleteDataItems:(NSArray *)items
 {
-    for (NSManagedObject *obj in items) {
-        [self deleteDataItem:obj];
+    if (@available(iOS 9.0, *)) {
+        NSMutableArray* ids = [NSMutableArray arrayWithCapacity:16];
+        for (NSManagedObject *item in items) {
+            [ids addObject:item.objectID];
+        }
+        return [self deleteDataIDs:ids];
+    } else {
+        NSInteger c = 0;
+        for (NSManagedObject *obj in items) {
+            c += (int)[self deleteDataItem:obj];
+        }
+        return c == items.count;
     }
     
+    return YES;
+}
+
+
+- (BOOL)deleteDataIDs:(NSArray *)IDs API_AVAILABLE(macosx(10.11), ios(9.0)) {
+    NSBatchDeleteRequest *batchDelete = [[NSBatchDeleteRequest alloc] initWithObjectIDs:IDs];
+    NSError *err = nil;
+    [self.context executeRequest:batchDelete error:&err];
+    if (err) {
+        return NO;
+    }
     return YES;
 }
 

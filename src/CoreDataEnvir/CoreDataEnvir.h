@@ -109,6 +109,7 @@ extern NSString* const CDE_DOMAIN;
 - (BOOL)deleteDataItem:(NSManagedObject *)aItem;
 - (BOOL)deleteDataItemSet:(NSSet *)aItemSet;
 - (BOOL)deleteDataItems:(NSArray*)items;
+- (BOOL)deleteDataIDs:(NSArray *)IDs API_AVAILABLE(macosx(10.11), ios(9.0));
 
 #pragma mark - Observing context
 
