@@ -182,6 +182,22 @@ static dispatch_semaphore_t _sem_main = NULL;
     return bResult;
 }
 
+- (BOOL)save {
+	return [self saveDataBase];
+}
+
+- (void)undo {
+	if (self.context) {
+		[self.context undo];
+	}
+}
+
+- (void)redo {
+	if (self.context) {
+		[self.context redo];
+	}
+}
+
 - (BOOL)saveForConfiguration:(NSString *)name {
 	return NO;
 }
@@ -396,6 +412,7 @@ static dispatch_semaphore_t _sem_main = NULL;
 	if (!_context) {
 		_context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
 	}
+	self.context.undoManager = [[NSUndoManager alloc] init];
 	[self.context setRetainsRegisteredObjects:NO];
 	[self.context setPropagatesDeletesAtEndOfEvent:NO];
 	[self.context setMergePolicy:NSOverwriteMergePolicy];

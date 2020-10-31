@@ -99,6 +99,12 @@ extern NSString* const CDE_DOMAIN;
  */
 - (BOOL)saveDataBase;
 
+- (BOOL)save;
+
+- (void)undo;
+
+- (void)redo;
+
 - (BOOL)saveForConfiguration:(NSString*)name;
 
 /**
