@@ -99,6 +99,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (instancetype _Nullable)lastItemInContext:(CoreDataEnvir *)cde withFormat:(NSString *)fmt,...;
 
++ (BOOL)clearTable:(Class)aClass inContext:(CoreDataEnvir *)cde where:(NSPredicate*)predicate API_AVAILABLE(macosx(10.11), ios(9.0));
+
 #pragma mark - fault process.
 
 /**

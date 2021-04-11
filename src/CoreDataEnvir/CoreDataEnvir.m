@@ -315,6 +315,21 @@ static dispatch_semaphore_t _sem_main = NULL;
     return YES;
 }
 
+- (BOOL)deleteTable:(Class)aClass where:(NSPredicate *)predicate NS_AVAILABLE_IOS(9.0) {
+	if (![aClass isSubclassOfClass:NSManagedObject.class]) {
+		return NO;
+	}
+	NSFetchRequest *fr = [[NSFetchRequest alloc] initWithEntityName:NSStringFromClass(aClass)];
+	fr.predicate = predicate;
+	NSBatchDeleteRequest* deleteFr = [[NSBatchDeleteRequest alloc] initWithFetchRequest:fr];
+	NSError* err;
+	[self.context executeRequest:deleteFr error:&err];
+	if (err) {
+		return NO;
+	}
+	return YES;
+}
+
 - (BOOL)insertDataIntoEntity:(NSEntityDescription *)entity withItems:(NSArray<NSDictionary<NSString*, id> *> *)items API_AVAILABLE(macosx(10.15),ios(13.0),tvos(13.0),watchos(6.0)) {
     NSBatchInsertRequest *batchInsert = [[NSBatchInsertRequest alloc] initWithEntity:entity objects:items];
     NSError *err = nil;

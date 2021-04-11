@@ -115,6 +115,21 @@
     return [[self itemsInContext:cde usingPredicate:pred] lastObject];
 }
 
++ (BOOL)clearTable:(Class)aClass inContext:(CoreDataEnvir *)cde where:(NSPredicate *)predicate {
+	if (![aClass isKindOfClass:NSManagedObject.class]) {
+		return NO;
+	}
+	NSFetchRequest *fr = [[NSFetchRequest alloc] initWithEntityName:NSStringFromClass(aClass)];
+	fr.predicate = predicate;
+	NSBatchDeleteRequest* deleteFr = [[NSBatchDeleteRequest alloc] initWithFetchRequest:fr];
+	NSError* err;
+	[cde.context executeRequest:deleteFr error:&err];
+	if (err) {
+		return NO;
+	}
+	return YES;
+}
+
 #pragma mark - merge context when update
 
 - (instancetype)update
